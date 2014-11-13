@@ -1,0 +1,900 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document signature="Hero Lab Data">
+  <thing id="arAarakFea" name="Aarakocra Feather Armor" description="The feathers of avian creatures on Athas, such as the carrion-eating kestrekel and the vulturelike aarakocra, are woven into cloth armor to give it masterwork quality. More advanced cloth armor is spun from crystal spider silk, giant hair, or silk wyrm thread." compset="Armor">
+    <fieldval field="gearWeight" value="5"/>
+    <fieldval field="arAC" value="1"/>
+    <fieldval field="arMinBonus" value="4"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arClothArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arAnathArm" name="Anathema Armor" description="Yuan-ti weave stands of snakeskin armor with shadow magic to produce anathema armor." compset="Armor">
+    <fieldval field="gearWeight" value="10"/>
+    <fieldval field="arAC" value="3"/>
+    <fieldval field="arMinBonus" value="5"/>
+    <fieldval field="arRef" value="1"/>
+    <usesource source="AdvenVault"/>
+    <tag group="ArmorType" tag="arLeathArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arBaazrBon" name="Baazrag Bone Armor" description="Plate armor is made from giant insect or crustacean chitin, or from the shells of creatures such as chathrangs or rare desert tortoises. Braxats and gaj provide the durable shells used to make mid-level masterwork plate armor. The rarest plate armor is derived from drakes and braxat lords. Armorers drill tiny ventilation holes in chitin-plate armor to make it bearable in all but the hottest weather." compset="Armor">
+    <fieldval field="gearWeight" value="50"/>
+    <fieldval field="arAC" value="8"/>
+    <fieldval field="arCheck" value="-2"/>
+    <fieldval field="arMinBonus" value="2"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <fieldval field="arResAll" value="1"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arPlateArm"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arBaazrLea" name="Baazrag Leather Armor" description="The leather armors of Athas are made from a variety of desert creatures. The tougher and more dangerous creatures provide skins for masterwork armor. Domesticated animals such as the inix, the baazrag, and the jhakar produce fine leathers. An armorer set on making more fantastic protective gear, such as that from the skin of a cloud ray, a drake, or a floating mantle, is hard-pressed to assemble the necessary materials." compset="Armor">
+    <fieldval field="gearWeight" value="15"/>
+    <fieldval field="arAC" value="3"/>
+    <fieldval field="arMinBonus" value="4"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arLeathArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arBandeMai" name="Banded Mail" description="Banded mail consists of a suit of chainmail reinforced with layers of metal plates arranged in strips along the suit&apos;s midsection. Banded mail offers the same level of protection as chainmail while proving lighter and more flexible. A warrior in banded mail moves as quickly as one in leather armor." compset="Armor">
+    <fieldval field="grCost" value="55"/>
+    <fieldval field="gearWeight" value="35"/>
+    <fieldval field="arAC" value="6"/>
+    <fieldval field="arCheck" value="-1"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <usesource source="MordensEmp"/>
+    <tag group="ArmorType" tag="arChainmai"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arBarbeShi" name="Barbed Shield" description="Although a shield is usually a defensive item, a barbed shield turns the tables on attackers because of the long spikes and blades attached to it. While too awkward to use as a weapon, a barbed shield provides added protection against enemies that attempt to grab you, because the spikes and barbs built into it cut into them." compset="Shield">
+    <fieldval field="grCost" value="20"/>
+    <fieldval field="gearWeight" value="18"/>
+    <fieldval field="arAC" value="2"/>
+    <fieldval field="arCheck" value="-3"/>
+    <usesource source="MordensEmp"/>
+    <tag group="ArmorType" tag="arHeavyShi"/>
+    </thing>
+  <thing id="arBonemArm" name="Bonemail Armor" description="Crafting chainmail without metal is challenging. Still, Athasian armorers have managed. They adorn stiff leather jacks with small disks or squares of horn, bone, or wood. The kank and the cilops have hard body parts ideal for the creation of masterwork mail coats. The greatest suits of mail armor are worn by the elite guards of the sorcerer-kings." compset="Armor">
+    <fieldval field="gearWeight" value="40"/>
+    <fieldval field="arAC" value="7"/>
+    <fieldval field="arCheck" value="-1"/>
+    <fieldval field="arMinBonus" value="2"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arChainmai"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arBraidArm" name="Braidmail Armor" description="Braidmail is an armor made according to an advanced technique perfected in elven tradition, consisting of closely linked chains that provide few openings for enemy attacks." compset="Armor">
+    <fieldval field="gearWeight" value="40"/>
+    <fieldval field="arAC" value="8"/>
+    <fieldval field="arCheck" value="-1"/>
+    <fieldval field="arMinBonus" value="3"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <usesource source="AdvenVault"/>
+    <tag group="ArmorType" tag="arChainmai"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arBraxaLor" name="Braxat Lord Shell Armor" description="Plate armor is made from giant insect or crustacean chitin, or from the shells of creatures such as chathrangs or rare desert tortoises. Braxats and gaj provide the durable shells used to make mid-level masterwork plate armor. The rarest plate armor is derived from drakes and braxat lords. Armorers drill tiny ventilation holes in chitin-plate armor to make it bearable in all but the hottest weather." compset="Armor">
+    <fieldval field="gearWeight" value="50"/>
+    <fieldval field="arAC" value="12"/>
+    <fieldval field="arCheck" value="-2"/>
+    <fieldval field="arMinBonus" value="6"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <fieldval field="arResAll" value="5"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arPlateArm"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arBraxaShe" name="Braxat Shell Armor" description="Plate armor is made from giant insect or crustacean chitin, or from the shells of creatures such as chathrangs or rare desert tortoises. Braxats and gaj provide the durable shells used to make mid-level masterwork plate armor. The rarest plate armor is derived from drakes and braxat lords. Armorers drill tiny ventilation holes in chitin-plate armor to make it bearable in all but the hottest weather." compset="Armor">
+    <fieldval field="gearWeight" value="50"/>
+    <fieldval field="arAC" value="10"/>
+    <fieldval field="arCheck" value="-2"/>
+    <fieldval field="arMinBonus" value="4"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <fieldval field="arResAll" value="2"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arPlateArm"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arChainmai" name="Chainmail" description="Metal rings woven together into a shirt, leggings, and a hood make up a suit of chainmail. Chainmail grants good protection, but it&apos;s cumbersome, so it reduces your mobility and agility." compset="Armor">
+    <fieldval field="grCost" value="40"/>
+    <fieldval field="gearWeight" value="40"/>
+    <fieldval field="arAC" value="6"/>
+    <fieldval field="arCheck" value="-1"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arChathShe" name="Chathrang Shell Armor" description="Plate armor is made from giant insect or crustacean chitin, or from the shells of creatures such as chathrangs or rare desert tortoises. Braxats and gaj provide the durable shells used to make mid-level masterwork plate armor. The rarest plate armor is derived from drakes and braxat lords. Armorers drill tiny ventilation holes in chitin-plate armor to make it bearable in all but the hottest weather." compset="Armor">
+    <fieldval field="gearWeight" value="50"/>
+    <fieldval field="arAC" value="11"/>
+    <fieldval field="arCheck" value="-2"/>
+    <fieldval field="arMinBonus" value="4"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arPlateArm"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arCilopCar" name="Cilops Carapace Armor" description="Crafting chainmail without metal is challenging. Still, Athasian armorers have managed. They adorn stiff leather jacks with small disks or squares of horn, bone, or wood. The kank and the cilops have hard body parts ideal for the creation of masterwork mail coats. The greatest suits of mail armor are worn by the elite guards of the sorcerer-kings." compset="Armor">
+    <fieldval field="gearWeight" value="40"/>
+    <fieldval field="arAC" value="10"/>
+    <fieldval field="arCheck" value="-1"/>
+    <fieldval field="arMinBonus" value="5"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <fieldval field="arWill" value="1"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arChainmai"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arClothArm" name="Cloth Armor" description="Jackets, mantles, woven robes, and padded vests don&apos;t, by themselves, provide any significant protection. However, you can imbue them with protective magic. Cloth armor doesn&apos;t slow you down or hinder your movement at all. All characters have proficiency with cloth armor." compset="Armor">
+    <fieldval field="grCost" value="1"/>
+    <fieldval field="gearWeight" value="4"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arCrystArm" name="Crysteel Armor" description="Genasi mix steel with magic volcanic glass to create resilient crysteel armor." compset="Armor">
+    <fieldval field="gearWeight" value="40"/>
+    <fieldval field="arAC" value="8"/>
+    <fieldval field="arCheck" value="-1"/>
+    <fieldval field="arMinBonus" value="4"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <fieldval field="arWill" value="2"/>
+    <usesource source="AdvenVault"/>
+    <tag group="ArmorType" tag="arChainmai"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arDarkhArm" name="Darkhide Armor" description="Darkhide armor is a superior tiefling armor cured in fire and infused with shadow." compset="Armor">
+    <fieldval field="gearWeight" value="25"/>
+    <fieldval field="arAC" value="4"/>
+    <fieldval field="arCheck" value="-1"/>
+    <fieldval field="arMinBonus" value="4"/>
+    <tag group="ArmorType" tag="arHideArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arDragoArm" name="Dragoncloth Armor" description="The feathers of avian creatures on Athas, such as the carrion-eating kestrekel and the vulturelike aarakocra, are woven into cloth armor to give it masterwork quality. More advanced cloth armor is spun from crystal spider silk, giant hair, or silk wyrm thread." compset="Armor">
+    <fieldval field="gearWeight" value="2"/>
+    <fieldval field="arAC" value="1"/>
+    <fieldval field="arMinBonus" value="6"/>
+    <fieldval field="arWill" value="2"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arClothArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arDrgnsArm" name="Dragonscale Armor" description="Heavier Athasian masterwork armor is made from horn, scales, and carapaces, such as those found on mekillots or shed by thri-kreen. Advanced masterwork scale armor is created from the tough, thick hides of terrifying rampagers and drakes. The greatest armor of this type is formed from scales shed by the Dragon as it rampages through a region." compset="Armor">
+    <fieldval field="gearWeight" value="45"/>
+    <fieldval field="arAC" value="12"/>
+    <fieldval field="arMinBonus" value="6"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <fieldval field="arFort" value="2"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arScaleArm"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arDrakeLea" name="Drake Leather Armor" description="The leather armors of Athas are made from a variety of desert creatures. The tougher and more dangerous creatures provide skins for masterwork armor. Domesticated animals such as the inix, the baazrag, and the jhakar produce fine leathers. An armorer set on making more fantastic protective gear, such as that from the skin of a cloud ray, a drake, or a floating mantle, is hard-pressed to assemble the necessary materials." compset="Armor">
+    <fieldval field="gearWeight" value="15"/>
+    <fieldval field="arAC" value="4"/>
+    <fieldval field="arMinBonus" value="6"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arLeathArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arDrakeplt" name="Drakeplate Armor" description="Plate armor is made from giant insect or crustacean chitin, or from the shells of creatures such as chathrangs or rare desert tortoises. Braxats and gaj provide the durable shells used to make mid-level masterwork plate armor. The rarest plate armor is derived from drakes and braxat lords. Armorers drill tiny ventilation holes in chitin-plate armor to make it bearable in all but the hottest weather." compset="Armor">
+    <fieldval field="gearWeight" value="50"/>
+    <fieldval field="arAC" value="14"/>
+    <fieldval field="arCheck" value="-2"/>
+    <fieldval field="arMinBonus" value="6"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arPlateArm"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arDrakeArm" name="Drakescale Armor" description="Drakescale armor mimics the small, close scales of rage drakes to stave off attacks." compset="Armor">
+    <fieldval field="gearWeight" value="45"/>
+    <fieldval field="arAC" value="8"/>
+    <fieldval field="arMinBonus" value="2"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <usesource source="AdvenVault"/>
+    <tag group="ArmorType" tag="arScaleArm"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arDrowmesh" name="Drowmesh" description="Drowmesh uses strands of leather woven together in a fine lattice for maximum flexibility." compset="Armor">
+    <fieldval field="gearWeight" value="10"/>
+    <fieldval field="arAC" value="2"/>
+    <fieldval field="arMinBonus" value="3"/>
+    <fieldval field="arRef" value="1"/>
+    <usesource source="AdvenVault"/>
+    <tag group="ArmorType" tag="arLeathArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arEarthArm" name="Earthhide Armor" description="Dwarves use earth energy to fortify earthhide, mimicking the strange living-earth skin of creatures such as the galeb duhr and the earth titan." compset="Armor">
+    <fieldval field="gearWeight" value="25"/>
+    <fieldval field="arAC" value="3"/>
+    <fieldval field="arCheck" value="-1"/>
+    <fieldval field="arMinBonus" value="3"/>
+    <fieldval field="arFort" value="1"/>
+    <usesource source="AdvenVault"/>
+    <tag group="ArmorType" tag="arHideArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arEfreeArm" name="Efreetweave Armor" description="Efreetweave uses rare reagents and metallic threads from the Elemental Chaos." compset="Armor">
+    <fieldval field="gearWeight" value="2"/>
+    <fieldval field="arAC" value="1"/>
+    <fieldval field="arMinBonus" value="5"/>
+    <fieldval field="arWill" value="1"/>
+    <usesource source="AdvenVault"/>
+    <tag group="ArmorType" tag="arClothArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arElderArm" name="Elderhide Armor" description="Elderhide armor involves scouring with elemental forces." compset="Armor">
+    <fieldval field="gearWeight" value="25"/>
+    <fieldval field="arAC" value="5"/>
+    <fieldval field="arCheck" value="-1"/>
+    <fieldval field="arMinBonus" value="6"/>
+    <tag group="ArmorType" tag="arHideArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arEldersc" name="Elderscale Armor" description="Elderscale is a scale armor scoured with elemental forces" compset="Armor">
+    <fieldval field="gearWeight" value="45"/>
+    <fieldval field="arAC" value="13"/>
+    <fieldval field="arMinBonus" value="6"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <tag group="ArmorType" tag="arScaleArm"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arElemeDra" name="Elemental Drake Armor" description="Heavier Athasian masterwork armor is made from horn, scales, and carapaces, such as those found on mekillots or shed by thri-kreen. Advanced masterwork scale armor is created from the tough, thick hides of terrifying rampagers and drakes. The greatest armor of this type is formed from scales shed by the Dragon as it rampages through a region." compset="Armor">
+    <fieldval field="gearWeight" value="45"/>
+    <fieldval field="arAC" value="13"/>
+    <fieldval field="arMinBonus" value="6"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arScaleArm"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arFeyhiArm" name="Feyhide Armor" description="Feyhide armor is treated with an elven process that gives resilience akin to the hide of tough fey beasts." compset="Armor">
+    <fieldval field="gearWeight" value="25"/>
+    <fieldval field="arAC" value="3"/>
+    <fieldval field="arCheck" value="-1"/>
+    <fieldval field="arMinBonus" value="4"/>
+    <fieldval field="arFort" value="2"/>
+    <usesource source="AdvenVault"/>
+    <tag group="ArmorType" tag="arHideArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arFeyleArm" name="Feyleather Armor" description="Feyleather armor is cured by an eladrin method that leaves the armor supple, but tougher than normal leather." compset="Armor">
+    <fieldval field="gearWeight" value="15"/>
+    <fieldval field="arAC" value="3"/>
+    <fieldval field="arMinBonus" value="4"/>
+    <tag group="ArmorType" tag="arLeathArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arFeyweArm" name="Feyweave Armor" description="Feyweave armor is woven with techniques perfected by the eladrin." compset="Armor">
+    <fieldval field="gearWeight" value="5"/>
+    <fieldval field="arAC" value="1"/>
+    <fieldval field="arMinBonus" value="4"/>
+    <tag group="ArmorType" tag="arClothArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arFinemail" name="Finemail" description="Finemail is a more common armor made according to an advanced technique perfected in the eladrin courts of the Feywild, consisting of closely linked chains that provide few openings for enemy attacks." compset="Armor">
+    <fieldval field="gearWeight" value="40"/>
+    <fieldval field="arAC" value="7"/>
+    <fieldval field="arCheck" value="-1"/>
+    <fieldval field="arMinBonus" value="2"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <usesource source="AdvenVault"/>
+    <tag group="ArmorType" tag="arChainmai"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arForgemai" name="Forgemail" description="Forgemail armor is made with superior metallurgy and a chain-making technique mastered by dwarves." compset="Armor">
+    <fieldval field="gearWeight" value="40"/>
+    <fieldval field="arAC" value="9"/>
+    <fieldval field="arCheck" value="-1"/>
+    <fieldval field="arMinBonus" value="4"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <tag group="ArmorType" tag="arChainmai"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arFullPla" name="Full Plate" description="Though the dwarves are loath to admit it, human smiths crafted the first suits of full plate for the use of mounted knights. Of course, the dwarves are quick to add, they did perfect those initial, flawed designs. Among all the kinds of heavy armor, full plate offers unmatched protection and flexibility." compset="Armor">
+    <fieldval field="grCost" value="65"/>
+    <fieldval field="gearWeight" value="60"/>
+    <fieldval field="arAC" value="8"/>
+    <fieldval field="arCheck" value="-1"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <usesource source="MordensEmp"/>
+    <tag group="ArmorType" tag="arPlateArm"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arGajCar" name="Gaj Carapace Armor" description="Plate armor is made from giant insect or crustacean chitin, or from the shells of creatures such as chathrangs or rare desert tortoises. Braxats and gaj provide the durable shells used to make mid-level masterwork plate armor. The rarest plate armor is derived from drakes and braxat lords. Armorers drill tiny ventilation holes in chitin-plate armor to make it bearable in all but the hottest weather." compset="Armor">
+    <fieldval field="gearWeight" value="50"/>
+    <fieldval field="arAC" value="12"/>
+    <fieldval field="arCheck" value="-2"/>
+    <fieldval field="arMinBonus" value="5"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arPlateArm"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arGiantArm" name="Giantweave Armor" description="The feathers of avian creatures on Athas, such as the carrion-eating kestrekel and the vulturelike aarakocra, are woven into cloth armor to give it masterwork quality. More advanced cloth armor is spun from crystal spider silk, giant hair, or silk wyrm thread." compset="Armor">
+    <fieldval field="gearWeight" value="2"/>
+    <fieldval field="arAC" value="1"/>
+    <fieldval field="arMinBonus" value="5"/>
+    <fieldval field="arWill" value="1"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arClothArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arGithPla" name="Gith Plate Armor" description="Gith plate is hardened with psionic techniques originating with either the mind flayers or the first generation of escaped githyanki slaves." compset="Armor">
+    <fieldval field="gearWeight" value="50"/>
+    <fieldval field="arAC" value="10"/>
+    <fieldval field="arCheck" value="-2"/>
+    <fieldval field="arMinBonus" value="3"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <usesource source="AdvenVault"/>
+    <tag group="ArmorType" tag="arPlateArm"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arGithShe" name="Gith Shell Armor" description="Plate armor is made from giant insect or crustacean chitin, or from the shells of creatures such as chathrangs or rare desert tortoises. Braxats and gaj provide the durable shells used to make mid-level masterwork plate armor. The rarest plate armor is derived from drakes and braxat lords. Armorers drill tiny ventilation holes in chitin-plate armor to make it bearable in all but the hottest weather." compset="Armor">
+    <fieldval field="gearWeight" value="50"/>
+    <fieldval field="arAC" value="10"/>
+    <fieldval field="arCheck" value="-2"/>
+    <fieldval field="arMinBonus" value="3"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arPlateArm"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arGithwArm" name="Githweave Armor" description="Githzerai weavers first taught other peoples the methods of making githweave. It&apos;s clear that the githzerai took these techniques from their erstwhile masters, the mind flayers." compset="Armor">
+    <fieldval field="gearWeight" value="2"/>
+    <fieldval field="arAC" value="0"/>
+    <fieldval field="arMinBonus" value="3"/>
+    <fieldval field="arWill" value="1"/>
+    <usesource source="AdvenVault"/>
+    <tag group="ArmorType" tag="arClothArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arGodplArm" name="Godplate Armor" description="Legend holds that Moradin made the first godplate armor, and ancient dwarf smiths copied his patterns imperfectly to make warplate armor." compset="Armor">
+    <fieldval field="gearWeight" value="50"/>
+    <fieldval field="arAC" value="14"/>
+    <fieldval field="arCheck" value="-2"/>
+    <fieldval field="arMinBonus" value="6"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <tag group="ArmorType" tag="arPlateArm"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arHeavyBar" name="Heavy Barding" description="Barding is armor for your mount. It adds to a mount&apos;s Armor Class just as armor does to a character&apos;s. Barding also has similar check penalties and speed penalties. The barding&apos;s armor bonus is added to a creature&apos;s existing AC. Unlike heavy armor, heavy barding does not negate a mount&apos;s Dexterity or Intelligence bonus to AC. Creatures that fill the soldier role already have additional armor (natural or otherwise) factored into their AC. As such, barding is less effective for them." compset="Armor">
+    <fieldval field="grCost" value="150"/>
+    <fieldval field="gearWeight" value="80"/>
+    <fieldval field="arAC" value="2"/>
+    <fieldval field="arCheck" value="-2"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <usesource source="AdvenVault"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arHeavyHug" name="Heavy Barding (Huge creature)" description="Barding is armor for your mount. It adds to a mount&apos;s Armor Class just as armor does to a character&apos;s. Barding also has similar check penalties and speed penalties. The barding&apos;s armor bonus is added to a creature&apos;s existing AC. Unlike heavy armor, heavy barding does not negate a mount&apos;s Dexterity or Intelligence bonus to AC. Creatures that fill the soldier role already have additional armor (natural or otherwise) factored into their AC. As such, barding is less effective for them." compset="Armor">
+    <fieldval field="grCost" value="150"/>
+    <fieldval field="gearWeight" value="120"/>
+    <fieldval field="arAC" value="2"/>
+    <fieldval field="arCheck" value="-2"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <usesource source="AdvenVault"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arHeavyShi" name="Heavy Shield" description="While you&apos;re using a heavy shield, you can&apos;t use your shield hand for any other task, since you must use that hand to handle the shield." compset="Shield">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="15"/>
+    <fieldval field="arAC" value="2"/>
+    <fieldval field="arCheck" value="-2"/>
+    </thing>
+  <thing id="arHideArm" name="Hide Armor" description="Thicker and heavier than leather, hide armor is composed of skin from any creature that has a tough hide, such as a bear, a griffon, or a dragon. Hide armor can bind and slightly hinder your precision, but it&apos;s light enough that it doesn&apos;t affect your speed." compset="Armor">
+    <fieldval field="grCost" value="30"/>
+    <fieldval field="gearWeight" value="25"/>
+    <fieldval field="arAC" value="3"/>
+    <fieldval field="arCheck" value="-1"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arInixLea" name="Inix Leather Armor" description="The leather armors of Athas are made from a variety of desert creatures. The tougher and more dangerous creatures provide skins for masterwork armor. Domesticated animals such as the inix, the baazrag, and the jhakar produce fine leathers. An armorer set on making more fantastic protective gear, such as that from the skin of a cloud ray, a drake, or a floating mantle, is hard-pressed to assemble the necessary materials." compset="Armor">
+    <fieldval field="gearWeight" value="10"/>
+    <fieldval field="arAC" value="2"/>
+    <fieldval field="arMinBonus" value="3"/>
+    <fieldval field="arRef" value="1"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arLeathArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arInixShe" name="Inix Shell Armor" description="Heavier Athasian masterwork armor is made from horn, scales, and carapaces, such as those found on mekillots or shed by thri-kreen. Advanced masterwork scale armor is created from the tough, thick hides of terrifying rampagers and drakes. The greatest armor of this type is formed from scales shed by the Dragon as it rampages through a region." compset="Armor">
+    <fieldval field="gearWeight" value="45"/>
+    <fieldval field="arAC" value="10"/>
+    <fieldval field="arMinBonus" value="4"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arScaleArm"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arJhakaArm" name="Jhakarskin Armor" description="The leather armors of Athas are made from a variety of desert creatures. The tougher and more dangerous creatures provide skins for masterwork armor. Domesticated animals such as the inix, the baazrag, and the jhakar produce fine leathers. An armorer set on making more fantastic protective gear, such as that from the skin of a cloud ray, a drake, or a floating mantle, is hard-pressed to assemble the necessary materials." compset="Armor">
+    <fieldval field="gearWeight" value="10"/>
+    <fieldval field="arAC" value="2"/>
+    <fieldval field="arMinBonus" value="4"/>
+    <fieldval field="arRef" value="2"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arLeathArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arKankHid" name="Kank Hide Armor" description="Hide armors also are formed from the skins of various desert creatures. Less dangerous beasts such as the tembo and the kank provide materials for lower-level masterwork armors. The most advanced armors come from the hides of the Athasian roc and the nightmare beast." compset="Armor">
+    <fieldval field="gearWeight" value="25"/>
+    <fieldval field="arAC" value="4"/>
+    <fieldval field="arCheck" value="-1"/>
+    <fieldval field="arMinBonus" value="4"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arHideArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arKankmArm" name="Kankmail Armor" description="Crafting chainmail without metal is challenging. Still, Athasian armorers have managed. They adorn stiff leather jacks with small disks or squares of horn, bone, or wood. The kank and the cilops have hard body parts ideal for the creation of masterwork mail coats. The greatest suits of mail armor are worn by the elite guards of the sorcerer-kings." compset="Armor">
+    <fieldval field="gearWeight" value="40"/>
+    <fieldval field="arAC" value="8"/>
+    <fieldval field="arCheck" value="-1"/>
+    <fieldval field="arMinBonus" value="4"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <fieldval field="arWill" value="2"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arChainmai"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arKestrFea" name="Kestrekel Feather Armor" description="The feathers of avian creatures on Athas, such as the carrion-eating kestrekel and the vulturelike aarakocra, are woven into cloth armor to give it masterwork quality. More advanced cloth armor is spun from crystal spider silk, giant hair, or silk wyrm thread." compset="Armor">
+    <fieldval field="gearWeight" value="2"/>
+    <fieldval field="arAC" value="0"/>
+    <fieldval field="arMinBonus" value="3"/>
+    <fieldval field="arWill" value="1"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arClothArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arKingmArm" name="Kingmail Armor" description="Crafting chainmail without metal is challenging. Still, Athasian armorers have managed. They adorn stiff leather jacks with small disks or squares of horn, bone, or wood. The kank and the cilops have hard body parts ideal for the creation of masterwork mail coats. The greatest suits of mail armor are worn by the elite guards of the sorcerer-kings." compset="Armor">
+    <fieldval field="gearWeight" value="40"/>
+    <fieldval field="arAC" value="11"/>
+    <fieldval field="arCheck" value="-1"/>
+    <fieldval field="arMinBonus" value="6"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <fieldval field="arWill" value="2"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arChainmai"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arKirreHid" name="Kirre Hide Armor" description="Hide armors also are formed from the skins of various desert creatures. Less dangerous beasts such as the tembo and the kank provide materials for lower-level masterwork armors. The most advanced armors come from the hides of the Athasian roc and the nightmare beast." compset="Armor">
+    <fieldval field="gearWeight" value="25"/>
+    <fieldval field="arAC" value="3"/>
+    <fieldval field="arCheck" value="-1"/>
+    <fieldval field="arMinBonus" value="4"/>
+    <fieldval field="arFort" value="2"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arHideArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arKreenSca" name="Kreen Scale Armor" description="Heavier Athasian masterwork armor is made from horn, scales, and carapaces, such as those found on mekillots or shed by thri-kreen. Advanced masterwork scale armor is created from the tough, thick hides of terrifying rampagers and drakes. The greatest armor of this type is formed from scales shed by the Dragon as it rampages through a region." compset="Armor">
+    <fieldval field="gearWeight" value="45"/>
+    <fieldval field="arAC" value="9"/>
+    <fieldval field="arMinBonus" value="4"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <fieldval field="arFort" value="2"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arScaleArm"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arLayerPla" name="Layered Plate Armor" description="Humans developed the process of layering steel several dozen times to create layered plate." compset="Armor">
+    <fieldval field="gearWeight" value="50"/>
+    <fieldval field="arAC" value="9"/>
+    <fieldval field="arCheck" value="-2"/>
+    <fieldval field="arMinBonus" value="2"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <usesource source="AdvenVault"/>
+    <tag group="ArmorType" tag="arPlateArm"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arLeathArm" name="Leather Armor" description="Leather armor is sturdier than cloth armor. It protects vital areas with multiple layers of boiled-leather plates, while covering the limbs with supple leather that provides a small amount of protection." compset="Armor">
+    <fieldval field="grCost" value="25"/>
+    <fieldval field="gearWeight" value="15"/>
+    <fieldval field="arAC" value="2"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arLegioPla" name="Legion Plate Armor" description="Legion plate mimics the forging techniques used in the Nine Hells to armor legion devils." compset="Armor">
+    <fieldval field="gearWeight" value="50"/>
+    <fieldval field="arAC" value="12"/>
+    <fieldval field="arCheck" value="-2"/>
+    <fieldval field="arMinBonus" value="5"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <usesource source="AdvenVault"/>
+    <tag group="ArmorType" tag="arPlateArm"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arLightBar" name="Light Barding" description="Barding is armor for your mount. It adds to a mount&apos;s Armor Class just as armor does to a character&apos;s. Barding also has similar check penalties and speed penalties. The barding&apos;s armor bonus is added to a creature&apos;s existing AC. Unlike heavy armor, heavy barding does not negate a mount&apos;s Dexterity or Intelligence bonus to AC. Creatures that fill the soldier role already have additional armor (natural or otherwise) factored into their AC. As such, barding is less effective for them." compset="Armor">
+    <fieldval field="grCost" value="75"/>
+    <fieldval field="gearWeight" value="40"/>
+    <fieldval field="arAC" value="1"/>
+    <usesource source="AdvenVault"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arLightHug" name="Light Barding (Huge creature)" description="Barding is armor for your mount. It adds to a mount&apos;s Armor Class just as armor does to a character&apos;s. Barding also has similar check penalties and speed penalties. The barding&apos;s armor bonus is added to a creature&apos;s existing AC. Unlike heavy armor, heavy barding does not negate a mount&apos;s Dexterity or Intelligence bonus to AC. Creatures that fill the soldier role already have additional armor (natural or otherwise) factored into their AC. As such, barding is less effective for them." compset="Armor">
+    <fieldval field="grCost" value="75"/>
+    <fieldval field="gearWeight" value="60"/>
+    <fieldval field="arAC" value="1"/>
+    <usesource source="AdvenVault"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arLightShi" name="Light Shield" description="While you&apos;re using a light shield, you can use your shield hand to hold another item, to climb, and the like, but you can&apos;t make attacks with that hand or with anything in it." compset="Shield">
+    <fieldval field="grCost" value="5"/>
+    <fieldval field="gearWeight" value="6"/>
+    <fieldval field="arAC" value="1"/>
+    </thing>
+  <thing id="arMantlArm" name="Mantle Armor" description="The leather armors of Athas are made from a variety of desert creatures. The tougher and more dangerous creatures provide skins for masterwork armor. Domesticated animals such as the inix, the baazrag, and the jhakar produce fine leathers. An armorer set on making more fantastic protective gear, such as that from the skin of a cloud ray, a drake, or a floating mantle, is hard-pressed to assemble the necessary materials." compset="Armor">
+    <fieldval field="gearWeight" value="10"/>
+    <fieldval field="arAC" value="3"/>
+    <fieldval field="arMinBonus" value="6"/>
+    <fieldval field="arRef" value="2"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arLeathArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arMekilHid" name="Mekillot Hide Armor" description="Hide armors also are formed from the skins of various desert creatures. Less dangerous beasts such as the tembo and the kank provide materials for lower-level masterwork armors. The most advanced armors come from the hides of the Athasian roc and the nightmare beast." compset="Armor">
+    <fieldval field="gearWeight" value="25"/>
+    <fieldval field="arAC" value="4"/>
+    <fieldval field="arCheck" value="-1"/>
+    <fieldval field="arMinBonus" value="5"/>
+    <fieldval field="arFort" value="1"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arHideArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arMekilSca" name="Mekillot Scale Armor" description="Heavier Athasian masterwork armor is made from horn, scales, and carapaces, such as those found on mekillots or shed by thri-kreen. Advanced masterwork scale armor is created from the tough, thick hides of terrifying rampagers and drakes. The greatest armor of this type is formed from scales shed by the Dragon as it rampages through a region." compset="Armor">
+    <fieldval field="gearWeight" value="45"/>
+    <fieldval field="arAC" value="9"/>
+    <fieldval field="arMinBonus" value="3"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arScaleArm"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arMekilShe" name="Mekillot Shell Armor" description="Plate armor is made from giant insect or crustacean chitin, or from the shells of creatures such as chathrangs or rare desert tortoises. Braxats and gaj provide the durable shells used to make mid-level masterwork plate armor. The rarest plate armor is derived from drakes and braxat lords. Armorers drill tiny ventilation holes in chitin-plate armor to make it bearable in all but the hottest weather." compset="Armor">
+    <fieldval field="gearWeight" value="50"/>
+    <fieldval field="arAC" value="9"/>
+    <fieldval field="arCheck" value="-2"/>
+    <fieldval field="arMinBonus" value="2"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arPlateArm"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arMindpArm" name="Mindpatterned Armor" description="Patterns taken from captured mind flayer garments led to mindpatterned armor." compset="Armor">
+    <fieldval field="gearWeight" value="2"/>
+    <fieldval field="arAC" value="1"/>
+    <fieldval field="arMinBonus" value="6"/>
+    <fieldval field="arWill" value="2"/>
+    <usesource source="AdvenVault"/>
+    <tag group="ArmorType" tag="arClothArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arMindwArm" name="Mindweave Armor" description="Patterns taken from captured mind flayer garments led to mindweave armor." compset="Armor">
+    <fieldval field="gearWeight" value="2"/>
+    <fieldval field="arAC" value="0"/>
+    <fieldval field="arMinBonus" value="4"/>
+    <fieldval field="arWill" value="2"/>
+    <usesource source="AdvenVault"/>
+    <tag group="ArmorType" tag="arClothArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arNagasArm" name="Nagascale Armor" description="Ancient yuan-ti crafting techniques infuse metal plates with elemental power to produce nagascale armor." compset="Armor">
+    <fieldval field="gearWeight" value="45"/>
+    <fieldval field="arAC" value="11"/>
+    <fieldval field="arMinBonus" value="5"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <fieldval field="arFort" value="1"/>
+    <usesource source="AdvenVault"/>
+    <tag group="ArmorType" tag="arScaleArm"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arNightHid" name="Nightmare Hide Armor" description="Hide armors also are formed from the skins of various desert creatures. Less dangerous beasts such as the tembo and the kank provide materials for lower-level masterwork armors. The most advanced armors come from the hides of the Athasian roc and the nightmare beast." compset="Armor">
+    <fieldval field="gearWeight" value="25"/>
+    <fieldval field="arAC" value="4"/>
+    <fieldval field="arCheck" value="-1"/>
+    <fieldval field="arMinBonus" value="6"/>
+    <fieldval field="arFort" value="2"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arHideArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arObsidArm" name="Obsidianmail Armor" description="Crafting chainmail without metal is challenging. Still, Athasian armorers have managed. They adorn stiff leather jacks with small disks or squares of horn, bone, or wood. The kank and the cilops have hard body parts ideal for the creation of masterwork mail coats. The greatest suits of mail armor are worn by the elite guards of the sorcerer-kings." compset="Armor">
+    <fieldval field="gearWeight" value="40"/>
+    <fieldval field="arAC" value="9"/>
+    <fieldval field="arCheck" value="-1"/>
+    <fieldval field="arMinBonus" value="4"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arChainmai"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arPitmaArm" name="Pitmail Armor" description="Pitmail is derived from an infernal technique used to armor great commanders in the days of the tiefling empire of Bael Turath." compset="Armor">
+    <fieldval field="gearWeight" value="40"/>
+    <fieldval field="arAC" value="11"/>
+    <fieldval field="arCheck" value="-1"/>
+    <fieldval field="arMinBonus" value="6"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <fieldval field="arWill" value="2"/>
+    <usesource source="AdvenVault"/>
+    <tag group="ArmorType" tag="arChainmai"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arPlateArm" name="Plate Armor" description="The heaviest type of armor, made up of shaped plates of metal or similarly resilient material, plate provides the most armor protection. The cost for its superior fortification is mobility and agility." compset="Armor">
+    <fieldval field="grCost" value="50"/>
+    <fieldval field="gearWeight" value="50"/>
+    <fieldval field="arAC" value="8"/>
+    <fieldval field="arCheck" value="-2"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arRampaSca" name="Rampager Scale Armor" description="Heavier Athasian masterwork armor is made from horn, scales, and carapaces, such as those found on mekillots or shed by thri-kreen. Advanced masterwork scale armor is created from the tough, thick hides of terrifying rampagers and drakes. The greatest armor of this type is formed from scales shed by the Dragon as it rampages through a region." compset="Armor">
+    <fieldval field="gearWeight" value="45"/>
+    <fieldval field="arAC" value="11"/>
+    <fieldval field="arMinBonus" value="5"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <fieldval field="arFort" value="1"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arScaleArm"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arRayLea" name="Ray Leather Armor" description="The leather armors of Athas are made from a variety of desert creatures. The tougher and more dangerous creatures provide skins for masterwork armor. Domesticated animals such as the inix, the baazrag, and the jhakar produce fine leathers. An armorer set on making more fantastic protective gear, such as that from the skin of a cloud ray, a drake, or a floating mantle, is hard-pressed to assemble the necessary materials." compset="Armor">
+    <fieldval field="gearWeight" value="10"/>
+    <fieldval field="arAC" value="3"/>
+    <fieldval field="arMinBonus" value="5"/>
+    <fieldval field="arRef" value="1"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arLeathArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arRimefPla" name="Rimefire Plate Armor" description="Rimefire plate is bathed in elemental frost and fire to infuse it with hardness." compset="Armor">
+    <fieldval field="gearWeight" value="50"/>
+    <fieldval field="arAC" value="8"/>
+    <fieldval field="arCheck" value="-2"/>
+    <fieldval field="arMinBonus" value="2"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <fieldval field="arResAll" value="1"/>
+    <usesource source="AdvenVault"/>
+    <tag group="ArmorType" tag="arPlateArm"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arRingMai" name="Ring Mail" description="This flexible but sturdy armor consists of a typical suit of leather armor with a series of metal rings sewn onto its surface. The rings enhance the armor&apos;s sturdiness, improving its protective qualities while still offering the maneuverability of lightweight armor." compset="Armor">
+    <fieldval field="grCost" value="40"/>
+    <fieldval field="gearWeight" value="30"/>
+    <fieldval field="arAC" value="3"/>
+    <fieldval field="arCheck" value="-1"/>
+    <usesource source="MordensEmp"/>
+    <tag group="ArmorType" tag="arChainmai"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arRocHid" name="Roc Hide Armor" description="Hide armors also are formed from the skins of various desert creatures. Less dangerous beasts such as the tembo and the kank provide materials for lower-level masterwork armors. The most advanced armors come from the hides of the Athasian roc and the nightmare beast." compset="Armor">
+    <fieldval field="gearWeight" value="25"/>
+    <fieldval field="arAC" value="5"/>
+    <fieldval field="arCheck" value="-1"/>
+    <fieldval field="arMinBonus" value="6"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arHideArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arScaleArm" name="Scale Armor" description="Overlapping pieces of highly durable material, such as steel or even dragon scales, make up scale armor. Despite its heaviness, scale is surprisingly easy to wear; its straps and buckles make it adjustable and able to fit snugly on the body, allowing for flexibility and agility." compset="Armor">
+    <fieldval field="grCost" value="45"/>
+    <fieldval field="gearWeight" value="45"/>
+    <fieldval field="arAC" value="7"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arScorpSca" name="Scorpion Scale Armor" description="Heavier Athasian masterwork armor is made from horn, scales, and carapaces, such as those found on mekillots or shed by thri-kreen. Advanced masterwork scale armor is created from the tough, thick hides of terrifying rampagers and drakes. The greatest armor of this type is formed from scales shed by the Dragon as it rampages through a region." compset="Armor">
+    <fieldval field="gearWeight" value="45"/>
+    <fieldval field="arAC" value="8"/>
+    <fieldval field="arMinBonus" value="2"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arScaleArm"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arSnakeArm" name="Snakeskin Armor" description="Yuan-ti overlap fine &quot;scales&quot; of leather to produce the incredibly supple snakeskin armor." compset="Armor">
+    <fieldval field="gearWeight" value="10"/>
+    <fieldval field="arAC" value="2"/>
+    <fieldval field="arMinBonus" value="4"/>
+    <fieldval field="arRef" value="2"/>
+    <usesource source="AdvenVault"/>
+    <tag group="ArmorType" tag="arLeathArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arSpectPla" name="Specter Plate Armor" description="Specter plate is infused with energy from the Shadowfell." compset="Armor">
+    <fieldval field="gearWeight" value="50"/>
+    <fieldval field="arAC" value="10"/>
+    <fieldval field="arCheck" value="-2"/>
+    <fieldval field="arMinBonus" value="4"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <fieldval field="arResAll" value="2"/>
+    <usesource source="AdvenVault"/>
+    <tag group="ArmorType" tag="arPlateArm"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arSpideArm" name="Spidersilk Armor" description="The feathers of avian creatures on Athas, such as the carrion-eating kestrekel and the vulturelike aarakocra, are woven into cloth armor to give it masterwork quality. More advanced cloth armor is spun from crystal spider silk, giant hair, or silk wyrm thread." compset="Armor">
+    <fieldval field="gearWeight" value="2"/>
+    <fieldval field="arAC" value="0"/>
+    <fieldval field="arMinBonus" value="4"/>
+    <fieldval field="arWill" value="2"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arClothArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arSpikePla" name="Spiked Plate" description="A dwarven innovation, spiked plate is a suit of plate mail studded with sharp, metal spikes. The dwarves developed this armor to deal with subterranean beasts such as hook horrors and umber hulks that grasp and crush their prey." compset="Armor">
+    <fieldval field="grCost" value="55"/>
+    <fieldval field="gearWeight" value="60"/>
+    <fieldval field="arAC" value="8"/>
+    <fieldval field="arCheck" value="-3"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <usesource source="MordensEmp"/>
+    <tag group="ArmorType" tag="arPlateArm"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arSpiritma" name="Spiritmail" description="Spiritmail armor is made with techniques from the divine Dominions." compset="Armor">
+    <fieldval field="gearWeight" value="40"/>
+    <fieldval field="arAC" value="12"/>
+    <fieldval field="arCheck" value="-1"/>
+    <fieldval field="arMinBonus" value="6"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <tag group="ArmorType" tag="arChainmai"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arSplinMai" name="Splint Mail" description="First developed by the dwarves, splint mail consists of vertical strips of metal bound to a thick layer of leather and chainmail. Because it is so heavy and ponderous, few other than dwarves wear it in battle. While it lacks the protective elements of plate, it is scale armor&apos;s equal. More important, its rigid construction allows it to absorb some portion of an enemy&apos;s blows." compset="Armor">
+    <fieldval field="grCost" value="50"/>
+    <fieldval field="gearWeight" value="55"/>
+    <fieldval field="arAC" value="7"/>
+    <fieldval field="arCheck" value="-2"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <usesource source="MordensEmp"/>
+    <tag group="ArmorType" tag="arScaleArm"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arStalkArm" name="Stalkerhide Armor" description="Astral stalker preservation techniques yield stalkerhide." compset="Armor">
+    <fieldval field="gearWeight" value="25"/>
+    <fieldval field="arAC" value="4"/>
+    <fieldval field="arCheck" value="-1"/>
+    <fieldval field="arMinBonus" value="5"/>
+    <fieldval field="arFort" value="1"/>
+    <usesource source="AdvenVault"/>
+    <tag group="ArmorType" tag="arHideArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arStarlArm" name="Starleather Armor" description="Starleather armor is infused with the raw spiritual matter of the Astral Sea, making it light and strong." compset="Armor">
+    <fieldval field="gearWeight" value="15"/>
+    <fieldval field="arAC" value="4"/>
+    <fieldval field="arMinBonus" value="6"/>
+    <tag group="ArmorType" tag="arLeathArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arStarwArm" name="Starweave Armor" description="Starweave armor is fashioned after patterns created in the divine Dominions of the Astral Sea." compset="Armor">
+    <fieldval field="gearWeight" value="3"/>
+    <fieldval field="arAC" value="2"/>
+    <fieldval field="arMinBonus" value="6"/>
+    <tag group="ArmorType" tag="arClothArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arStoneArm" name="Stonemail Armor" description="Crafting chainmail without metal is challenging. Still, Athasian armorers have managed. They adorn stiff leather jacks with small disks or squares of horn, bone, or wood. The kank and the cilops have hard body parts ideal for the creation of masterwork mail coats. The greatest suits of mail armor are worn by the elite guards of the sorcerer-kings." compset="Armor">
+    <fieldval field="gearWeight" value="40"/>
+    <fieldval field="arAC" value="8"/>
+    <fieldval field="arCheck" value="-1"/>
+    <fieldval field="arMinBonus" value="3"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arChainmai"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arStormArm" name="Stormscale Armor" description="Stormscale armor resembles the storm gorgon&apos;s hardened plating and incorporates elemental magic." compset="Armor">
+    <fieldval field="gearWeight" value="45"/>
+    <fieldval field="arAC" value="9"/>
+    <fieldval field="arMinBonus" value="4"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <fieldval field="arFort" value="2"/>
+    <usesource source="AdvenVault"/>
+    <tag group="ArmorType" tag="arScaleArm"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arStuddLea" name="Studded Leather" description="Studded leather is leather armor reinforced with metal studs. It provides a middle ground between hide armor and ring mail. It is more flexible than either, while its reinforced construction gives it a slight edge over hide." compset="Armor">
+    <fieldval field="grCost" value="35"/>
+    <fieldval field="gearWeight" value="28"/>
+    <fieldval field="arAC" value="3"/>
+    <usesource source="MordensEmp"/>
+    <tag group="ArmorType" tag="arLeathArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arSwordArm" name="Swordwing Armor" description="Swordwing leather mimics the way swordwings make their paper spires, creating a light, flexible, and hard leather." compset="Armor">
+    <fieldval field="gearWeight" value="10"/>
+    <fieldval field="arAC" value="3"/>
+    <fieldval field="arMinBonus" value="6"/>
+    <fieldval field="arRef" value="2"/>
+    <usesource source="AdvenVault"/>
+    <tag group="ArmorType" tag="arLeathArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arTarraPla" name="Tarrasque Plate Armor" description="Tarrasque plate, designed to emulate the tarrasque&apos;s impenetrable hide, has hundreds of nodules packed between very thin metal layers, each treated with a different process." compset="Armor">
+    <fieldval field="gearWeight" value="50"/>
+    <fieldval field="arAC" value="12"/>
+    <fieldval field="arCheck" value="-2"/>
+    <fieldval field="arMinBonus" value="6"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <fieldval field="arResAll" value="5"/>
+    <usesource source="AdvenVault"/>
+    <tag group="ArmorType" tag="arPlateArm"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arTemboHid" name="Tembo Hide Armor" description="Hide armors also are formed from the skins of various desert creatures. Less dangerous beasts such as the tembo and the kank provide materials for lower-level masterwork armors. The most advanced armors come from the hides of the Athasian roc and the nightmare beast." compset="Armor">
+    <fieldval field="gearWeight" value="25"/>
+    <fieldval field="arAC" value="3"/>
+    <fieldval field="arCheck" value="-1"/>
+    <fieldval field="arMinBonus" value="3"/>
+    <fieldval field="arFort" value="1"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arHideArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arTemplMai" name="Templar Mail Armor" description="Crafting chainmail without metal is challenging. Still, Athasian armorers have managed. They adorn stiff leather jacks with small disks or squares of horn, bone, or wood. The kank and the cilops have hard body parts ideal for the creation of masterwork mail coats. The greatest suits of mail armor are worn by the elite guards of the sorcerer-kings." compset="Armor">
+    <fieldval field="gearWeight" value="40"/>
+    <fieldval field="arAC" value="12"/>
+    <fieldval field="arCheck" value="-1"/>
+    <fieldval field="arMinBonus" value="6"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <usesource source="DarkSun"/>
+    <tag group="ArmorType" tag="arChainmai"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arTitanArm" name="Titanscale Armor" description="Dwarves took the primordial methods of producing titanscale armor from the titans and giants." compset="Armor">
+    <fieldval field="gearWeight" value="45"/>
+    <fieldval field="arAC" value="12"/>
+    <fieldval field="arMinBonus" value="6"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <fieldval field="arFort" value="2"/>
+    <usesource source="AdvenVault"/>
+    <tag group="ArmorType" tag="arScaleArm"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arVoidhide" name="Voidhide" description="Voidhide armor comes from similar methods used by the sorrowsworn to preserve their grisly trophies." compset="Armor">
+    <fieldval field="gearWeight" value="25"/>
+    <fieldval field="arAC" value="4"/>
+    <fieldval field="arCheck" value="-1"/>
+    <fieldval field="arMinBonus" value="6"/>
+    <fieldval field="arFort" value="2"/>
+    <usesource source="AdvenVault"/>
+    <tag group="ArmorType" tag="arHideArm"/>
+    <tag group="ArmorCat" tag="Light"/>
+    </thing>
+  <thing id="arWarplArm" name="Warplate Armor" description="Legend holds that Moradin made the first godplate armor, and ancient dwarf smiths copied his patterns imperfectly to make warplate armor." compset="Armor">
+    <fieldval field="gearWeight" value="50"/>
+    <fieldval field="arAC" value="11"/>
+    <fieldval field="arCheck" value="-2"/>
+    <fieldval field="arMinBonus" value="4"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <tag group="ArmorType" tag="arPlateArm"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arWeaveArm" name="Weavemail Armor" description="Weavemail is an exquisite armor made according to an advanced technique perfected in the eladrin courts of the Feywild, consisting of closely linked chains that provide few openings for enemy attacks." compset="Armor">
+    <fieldval field="gearWeight" value="40"/>
+    <fieldval field="arAC" value="10"/>
+    <fieldval field="arCheck" value="-1"/>
+    <fieldval field="arMinBonus" value="5"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <fieldval field="arWill" value="1"/>
+    <usesource source="AdvenVault"/>
+    <tag group="ArmorType" tag="arChainmai"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arWyrmsArm" name="Wyrmscale Armor" description="Wyrmscale is made using ancient techniques the dragonborn invented to mimic the strength of overlapping dragon scales." compset="Armor">
+    <fieldval field="gearWeight" value="45"/>
+    <fieldval field="arAC" value="10"/>
+    <fieldval field="arMinBonus" value="4"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <tag group="ArmorType" tag="arScaleArm"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  <thing id="arWyverArm" name="Wyvernscale Armor" description="Wyvernscale armor mimics the small, close scales of the wyvern to stave off attacks." compset="Armor">
+    <fieldval field="gearWeight" value="45"/>
+    <fieldval field="arAC" value="9"/>
+    <fieldval field="arMinBonus" value="3"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <usesource source="AdvenVault"/>
+    <tag group="ArmorType" tag="arScaleArm"/>
+    <tag group="ArmorCat" tag="Heavy"/>
+    </thing>
+  </document>

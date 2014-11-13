@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the definition of the "Theme" tab panel. This tab is where
+      the user configures that attributes and skills of the character.
+
+      All public visual elements used with this tab panel start with the prefix "th"
+      to associate them with the tab.
+-->
+
+<document signature="Hero Lab Data">
+
+  <!-- Theme title label, chooser, info button and table -->
+  <portal
+    id="thHelp"
+    style="lblDisable">
+    <label
+      ismultiline="yes"
+      text="Once you've chosen a background or theme, you can configure it and view theme features on this tab.">
+      </label>
+    </portal>
+  <portal
+    id="thThmTitle"
+    style="lblNormal">
+    <label
+      text="Theme:">
+      </label>
+    </portal>
+  <portal
+    id="thTheme"
+    style="chsNormal">
+    <chooser_table
+      component="Theme"
+      choosetemplate="SimpleItem"
+      showupdate="yes"
+      selectnone="yes"
+      descwidth="450">
+      <candidate></candidate>
+      <chosen><![CDATA[
+        if (@ispick = 0) then
+          @text = "Choose a theme"
+        else
+          @text = field[name].text
+          endif
+        ]]></chosen>
+      <titlebar><![CDATA[
+        @text = "Choose a theme for your character"
+        ]]></titlebar>
+      </chooser_table>
+    </portal>
+  <portal
+    id="thBgrTitle"
+    style="lblNormal">
+    <label
+      text="Background:">
+      </label>
+    </portal>
+  <portal
+    id="raBackgr"
+    style="chsNormal">
+    <chooser_table
+      component="Background"
+      choosetemplate="SimpleItem"
+      showupdate="yes"
+      selectnone="yes"
+      descwidth="450">
+      <candidate></candidate>
+      <chosen><![CDATA[
+        if (@ispick = 0) then
+          @text = "Choose a background"
+        else
+          @text = field[name].text
+          endif
+        ]]></chosen>
+      <titlebar><![CDATA[
+        @text = "Choose a background for your character"
+        ]]></titlebar>
+      </chooser_table>
+    </portal>
+  <portal
+    id="thBgrInfo"
+    style="actInfo">
+    <action
+      action="info">
+      </action>
+    <mouseinfo><![CDATA[
+      ~ Get our currently selected background
+      perform hero.findchild[Background].setfocus
+      if (state.isfocus = 0) then
+        @text = "No background selected."
+        done
+        endif
+
+      ~ Append background info
+      @text = "{b}" & focus.field[name].text & "{/b}{br}{br}"
+      @text &= focus.field[descript].text
+      ]]></mouseinfo>
+    </portal>
+
+  <portal
+    id="thLblInfo"
+    style="lblNormal">
+    <label
+      text="More Information:">
+      </label>
+    </portal>
+  <portal
+    id="thInfo"
+    style="actInfo">
+    <action
+      action="info">
+      </action>
+    <mouseinfo><![CDATA[
+      ~ Get our currently selected theme
+      perform hero.findchild[Theme].setfocus
+      if (state.isfocus = 0) then
+        @text = "No theme selected."
+        done
+        endif
+
+      ~ Append theme info
+      @text = "{b}" & focus.field[name].text & "{/b}{br}{br}"
+      @text &= focus.field[descript].text
+      ]]></mouseinfo>
+    </portal>
+  <portal
+    id="thFeatures"
+    style="tblInvis">
+    <table_fixed
+      component="UserSelect"
+      showtemplate="MenuSlPick"
+      showsortset="BuildLast"
+      columns="2"
+      alwaysupdate="yes">
+      <list><![CDATA[
+        ConfSource.Theme | component.ThemeFeat | (component.Power & User.ThemeFeat) &
+        (!User.NeedChosen | Helper.ChosenOpt) | PowerType.BuildOpt
+        ]]></list>
+      <headertitle><![CDATA[
+        @text = "Theme Features"
+        ]]></headertitle>
+      </table_fixed>
+    </portal>
+  <portal
+    id="thInfoTbl"
+    style="tblInvis">
+    <table_fixed
+      component="Theme"
+      showtemplate="thThemeInf"
+      alwaysupdate="yes">
+      <list><![CDATA[
+        ]]></list>
+      </table_fixed>
+    </portal>
+
+
+  <!-- thThemeInf template
+        Displays info for the current race in a large template area.
+  -->
+  <template
+    id="thThemeInf"
+    name="Trait Pick"
+    compset="Trait">
+
+    <portal
+      id="details"
+      style="lblNormal">
+      <label
+        ismultiline="yes">
+        <labeltext><![CDATA[
+          var descript as string
+          call Descript
+          @text = "{align left}" & descript
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <position><![CDATA[
+      ~set up our height based on our tallest portal
+      portal[details].width = width
+      height = portal[details].textheight
+      ]]></position>
+
+    </template>
+
+
+  <!-- thBackSkl template
+        Displays info for the background bonus skill
+  -->
+  <template
+    id="thBackSkl"
+    name="Trait Pick"
+    compset="Actor">
+
+    <portal
+      id="bonus"
+      style="lblNormal">
+      <label
+        text="Background Bonus:">
+        </label>
+      </portal>
+
+    <portal
+      id="skills"
+      style="menuNormal">
+      <menu_things
+        field="acBGSkill"
+        component="none"
+        candidatefield="acBGExpr"
+        usepicks="yes"
+        maxvisible="10">
+        </menu_things>
+      </portal>
+
+    <portal
+      id="type"
+      style="menuNormal">
+      <menu_literal
+        field="actBGSkCls">
+        <choice value="0" display="+2 Bonus"/>
+        <choice value="1" display="Class Skill"/>
+        </menu_literal>
+      </portal>
+
+    <position><![CDATA[
+      ~set up our height based on our tallest portal
+      portal[skills].width = 105
+      portal[type].width = 85
+      width = portal[bonus].width + portal[skills].width + portal[type].width + 15
+      height = portal[skills].textheight
+
+      perform portal[type].alignedge[right,0]
+      portal[skills].left = portal[bonus].right + 10
+      perform portal[bonus].centeron[vert,skills]
+
+      visible = 1
+      if (compare(herofield[acBGExpr].text, "FALSE") = 0) then
+        visible = 0
+        endif
+
+      ~if we don't have a skill selected, no need to show the skill menu
+      if (herofield[acBGSkill].ischosen = 0) then
+        portal[type].visible = 0
+      elseif (herofield[acBGSkill].chosen.tagis[component.Skill] = 0) then
+        portal[type].visible = 0
+        endif
+      ]]></position>
+
+    </template>
+
+
+  <!-- theme layout
+        This layout orchestrates the display of all various visual elements that
+        comprise the Themes tab.
+  -->
+  <layout
+    id="theme">
+    <portalref portal="thThmTitle"/>
+    <portalref portal="thTheme" taborder="10"/>
+    <portalref portal="thBgrTitle"/>
+    <portalref portal="raBackgr" taborder="20"/>
+    <portalref portal="thBgrInfo"/>
+    <portalref portal="thHelp"/>
+    <portalref portal="thFeatures" taborder="30"/>
+    <portalref portal="Horizontal"/>
+    <portalref portal="thInfoTbl"/>
+    <portalref portal="thLblInfo"/>
+    <portalref portal="thInfo" taborder="50"/>
+    <templateref template="thBackSkl" taborder="15" thing="actor"/>
+
+    <!-- This script sizes and positions the layout and its child visual elements. -->
+    <position><![CDATA[
+      portal[thTheme].width = 150
+      portal[raBackgr].width = 150
+
+      ~position the theme selection portals at the top of the panel,
+      ~horizontally centered
+      var space as number
+      space = 10
+      var total as number
+      total = portal[thThmTitle].width + space + portal[thTheme].width
+      portal[thThmTitle].left = (width - total) / 2
+      portal[thTheme].left = portal[thThmTitle].right + space
+
+      ~center the controls vertically within the race chooser
+      portal[thTheme].top = 3
+      perform portal[thThmTitle].centeron[vert,thTheme]
+
+      ~position the background portals under the race, also horizontally
+      ~centered
+      total = portal[thBgrTitle].width + space + portal[raBackgr].width + space + portal[thBgrInfo].width
+      portal[thBgrTitle].left = (width - total) / 2
+      portal[raBackgr].left = portal[thBgrTitle].right + space
+      portal[thBgrInfo].left = portal[raBackgr].right + space
+
+      ~center the controls vertically within the theme and background choosers
+      portal[raBackgr].top = portal[thTheme].bottom + 10
+      perform portal[thBgrTitle].centeron[vert,raBackgr]
+      perform portal[thBgrInfo].centeron[vert,raBackgr]
+
+      var lastbottom as number
+      lastbottom = portal[raBackgr].bottom
+
+      ~if we don't have a theme or background, hide all our tables and show the help label
+      if (hero.tagis[Theme.?] + hero.tagis[Background.?] = 0) then
+        template[thBackSkl].visible = 0
+        portal[thFeatures].visible = 0
+        portal[Horizontal].visible = 0
+        portal[thInfoTbl].visible = 0
+        portal[thLblInfo].visible = 0
+        portal[thInfo].visible = 0
+
+        ~position our help label under the 'choose' chooser.
+        portal[thHelp].width = width * 2 / 3
+        portal[thHelp].height = portal[thHelp].textheight
+        perform portal[thHelp].centerhorz
+        portal[thHelp].top = lastbottom + 50
+        done
+      endif
+
+      ~if we have a background show the background templates if necessary
+      if (hero.tagis[Background.?] = 0) then
+        template[thBackSkl].visible = 0
+      else
+        ~add space for our background template if necessary
+        perform template[thBackSkl].render
+        if (template[thBackSkl].visible <> 0) then
+          template[thBackSkl].left = ( width - template[thBackSkl].width ) / 2
+
+          template[thBackSkl].top = lastbottom + 10
+          lastbottom = template[thBackSkl].bottom
+        endif
+      endif
+
+      portal[thHelp].visible = 0
+
+      ~the theme features table takes up the rest of the horizontal space
+      ~(hiding the table) if there are no items in said table.
+      if (portal[thFeatures].itemcount = 0) then
+        portal[thFeatures].visible = 0
+      else
+        portal[thFeatures].left = 0
+        portal[thFeatures].width = width
+        portal[thFeatures].top = lastbottom + 20
+        portal[thFeatures].height = height - portal[thFeatures].top
+        lastbottom = portal[thFeatures].bottom
+      endif
+
+      ~our separator goes under the race features - below here, we just show
+      ~race info
+      portal[Horizontal].width = width - 20
+      portal[Horizontal].top = lastbottom + 15
+      portal[Horizontal].left = (width - portal[Horizontal].width) / 2
+
+      ~fill the rest of the panel with our race info
+      portal[thInfoTbl].left = portal[Horizontal].left
+      portal[thInfoTbl].width = width - (portal[thInfoTbl].left * 2)
+      portal[thInfoTbl].top = portal[Horizontal].bottom + 20
+      portal[thInfoTbl].height = height - portal[thInfoTbl].top
+
+      portal[thLblInfo].top = portal[thInfoTbl].bottom + 20
+      portal[thLblInfo].left = portal[thInfoTbl].left
+
+      perform portal[thInfo].centeron[vert,thLblInfo]
+      portal[thInfo].left = portal[thLblInfo].right + 10
+      ]]></position>
+
+    </layout>
+
+
+  <!-- theme panel
+        This is the "Theme" panel shown within Hero Lab.
+  -->
+  <panel
+    id="theme"
+    name="Background"
+    marginhorz="5"
+    marginvert="5"
+    order="115">
+    <live>!HideTab.theme</live>
+    <layoutref layout="theme"/>
+    <position><![CDATA[
+      ]]></position>
+    </panel>
+  </document>

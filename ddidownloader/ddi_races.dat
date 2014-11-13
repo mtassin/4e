@@ -1,0 +1,1065 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<document signature="Hero Lab Data">
+
+  <thing
+    id="fRBlAciRes"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000"><![CDATA[
+      ~resist Fire 5 + half level
+      var bonus as number
+      bonus = 5 + round(hero.tagvalue[Level.?] / 2, 0, -1)
+      #traitmodify[rsAcid,rsTotal,bonus,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fRDeAstRes"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000"><![CDATA[
+      ~resist Necrotic / Radiant 5 + half level
+      var bonus as number
+      bonus = 5 + round(hero.tagvalue[Level.?] / 2, 0, -1)
+      #traitmodify[rsNecrotic,rsTotal,bonus,""]
+      #traitmodify[rsRadiant,rsTotal,bonus,""]
+      ]]></eval>
+    </thing>
+
+
+  <thing
+    id="rChangelin"
+    name=""
+    compset="">
+    <fieldval field="racWill" value="1"/>
+    <bootstrap thing="chnPlusAb"/>
+    </thing>
+  <thing
+    id="chnPlusAb"
+    name="+2 to Ability"
+    compset="RaceFeat"
+    description="Gives a +2 bonus to the selected ability score.">
+    <fieldval field="usrCandid1" value="component.Attribute &amp; (thingid.attrDex | thingid.attrInt)"/>
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="PreTraits" priority="5000">
+      <before name="Calc trtFinal"/><![CDATA[
+      perform field[usrChosen1].chosen.field[trtRacial].modify[+,2,"Changeling"]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="rDragonbor"
+    name=""
+    compset="">
+    <bootstrap thing="drgBrthTyp"/>
+    </thing>
+  <thing
+    id="drgBrthTyp"
+    name="Breath Type"
+    compset="RaceFeat"
+    description="Choose the type of damage your breath weapon causes.">
+    <fieldval field="usrSelect" value="Fire"/>
+    <arrayval field="usrArray" index="0" value="Acid"/>
+    <arrayval field="usrArray" index="1" value="Cold"/>
+    <arrayval field="usrArray" index="2" value="Fire"/>
+    <arrayval field="usrArray" index="3" value="Lightning"/>
+    <arrayval field="usrArray" index="4" value="Poison"/>
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Setup" priority="10000"><![CDATA[
+~set our dragon breath power as the focus, for convenience
+perform hero.childfound[pRacDraBre].setfocus
+doneif (state.isfocus = 0)
+
+~delete all keywords in our list
+var i as number
+for i = 0 to 4
+  perform focus.deletestr["DamageType." & field[usrArray].arraytext[i]]
+  next
+
+~assign the new keyword
+perform focus.assignstr["DamageType." & field[usrSelect].text]
+]]></eval>
+    </thing>
+  <thing
+    id="fRDrDraHer"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <after name="Calc attrBonus"/>
+      <![CDATA[
+      var bonus as number
+      bonus = #attrbasebonus[attrCon]
+      #traitmodify[trSurgeVal,trtBonus,bonus,""]
+      ]]></eval>
+    </thing>
+  <thing
+    id="fRDrDraRac"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="thingid.pRacDraBre | thingid.pRacDragon"/>
+    <tag group="Hide" tag="Special"/>
+    </thing>
+
+  <thing
+    id="rDwarf"
+    name=""
+    compset="">
+    <tag group="WeaponProf" tag="wpWarhamme"/>
+    <tag group="WeaponProf" tag="wpThrowham"/>
+    </thing>
+  <thing
+    id="fRDwEncSpe"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Armor effects final"/>
+      <![CDATA[
+      perform hero.assign[Hero.NoArmorSpd]
+      perform hero.assign[Hero.NoEncumSpd]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="rEladrin"
+    name=""
+    compset="">
+    <fieldval field="racWill" value="1"/>
+    <tag group="WeaponProf" tag="wpLongswor"/>
+    </thing>
+  <thing
+    id="fRElElaEdu"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Skill"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      perform field[usrChosen1].chosen.assign[Helper.TrainedAut]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="rElf"
+    name=""
+    compset="">
+    <tag group="WeaponProf" tag="wpLongbow"/>
+    <tag group="WeaponProf" tag="wpShortbow"/>
+    </thing>
+
+  <thing
+    id="rGithyanki"
+    name=""
+    compset="">
+    <fieldval field="racWill" value="1"/>
+    <fieldval field="racInit" value="2"/>
+    </thing>
+
+  <thing
+    id="rGithzerai"
+    name=""
+    compset="">
+    <fieldval field="racInit" value="2"/>
+    </thing>
+
+  <thing
+    id="rGoldDwa"
+    name=""
+    compset="">
+
+    <tag group="WeaponProf" tag="wpWarPic"/>
+    <tag group="WeaponProf" tag="wpMaul"/>
+
+    <!-- replaced by new abilities -->
+    <bootstrap thing="fRDwCasSto" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fRDwDwaWea" phase="***DELETE***"></bootstrap>
+    </thing>
+  <thing
+    id="fRGoGolDwa"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    </thing>
+
+  <!-- Remove the Genasi power bootstraps and add build options instead -->
+  <thing
+    id="rGenasi"
+    name=""
+    compset="">
+    <fieldval field="racFort" value="***DELETE***"/>
+    <bootstrap thing="pRacFirepu" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pRacEarths" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pRacProSto" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pRacSwiftc" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pRacWindwa" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pRacAciSur" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pRacFirede" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pRacPlague" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pRacVoiAss" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pRacFloMag" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pRacSandsl" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pRacSunFla" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pRacAshEva" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fRGeFiresl"></bootstrap>
+    <bootstrap thing="fRGeEartsl"></bootstrap>
+    <bootstrap thing="fRGeStorsl"></bootstrap>
+    <bootstrap thing="fRGeWatesl"></bootstrap>
+    <bootstrap thing="fRGeWindsl"></bootstrap>
+    <bootstrap thing="fRGeCaussl"></bootstrap>
+    <bootstrap thing="fRGeCindsl"></bootstrap>
+    <bootstrap thing="fRGePlagsl"></bootstrap>
+    <bootstrap thing="fRGeVoidsl"></bootstrap>
+    <bootstrap thing="fRGeEmbesl"></bootstrap>
+    <bootstrap thing="fRGeMagmsl"></bootstrap>
+    <bootstrap thing="fRGeSandsl"></bootstrap>
+    <bootstrap thing="fRGeSunsl"></bootstrap>
+    </thing>
+  <thing
+    id="fRGeEleMan"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="User.GenasiMan"/>
+    <tag group="Hide" tag="Special"/>
+    </thing>
+  <thing
+    id="fRGeFiresl"
+    name="Firesoul"
+    compset="BuildOpt"
+    description="You gain +1 Reflex defense, resist 5 fire and the firepulse power. At 11th level, the resistance improves to 10 fire. At 21st level, the resistance improves to 15 fire.">
+    <tag group="User" tag="GenasiMan"/>
+    <bootstrap thing="pRacFirepu" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500"><![CDATA[fieldval:boActive <> 0]]>
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <eval index="1" phase="PreTraits" priority="5000">
+      <before name="Calc trtFinal"/><![CDATA[
+      doneif (activated = 0)
+      #traitmodify[defRef,trtRacial,1,""]
+
+      ~resist Fire 5/10/15
+      var bonus as number
+      if (hero.tagvalue[Level.?] <= 10) then
+        bonus = 5
+      elseif (hero.tagvalue[Level.?] <= 20) then
+        bonus = 10
+      else
+        bonus = 15
+        endif
+      #traitmodify[rsFire,rsTotal,bonus,""]
+      ]]></eval>
+    </thing>
+  <thing
+    id="fRGeEartsl"
+    name="Earthsoul"
+    compset="BuildOpt"
+    description="You gain a +1 racial bonus to your Fortitude defense, a +1 racial bonus to saving throws, and the earthshock power.">
+    <tag group="User" tag="GenasiMan"/>
+    <bootstrap thing="pRacEarths" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500"><![CDATA[fieldval:boActive <> 0]]>
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <eval index="1" phase="PreTraits" priority="5000">
+      <before name="Calc trtFinal"/><![CDATA[
+      doneif (activated = 0)
+      #traitmodify[defFort,trtRacial,1,""]
+      #traitmodify[trSave,trtBonus,1,""]
+      ]]></eval>
+    </thing>
+  <thing
+    id="fRGeStorsl"
+    name="Stormsoul"
+    compset="BuildOpt"
+    description="You gain a +1 racial bonus to your Fortitude defense, resist 5 lightning, and the promise of storm power. At 11th level, the resistance improves to 10 lightning. At 21st level, the resistance improves to 15 lightning.">
+    <tag group="User" tag="GenasiMan"/>
+    <bootstrap thing="pRacProSto" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500"><![CDATA[fieldval:boActive <> 0]]>
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <eval index="1" phase="PreTraits" priority="5000">
+      <before name="Calc trtFinal"/><![CDATA[
+      doneif (activated = 0)
+      #traitmodify[defFort,trtRacial,1,""]
+
+      ~resist Lightning 5/10/15
+      var bonus as number
+      if (hero.tagvalue[Level.?] <= 10) then
+        bonus = 5
+      elseif (hero.tagvalue[Level.?] <= 20) then
+        bonus = 10
+      else
+        bonus = 15
+        endif
+      #traitmodify[rsLightn,rsTotal,bonus,""]
+      ]]></eval>
+    </thing>
+  <thing
+    id="fRGeWatesl"
+    name="Watersoul"
+    compset="BuildOpt"
+    description="You can breathe underwater. You also gain a +2 racial bonus to saving throws against ongoing damage and the swiftcurrent power.">
+    <tag group="User" tag="GenasiMan"/>
+    <bootstrap thing="pRacSwiftc" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500"><![CDATA[fieldval:boActive <> 0]]>
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    </thing>
+  <thing
+    id="fRGeWindsl"
+    name="Windsoul"
+    compset="BuildOpt"
+    description="You gain resist 5 cold and the windwalker power. At 11th level, the resistance improves to 10 cold. At 21st level, the resistance improves to 15 cold.">
+    <tag group="User" tag="GenasiMan"/>
+    <bootstrap thing="pRacWindwa" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500"><![CDATA[fieldval:boActive <> 0]]>
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <eval index="1" phase="PreTraits" priority="5000">
+      <before name="Calc trtFinal"/><![CDATA[
+      doneif (activated = 0)
+
+      ~resist Cold 5/10/15
+      var bonus as number
+      if (hero.tagvalue[Level.?] <= 10) then
+        bonus = 5
+      elseif (hero.tagvalue[Level.?] <= 20) then
+        bonus = 10
+      else
+        bonus = 15
+        endif
+      #traitmodify[rsCold,rsTotal,bonus,""]
+      ]]></eval>
+    </thing>
+  <thing
+    id="fRGeCaussl"
+    name="Causticsoul"
+    compset="BuildOpt"
+    description="You can breathe underwater. You also gain resist 5 acid and the acid surge power. At 11th level, the resistance improves to 10 acid. At 21st level, the resistance improves to 15 acid.">
+    <tag group="User" tag="GenasiMan"/>
+    <bootstrap thing="pRacAciSur" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500"><![CDATA[fieldval:boActive <> 0]]>
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <eval index="1" phase="PreTraits" priority="5000">
+      <before name="Calc trtFinal"/><![CDATA[
+      doneif (activated = 0)
+
+      ~resist Acid 5/10/15
+      var bonus as number
+      if (hero.tagvalue[Level.?] <= 10) then
+        bonus = 5
+      elseif (hero.tagvalue[Level.?] <= 20) then
+        bonus = 10
+      else
+        bonus = 15
+        endif
+      #traitmodify[rsAcid,rsTotal,bonus,""]
+      ]]></eval>
+    </thing>
+  <thing
+    id="fRGeCindsl"
+    name="Cindersoul"
+    compset="BuildOpt"
+    description="You gain a +1 racial bonus to Fortitude, resist 5 fire, and the firedeath power. At 11th level, the resistance improves to 10 fire. At 21st level, the resistance improves to 15 fire.">
+    <tag group="User" tag="GenasiMan"/>
+    <bootstrap thing="pRacFirede" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500"><![CDATA[fieldval:boActive <> 0]]>
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <eval index="1" phase="PreTraits" priority="5000">
+      <before name="Calc trtFinal"/><![CDATA[
+      doneif (activated = 0)
+      #traitmodify[defFort,trtRacial,1,""]
+
+      ~resist Fire 5/10/15
+      var bonus as number
+      if (hero.tagvalue[Level.?] <= 10) then
+        bonus = 5
+      elseif (hero.tagvalue[Level.?] <= 20) then
+        bonus = 10
+      else
+        bonus = 15
+        endif
+      #traitmodify[rsFire,rsTotal,bonus,""]
+      ]]></eval>
+    </thing>
+  <thing
+    id="fRGePlagsl"
+    name="Plaguesoul"
+    compset="BuildOpt"
+    description="You gain resist 5 poison, a +5 racial bonus to saving throws against disease, and the plaguebearer power. At 11th level, the resistance improves to 10 poison. At 21st level, the resistance improves to 15 poison.">
+    <tag group="User" tag="GenasiMan"/>
+    <bootstrap thing="pRacPlague" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500"><![CDATA[fieldval:boActive <> 0]]>
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <eval index="1" phase="PreTraits" priority="5000">
+      <before name="Calc trtFinal"/><![CDATA[
+      doneif (activated = 0)
+
+      ~resist Poison 5/10/15
+      var bonus as number
+      if (hero.tagvalue[Level.?] <= 10) then
+        bonus = 5
+      elseif (hero.tagvalue[Level.?] <= 20) then
+        bonus = 10
+      else
+        bonus = 15
+        endif
+      #traitmodify[rsPoison,rsTotal,bonus,""]
+      ]]></eval>
+    </thing>
+  <thing
+    id="fRGeVoidsl"
+    name="Voidsoul"
+    compset="BuildOpt"
+    description="You gain resist 5 psychic, a +1 racial bonus to Will, and the void assumption power. At 11th level, the resistance improves to 10 psychic. At 21st level, the resistance improves to 15 psychic.">
+    <tag group="User" tag="GenasiMan"/>
+    <bootstrap thing="pRacVoiAss" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500"><![CDATA[fieldval:boActive <> 0]]>
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <eval index="1" phase="PreTraits" priority="5000">
+      <before name="Calc trtFinal"/><![CDATA[
+      doneif (activated = 0)
+      #traitmodify[defWill,trtRacial,1,""]
+
+      ~resist Psychic 5/10/15
+      var bonus as number
+      if (hero.tagvalue[Level.?] <= 10) then
+        bonus = 5
+      elseif (hero.tagvalue[Level.?] <= 20) then
+        bonus = 10
+      else
+        bonus = 15
+        endif
+      #traitmodify[rsPsychic,rsTotal,bonus,""]
+      ]]></eval>
+    </thing>
+  <thing
+    id="fRGeEmbesl"
+    name="Embersoul"
+    compset="BuildOpt"
+    description="You have a +1 racial bonus to Reflex and a +2 racial bonus to saving throws against ongoing fire damage. In addition, you have the ashfall evasion power.">
+    <tag group="User" tag="GenasiMan"/>
+    <bootstrap thing="pRacAshEva" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500"><![CDATA[fieldval:boActive <> 0]]>
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <eval index="1" phase="PreTraits" priority="5000">
+      <before name="Calc trtFinal"/><![CDATA[
+      doneif (activated = 0)
+      #traitmodify[defRef,trtRacial,1,""]
+      ]]></eval>
+    </thing>
+  <thing
+    id="fRGeMagmsl"
+    name="Magmasoul"
+    compset="BuildOpt"
+    description="You have a +1 racial bonus to Fortitude. Whenever you take fire damage, your melee attacks deal 1d6 extra fire damage until the end of your next turn. In addition, you have the flowing magma power.">
+    <tag group="User" tag="GenasiMan"/>
+    <bootstrap thing="pRacFloMag" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500"><![CDATA[fieldval:boActive <> 0]]>
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <eval index="1" phase="PreTraits" priority="5000">
+      <before name="Calc trtFinal"/><![CDATA[
+      doneif (activated = 0)
+      #traitmodify[defFort,trtRacial,1,""]
+      ]]></eval>
+    </thing>
+  <thing
+    id="fRGeSandsl"
+    name="Sandsoul"
+    compset="BuildOpt"
+    description="You have a +4 racial bonus to Acrobatics checks and Athletics checks made when taking the escape action. You also have a +2 racial bonus to saving throws against effects that immobilize, restrain, or slow you. In addition, you have the sandslide power.">
+    <tag group="User" tag="GenasiMan"/>
+    <bootstrap thing="pRacSandsl" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500"><![CDATA[fieldval:boActive <> 0]]>
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    </thing>
+  <thing
+    id="fRGeSunsl"
+    name="Sunsoul"
+    compset="BuildOpt"
+    description="You have a +2 racial bonus to saving throws against ongoing damage that includes fire or radiant damage. You and your equipment suffer no ill effect from ambient temperatures between -50 and 140 degrees Fahrenheit, and you are immune to sun sickness. In addition, you have the sun flare power.">
+    <tag group="User" tag="GenasiMan"/>
+    <bootstrap thing="pRacSunFla" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500"><![CDATA[fieldval:boActive <> 0]]>
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    </thing>
+
+  <thing
+    id="rGithzerai"
+    name=""
+    compset="">
+    </thing>
+
+  <thing
+    id="rGoblin"
+    name=""
+    compset="">
+    <fieldval field="racRef" value="1"/>
+    </thing>
+
+  <thing
+    id="fRGnMasTri"
+    name=""
+    compset="">
+    <bootstrap thing="pWizGhoSou">
+      <autotag group="PowerOver" tag="Encounter"/>
+      <autotag group="thing" tag="skipprereq"/>
+      </bootstrap>
+    </thing>
+
+  <thing
+    id="rGoliath"
+    name=""
+    compset="">
+    <fieldval field="racWill" value="1"/>
+    </thing>
+
+  <thing
+    id="rHalfElf"
+    name=""
+    compset="">
+    <tag group="Race" tag="rHuman"/>
+    <tag group="Race" tag="rElf"/>
+    <bootstrap thing="fRHaDilett"/>
+    </thing>
+  <thing
+    id="fRHaHalPow"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="thingid.pRacKnaSuc | thingid.fRHaDilett"/>
+    <tag group="Hide" tag="Special"/>
+    </thing>
+
+  <thing
+    id="rHobgoblin"
+    name=""
+    compset="">
+    <fieldval field="racInit" value="2"/>
+    </thing>
+  <thing
+    id="fRHaDilett"
+    name="Dilettante"
+    description="At 1st level, you choose a 1st-level at-will attack power from a class different from yours. You can use that power as an encounter power."
+    compset="RaceFeat">
+    <eval phase="Setup" priority="250" name="Dilettante power chosen">
+      <before name="opcExpr must be final"/>
+      <after name="Build option activated"/>
+      <after name="Class tag final"/><![CDATA[
+      doneif (tagis[Helper.ChosenOpt] = 0)
+
+      hero.child[RaceCh1st].field[opcTitle].text = "Bonus Power"
+
+      ~we need to set up a tag expression that lets us choose an extra at-will power
+      ~that we can use as an encounter power.
+      ~if we don't have a class yet, just set it to 'false' and get out.
+      if (hero.tagis[Class.?] = 0) then
+        hero.child[RaceCh1st].field[opcExpr].text = "FALSE"
+        done
+        endif
+
+      var expr as string
+      expr = replace(hero.tagids[Class.?, "|"], "Class.", "PowerClass.", 0)
+      expr = "!(" & expr & ") & PowerType.AtWill & !PowerClass.MagicItem & !PowerClass.Race"
+      hero.child[RaceCh1st].field[opcExpr].text = expr
+
+      ~try and find the power that was added like such, and change it to an encounter
+      ~power
+      perform hero.findchild[Power,"OptChoose.RaceCh1st & !thingid.RaceCh1st"].setfocus
+      doneif (state.isfocus = 0)
+      perform focus.assign[PowerOver.Encounter]
+
+      ~this power is not allowed to be augmentable
+      perform focus.delete[EffectType.Augment]
+
+      ~ignore any errors about requiring other classes
+      perform focus.assign[thing.skipprereq]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="rHuman"
+    name=""
+    compset="">
+    <fieldval field="racFeat" value="1"/>
+    <fieldval field="racSkill" value="1"/>
+    <fieldval field="racFort" value="1"/>
+    <fieldval field="racRef" value="1"/>
+    <fieldval field="racWill" value="1"/>
+    <bootstrap thing="humPlusAb"/>
+    <bootstrap thing="fRHuBonAtW"/>
+    </thing>
+  <thing
+    id="humPlusAb"
+    name="+2 to Ability"
+    compset="RaceFeat"
+    description="Gives a +2 bonus to the selected ability score.">
+    <fieldval field="usrCandid1" value="component.Attribute"/>
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="PreTraits" priority="5000">
+      <before name="Calc trtFinal"/><![CDATA[
+      perform field[usrChosen1].chosen.field[trtRacial].modify[+,2,"Human"]
+      ]]></eval>
+    </thing>
+  <thing
+    id="fRHuHumDef"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    </thing>
+  <thing
+    id="fRHuBonAtW"
+    name="Bonus At-Will Power"
+    description="You know one extra 1st level at-will attack power from your class."
+    compset="RaceFeat">
+    <tag group="User" tag="NeedChosen"/>
+    <tag group="Hide" tag="Special"/>
+    <eval phase="Setup" priority="250"><![CDATA[
+      doneif (tagis[Helper.ChosenOpt] = 0)
+
+      hero.child[RaceCh1st].field[opcTitle].text = "Bonus At-Will Power"
+
+      ~we need to set up a tag expression that lets us choose an extra at-will power.
+      ~if we don't have a class yet, just set it to 'false' and get out.
+      if (hero.tagis[Class.?] = 0) then
+        hero.child[RaceCh1st].field[opcExpr].text = "FALSE"
+        done
+        endif
+
+      ~start with a tag expression of 'all at will powers from the right class'
+      var expr as string
+      expr = replace(hero.tagids[Class.?, "|"], "Class.", "PowerClass.", 0)
+      expr = "(" & expr & ") & PowerType.AtWill"
+
+      ~now add exceptions for all the powers we already have - we can't take them
+      ~again
+      foreach pick in hero from Power where "Helper.PwrClass & PowerType.AtWill"
+        expr &= " & !thingid." & eachpick.idstring
+        nexteach
+
+      hero.child[RaceCh1st].field[opcExpr].text = expr
+
+      ~try and find the power that was added like such, and make sure it's not
+      ~augmentable
+      perform hero.findchild[Power,"OptChoose.RaceCh1st & !thingid.RaceCh1st"].setfocus
+      doneif (state.isfocus = 0)
+      perform focus.delete[EffectType.Augment]
+      ]]>
+      <before name="opcExpr must be final"/>
+      <after name="Class tag final"/>
+      <after name="Build option activated"/>
+      </eval>
+    </thing>
+  <thing
+    id="fRHuBonFea"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    </thing>
+  <thing
+    id="fRHuBonSki"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    </thing>
+  <thing
+    id="fRHuHumPow"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="thingid.pRacHerEff | thingid.fRHuBonAtW"/>
+    <tag group="Hide" tag="Special"/>
+    </thing>
+
+  <thing
+    id="rKalashtar"
+    name=""
+    compset="">
+    <bootstrap thing="fRKalSkill"/>
+    </thing>
+  <thing
+    id="fRKalSkill"
+    name="Skill Bonus"
+    compset="RaceFeat"
+    description="Gives a +2 bonus to the selected skill.">
+    <fieldval field="usrCandid1" value="component.Skill &amp; !thingid.skInsight"/>
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      perform field[usrChosen1].chosen.field[trtRacial].modify[+,2,"Kalashtar"]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="rMinotaur"
+    name=""
+    compset="">
+    </thing>
+  <thing
+    id="fRMiVitali"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      #traitmodify[trSurges,trtBonus,1,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="rMoonElf"
+    name=""
+    compset="">
+
+    <fieldval field="racWill" value="1"/>
+    <tag group="WeaponProf" tag="wpLongswor"/>
+    <tag group="SkillBonus" tag="skArcana" name="***DELETE***"/>
+    <tag group="SkillBonus" tag="skHistory" name="***DELETE***"/>
+    <tag group="SkillBonus" tag="skInsight"/>
+    <tag group="SkillBonus" tag="skStreetwi"/>
+    <tag group="WeaponProf" tag="wpLongbow"/>
+    <tag group="WeaponProf" tag="wpShortbow"/>
+
+    <!-- replaced by new abilities -->
+    <bootstrap thing="fRElElaEdu" phase="***DELETE***"></bootstrap>
+
+    </thing>
+  <thing
+    id="fRMoElfWea"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    </thing>
+  <thing
+    id="fRMoMooElf"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    </thing>
+
+  <thing
+    id="fRMuBorTwo"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Race &amp; (thingid.rHuman | thingid.rDwarf)"/>
+    <tag group="Hide" tag="Special"/>
+    <tag group="ChooseSrc1" tag="Thing"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      perform field[usrChosen1].chosen.forward[Race.?]
+      ]]></eval>
+    </thing>
+  <thing
+    id="fRMuMulVit"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      #traitmodify[trSurges,trtBonus,1,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fRShFraMor"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      #traitmodify[trSurges,trtBonus,-1,""]
+      ]]></eval>
+    </thing>
+  <thing
+    id="fRShPraSne"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      perform hero.child[skStealth].assign[Helper.TrainedAut]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fRTiFirRes"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000"><![CDATA[
+      ~resist Fire 5 + half level
+      var bonus as number
+      bonus = 5 + round(hero.tagvalue[Level.?] / 2, 0, -1)
+      #traitmodify[rsFire,rsTotal,bonus,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="rShadarkai"
+    name=""
+    compset="">
+    <fieldval field="racFort" value="1"/>
+    </thing>
+
+  <thing
+    id="rShardmind"
+    name=""
+    compset="">
+    </thing>
+  <thing
+    id="fRShCryMin"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <after name="Calc attrBnBase"/><![CDATA[
+      ~resist Psychic 5/10/15
+      var bonus as number
+      if (hero.tagvalue[Level.?] <= 10) then
+        bonus = 5
+      elseif (hero.tagvalue[Level.?] <= 20) then
+        bonus = 10
+      else
+        bonus = 15
+        endif
+
+      ~+int/wis modifier if we have Guarded Mind
+      if (hero.tagis[Feat.ftGuardMin] <> 0) then
+        bonus += maximum(#attrbasebonus[attrInt],#attrbasebonus[attrWis])
+        endif
+
+      #traitmodify[rsPsychic,rsTotal,bonus,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="rShieldDwa"
+    name=""
+    compset="">
+
+    <tag group="WeaponProf" tag="wpBattleax"/>
+    <tag group="WeaponProf" tag="wpHandaxe"/>
+    <tag group="ArmorProf" tag="apShieldLg"/>
+
+    <!-- replaced by new abilities -->
+    <bootstrap thing="fRDwDwaWea" phase="***DELETE***"></bootstrap>
+    </thing>
+  <thing
+    id="fRShShiDwa"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    </thing>
+  <thing
+    id="fRShShiPro"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    </thing>
+
+  <thing
+    id="rSunElf"
+    name=""
+    compset="">
+
+    <fieldval field="racWill" value="1"/>
+    <tag group="WeaponProf" tag="wpLongswor"/>
+    <tag group="SkillBonus" tag="skArcana" name="***DELETE***"/>
+    <tag group="SkillBonus" tag="skHistory" name="***DELETE***"/>
+    <tag group="WeaponProf" tag="wpLongswor" name="***DELETE***"/>
+    <tag group="SkillBonus" tag="skInsight"/>
+    <tag group="SkillBonus" tag="skBluff"/>
+    <tag group="WeaponProf" tag="wpLongbow"/>
+    <tag group="WeaponProf" tag="wpShortbow"/>
+    <tag group="ImplemType" tag="itOrb"/>
+    <tag group="ImplemType" tag="itStaff"/>
+    <tag group="ImplemType" tag="itWand"/>
+
+    <!-- replaced by new abilities -->
+    <bootstrap thing="fRElElaEdu" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fRElElaWea" phase="***DELETE***"></bootstrap>
+
+    </thing>
+  <thing
+    id="fRSuElfWea"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    </thing>
+  <thing
+    id="fRSuSunElf"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    </thing>
+  <thing
+    id="fRSuWizImp"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    </thing>
+
+  <thing
+    id="rWarforged"
+    name=""
+    compset="">
+    <fieldval field="racWill" value="1"/>
+    </thing>
+
+  <thing
+    id="fRWiHarFor"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Defense &amp; !thingid.defAC"/>
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="PreTraits" priority="5000">
+      <before name="Calc trtFinal"/><![CDATA[
+      perform field[usrChosen1].chosen.field[trtRacial].modify[+,1,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fRRePaslif"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Race"/>
+    <tag group="Hide" tag="Special"/>
+    <tag group="ChooseSrc1" tag="Thing"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      perform field[usrChosen1].chosen.forward[Race.?]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fRVrNecRes"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000"><![CDATA[
+      ~resist Necrotic 5 + half level
+      var bonus as number
+      bonus = 5 + #halflevel[]
+      #traitmodify[rsNecrotic,rsTotal,bonus,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="rWildElf"
+    name=""
+    compset="">
+
+    <tag group="WeaponProf" tag="wpLongbow"/>
+    <tag group="WeaponProf" tag="wpShortbow"/>
+    <tag group="WeaponProf" tag="wpJavelin"/>
+    <tag group="WeaponProf" tag="wpSpear"/>
+    <tag group="WeaponProf" tag="wpLongspea"/>
+
+    <!-- replaced by new abilities -->
+    <bootstrap thing="pRacElvAcc" phase="***DELETE***"></bootstrap>
+    </thing>
+  <thing
+    id="fRWiSubSte"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+  <thing
+    id="fRWiWilElf"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    </thing>
+
+  <thing
+    id="rWilden"
+    name=""
+    compset="">
+    <bootstrap thing="pRacVoyAnc" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pRacWraDes" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pRacPurHun" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fRWiAspAnc"></bootstrap>
+    <bootstrap thing="fRWiAspDes"></bootstrap>
+    <bootstrap thing="fRWiAspHun"></bootstrap>
+    </thing>
+
+  <thing
+    id="fRWiNatAsp"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="User.WildenAsp"/>
+    </thing>
+  <thing
+    id="fRWiAspAnc"
+    name="Aspect of the Ancients"
+    compset="BuildOpt">
+    <tag group="User" tag="WildenAsp"/>
+    <tag group="Hide" tag="Special"/>
+    <bootstrap thing="pRacVoyAnc" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500"><![CDATA[fieldval:boActive <> 0]]>
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    </thing>
+  <thing
+    id="fRWiAspDes"
+    name="Aspect of the Destroyer"
+    compset="BuildOpt">
+    <tag group="User" tag="WildenAsp"/>
+    <tag group="Hide" tag="Special"/>
+    <bootstrap thing="pRacWraDes" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500"><![CDATA[fieldval:boActive <> 0]]>
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    </thing>
+  <thing
+    id="fRWiAspHun"
+    name="Aspect of the Hunter"
+    compset="BuildOpt">
+    <tag group="User" tag="WildenAsp"/>
+    <tag group="Hide" tag="Special"/>
+    <bootstrap thing="pRacPurHun" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500"><![CDATA[fieldval:boActive <> 0]]>
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    </thing>
+
+  <thing
+    id="rWoodElf"
+    name=""
+    compset="">
+
+    <tag group="WeaponProf" tag="wpLongbow"/>
+    <tag group="WeaponProf" tag="wpShortbow"/>
+
+    <!-- replaced by new abilities -->
+    <bootstrap thing="pRacElvAcc" phase="***DELETE***"></bootstrap>
+    </thing>
+
+  </document>

@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document signature="Hero Lab Data">
+
+  <procedure id="d20pKeyOut" scripttype="dossierxml"><![CDATA[
+    var v_id as string
+    var v_name as string
+    var v_value as string
+    var v_value2 as string
+    var v_elemname as string
+    var v_vname as string
+    var v_v2name as string
+    var v_parent as number
+
+    var node as number
+
+    var elemname as string
+    elemname = v_elemname
+    if (empty(elemname) <> 0) then
+      elemname = "keyvalue"
+      endif
+
+    var valuename as string
+    valuename = v_vname
+    if (empty(valuename) <> 0) then
+      valuename = "value"
+      endif
+
+    if (v_parent < 0) then
+      node = xmlroot.addchild[elemname]
+    else
+      node = xml[v_parent].addchild[elemname]
+      endif
+
+    xml[node].attr["id"] = v_id
+    if (empty(v_name) = 0) then
+      xml[node].attr["name"] = v_name
+      endif
+    if (empty(v_value) = 0) then
+      xml[node].attr[valuename] = v_value
+      endif
+    if (empty(v_v2name) = 0) then
+      xml[node].attr[v_v2name] = v_value2
+      endif
+    ]]></procedure>
+
+
+  <procedure id="d20pPower" scripttype="dossierxml"><![CDATA[
+    var v_parent as number
+
+    var node as number
+
+    if (v_parent < 0) then
+      node = xmlroot.addchild["power"]
+    else
+      node = xml[v_parent].addchild["power"]
+      endif
+
+    xml[node].attr["name"] = focus.field[name].text
+    xml[node].attr["usage"] = focus.tagabbrevs[PowerUse.?, ","]
+    if (focus.tagexpr[PowerUse.AtWill | PowerUse.Feature] = 0) then
+      xml[node].attr["uses"] = focus.field[spcMax].value
+      endif
+
+    if (focus.tagis[component.Power] <> 0) then
+      xml[node].attr["weapon"] = focus.field[spcWep1].text
+
+      xml[node].attr["attackvalue"] = focus.field[pwd2Attack].value
+      xml[node].attr["attackmod"] = focus.field[pwd2AtkMod].value
+      xml[node].attr["attackstat"] = focus.tagabbrevs[Attack.?, ","]
+
+      xml[node].attr["damage"] = focus.field[pwd2DamTxt].text
+      xml[node].attr["damagemod"] = focus.field[pwd2DamBon].value
+      xml[node].attr["damagestat"] = focus.tagabbrevs[DamageAttr.?, ","]
+
+      xml[node].attr["damagetype"] = focus.tagabbrevs[DamageType.?, ","]
+      xml[node].attr["defense"] = focus.tagnames[AttackVs.?, ","]
+      endif
+
+~    append "><![CDATA["
+~    append focus.field[descript].text
+~    append "]]" & "></power>"
+    ]]></procedure>
+
+
+ <dossier
+    id="d20pro"
+    name="d20Pro Output">
+    <dossier_export
+      xml="yes"
+      filename=".hld20pro"
+      location=""
+      summary="Saves the hero for use with the d20pro virtual tabletop."
+      description="This saves the hero as a file that can be loaded into the d20pro virtual tabletop.\n\nFind out more about d20pro at http://www.d20pro.com/."
+      heronodename="hero"
+      publicnode="no">
+      <portfolioxml><![CDATA[
+        ~ Append standard stuff to start the document
+        xmlroot.attr["signature"] = "d20Pro Import File"
+
+        var node as number
+        node = xmlroot.addchild["importer"]
+        xml[node].attr["version"] = "1"
+        xml[node].attr["game"] = "4e"
+        ]]></portfolioxml>
+
+      <heroxml><![CDATA[
+        ~ Start by getting our name for the hero
+        xmlroot.attr["heroname"] = hero.actorname
+
+        ~ Declare variables to help with stuff later
+        var v_id as string
+        var v_name as string
+        var v_value as string
+        var v_value2 as string
+        var v_elemname as string
+        var v_vname as string
+        var v_v2name as string
+        var v_parent as number
+        v_parent = -1
+
+        ~ Append a variety of stuff
+        v_id = "Size"
+        v_name = ""
+        v_value = hero.tagnames[Size.?, "???"]
+        call d20pKeyOut
+
+        v_id = "Speed"
+        v_name = ""
+        v_value = hero.child[trSpeed].field[trtFinal].value
+        call d20pKeyOut
+
+        v_id = "Class"
+        v_name = ""
+        v_value = herofield[acClass].text
+        call d20pKeyOut
+
+        v_id = "Race"
+        v_name = ""
+        v_value = herofield[acRace].text
+        call d20pKeyOut
+
+        v_id = "Alignment"
+        v_name = ""
+        v_value = ""
+        v_value = hero.findchild[Alignment].field[name].text
+        call d20pKeyOut
+
+        v_id = "CurrentHP"
+        v_name = "Current Hit Points"
+        v_value = herofield[acHPNow].value
+        call d20pKeyOut
+        v_id = "MaxHP"
+        v_name = "Maximum Hit Points"
+        v_value = herofield[acHPMax].value
+        call d20pKeyOut
+
+        v_id = "Surges"
+        v_name = "Healing Surges"
+        v_value = hero.child[trSurges].field[trtFinal].value
+        call d20pKeyOut
+        v_id = "SurgeValue"
+        v_name = "Surge Value"
+        v_value = hero.child[trSurgeVal].field[trtFinal].value
+        call d20pKeyOut
+
+        v_id = "Save"
+        v_name = "Saving Throw"
+        v_value = hero.child[trSave].field[trtFinal].value
+        call d20pKeyOut
+
+        v_id = "AD"
+        v_name = "Total AD"
+        v_value = herofield[acCashAD].text
+        call d20pKeyOut
+        v_id = "PP"
+        v_name = "Total PP"
+        v_value = herofield[acCashPP].text
+        call d20pKeyOut
+        v_id = "GP"
+        v_name = "Total GP"
+        v_value = herofield[acCashGP].text
+        call d20pKeyOut
+        v_id = "SP"
+        v_name = "Total SP"
+        v_value = herofield[acCashSP].text
+        call d20pKeyOut
+        v_id = "CP"
+        v_name = "Total CP"
+        v_value = herofield[acCashCP].text
+        call d20pKeyOut
+
+        var node as number
+        node = xmlroot.addchild["background"]
+        xml[node].attr["gender"] = hero.tagnames[Gender.?, "?"]
+
+        perform hero.child[mscPerson].setfocus
+        xml[node].attr["age"] = focus.field[perAge].value
+        xml[node].attr["height"] = focus.field[perHeight].text
+        xml[node].attr["weight"] = focus.field[perWeight].text
+        xml[node].attr["hair"] = focus.field[perHair].text
+        xml[node].attr["eyes"] = focus.field[perEyes].text
+        xml[node].attr["skin"] = focus.field[perSkin].text
+        xml[node].text = focus.field[perInfo].text
+
+        v_parent = xmlroot.addchild["attributes"]
+        foreach pick in hero from Attribute sortas explicit
+          v_id = eachpick.idstring
+          v_name = eachpick.field[name].text
+          v_value = eachpick.field[trtFinal].text
+          call d20pKeyOut
+          nexteach
+
+        var defparent as number
+        defparent = xmlroot.addchild["defenses"]
+        foreach pick in hero from Defense
+          v_parent = xml[defparent].addchild["defense"]
+          xml[v_parent].attr["id"] = eachpick.idstring
+          xml[v_parent].attr["name"] = eachpick.field[name].text
+          xml[v_parent].attr["total"] = eachpick.field[trtFinal].value
+
+          v_id = "Ability"
+          v_name = "Ability Bonus"
+          v_value = eachpick.field[defAbility].value
+          call d20pKeyOut
+          v_id = "Armor"
+          v_name = "Armor Bonus"
+          v_value = eachpick.field[trtArmor].value
+          call d20pKeyOut
+          v_id = "Shield"
+          v_name = "Shield Bonus"
+          v_value = eachpick.field[trtShield].value
+          call d20pKeyOut
+          v_id = "Enhance"
+          v_name = "Enhancement Bonus"
+          v_value = eachpick.field[trtEnhance].value
+          call d20pKeyOut
+          v_id = "Class"
+          v_name = "Class Bonus"
+          v_value = eachpick.field[trtClass].value
+          call d20pKeyOut
+          v_id = "Feat"
+          v_name = "Feat Bonus"
+          v_value = eachpick.field[trtFeat].value
+          call d20pKeyOut
+          v_id = "Item"
+          v_name = "Item Bonus"
+          v_value = eachpick.field[trtItem].value
+          call d20pKeyOut
+          v_id = "Power"
+          v_name = "Power Bonus"
+          v_value = eachpick.field[trtPower].value
+          call d20pKeyOut
+          v_id = "Prof"
+          v_name = "Proficiency Bonus"
+          v_value = eachpick.field[trtProf].value
+          call d20pKeyOut
+          v_id = "Racial"
+          v_name = "Racial Bonus"
+          v_value = eachpick.field[trtRacial].value
+          call d20pKeyOut
+          v_id = "Misc"
+          v_name = "Misc Bonus"
+          var misc as number
+          misc = eachpick.field[trtBonus].value - eachpick.field[defAbility].value
+          v_value = misc
+          call d20pKeyOut
+          nexteach
+
+        v_parent = xmlroot.addchild["feats"]
+        foreach pick in hero from Feat
+          v_id = eachpick.idstring
+          v_name = eachpick.field[name].text
+          v_value = ""
+          call d20pKeyOut
+          nexteach
+
+        ~ note - for skills, we show the number of ranks and a misc modifier
+        v_parent = xmlroot.addchild["skills"]
+        v_elemname = "skill"
+        v_v2name = "trained"
+        foreach pick in hero from Skill
+          v_id = eachpick.idstring
+          v_name = eachpick.field[name].text
+          var temp as number
+          temp = eachpick.field[sklRoll].value
+          v_value = temp
+          if (eachpick.tagis[Helper.Trained?] <> 0) then
+            v_value2 = "yes"
+          else
+            v_value2 = "no"
+            endif
+          call d20pKeyOut
+          nexteach
+        v_elemname = ""
+        v_v2name = ""
+
+        ~ languages
+        v_parent = xmlroot.addchild["languages"]
+        foreach pick in hero from Language
+          v_id = eachpick.idstring
+          v_name = eachpick.field[name].text
+          v_value = ""
+          call d20pKeyOut
+          nexteach
+
+        ~ rituals
+        v_parent = xmlroot.addchild["rituals"]
+        foreach pick in hero from Ritual
+          v_id = eachpick.idstring
+          v_name = eachpick.field[name].text
+          v_value = ""
+          call d20pKeyOut
+          nexteach
+
+        v_parent = xmlroot.addchild["gear"]
+        v_elemname = "item"
+        v_vname = "weight"
+        v_v2name = "quantity"
+        foreach pick in hero from Equipment
+          v_id = eachpick.idstring
+          v_name = eachpick.field[name].text
+          v_value = eachpick.field[gearWeight].text
+          v_value2 = eachpick.field[stackQty].value
+          call d20pKeyOut
+          nexteach
+        v_elemname = ""
+        v_vname = ""
+        v_v2name = ""
+
+        ~finally, powers
+        v_parent = xmlroot.addchild["powers"]
+        foreach pick in hero from SpecialTab where "!Hide.Special & !Helper.Disable & !Separator.Yes"
+          perform eachpick.setfocus
+          call d20pPower
+          nexteach
+
+        ~add base64-encoded user images
+        v_parent = xmlroot.addchild["userimages"]
+        foreach pick in hero from UserImage where "fieldval:uimgImage <> 0"
+          node = xml[v_parent].addchild["userimage"]
+          xml[node].attr["encoding"] = "base64"
+          perform eachpick.field[uimgImage].xmlimgb64[node]
+          nexteach
+        ]]></heroxml>
+      </dossier_export>
+    </dossier>
+
+  </document>

@@ -1,0 +1,1516 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document signature="Hero Lab Data">
+  <thing id="eqAccurKi" name="Accurate ki focus" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="25"/>
+    <usesource source="Psionic"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <tag group="WepProp" tag="Accurate"/>
+    <tag group="EquipType" tag="Superior"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.itKiFocus]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="eqAccurorb" name="Accurate orb" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="30"/>
+    <fieldval field="gearWeight" value="2"/>
+    <usesource source="PHB3"/>
+    <tag group="WepProp" tag="Accurate"/>
+    <tag group="EquipType" tag="Superior"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.itOrb]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="eqAccurrod" name="Accurate rod" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="25"/>
+    <fieldval field="gearWeight" value="2"/>
+    <usesource source="PHB3"/>
+    <tag group="WepProp" tag="Accurate"/>
+    <tag group="EquipType" tag="Superior"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.itRod]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="eqAccursta" name="Accurate staff" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="20"/>
+    <fieldval field="gearWeight" value="4"/>
+    <usesource source="PHB3"/>
+    <tag group="WepProp" tag="Accurate"/>
+    <tag group="EquipType" tag="Superior"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.itStaff]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="eqAccursym" name="Accurate symbol" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="25"/>
+    <fieldval field="gearWeight" value="1"/>
+    <usesource source="PHB3"/>
+    <tag group="WepProp" tag="Accurate"/>
+    <tag group="EquipType" tag="Superior"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.itHolySym]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="eqAccurtot" name="Accurate totem" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="20"/>
+    <fieldval field="gearWeight" value="2"/>
+    <usesource source="PHB3"/>
+    <tag group="WepProp" tag="Accurate"/>
+    <tag group="EquipType" tag="Superior"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.itTotem]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="eqAccurwan" name="Accurate wand" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="20"/>
+    <usesource source="PHB3"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <tag group="WepProp" tag="Accurate"/>
+    <tag group="EquipType" tag="Superior"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.itWand]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="eqAdvenKit" name="Adventurer&apos;s Kit" description="This kit includes a backpack, a bedroll, flint and steel, a belt pouch, two sunrods, ten days&apos; worth of trail rations, 50 feet of hempen rope, and a waterskin." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="15"/>
+    <fieldval field="gearWeight" value="0"/>
+    <tag group="EquipType" tag="Gear"/>
+    <bootstrap thing="eqBackpack"></bootstrap>
+    <bootstrap thing="eqBedroll"></bootstrap>
+    <bootstrap thing="eqFlintSte"></bootstrap>
+    <bootstrap thing="eqPouchBel"></bootstrap>
+    </thing>
+  <thing id="eqAlcheRea" name="Alchemical Reagents (Arcana)" description="Valuable components must be expended to perform a ritual. Typically these are small vials full of powdered metals, rare earths, acids, salts, or extracts from creatures such as dragons or basilisks.{br}{br}Components are needed by ritual casters. You purchase as many gold pieces worth of components as you need or can afford. You can use the components associated with a key skill for any ritual that uses that skill. Ritual components are not interchangeable; you can&apos;t use alchemical reagents to perform a ritual requiring sanctified incense, for example. But you can use residuum for any ritual.{br}{br}You can buy ritual components at some shops, your allies can provide them (sharing the cost of a ritual with you), or you might find them as treasure. However you acquire components, record their value on your character sheet. When you perform a ritual, mark off the ritual&apos;s cost from the appropriate components." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="1"/>
+    <tag group="EquipType" tag="Component"/>
+    </thing>
+  <thing id="eqAlcheCas" name="Alchemy Case" description="This sturdy leather valise includes well-packed glassware, a burner, a mortar and pestle, and dozens of jars of common alchemical reagents. You need an alchemy case, or access to an alchemical workshop, to use alchemist powers." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="40"/>
+    <fieldval field="gearWeight" value="20"/>
+    <usesource source="Dragon"/>
+    </thing>
+  <thing id="eqArcanSig" name="Arcane Signet Ring" description="These golden or silver rings are created for members of the dragon marked houses as a means of identification. Each ring contains intricate patterns that become visible only when worn by the person for whom it was constructed." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="150"/>
+    <usesource source="EbPG"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqArrows" name="Arrows" description="Arrows come in a quiver that holds 30." compset="Ammunition" lotsize="30" stacking="merge">
+    <fieldval field="grCost" value="0"/>
+    <fieldval field="gearWeight" value="0.1"/>
+    <fieldval field="grLotCost" value="1"/>
+    <tag group="EquipType" tag="Ammunition"/>
+    </thing>
+  <thing id="eqArtisToo" name="Artisan&apos;s Tools" description="This collection of simple hand tools, nails, and a measuring stick is often seen in the home of a city-dwelling crafter, but adventurers would do well to take a set of these tools along. With them you can perform minor repairs, fashion basic wooden or metal objects, or dismantle simple locks." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="5"/>
+    <fieldval field="gearWeight" value="5"/>
+    <usesource source="IntoUnknow"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqAshenrod" name="Ashen rod" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="22"/>
+    <fieldval field="gearWeight" value="2"/>
+    <usesource source="PHB3"/>
+    <tag group="WepProp" tag="Energized"/>
+    <tag group="WepProp" tag="Unerring"/>
+    <tag group="EquipType" tag="Superior"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.itRod]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="eqAstrasym" name="Astral symbol" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="18"/>
+    <fieldval field="gearWeight" value="1"/>
+    <usesource source="PHB3"/>
+    <tag group="WepProp" tag="Distant"/>
+    <tag group="WepProp" tag="Energized"/>
+    <tag group="EquipType" tag="Superior"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.itHolySym]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="eqBackpack" name="Backpack" compset="Equipment">
+    <fieldval field="grCost" value="2"/>
+    <fieldval field="gearWeight" value="2"/>
+    <tag group="EquipType" tag="Gear"/>
+    <tag group="thing" tag="holder"/>
+    </thing>
+  <thing id="eqBallbea" name="Ball bearings" description="As a standard action, you can drop these smooth metal spheres into an adjacent square (or gather them back up). Any creature moving on the ball bearings must either treat the square as difficult terrain or succeed on a saving throw to avoid falling prone. Creatures that are running can use only the latter option." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="1"/>
+    <usesource source="MordensEmp"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqBedroll" name="Bedroll" compset="Equipment" stacking="merge">
+    <fieldval field="gearWeight" value="5"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqBellwhi" name="Bell and whistle" description="A bell is useful for setting an alarm, while blowing a whistle lets you alert comrades at a greater distance." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="1"/>
+    <usesource source="MordensEmp"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqPouchBel" name="Belt Pouch" compset="Equipment">
+    <fieldval field="grCost" value="1"/>
+    <fieldval field="gearWeight" value="0.5"/>
+    <tag group="EquipType" tag="Gear"/>
+    <tag group="thing" tag="holder"/>
+    </thing>
+  <thing id="eqBestiary" name="Bestiary" description="Each of these books offers lore about a single combination of creature origin and type, such as fey humanoids. When you fail a monster knowledge check related to a creature with this origin and type, you can reroll the check by spending one hour studying the bestiary. You must use the second result." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="25"/>
+    <fieldval field="gearWeight" value="3"/>
+    <usesource source="MordensEmp"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqBlessSoi" name="Blessed Soil" description="The soil contained within this small, plain bag has been blessed by a cleric or some other wielder of divine magic. If sprinkled over a casket or grave, blessed soil prevents any corpse buried therein from rising as an undead creature due a ritual. However, blessed soil has no effect on undead creatures that return to life due to other means. A creature might rise as a ghost if compelled to do so by a curse imposed upon it. Many communities require that blessed soil be used as part of any burial ritual. All too often, con artists and unscrupulous ritualists offer fake blessed soil at cheap rates, leaving graveyards rife with potential skeletons and zombies." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="1"/>
+    <usesource source="PlEsShadow"/>
+    </thing>
+  <thing id="eqBlocktac" name="Block, tackle, and winch" description="After you attach this set of simple machines to a solid surface, you can pass a rope through it to triple the weight you can lift, pull, or drag on the other end of the rope." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="10"/>
+    <usesource source="MordensEmp"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqBlowgNee" name="Blowgun Needles" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="1"/>
+    <usesource source="Dragon"/>
+    <tag group="EquipType" tag="Ammunition"/>
+    </thing>
+  <thing id="eqWineBot" name="Bottle of Wine" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="5"/>
+    <tag group="EquipType" tag="Drink"/>
+    </thing>
+  <thing id="eqBroy" name="Broy" description="Fermented kank nectar, this foul, intoxicating beverage is mixed with herbs to mask its taste." compset="Equipment" stacking="merge">
+    <usesource source="DarkSun"/>
+    <tag group="EquipType" tag="Drink"/>
+    </thing>
+  <thing id="eqCageHug" name="Cage (Huge)" description="Cages are made of strong material to confine creatures. A cage has equally spaced bars and a door. Bar spacing can be customized to specific creatures. The typical cage can hold two creatures of its size, a creature one size larger (uncomfortably), or four to six creatures one size smaller. (Creatures more than one size smaller than the cage probably will be able to slip out between the bars.) Cages are normally transported on animals or vehicles. A vehicle such as a wagon can have a cage permanently mounted to it by adding the cage cost to the vehicle cost.{br}{br} - Number of Creatures Held - {br}Huge - Large - Medium - Small - Break DC{br}2 - 4 - 8 - 16 - 25{br}*A cage can be made stronger by doubling the cost for each +5 to the break DC." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="100"/>
+    <usesource source="Dragon"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqCageLar" name="Cage (Large)" description="Cages are made of strong material to confine creatures. A cage has equally spaced bars and a door. Bar spacing can be customized to specific creatures. The typical cage can hold two creatures of its size, a creature one size larger (uncomfortably), or four to six creatures one size smaller. (Creatures more than one size smaller than the cage probably will be able to slip out between the bars.) Cages are normally transported on animals or vehicles. A vehicle such as a wagon can have a cage permanently mounted to it by adding the cage cost to the vehicle cost.{br}{br} - Number of Creatures Held - {br}Huge - Large - Medium - Small - Break DC{br}1 - 2 - 4 - 8 - 20{br}*A cage can be made stronger by doubling the cost for each +5 to the break DC." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="80"/>
+    <usesource source="Dragon"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqCageMed" name="Cage (Medium)" description="Cages are made of strong material to confine creatures. A cage has equally spaced bars and a door. Bar spacing can be customized to specific creatures. The typical cage can hold two creatures of its size, a creature one size larger (uncomfortably), or four to six creatures one size smaller. (Creatures more than one size smaller than the cage probably will be able to slip out between the bars.) Cages are normally transported on animals or vehicles. A vehicle such as a wagon can have a cage permanently mounted to it by adding the cage cost to the vehicle cost.{br}{br} - Number of Creatures Held - {br}Huge - Large - Medium - Small - Break DC{br}0 - 1 - 2 - 4 - 20{br}*A cage can be made stronger by doubling the cost for each +5 to the break DC." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="50"/>
+    <usesource source="Dragon"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqCageSma" name="Cage (Small)" description="Cages are made of strong material to confine creatures. A cage has equally spaced bars and a door. Bar spacing can be customized to specific creatures. The typical cage can hold two creatures of its size, a creature one size larger (uncomfortably), or four to six creatures one size smaller. (Creatures more than one size smaller than the cage probably will be able to slip out between the bars.) Cages are normally transported on animals or vehicles. A vehicle such as a wagon can have a cage permanently mounted to it by adding the cage cost to the vehicle cost.{br}{br} - Number of Creatures Held - {br}Huge - Large - Medium - Small - Break DC{br}0 - 0 - 1 - 2 - 16{br}*A cage can be made stronger by doubling the cost for each +5 to the break DC." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="20"/>
+    <usesource source="Dragon"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqCaltrops" name="Caltrops" description="You can drop these pyramid-shaped metal spikes into a square adjacent to you (or gather them back up) as a standard action. Any creature moving on the caltrops must either treat the square as difficult terrain or become slowed (save ends). Creatures that are running can use only the latter option." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="1"/>
+    <usesource source="MordensEmp"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqCamouClo" name="Camouflaged Clothing" description="While you are not moving, these garments allow you to blend into your surroundings by granting you a +2 bonus to Stealth checks." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="30"/>
+    <fieldval field="gearWeight" value="6"/>
+    <usesource source="Dragon"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqCandle" name="Candle" compset="Equipment" stacking="merge">
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqCandlclo" name="Candle clocks" description="Lighting one of these wax tapers allows you to count hours by observing how far the candle has burned down against marks made in the wax. Each clock lasts for 8 hours and is consumed after use. Candle clocks are typically sold in pairs to help synchronize timing between separate groups." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="1"/>
+    <fieldval field="gearWeight" value="1"/>
+    <usesource source="MordensEmp"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqCart" name="Cart" description="A cart&apos;s weight is 2,000 lb." compset="Equipment" stacking="never">
+    <fieldval field="grCost" value="20"/>
+    <fieldval field="gearWeight" value="2000"/>
+    <tag group="thing" tag="holder_top"/>
+    <tag group="EquipType" tag="Transport"/>
+    </thing>
+  <thing id="eqCastle" name="Castle" description="Hundreds or thousands of people live and work in safety between the curtain wall and keep of one of these massive stone structures." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="250000"/>
+    <usesource source="MordensEmp"/>
+    <tag group="thing" tag="holder_top"/>
+    </thing>
+  <thing id="eqCastlwit" name="Castle with dungeon" description="The excavations below this structure are as extensive as the towers that crown it." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="1000000"/>
+    <usesource source="MordensEmp"/>
+    <tag group="thing" tag="holder_top"/>
+    </thing>
+  <thing id="eqChain10" name="Chain (10 ft.)" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="30"/>
+    <fieldval field="gearWeight" value="2"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqChalksla" name="Chalk and slate" description="Use chalk to write on dungeon walls to help find your way back out or to leave messages for those who follow. Drawing on a slate lets you communicate simple ideas when you need to remain silent or work around a language barrier." compset="Equipment" stacking="merge">
+    <usesource source="MordensEmp"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqCharlKit" name="Charlatan&apos;s Kit" description="This kit includes caltrops, a crook-eye, disguise kit, gambler&apos;s gear, gambling cheats, and a glass cutter. Many purchasers supplement this kit with goodnight tincture." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="136"/>
+    <fieldval field="gearWeight" value="13"/>
+    <usesource source="MordensEmp"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqChest" name="Chest" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="2"/>
+    <fieldval field="gearWeight" value="25"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqChirutoo" name="Chirurgeon&apos;s tools" description="This surgical gear includes brass wedges that can be heated to cauterize wounds and jars of leeches for bleeding patients. When you use these tools to treat an ally who has contracted a disease caused by an attack from a creature, that ally gains a +2 bonus to the next check he or she makes against the disease." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="20"/>
+    <fieldval field="gearWeight" value="4"/>
+    <usesource source="MordensEmp"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqCindewan" name="Cinder wand" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="18"/>
+    <usesource source="PHB3"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <tag group="WepProp" tag="EmpowCrit"/>
+    <tag group="WepProp" tag="Energized"/>
+    <tag group="EquipType" tag="Superior"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.itWand]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="eqClimbKit" name="Climber&apos;s Kit" description="This kit includes all the items grouped beneath its entry: a grappling hook, a small hammer, and ten pitons. When you use a climber&apos;s kit, you gain a +2 bonus to Athletics checks for climbing." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="2"/>
+    <fieldval field="gearWeight" value="11"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqCockaven" name="Cockatrice venom" description="Organic materials coated in cockatrice venom slowly turn to stone over the course of 4 hours. One dose is enough to turn a single, handheld object to stone.{br}Creatures in contact with the venom do not fully turn to stone, but the venom does petrify the surface area of a creature&apos;s body that comes into contact with it, giving that area a stone-like appearance for a few minutes. Potters, sculptors, and other artisans who need to quickly set their work into a permanent state often use the venom." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="100"/>
+    <fieldval field="gearWeight" value="1"/>
+    <usesource source="HeroFeywil"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqColdIro" name="Cold Iron Shackles" description="Cold iron is anathema to fey, and such a creature imprisoned within these shackles cannot teleport. Otherwise, these shackles function like any other." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="30"/>
+    <fieldval field="gearWeight" value="10"/>
+    <usesource source="HeroFeywil"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqColdiro" name="Cold iron shavings, 1 bag" description="Fey creatures cannot abide contact with cold iron, and they will not touch any item placed in a bag filled with cold iron shavings. Used as part of the Magic Circle ritual, cold iron shavings can prevent fey creatures from crossing the perimeter of the circle. Each bag contains enough cold iron shavings for the creation of a single circle, and if used as a part of that ritual, lessens the penalty to the Arcana check from -10 to -5 to determine the level of creatures that cannot pass through the circle." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="50"/>
+    <fieldval field="gearWeight" value="1"/>
+    <usesource source="HeroFeywil"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqColdwclo" name="Cold-weather clothing" description="Wearing these furs gives you a +2 bonus to Endurance checks against cold weather. Wearing the snowshoes included in this gear allows you to ignore difficult terrain caused by snow and ice, but reduces your speed by 2." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="10"/>
+    <usesource source="MordensEmp"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqMealCom" name="Common Meal" compset="Equipment" stacking="merge">
+    <tag group="EquipType" tag="Food"/>
+    </thing>
+  <thing id="eqCottage" name="Cottage" description="This single-room hut typically has walls of wood or sod and a thatched roof." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="400"/>
+    <usesource source="MordensEmp"/>
+    <tag group="thing" tag="holder_top"/>
+    </thing>
+  <thing id="eqCrookeye" name="Crook-eye" description="You can look around corners with the angled mirrors in this leather-bound wooden tube. You grant combat advantage and take a -2 penalty to Perception checks while using a crook-eye, but you can trace your line of sight from a square adjacent to you." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="50"/>
+    <fieldval field="gearWeight" value="2"/>
+    <usesource source="MordensEmp"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqCrossBol" name="Crossbow Bolts" description="Crossbow Bolts come in a pouch that holds 20." compset="Ammunition" lotsize="20" stacking="merge">
+    <fieldval field="grCost" value="0"/>
+    <fieldval field="gearWeight" value="0.1"/>
+    <fieldval field="grLotCost" value="1"/>
+    <tag group="EquipType" tag="Ammunition"/>
+    </thing>
+  <thing id="eqCrowbar" name="Crowbar" description="Wielding this metal pry bar gives you a +2 bonus to Strength checks to break open locked doors or containers." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="2"/>
+    <fieldval field="gearWeight" value="4"/>
+    <usesource source="Dragon"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqCrystorb" name="Crystal orb" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="27"/>
+    <fieldval field="gearWeight" value="2"/>
+    <usesource source="PHB3"/>
+    <tag group="WepProp" tag="Energized"/>
+    <tag group="WepProp" tag="Undeniable"/>
+    <tag group="EquipType" tag="Superior"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.itOrb]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="eqDaggeboo" name="Dagger boots" description="These spike-toed footwear help you kick notches into a surface you are climbing. While wearing dagger boots, you gain +2 bonus to Athletics checks to climb but take a -2 penalty to Stealth checks to move silently." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="2"/>
+    <fieldval field="gearWeight" value="4"/>
+    <usesource source="MordensEmp"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqDeathrod" name="Deathbone rod" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="22"/>
+    <fieldval field="gearWeight" value="2"/>
+    <usesource source="PHB3"/>
+    <tag group="WepProp" tag="Energized"/>
+    <tag group="WepProp" tag="Undeniable"/>
+    <tag group="EquipType" tag="Superior"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.itRod]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="eqDefiarod" name="Defiant rod" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="18"/>
+    <fieldval field="gearWeight" value="2"/>
+    <usesource source="PHB3"/>
+    <tag group="WepProp" tag="Energized"/>
+    <tag group="WepProp" tag="Shielding"/>
+    <tag group="EquipType" tag="Superior"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.itRod]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="eqDelvekit" name="Delver&apos;s kit" description="This kit includes a crowbar, ten iron spikes, iron manacles, a miner&apos;s helmet, two sacks, surveyor&apos;s gear, and a ten-foot pole. Many purchasers supplement this kit with clinging essence of fire." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="40"/>
+    <fieldval field="gearWeight" value="28"/>
+    <usesource source="MordensEmp"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqDeserClo" name="Desert Clothing" description="Wearing this mask and loose-fitting robes gives you a +2 bonus to Endurance checks to resist heat or to avoid the effects of persistent dust or sun glare." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="5"/>
+    <fieldval field="gearWeight" value="4"/>
+    <usesource source="DarkSun"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqDevotkit" name="Devotee&apos;s kit" description="This kit includes two candle clocks, chalk and slate, chirurgeon&apos;s tools, a doctrinal book, and regalia. Many purchasers supplement this kit with holy water." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="146"/>
+    <fieldval field="gearWeight" value="14"/>
+    <usesource source="MordensEmp"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqDisguise" name="Disguise" description="A disguise consists of a convincing outfit, makeup, and other accoutrements needed to pass oneself off as someone else. A disguise grants a +2 bonus to Bluff checks made to appear as someone else." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="6"/>
+    <usesource source="DarkSun"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqDisguKit" name="Disguise Kit" description="Using these cosmetics and prosthetics gives you a +2 bonus to Bluff checks to pass off your disguises." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="30"/>
+    <fieldval field="gearWeight" value="5"/>
+    <usesource source="Dragon"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqDistiKit" name="Distillation Kit" description="Desert travelers use distillation kits to extract water from wastes or toxic fluids. The device &quot;cooks&quot; moisture from the materials and collects it in a reservoir. Using a distillation kit for 6 hours produces 1 day&apos;s worth of water." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="50"/>
+    <fieldval field="gearWeight" value="20"/>
+    <usesource source="DarkSun"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqDoctrboo" name="Doctrinal book" description="Each of these volumes holds lore pertaining to a certain deity. After a failed Religion check associated with this deity or its followers, you can attempt the check again after spending 1 hour studying the doctrinal book. You must use the second result." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="25"/>
+    <fieldval field="gearWeight" value="3"/>
+    <usesource source="MordensEmp"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqDoppeMas" name="Doppelganger Mask" description="Gnome artists excel at crafting duplicates of creatures&apos; faces and making them into masks. Not actually magical in construction, a doppelganger mask is so well crafted that it makes its wearer resemble one particular creature, usually as designated by the artist&apos;s patron. One of these masks attaches tightly to the face of any creature that dons it, allowing the wearer to perfectly adopt the features of the creature that the mask depicts. A creature wearing a doppelganger mask gains a +5 bonus to Bluff checks to disguise itself as the kind of creature the mask depicts, as long as the wearer&apos;s body generally resembles that of such a creature.{br}A doppelganger mask tears apart when removed from the face, so each can be used only once. Spies and members of the Unseelie underworld often use them, and some masks make their way to criminal organizations in the natural world." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="250"/>
+    <fieldval field="gearWeight" value="1"/>
+    <usesource source="HeroFeywil"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqDowsiRod" name="Dowsing Rod" description="This forked rod can be used to ferret out hidden water reservoirs. It grants a +2 bonus to Nature checks made to forage." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="20"/>
+    <fieldval field="gearWeight" value="5"/>
+    <usesource source="DarkSun"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqDragowan" name="Dragontooth wand" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="18"/>
+    <usesource source="PHB3"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <tag group="WepProp" tag="Deadly"/>
+    <tag group="WepProp" tag="Unerring"/>
+    <tag group="EquipType" tag="Superior"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.itWand]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="eqDrill" name="Drill" description="This handheld tool comes with six tough metal bits. A drill can bore a hole through wood, stone, and even some metals with enough time and effort. A typical bit can drill through 6 inches of stone or 2 inches of iron (a process requiring up to 6 hours) before it breaks or its cutting power is exhausted. Each additional set of bits costs another 10 gp." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="2"/>
+    <usesource source="IntoUnknow"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqDrum" name="Drum" description="Bards and other characters use instruments for art and entertainment. A nonmagical musical instrument confers no game benefit but can be enchanted later." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="3"/>
+    <fieldval field="gearWeight" value="1"/>
+    <usesource source="PHB2"/>
+    </thing>
+  <thing id="eqEchotom" name="Echo tome" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="15"/>
+    <fieldval field="gearWeight" value="3"/>
+    <usesource source="PHB3"/>
+    <tag group="WepProp" tag="Distant"/>
+    <tag group="WepProp" tag="Unerring"/>
+    <tag group="EquipType" tag="Superior"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.itTome]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="eqEverbTor" name="Everburning Torch" description="This torch never stops burning. It casts bright light to a radius of 5 squares but sheds no heat, so you can stow it in a bag or a pouch. You can&apos;t set fire to anything with it." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="50"/>
+    <fieldval field="gearWeight" value="1"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqFaeriPup" name="Faerie Puppet" description="This small fey animate, usually made of wood or cloth, is designed to entertain eladrin children. As with an ordinary puppet, its controller begins moving it by manipulating it with strings. Thereafter, a minor enchantment allows the puppet to continue to move on its own after the puppeteer releases the strings. If the puppet encounters blocking terrain, it randomly turns left or right and continues in the new direction. It does not stop until a creature within 5 squares of it commands it to do so in Elven." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="2"/>
+    <fieldval field="gearWeight" value="1"/>
+    <usesource source="HeroFeywil"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqFalsePat" name="False Path Stones, 1 bag" description="Devious creatures that want to bait unwitting mortals into entering the Feywild for the first time use these tiny, charmed stones to cruel effect. When a creature takes a few stones from the bag and places them on the ground, a small gravel path springs up that looks like a well-traveled route leading in whatever direction the creature chooses. Once a route has been started, the stones in a bag can be used only for that route, and the rest of them must be laid continually. The path can be up to 5 miles long, provided the creature blazing the trail walks the entire distance, dropping the rest of the stones from time to time along the way. The path lasts for a day before it disappears; the area it described returns to the state it was in before the stones were used, and the stones become like any other ordinary rocks scattered in the wilderness.{br}Scouts in the wild use false path stones to create simple roads that make travel easier for those following behind them." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="200"/>
+    <fieldval field="gearWeight" value="2"/>
+    <usesource source="HeroFeywil"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqFarsetot" name="Farseeing totem" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="14"/>
+    <fieldval field="gearWeight" value="2"/>
+    <usesource source="PHB3"/>
+    <tag group="WepProp" tag="Deadly"/>
+    <tag group="WepProp" tag="Distant"/>
+    <tag group="EquipType" tag="Superior"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.itTotem]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="eqMealFea" name="Feast (one meal)" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="5"/>
+    <tag group="EquipType" tag="Food"/>
+    </thing>
+  <thing id="eqFeywiRai" name="Feywine Raisin" description="Grapes grown in the Feywild are so lush that even when they are dried and made into raisins, the raisins retain most of the grapes&apos; essence and potential. When a feywine raisin is stirred into a goblet of water, the raisin dissolves and the mixture instantly ferments, creating wine." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="15"/>
+    <usesource source="HeroFeywil"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqFiltemas" name="Filter mask" description="Affixing this mask over the face allows the wearer to breath normally in adverse conditions, such as during a dust storm." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="1"/>
+    <usesource source="DarkSun"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqFineClo" name="Fine Clothing" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="30"/>
+    <fieldval field="gearWeight" value="6"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqFireKit" name="Fire Kit" description="A fire kit includes sticks and a small bow. It is used to start a fire." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="1"/>
+    <usesource source="DarkSun"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqFlask" name="Flask" compset="Equipment" stacking="merge">
+    <fieldval field="gearWeight" value="1"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqFlintSte" name="Flint and Steel" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="1"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqFloatcas" name="Floating castle" description="For those who want to travel without leaving home." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="1250000"/>
+    <usesource source="MordensEmp"/>
+    <tag group="thing" tag="holder_top"/>
+    </thing>
+  <thing id="eqFlotabla" name="Flotation bladder" description="The risk of drowning in a cold underground lake leads some adventurers to carry these containers of cured animal hide. A character can blow into a flotation bladder to inflate it and  then hang onto it to keep his or her head above water. If you&apos;re using a flotation bladder, failing an Athletics check to swim by 5 or more leaves you treading water instead of sinking." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="2"/>
+    <fieldval field="gearWeight" value="1"/>
+    <usesource source="IntoUnknow"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqFloweDaw" name="Flower of the Dawn" description="Found only near the Maze of Fathaghn, this rare flower emits a fragrance that instantly awakens a sleeping creature, even one in an enchanted slumber, as long as the enchantment was meant to last no longer than a day. The flower must be placed near the sleeper&apos;s nose and pinched (a minor action) to release the fragrance. This act destroys the blossom and awakens the sleeper." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="25"/>
+    <usesource source="HeroFeywil"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqFloweSum" name="Flowers of the Summer Queen&apos;s Gown" description="As Queen Tiandra treads through Senaliesse, summer flowers bloom wherever the long train of her gossamer gown sweeps the ground. A flower brought to life in this manner blooms eternal in the Feywild, and its beauty never fades. Wherever the seeds of these flowers are scattered, even the hardest barren ground or frozen tundra blooms anew with flowers for one day." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="65"/>
+    <usesource source="HeroFeywil"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqFluidKi" name="Fluid ki focus" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="30"/>
+    <usesource source="Psionic"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <tag group="WepProp" tag="Mobile"/>
+    <tag group="WepProp" tag="Shielding"/>
+    <tag group="EquipType" tag="Superior"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.itKiFocus]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="eqFlute" name="Flute" description="Bards and other characters use instruments for art and entertainment. A nonmagical musical instrument confers no game benefit but can be enchanted later." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="5"/>
+    <fieldval field="gearWeight" value="1"/>
+    <usesource source="PHB2"/>
+    </thing>
+  <thing id="eqFootpads" name="Footpads" description="While wearing these felt soles over your normal footwear, you gain a +1 bonus to Stealth checks to move quietly." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="5"/>
+    <usesource source="Dragon"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqForbitom" name="Forbidden tome" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="15"/>
+    <fieldval field="gearWeight" value="3"/>
+    <usesource source="PHB3"/>
+    <tag group="WepProp" tag="Deadly"/>
+    <tag group="WepProp" tag="Unstoppabl"/>
+    <tag group="EquipType" tag="Superior"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.itTome]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="eqFrozeTea" name="Frozen Tears" description="Many icicles hang from the Prince of Frost&apos;s Fortress of Frozen Tears. These icicles, known themselves as frozen tears, are said to be sorrow made manifest. Even when they carried away from the prince&apos;s demesne in the Vale of the Long Night, frozen tears do not melt, instead chilling any object or creature in contact with them. Although they aren&apos;t cold enough to cause damage, frozen tears are fervently sought by Feywild merchants, who use them to keep perishable goods chilled during transport - a handy trick for bringing specialized food and drink to the courts to satisfy the refined appetites of the archfey." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="25"/>
+    <fieldval field="gearWeight" value="1"/>
+    <usesource source="HeroFeywil"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqGamblgea" name="Gambler&apos;s gear" description="These dice, cards, knucklebones, or diviner&apos;s sticks are necessary equipment for games of chance." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="1"/>
+    <usesource source="MordensEmp"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqGamblche" name="Gambling cheats" description="This marked gambling gear gives you a +2 bonus to Thievery checks to cheat while gambling." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="20"/>
+    <usesource source="MordensEmp"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqGatehous" name="Gatehouse" description="This building has reinforced walls, its own gate and portcullis, and quarters for five guards." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="6500"/>
+    <usesource source="MordensEmp"/>
+    <tag group="thing" tag="holder_top"/>
+    </thing>
+  <thing id="eqGhoulCan" name="Ghoul Candle" description="Fashioned from fat rendered from a slain ghoul, a ghoul candle sheds light that is invisible to undead. It functions as a normal candle, except that it provides no illumination for undead creatures. Gravediggers use these candles when they must venture into a cemetery at night, in hopes of avoiding the notice of any ghosts or similar creatures that might be about." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="1"/>
+    <usesource source="PlEsShadow"/>
+    </thing>
+  <thing id="eqGianthai" name="Giant hair rope" description="Woven from tough strands of giant hair, this rope is used for making strong cord. Giant hair rope has resist 10 to all damage." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="10"/>
+    <usesource source="DarkSun"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqGlassCut" name="Glass Cutter" description="By affixing this tool to a piece of glass, you can quickly and silently etch the surface and create a round hole large enough to fit your arm through." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="25"/>
+    <fieldval field="gearWeight" value="5"/>
+    <usesource source="Dragon"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqGrappHoo" name="Grappling Hook" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="1"/>
+    <fieldval field="gearWeight" value="4"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqGrayRai" name="Gray Rain Cloak" description="A garment of this sort, made from the substance of a rainy Feywild afternoon, is created through the performance of a minor ritual. The garment looks and feels like a normal wool cloak, except that it keeps its wearer completely dry in the rain. When the cloak is spread out on the ground, it becomes a puddle of pure rainwater. You can turn the pool back into a cloak again by grabbing the water (a minor action), or water can be taken from the pool using a cup or a similar vessel. Doing so gradually uses up the cloak&apos;s material, making it shorter every time it reverts to a garment, until nothing is left of it after 2 gallons of its water are consumed." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="20"/>
+    <fieldval field="gearWeight" value="3"/>
+    <usesource source="HeroFeywil"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqGreenorb" name="Greenstone orb" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="27"/>
+    <fieldval field="gearWeight" value="2"/>
+    <usesource source="PHB3"/>
+    <tag group="WepProp" tag="Energized"/>
+    <tag group="WepProp" tag="Unstoppabl"/>
+    <tag group="EquipType" tag="Superior"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.itOrb]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="eqGuardsta" name="Guardian staff" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="13"/>
+    <fieldval field="gearWeight" value="4"/>
+    <usesource source="PHB3"/>
+    <tag group="WepProp" tag="Energized"/>
+    <tag group="WepProp" tag="Shielding"/>
+    <tag group="EquipType" tag="Superior"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.itStaff]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="eqHacksaw" name="Hacksaw" description="This thin-bladed saw can cut through tough material, even metal, although doing so can be quite slow. Harder materials dull the blade quickly, so a hacksaw is best used to cut thin or small objects. A single hacksaw blade can cut through a 1-inch-thick piece of iron (or larger objects of softer materials, at the DM&apos;s discretion) in up to 2 hours, before  it breaks or its cutting power is exhausted. Each additional blade costs another 5 gp." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="5"/>
+    <fieldval field="gearWeight" value="1"/>
+    <usesource source="IntoUnknow"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqHairFai" name="Hair of Fairy Hues" description="Courting eladrin sometimes apply a mixture of pixie dust and larkspur to their fine, silky hair, changing it to a new, vibrant hue. Spies from the Court of Stars or the Unseelie underworld often use such a concoction as part of a quick disguise, and the elders of eladrin royal houses use it to complement their rich fashions and contribute to their striking appearances. Some wild fey add a shapechanger&apos;s eyelash to the mixture, causing their hair to change color every seventh heartbeat.{br}A single dose of one of these mixtures, collectively called the hair of fairy hues, can instantly alter the hair color of any individual. The new color lasts until the hair is washed in a still pond beneath the light of the moon, or until the hair grows out." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="5"/>
+    <usesource source="HeroFeywil"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqHammer" name="Hammer" compset="Equipment" stacking="merge">
+    <fieldval field="gearWeight" value="2"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqHarness" name="Harness" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="5"/>
+    <fieldval field="gearWeight" value="1"/>
+    <usesource source="MordensEmp"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqHarp" name="Harp" description="Bards and other characters use instruments for art and entertainment. A nonmagical musical instrument confers no game benefit but can be enchanted later." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="15"/>
+    <fieldval field="gearWeight" value="4"/>
+    <usesource source="PHB2"/>
+    </thing>
+  <thing id="eqRopehem" name="Hempen Rope (50 ft.)" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="1"/>
+    <fieldval field="gearWeight" value="10"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqHiddeite" name="Hidden item compartment" description="While wearing this cunningly crafted piece of apparel, you can conceal an object on yourself that weighs 1 pound or less. You gain a +2 bonus to Stealth checks against Perception checks to notice the item." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="40"/>
+    <fieldval field="gearWeight" value="2"/>
+    <usesource source="MordensEmp"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqHolySym" name="Holy Symbol" description="This is a finely crafted, nonmagical symbol of precious metal that characters who worship gods might carry as a representation of their deity." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="1"/>
+    <tag group="EquipType" tag="Gear"/>
+    <tag group="ImplemType" tag="itHolySym"/>
+    </thing>
+  <thing id="eqHorn" name="Horn" description="Bards and other characters use instruments for art and entertainment. A nonmagical musical instrument confers no game benefit but can be enchanted later." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="7"/>
+    <fieldval field="gearWeight" value="3"/>
+    <usesource source="PHB2"/>
+    </thing>
+  <thing id="eqHunteKit" name="Hunter&apos;s Kit" description="This bundle contains bottles of various animal scents, a guide to edible flora, a small knife, snares, and other useful tools. A hunter&apos;s kit grants a +2 bonus to Nature checks made to forage." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="50"/>
+    <fieldval field="gearWeight" value="5"/>
+    <usesource source="EbPG"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqHurlerSn" name="Hurler-Snatcher" description="With some foraged twine, a supple reed, simple pulleys, and a soft cloth bindle, a kobold can piece together a crude device for getting around obstacles. These hurler-snatchers, as kobolds call them, have long been used to fling objects across gaps safely and retrieve small items lost down narrow chasms.{br}Using a hurler-snatcher (4 lb., 10 gp) requires a move action. When you do so, you either transfer one item you have that weighs 5 pounds or less to an unoccupied space or a willing character within 5 squares of you, or you take one similar item that the character or the space has and transfer it to yourself. If you intend to transfer the item to a character, he or she has to have a free hand and must use a free action to catch it. Otherwise, the item lands in that character&apos;s space.{br}The 5-pound limit on a  hurler-snatcher is enough to carry most simple objects. If items are bundled together in a backpack or a sack, they&apos;re usually too heavy to flick around. Some items are too unwieldy to be transferred in this way; your DM ultimately makes the call.{br}The hurler-snatcher is constructed to protect what it carries, even glassware, as long as the intended receiver can catch it. Objects break in transit only in a very small number of cases. Kobolds offer no warranties on items sent by way of a hurler-snatcher." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="4"/>
+    <usesource source="IntoUnknow"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqIcicltot" name="Icicle totem" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="15"/>
+    <fieldval field="gearWeight" value="2"/>
+    <usesource source="PHB3"/>
+    <tag group="WepProp" tag="EmpowCrit"/>
+    <tag group="WepProp" tag="Energized"/>
+    <tag group="EquipType" tag="Superior"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.itTotem]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="eqIdentwit" name="Identification Papers with Portrait" description="Members of the middle and upper classes in the Five Nations carry identification papers issued by their governments and notarized by House Sivis. Each set contains a description of the holder, a portrait, and other details. (Players may photocopy and customize the illustration of the identification papers.)" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="5"/>
+    <usesource source="EbPG"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqInexoKi" name="Inexorable ki focus" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="35"/>
+    <usesource source="Psionic"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <tag group="WepProp" tag="Energized"/>
+    <tag group="WepProp" tag="Unstoppabl"/>
+    <tag group="EquipType" tag="Superior"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.itKiFocus]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="eqInquiKit" name="Inquisitive&apos;s Kit" description="This gear includes several containers made from different materials, brushes, mundane dusts, tweezers, picks, probes, a magnifying glass, ink and quills, parchment, and a small journal. An inquisitive&apos;s kit grants a +2 bonus to Perception checks to search an area for something specific." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="40"/>
+    <fieldval field="gearWeight" value="4"/>
+    <usesource source="EbPG"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqInterpre" name="Interpreter" description="Local dialects and distinct languages can be insurmountable barriers to travelers. The interpreter offers services as a translator." compset="Equipment" stacking="merge">
+    <usesource source="DarkSun"/>
+    </thing>
+  <thing id="eqInvesgea" name="Investigation gear" description="This bag of equipment includes containers made from different materials, brushes, dusts, tweezers, picks, probes, a magnifying glass, ink and quills, parchment, and a small journal. You gain a +2 bonus to Perception checks when you use the kit to search an area for specific details." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="40"/>
+    <fieldval field="gearWeight" value="4"/>
+    <usesource source="MordensEmp"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqIronfil" name="Iron filings and lodestone" description="Watching for disruptions in the patterns that iron filings normally form around a lodestone can help you perceive strong magical forces. When you fail an Arcana check to detect magic on an object or a location, you can attempt the check again after spending 1 hour spreading and studying the iron filings. You must use the second result." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="15"/>
+    <usesource source="MordensEmp"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqIronKi" name="Iron ki focus" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="30"/>
+    <usesource source="Psionic"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <tag group="WepProp" tag="Deadly"/>
+    <tag group="WepProp" tag="Forceful"/>
+    <tag group="EquipType" tag="Superior"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.itKiFocus]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="eqIronspi" name="Iron spikes" description="Hammering one of these blunt, wide metal wedges between a door and its frame requires a standard action and adds 5 to the DC of checks to open the door. If nothing but a spike is holding a door shut, the base DC to open it is 15. Spiking a door is noisy; each time you drive in a spike, creatures within 20 squares can make a Perception check with a +5 bonus to hear you." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="1"/>
+    <fieldval field="gearWeight" value="5"/>
+    <usesource source="MordensEmp"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqJarglo" name="Jar of glowworms" description="The tiny insects in the jar create dim light in the jar&apos;s square." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="5"/>
+    <fieldval field="gearWeight" value="1"/>
+    <usesource source="MordensEmp"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqJourneyb" name="Journeybread" description="This magic bread fills the stomach and provides all necessary nutrients with only a few small bites, so you can carry food for a long journey without weighing yourself down." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="5"/>
+    <fieldval field="gearWeight" value="0.1"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqKeep" name="Keep" description="This heavy stone fortification is built to withstand a siege." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="75000"/>
+    <usesource source="MordensEmp"/>
+    <tag group="thing" tag="holder_top"/>
+    </thing>
+  <thing id="eqKiFoc" name="Ki Focus" description="Using a nonmagical ki focus confers no benefit. You should use a non-magical ki focus if you have feats that give you a benefit with them, such as implement expertise (ki focus)." compset="Equipment" stacking="merge">
+    <usesource source="PHB3"/>
+    <tag group="EquipType" tag="Gear"/>
+    <tag group="ImplemType" tag="itKiFocus"/>
+    </thing>
+  <thing id="eqLantern" name="Lantern" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="7"/>
+    <fieldval field="gearWeight" value="2"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqLanteBul" name="Lantern, Bull&apos;s-Eye" description="A bull&apos;s-eye lantern is equipped with a lens that enables it to project a beam of bright light 2 squares wide out to 10 squares. This way, you can illuminate long hallways without lighting up the whole area." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="12"/>
+    <fieldval field="gearWeight" value="2"/>
+    <usesource source="IntoUnknow"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqLetteMar" name="Letter of Marque" description="The king of Breland issues Letters of Marque to groups exploring Xen&apos;drik&apos;s ruins. Travelers may visit and explore the continent freely, but those who sell Xen&apos;drik&apos;s treasures without the proper documentation face fines, incarceration, and forfeiture if caught. (Players may photocopy and customize the illustration of the letter of marque.)" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="500"/>
+    <usesource source="EbPG"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqListeCon" name="Listening Cone" description="Put the mouth of this cone of pressed iron against a flat surface and place your ear against its flattened tip to amplify the sounds you might hear beyond. This item grants a +2 bonus to Perception checks to listen through doors and walls." compset="Equipment" stacking="merge">
+    <fieldval field="gearWeight" value="1"/>
+    <usesource source="IntoUnknow"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqLute" name="Lute" description="Bards and other characters use instruments for art and entertainment. A nonmagical musical instrument confers no game benefit but can be enchanted later." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="12"/>
+    <fieldval field="gearWeight" value="2"/>
+    <usesource source="PHB2"/>
+    </thing>
+  <thing id="eqLyre" name="Lyre" description="Bards and other characters use instruments for art and entertainment. A nonmagical musical instrument confers no game benefit but can be enchanted later." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="9"/>
+    <fieldval field="gearWeight" value="2"/>
+    <usesource source="PHB2"/>
+    </thing>
+  <thing id="eqMagazine" name="Magazine" description="A rectangular magazine that attaches to the top of a repeating crossbow. A double-action lever drops a bolt into place as a free action, then fires it as a standard action. A magazine holds 10 bolts. It takes a standard action to remove an empty magazine and load a new one." compset="Ammunition" lotsize="10" stacking="merge">
+    <fieldval field="grCost" value="1"/>
+    <fieldval field="gearWeight" value="0.1"/>
+    <usesource source="AdvenVault"/>
+    <tag group="EquipType" tag="Ammunition"/>
+    </thing>
+  <thing id="eqManacada" name="Manacles, adamantine" description="When you put these shackles on a helpless or otherwise incapacitated creature, that creature is restrained until it escapes or is freed. The Acrobatics check to escape from these restraints is against a hard DC of the creature&apos;s level.{br}The Strength check to break the manacles is against a DC that depends on the quality of the manacles, whether iron (DC 24) or adamantine (DC 31)." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="650"/>
+    <fieldval field="gearWeight" value="2"/>
+    <usesource source="MordensEmp"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqManaciro" name="Manacles, iron" description="When you put these shackles on a helpless or otherwise incapacitated creature, that creature is restrained until it escapes or is freed. The Acrobatics check to escape from these restraints is against a hard DC of the creature&apos;s level.{br}The Strength check to break the manacles is against a DC that depends on the quality of the manacles, whether iron (DC 24) or adamantine (DC 31)." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="2"/>
+    <usesource source="MordensEmp"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqMansion" name="Mansion" description="This stately edifice has multiple wings, making it a good guildhouse or residence in which to entertain guests in style." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="40000"/>
+    <usesource source="MordensEmp"/>
+    <tag group="thing" tag="holder_top"/>
+    </thing>
+  <thing id="eqMapcas" name="Map case" description="This waterproof leather tube can be unrolled to form a writing surface. The maps you make with the tools inside, which include parchment, charcoal, ink, and strings with distance markings, can be sold to others interested in your discoveries." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="15"/>
+    <fieldval field="gearWeight" value="2"/>
+    <usesource source="MordensEmp"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqMightKi" name="Mighty ki focus" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="25"/>
+    <usesource source="Psionic"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <tag group="WepProp" tag="EmpowCrit"/>
+    <tag group="WepProp" tag="Unerring"/>
+    <tag group="EquipType" tag="Superior"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.itKiFocus]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="eqMindwsta" name="Mindwarp staff" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="16"/>
+    <fieldval field="gearWeight" value="4"/>
+    <usesource source="PHB3"/>
+    <tag group="WepProp" tag="Distant"/>
+    <tag group="WepProp" tag="Energized"/>
+    <tag group="EquipType" tag="Superior"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.itStaff]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="eqMinerhel" name="Miner&apos;s helmet" description="You can attach a lantern, a sunrod, or some other lighting device to the forehead reflector of this headgear to provide hands-free illumination." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="3"/>
+    <usesource source="MordensEmp"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqMirror" name="Mirror" description="The finest mirrors are made of silvered glass and are prohibitively costly, so most adventurers favor these less expensive handheld disks of polished metal. A mirror can let you safely look around corners without being seen, avoid the direct gaze of a medusa, or reflect light to signal distant allies (or to lure enemies)." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="1"/>
+    <usesource source="IntoUnknow"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqMountKi" name="Mountain ki focus" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="30"/>
+    <usesource source="Psionic"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <tag group="WepProp" tag="Forceful"/>
+    <tag group="WepProp" tag="Shielding"/>
+    <tag group="EquipType" tag="Superior"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.itKiFocus]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="eqMystiSal" name="Mystic Salves (Heal)" description="Valuable components must be expended to perform a ritual. Restoration rituals use mystic salves, dabbed or painted on the creatures to be healed. These salves come in small jars and include blessed oils and unguents made from rare spices.{br}{br}Components are needed by ritual casters. You purchase as many gold pieces worth of components as you need or can afford. You can use the components associated with a key skill for any ritual that uses that skill. Ritual components are not interchangeable; you can&apos;t use alchemical reagents to perform a ritual requiring sanctified incense, for example. But you can use residuum for any ritual.{br}{br}You can buy ritual components at some shops, your allies can provide them (sharing the cost of a ritual with you), or you might find them as treasure. However you acquire components, record their value on your character sheet. When you perform a ritual, mark off the ritual&apos;s cost from the appropriate components." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="1"/>
+    <tag group="EquipType" tag="Component"/>
+    </thing>
+  <thing id="eqNightMan" name="Night&apos;s Mantle" description="This gauzy black cloth, woven by the gloaming fey, is spangled with star designs. When its wearer waves it in the air (a minor action) on a cloudy night, the clouds above in a half-mile radius drift away to expose the night sky for one hour." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="1000"/>
+    <fieldval field="gearWeight" value="4"/>
+    <usesource source="HeroFeywil"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqOil1" name="Oil (1 pint)" compset="Equipment" stacking="merge">
+    <fieldval field="gearWeight" value="1"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqOrb" name="Orb Implement" description="Using a nonmagical implement confers no benefit. You can purchase a magic implement to gain an enhancement bonus to attack rolls and damage rolls with your arcane powers." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="15"/>
+    <fieldval field="gearWeight" value="2"/>
+    <tag group="EquipType" tag="Gear"/>
+    <tag group="ImplemType" tag="itOrb"/>
+    </thing>
+  <thing id="eqPalace" name="Palace" description="The architecture and ornamentation of this immense complex is designed to impress." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="175000"/>
+    <usesource source="MordensEmp"/>
+    <tag group="thing" tag="holder_top"/>
+    </thing>
+  <thing id="eqPalisfor" name="Palisade fort" description="Surrounded by a wall of sharpened logs, this wooden fort can be constructed quickly and garrisons up to fifty troops and their families." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="25000"/>
+    <usesource source="MordensEmp"/>
+    <tag group="thing" tag="holder_top"/>
+    </thing>
+  <thing id="eqPetriorb" name="Petrified orb" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="27"/>
+    <fieldval field="gearWeight" value="2"/>
+    <usesource source="PHB3"/>
+    <tag group="WepProp" tag="Energized"/>
+    <tag group="WepProp" tag="Forceful"/>
+    <tag group="EquipType" tag="Superior"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.itOrb]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="eqAlePit" name="Pitcher of Ale" compset="Equipment" stacking="merge">
+    <tag group="EquipType" tag="Drink"/>
+    </thing>
+  <thing id="eqPitons" name="Pitons" compset="Equipment" stacking="merge">
+    <fieldval field="gearWeight" value="5"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqPixieMus" name="Pixie Music Box" description="This &quot;box&quot; appears to be an acorn shell. When the shell is opened, a childlike chorus of pixie voices sounds from within it for the next six hours, drifting gently on the wind. At the end of that time, the pixie music stops, leaving only a plain, hollow acorn. While the music is sounding, natural beasts won&apos;t approach or attack anyone in the sound&apos;s area (a 20-square radius), heeding the pixies&apos; beautiful song and staying away out of respect for those magical creatures." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="50"/>
+    <usesource source="HeroFeywil"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqPoisoKit" name="Poisoner&apos;s Kit" description="A common item found in the hands of the most dangerous assassins, a poisoner&apos;s kit consists of a collection of tools, vials, and base ingredients used to concoct deadly poisons. Possession of a poisoner&apos;s kit is usually grounds for arrest in most civilized areas, since there is little good that can come of the substances that the kits require." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="25"/>
+    <fieldval field="gearWeight" value="5"/>
+    <usesource source="PlEsShadow"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqPrivaisl" name="Private island" description="From beaches, docks, and sea caves to towers, villas, and observatories, it&apos;s all yours." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="650000"/>
+    <usesource source="MordensEmp"/>
+    <tag group="thing" tag="holder_top"/>
+    </thing>
+  <thing id="eqQuarters" name="Quarters" description="These three small rooms might be a single-story wooden house, or an apartment within a larger building." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="1000"/>
+    <usesource source="MordensEmp"/>
+    <tag group="thing" tag="holder_top"/>
+    </thing>
+  <thing id="eqQuicksta" name="Quickbeam staff" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="15"/>
+    <fieldval field="gearWeight" value="4"/>
+    <usesource source="PHB3"/>
+    <tag group="WepProp" tag="Energized"/>
+    <tag group="WepProp" tag="Forceful"/>
+    <tag group="EquipType" tag="Superior"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.itStaff]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="eqRainSti" name="Rain Stick" description="Rain sticks are crafted from tree branches by dryads, hags, and other fey in the wilderness. When a creature breaks a rain stick, the act creates a sudden downpour of rain in a half-mile radius that lasts up to one hour. If a stick is broken indoors or underground, the downpour occurs outside, centered above the location where the stick was broken." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="150"/>
+    <fieldval field="gearWeight" value="1"/>
+    <usesource source="HeroFeywil"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqRareHer" name="Rare Herbs (Nature)" description="Valuable components must be expended to perform a ritual. Rare herbs are usually collected and preserved during certain times of year, such as when the moon is full.{br}{br}Components are needed by ritual casters. You purchase as many gold pieces worth of components as you need or can afford. You can use the components associated with a key skill for any ritual that uses that skill. Ritual components are not interchangeable; you can&apos;t use alchemical reagents to perform a ritual requiring sanctified incense, for example. But you can use residuum for any ritual.{br}{br}You can buy ritual components at some shops, your allies can provide them (sharing the cost of a ritual with you), or you might find them as treasure. However you acquire components, record their value on your character sheet. When you perform a ritual, mark off the ritual&apos;s cost from the appropriate components." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="1"/>
+    <tag group="EquipType" tag="Component"/>
+    </thing>
+  <thing id="eqRavenFea" name="Raven&apos;s Feather" description="This plain black feather ends in a small iron needle. When the item&apos;s user pricks a creature&apos;s skin with the needle, just enough to draw blood, the feather forms a mystic bond to that creature. At the moment of that creature&apos;s death, the black feather turns bloodred. Merchants and travelers leave raven&apos;s feathers with their loved ones, while some thieves&apos; guilds and mercenary bands require initiates to leave one with their superiors. One of these feathers is by no means infallible. There is no way to inspect the feather to ensure that it is linked to a specific person. It is easy enough to fake one&apos;s death by passing off a feather attuned to a different creature as belonging to someone else." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="25"/>
+    <fieldval field="gearWeight" value="1"/>
+    <usesource source="PlEsShadow"/>
+    </thing>
+  <thing id="eqRegalia" name="Regalia" description="In social situations where appearances and wealth matter, wearing regalia gives you a +2 bonus to Bluff, Diplomacy, and Intimidate checks." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="100"/>
+    <fieldval field="gearWeight" value="6"/>
+    <usesource source="MordensEmp"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqResidAny" name="Residuum (Any)" description="The concentrated magical substance that results from performing the Disenchant Magic Item ritual, residuum can be used as a component for any ritual. You can&apos;t usually buy it on the open market; you acquire it by draining it out of magic items.{br}{br}Components are needed by ritual casters. You purchase as many gold pieces worth of components as you need or can afford. You can use the components associated with a key skill for any ritual that uses that skill. Ritual components are not interchangeable; you can&apos;t use alchemical reagents to perform a ritual requiring sanctified incense, for example. But you can use residuum for any ritual.{br}{br}You can buy ritual components at some shops, your allies can provide them (sharing the cost of a ritual with you), or you might find them as treasure. However you acquire components, record their value on your character sheet. When you perform a ritual, mark off the ritual&apos;s cost from the appropriate components." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="1"/>
+    <tag group="EquipType" tag="Component"/>
+    </thing>
+  <thing id="eqRituaBoo" name="Ritual Book" description="Ritual casters use a ritual book to store the rituals they have mastered." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="50"/>
+    <fieldval field="gearWeight" value="3"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqRod" name="Rod Implement" description="Using a nonmagical implement confers no benefit. You can purchase a magic implement to gain an enhancement bonus to attack rolls and damage rolls with your arcane powers." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="12"/>
+    <fieldval field="gearWeight" value="2"/>
+    <tag group="EquipType" tag="Gear"/>
+    <tag group="ImplemType" tag="itRod"/>
+    </thing>
+  <thing id="eqRowanwan" name="Rowan wand" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="15"/>
+    <usesource source="PHB3"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <tag group="WepProp" tag="Distant"/>
+    <tag group="WepProp" tag="Energized"/>
+    <tag group="EquipType" tag="Superior"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.itWand]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="eqRowboat" name="Rowboat" description="A Rowboat&apos;s weight is 600 lb." compset="Equipment" stacking="never">
+    <fieldval field="grCost" value="50"/>
+    <fieldval field="gearWeight" value="600"/>
+    <tag group="thing" tag="holder_top"/>
+    <tag group="EquipType" tag="Transport"/>
+    </thing>
+  <thing id="eqRubbiKit" name="Rubbing Kit" description="The materials in this scroll case enable you to transfer an image of ancient runes or carvings onto a different surface to be deciphered later. The case contains several thin sheets of parchment and a stick of soft charcoal. After placing a piece of parchment over the surface to be copied, rub the  charcoal against it while applying gentle pressure. With a standard action, you can make a rubbing covering 1 square foot. One kit contains enough material for ten such rubbings." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="5"/>
+    <fieldval field="gearWeight" value="1"/>
+    <usesource source="IntoUnknow"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqRubyLen" name="Ruby Lenses" description="These red glass inserts let you reduce a lantern&apos;s brightness without limiting the area it illuminates. The red glow is easier on the eyes, and it doesn&apos;t attract as much attention as the bright light of an unfiltered flame. The light that passes through a ruby lens is dim, but its radius is unchanged." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="25"/>
+    <fieldval field="gearWeight" value="3"/>
+    <usesource source="IntoUnknow"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqSacks" name="Sacks" description="You can carry up to 100 pounds in one of these leather or canvas drawstring bags." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="1"/>
+    <fieldval field="gearWeight" value="1"/>
+    <usesource source="MordensEmp"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqSageskit" name="Sage&apos;s kit" description="This kit includes a bestiary, a hidden item compartment, investigation gear, iron filings and lodestone, a jar of glowworms, and a writing case. Many purchasers supplement this kit with tracking dust." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="135"/>
+    <fieldval field="gearWeight" value="12"/>
+    <usesource source="MordensEmp"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqSailiShi" name="Sailing Ship" description="A Sailing ship&apos;s weight is 300,000 lb." compset="Equipment" stacking="never">
+    <fieldval field="grCost" value="10000"/>
+    <fieldval field="gearWeight" value="300000"/>
+    <tag group="EquipType" tag="Transport"/>
+    <tag group="thing" tag="holder_top"/>
+    </thing>
+  <thing id="eqSanctInc" name="Sanctified Incense (Religion)" description="Valuable components must be expended to perform a ritual. Sanctified incense is prepared during certain religious rites and is burned as a powder or a stick.{br}{br}Components are needed by ritual casters. You purchase as many gold pieces worth of components as you need or can afford. You can use the components associated with a key skill for any ritual that uses that skill. Ritual components are not interchangeable; you can&apos;t use alchemical reagents to perform a ritual requiring sanctified incense, for example. But you can use residuum for any ritual.{br}{br}You can buy ritual components at some shops, your allies can provide them (sharing the cost of a ritual with you), or you might find them as treasure. However you acquire components, record their value on your character sheet. When you perform a ritual, mark off the ritual&apos;s cost from the appropriate components." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="1"/>
+    <tag group="EquipType" tag="Component"/>
+    </thing>
+  <thing id="eqScreaSca" name="Screaming Scarecrow" description="Although hags originally created scarecrows, gnomes stole the idea and adapted it to their purposes. When a creature within 4 squares of a screaming scarecrow triggers a condition that was set when the scarecrow is placed (such as &quot;a creature passes through the area without saying a password,&quot; or &quot;a human enters the area&quot;), the scarecrow begins to scream. When this happens, any other screaming scarecrow within 50 feet of it also begins to scream.{br}If a creature attempts to use Stealth to bypass a screaming scarecrow, the scarecrow uses the passive Perception of the creature that placed it, with a +10 bonus. Many fey use screaming scarecrows as an efficient alarm system." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="50"/>
+    <fieldval field="gearWeight" value="15"/>
+    <usesource source="HeroFeywil"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqSenalChr" name="Senaliesse Chrysanthemum" description="Denizens of the enchanted forest beneath the Summer Queen&apos;s demesne of Senaliesse sometimes befriend petitioners that are on a journey to the Court of Stars. The fey reward the visitors with chrysanthemums, marking the travelers as friends of the fey. The gift also offers a degree of protection; mischievous fey such as gnomes, nymphs, and pixies refrain from tricking or tempting those who bear such a flower, which remains a beautiful bloom until the bearer leaves the Feywild." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="10"/>
+    <usesource source="HeroFeywil"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqSerenKi" name="Serene ki focus" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="35"/>
+    <usesource source="Psionic"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <tag group="WepProp" tag="Energized"/>
+    <tag group="WepProp" tag="Undeniable"/>
+    <tag group="EquipType" tag="Superior"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.itKiFocus]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="eqShovel" name="Shovel" description="With this sturdy tool you can dig through deep, dense, or unappetizing material to locate treasure (or bury your hard-won prizes for security), scoop up small objects that might be dangerous or unpleasant to handle, or clobber an enemy in a pinch." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="2"/>
+    <fieldval field="gearWeight" value="8"/>
+    <usesource source="IntoUnknow"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqSignaamm" name="Signal ammunition" description="These arrows, sling bullets, or crossbow bolts incorporate sunrod materials that ignite when the ammunition is fired, and are useful for coordinating maneuvers or signaling for help." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="15"/>
+    <fieldval field="gearWeight" value="5"/>
+    <usesource source="MordensEmp"/>
+    <tag group="EquipType" tag="Ammunition"/>
+    </thing>
+  <thing id="eqRopeSil" name="Silk Rope (50 ft.)" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="5"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqSlingBul" name="Sling Bullets" description="Sling Bullets come in a pouch that holds 20." compset="Ammunition" lotsize="20" stacking="merge">
+    <fieldval field="gearWeight" value="0.25"/>
+    <fieldval field="grCost" value="0"/>
+    <fieldval field="grLotCost" value="1"/>
+    <tag group="EquipType" tag="Ammunition"/>
+    </thing>
+  <thing id="eqSnakeOil" name="Snake Oil" description="Harvested from the water snakes native to the coral reefs near Astrazalian, snake oil applied to aching joints and wrinkled flesh can rejuvenate an aging body. After a treatment of snake oil, the treated skin peels away from the body, leaving behind soft, smooth flesh. Full-body treatments of snake oil have been known to reverse the cosmetic effects of the aging process, removing an entire year of wear from the body with each treatment. The cost of doing so is a reasonable option only for the wealthy. Even though the treatment removes the physical effects of aging on the skin, as well as some of the associated aches and pains, all other bodily processes continue to age normally. Death cannot be put off by using snake oil, a fact seldom conveyed by those who sell it." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="500"/>
+    <fieldval field="gearWeight" value="1"/>
+    <usesource source="HeroFeywil"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqSnares" name="Snares" description="When you use these baited tripwire traps, you gain a +2 bonus to Nature checks or Dungeoneering checks to forage, but each check requires 2 hours instead of 1 hour." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="5"/>
+    <fieldval field="gearWeight" value="4"/>
+    <usesource source="MordensEmp"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqSorcelev" name="Sorcerer-king&apos;s levy" description="Most city-states demand payment before allowing travelers to enter their gates." compset="Equipment" stacking="merge">
+    <usesource source="DarkSun"/>
+    </thing>
+  <thing id="eqSpellboo" name="Spellbook" description="Wizards keep the spells they&apos;ve learned in a spellbook." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="50"/>
+    <fieldval field="gearWeight" value="3"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqSpellsha" name="Spellshard" description="Spellshards are fragments of crystal that contain power and knowledge, usually of an arcane nature. If your class would normally store its arcane powers in a spellbook, you can instead store your powers in a spellshard if you possess one.{br}All the enchantments and features available through a tome are also available through a spellshard. Members of any class can use a spellshard in place of a ritual book or a ritual scroll." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="100"/>
+    <fieldval field="gearWeight" value="0.5"/>
+    <usesource source="EbPG"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqSpideDre" name="Spiderweb Dream Net" description="Made from strands of fey spider silk, a spiderweb dream net is used to capture dreams for varied uses. While a creature sleeps, the net is placed over it, and the creature&apos;s dreams are absorbed into the net&apos;s filaments. When the creature awakens, the net can be boiled in a cauldron or other large vessel. The trapped dreams evaporate into steam that rises in wispy shapes, playing out the events of the dream for any to view.{br}Instead of boiling a net that has captured one creature&apos;s dreams in this manner, the user of the net can cut it into small sections and consume a portion to experience the captured dreams directly, allowing the viewer to experience the same set of dreams over time. A dream experienced in this way is more intense and offers deeper insights about the dreamer. A dream that arises from a portion of a net being  consumed cannot be captured by another dream net." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="30"/>
+    <usesource source="HeroFeywil"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqStaff" name="Staff Implement" description="Using a nonmagical implement confers no benefit. You can purchase a magical implement to gain an enhancement bonus to attack rolls and damage rolls with your arcane powers. A staff implement can also function as a magic quarterstaff." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="5"/>
+    <fieldval field="gearWeight" value="4"/>
+    <tag group="EquipType" tag="Gear"/>
+    <tag group="ImplemType" tag="itStaff"/>
+    </thing>
+  <thing id="eqIdentPap" name="Standard Identification Papers" description="Members of the middle and upper classes in the Five Nations carry identification papers issued by their governments and notarized by House Sivis. Each set contains a description of the holder, a portrait, and other details. (Players may photocopy and customize the illustration of the identification papers.)" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="2"/>
+    <usesource source="EbPG"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqStarISee" name="Star-Indigo Seeds, 1 pouch" description="The star-indigo plant grows only in the wild fields of the Feywild. By day, the plant&apos;s flowers resemble those of any other vegetation. In the twilight just after sunset, its flowers glow slightly. At midnight, gazing down on a field of star-indigo plants is like looking at the night sky in reverse, as its flowers shine  as brightly as the stars. Feywild creatures often arrange star-indigo seeds in symbols and messages that can be seen only in the dark of night. Dyes made from star-indigo plants pass their nocturnal glowing quality to clothing and ink, and an object colored with these dyes emits light equivalent to  that of a candle." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="5"/>
+    <fieldval field="gearWeight" value="1"/>
+    <usesource source="HeroFeywil"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqStonebui" name="Stone building" description="The stone walls of this building make it an ideal workshop or townhouse. It can be two stories tall and is typically 30 feet wide by 40 feet long." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="3000"/>
+    <usesource source="MordensEmp"/>
+    <tag group="thing" tag="holder_top"/>
+    </thing>
+  <thing id="eqStormtot" name="Storm totem" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="18"/>
+    <fieldval field="gearWeight" value="2"/>
+    <usesource source="PHB3"/>
+    <tag group="WepProp" tag="Energized"/>
+    <tag group="WepProp" tag="Unstoppabl"/>
+    <tag group="EquipType" tag="Superior"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.itTotem]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="eqSunbal" name="Sun balm" description="Travelers value sun balm to ward against the sun&apos;s pernicious effect. Sun balm grants a +2 bonus to Endurance checks made to endure heat." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="50"/>
+    <fieldval field="gearWeight" value="1"/>
+    <usesource source="DarkSun"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqSunrod" name="Sunrod" description="This minor magic item sheds bright light to a radius of 20 squares for 4 hours before burning out." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="4"/>
+    <fieldval field="gearWeight" value="2"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqSurvegea" name="Surveyor&apos;s gear" description="With this plumb line, measuring chain with pins, and slate for recording notes, you gain a +2 bonus to Perception checks to search for secret doors or hidden rooms, but using the gear takes at least 5 minutes." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="15"/>
+    <fieldval field="gearWeight" value="5"/>
+    <usesource source="MordensEmp"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqSurviDay" name="Survival Day" description="A survival day is an abstract representation of the preparations a traveler must make to navigate the wastelands without risk of exposure. Each survival day includes water, food, proper apparel, and common unguents to ward off sunburn." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="5"/>
+    <fieldval field="gearWeight" value="8"/>
+    <usesource source="DarkSun"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqSweetCon" name="Sweetheart&apos;s Confection" description="Gnomes employed by the eladrin archfey known as the Prince of Hearts make this heart-shaped confection. It is split into two halves and shared between lovers right before they part company for a time. Until they next meet, the lovers share an emotional bond, each vaguely sensing the other&apos;s emotions. Each can sense when the other is in peril, though the link doesn&apos;t reveal precise details of the situation." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="10"/>
+    <usesource source="HeroFeywil"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqTenfopol" name="Ten-foot pole" description="Prodding dangerous-looking things with a ten-foot pole lets you trigger many traps from the safety of 2 squares away." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="1"/>
+    <fieldval field="gearWeight" value="8"/>
+    <usesource source="MordensEmp"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqTent" name="Tent" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="20"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqThievToo" name="Thieves&apos; Tools" description="To use the Thievery skill properly, you need the right picks and pries, skeleton keys, clamps, and so on. Thieves&apos; tools grant a +2 bonus to Thievery checks to open a lock or to disable a trap." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="20"/>
+    <fieldval field="gearWeight" value="1"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqTome" name="Tome Implement" description="Using an ordinary implement confers no benefit, but you can purchase an enchanted implement to gain an enhancement bonus to attack rolls and damage rolls with your arcane powers." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="7"/>
+    <fieldval field="gearWeight" value="1"/>
+    <usesource source="Arcane"/>
+    <tag group="EquipType" tag="Gear"/>
+    <tag group="ImplemType" tag="itTome"/>
+    </thing>
+  <thing id="eqTongs" name="Tongs" description="These foot-long metal pincers are similar to those used in smithies. With them, you can manipulate objects at times when using your hands is too risky, such as when you&apos;re reaching into a scalding brazier, an unknown liquid, or a dark hole." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="3"/>
+    <fieldval field="gearWeight" value="2"/>
+    <usesource source="IntoUnknow"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqTorch" name="Torch" description="A torch is a wooden rod capped with twisted flax soaked in tallow. A torch burns for one hour and provides bright light to a radius of 5 squares." compset="Equipment" stacking="merge">
+    <fieldval field="gearWeight" value="1"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqTotem" name="Totem" description="Druids and shamans use totems as focuses for their evocations. A totem is a short length of wood or bone, similar to a rod, which is carved to resemble a nature spirit and is adorned with feathers, fur, leaves, bones, teeth, and the like. A nonmagical totem confers no game benefit but can be enchanted later." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="5"/>
+    <fieldval field="gearWeight" value="2"/>
+    <usesource source="PHB2"/>
+    <tag group="EquipType" tag="Gear"/>
+    <tag group="ImplemType" tag="itTotem"/>
+    </thing>
+  <thing id="eqTower" name="Tower" description="A favorite residence for mages, this stone spire rises 30 feet high and is 20 feet in diameter." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="10000"/>
+    <usesource source="MordensEmp"/>
+    <tag group="thing" tag="holder_top"/>
+    </thing>
+  <thing id="eqRatioTra" name="Trail Rations" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="5"/>
+    <fieldval field="gearWeight" value="10"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqTransKi" name="Transcendent ki focus" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="30"/>
+    <usesource source="Psionic"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <tag group="WepProp" tag="Blinking"/>
+    <tag group="WepProp" tag="Reaching"/>
+    <tag group="EquipType" tag="Superior"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.itKiFocus]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="eqTrapMKit" name="Trap-Making Kit" description="This kit is used by trapsmiths to lay their special traps." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="40"/>
+    <fieldval field="gearWeight" value="15"/>
+    <usesource source="IntoUnknow"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqTravePap" name="Travel Papers" description="Crossing national boundaries is risky without a set of notarized travel papers. Like identification papers, they include personal details about the traveler - place of residence, occupation, and destination. (Players may photocopy and customize the illustration of the travel papers.)" compset="Equipment" stacking="merge">
+    <usesource source="EbPG"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqTraveKit" name="Traveler&apos;s Kit" description="This kit includes camouflaged clothing, cold-weather clothing, desert clothing, a map case, five pieces of signal ammunition, and snares. Many purchasers supplement this kit with icening." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="80"/>
+    <fieldval field="gearWeight" value="31"/>
+    <usesource source="MordensEmp"/>
+    </thing>
+  <thing id="eqUnspetom" name="Unspeakable tome" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="15"/>
+    <fieldval field="gearWeight" value="3"/>
+    <usesource source="PHB3"/>
+    <tag group="WepProp" tag="EmpowCrit"/>
+    <tag group="WepProp" tag="Undeniable"/>
+    <tag group="EquipType" tag="Superior"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.itTome]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="eqVialBan" name="Vial Bandolier" description="Stitched onto this well-crafted leather shoulder harness are ten padded holsters that can hold doses of potions, poisons, and elixirs, ensuring easy access while cushioning them against accidental breakage." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="6"/>
+    <fieldval field="gearWeight" value="1"/>
+    <usesource source="IntoUnknow"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqWagon" name="Wagon" description="A Wagon&apos;s weight is 2000 lb." compset="Equipment" stacking="never">
+    <fieldval field="grCost" value="20"/>
+    <fieldval field="gearWeight" value="2000"/>
+    <tag group="thing" tag="holder_top"/>
+    <tag group="EquipType" tag="Transport"/>
+    </thing>
+  <thing id="eqWand" name="Wand Implement" description="Using an ordinary implement confers no benefit, but you can purchase an enchanted implement to gain an enhancement bonus to attack rolls and damage rolls with your arcane powers." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="7"/>
+    <tag group="EquipType" tag="Gear"/>
+    <tag group="ImplemType" tag="itWand"/>
+    </thing>
+  <thing id="eqWardisym" name="Warding symbol" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="21"/>
+    <fieldval field="gearWeight" value="1"/>
+    <usesource source="PHB3"/>
+    <tag group="WepProp" tag="Shielding"/>
+    <tag group="WepProp" tag="Unstoppabl"/>
+    <tag group="EquipType" tag="Superior"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.itHolySym]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="eqWaterski" name="Waterskin" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="1"/>
+    <fieldval field="gearWeight" value="4"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqWolfsban" name="Wolfsbane" description="A flowering plant found both in the natural world and the Feywild, wolfsbane is a key ingredient in a number of potions and alchemical formulas associated with warding off or harming lycanthropes. Wolfsbane is dangerous to handle, because it is poisonous to humanoids in sufficient quantities. A bundle of wolfsbane is usually enough to keep at bay a lycanthrope that lacks serious resolve; lycanthropes find its smell sickening, and though it cannot truly harm them, most go out of their way to avoid it.{br}As a poison, wolfsbane has the same effect as ground thassil root (Dungeon Master&apos;s Guide, page 51). Lycanthropes experience a feeling of discomfort when within 30 feet of a bundle of wolfsbane, and any lycanthrope with a Fortitude of 17 or lower cannot willingly enter a square adjacent to a bundle of wolfsbane." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="5"/>
+    <fieldval field="gearWeight" value="1"/>
+    <usesource source="HeroFeywil"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  <thing id="eqWoodbui" name="Wood building" description="This two-story structure is typically 30 feet wide by 40 feet long and makes a good tavern or farmhouse. However, its wooden walls make it susceptible to fire." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="1500"/>
+    <usesource source="MordensEmp"/>
+    <tag group="thing" tag="holder_top"/>
+    </thing>
+  <thing id="eqWoodwind" name="Woodwind" description="Bards and other characters use instruments for art and entertainment. A nonmagical musical instrument confers no game benefit but can be enchanted later." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="2"/>
+    <usesource source="PHB2"/>
+    </thing>
+  <thing id="eqWrathsym" name="Wrathful symbol" compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="23"/>
+    <fieldval field="gearWeight" value="1"/>
+    <usesource source="PHB3"/>
+    <tag group="WepProp" tag="EmpowCrit"/>
+    <tag group="WepProp" tag="Undeniable"/>
+    <tag group="EquipType" tag="Superior"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.itHolySym]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="eqWriticas" name="Writing case" description="This leather case holds a blank journal, loose sheets of parchment, an ink stone and ink brushes, a blotter, quills, and penknives." compset="Equipment" stacking="merge">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="2"/>
+    <usesource source="MordensEmp"/>
+    <tag group="EquipType" tag="Gear"/>
+    </thing>
+  </document>

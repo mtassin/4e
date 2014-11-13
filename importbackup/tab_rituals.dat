@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document signature="Hero Lab Data">
+
+
+  <!-- Define all facets of the "Rituals" tab for the game system. All public
+        visual elements used on the Rituals tab start with the prefix 'rt' to
+        associate them with the Rituals tab.
+  -->
+
+
+  <!-- rtRituals portal
+        Presents a dynamic table where the user can add rituals for the
+        character.
+  -->
+  <portal
+    id="rtRituals"
+    style="tblNormal">
+    <table_dynamic
+      component="Ritual"
+      showtemplate="rtPick"
+      choosetemplate="SimpleItem"
+      choosesortset="Rituals"
+      showfixedlast="yes"
+      addpick="resRituals"
+      descwidth="450"
+      buytemplate="BuyRitual"
+      selltemplate="SellCash">
+      <list>!Helper.RitScroll</list>
+      <candidate>!Hide.Ritual</candidate>
+      <!-- We can't learn any ritual more than once from this table, but we
+          can't make them unique, because we have to be able to add them on
+          scrolls as well. Specifying a restriction of !Helper.CustomItem means
+          that no ritual will be able to be added to this table more than once,
+          apart from the 'custom ritul', but scrolls etc will be ignored. -->
+      <restriction>!Helper.CustomItem</restriction>
+      <titlebar><![CDATA[
+        @text = "Add a Ritual"
+        if (hero.tagis[Hero.Monster] = 0) then
+          @text &= " - " & hero.child[resRituals].field[resSummary].text
+          endif
+        ]]></titlebar>
+      <description/>
+      <headertitle><![CDATA[
+        @text = "Rituals & Bonus Rituals"
+        if (hero.tagis[Hero.Monster] = 0) then
+          @text &= ": " & hero.child[resRituals].field[resSummary].text
+          endif
+        ]]></headertitle>
+      <additem><![CDATA[
+        ~set the color based on whether the proper number of slots are allocated
+        if (hero.tagis[Hero.Monster] = 0) then
+          if (field[resLeft].value = 0) then
+            @text = "{text a0a0a0}"
+          elseif (field[resLeft].value < 0) then
+            @text = "{text ff0000}"
+            endif
+          endif
+        @text &= "Add New Ritual"
+        ]]></additem>
+      </table_dynamic>
+    </portal>
+
+
+  <!-- rtScrollBk portal
+        Presents a dynamic table where the user can add rituals on scrolls and
+        ritual books.
+  -->
+  <portal
+    id="rtScrollBk"
+    style="tblNormal">
+    <table_dynamic
+      component="Ritual"
+      showtemplate="rtPick"
+      choosetemplate="SimpleItem"
+      showfixedlast="yes"
+      descwidth="450"
+      buytemplate="BuyCash"
+      selltemplate="SellCash"
+      xactspecial="1"> <!-- special = 1 means buying on scrolls, no bonus rituals -->
+      <list>FALSE</list>
+      <candidate>!Hide.RitualScr</candidate>
+      <autotag group="Helper" tag="RitScroll"/>
+      <titlebar><![CDATA[
+        @text = "Add a Ritual Scrolls"
+        ]]></titlebar>
+      <description/>
+      <headertitle><![CDATA[
+        @text = "Ritual Scrolls"
+        ]]></headertitle>
+      <additem><![CDATA[
+        @text &= "Add Ritual Scrolls"
+        ]]></additem>
+      </table_dynamic>
+    </portal>
+
+
+  <!-- rtPick template
+        Displays the name of the pick/thing and an info button with the basic
+        description text. Auto-added abilities such as those conferred by races
+        are sorted and colored differently to distinguish their nature.
+  -->
+  <template
+    id="rtPick"
+    name="Ritual Pick"
+    compset="Ritual"
+    marginhorz="3"
+    marginvert="2">
+
+    <portal
+      id="name"
+      style="lblNormal"
+      showinvalid="yes">
+      <label
+        field="name">
+        </label>
+      </portal>
+
+    <portal
+      id="username"
+      style="editNormal">
+      <edit
+        field="UserName"
+        maxlength="100">
+        </edit>
+      </portal>
+
+    <portal
+      id="lblmaster"
+      style="lblSmall">
+      <label
+        text="Mastered">
+        </label>
+      </portal>
+
+    <portal
+      id="chkmaster"
+      style="chkSmall"
+      tiptext="Checking this box indicates the ritual is mastered and can be used. Unmastered rituals cannot be used until mastered.">
+      <checkbox
+        field="ritMaster"
+        message="Mastered?">
+        </checkbox>
+      </portal>
+
+    <portal
+      id="info"
+      style="actInfo">
+      <action
+        action="info">
+        </action>
+      <mouseinfo/>
+      </portal>
+
+    <portal
+      id="delete"
+      style="actDelete"
+      tiptext="Click to delete this ritual">
+      <action
+        action="delete">
+        </action>
+      </portal>
+
+    <position><![CDATA[
+      ~set up our height; our width is pre-initialized for us
+      height = portal[info].height
+
+      ~if this is a "sizing" calculation, we're done
+      doneif (issizing <> 0)
+
+      ~position our tallest portal at the top
+      portal[info].top = 0
+
+      ~center the other portals on the tallest one
+      perform portal[name].centeron[vert,info]
+      perform portal[username].centeron[vert,info]
+      perform portal[delete].centeron[vert,info]
+      perform portal[lblmaster].centeron[vert,info]
+      perform portal[chkmaster].centeron[vert,info]
+
+      ~position the delete portal on the far right
+      perform portal[delete].alignedge[right,0]
+
+      ~position the info portal to the left of the delete button
+      perform portal[info].alignrel[rtol,delete,-8]
+
+      ~position the chkmaster portal to the left of the info button
+      perform portal[chkmaster].alignrel[rtol,info,-25]
+      perform portal[lblmaster].centeron[horz,chkmaster]
+
+      ~if our mastered field is set or we're not mastered, we need to show the
+      ~checkbox. Otherwise, the ritual is automatically mastered, and we need
+      ~to show the label.
+      if (field[ritMaster].value + !tagis[Helper.Mastered] <> 0) then
+        portal[lblmaster].visible = 0
+      else
+        portal[chkmaster].visible = 0
+        endif
+
+      ~if we're in the ritual scrolls tab, don't show anything about being
+      ~mastered - we can never master rituals on scrolls
+      if (intable[rtScrollBk] <> 0) then
+        portal[lblmaster].visible = 0
+        portal[chkmaster].visible = 0
+        endif
+
+      ~if we don't meet the level requirement for this ritual, disable the
+      ~mastered checkbox
+      if (tagis[Helper.NoMaster] <> 0) then
+        perform portal[chkmaster].setstyle[chkSmallDs]
+        endif
+
+      ~position the name on the left and let it use all available space
+      portal[name].left = 0
+      portal[name].width = minimum(portal[name].width,portal[info].left - 5)
+
+      ~if this is a "custom" item pick, show an edit portal instead of the name
+      if (ispick <> 0) then
+        if (tagis[Helper.CustomItem] <> 0) then
+          portal[name].visible = 0
+          portal[username].left = portal[name].left
+          var limit as number
+          limit = width / 2
+          portal[username].width = minimum(200,limit)
+        else
+          portal[username].visible = 0
+          endif
+      else
+        portal[username].visible = 0
+        endif
+
+      ~if the ability is auto-added, change its font to indicate that fact
+      if (candelete = 0) then
+        perform portal[name].setstyle[lblAuto]
+
+      ~if not chkmaster, disable the ritual name
+      elseif (tagis[Helper.Mastered] = 0) then
+        perform portal[name].setstyle[lblDisable]
+        endif
+      ]]></position>
+
+    </template>
+
+
+
+
+  <!-- BuyRitual template
+        Provides the ability to buy a ritual as a 'bonus ritual', as an
+        alternative to cash. Added to a layout with the BuyCash template
+        also added.
+  -->
+  <template
+    id="BuyRitual"
+    name="Buy - Ritual"
+    compset="Transact"
+    istransaction="yes">
+
+    <portal
+      id="chkbonus"
+      style="chkNormal"
+      tiptext="Check this box to take this ritual as a Bonus Ritual (probably added by your class).">
+      <checkbox
+        field="xactIsBRit"
+        message="Bonus Ritual?">
+        </checkbox>
+      </portal>
+
+    <portal
+      id="details"
+      style="lblNormal">
+      <label
+        ismultiline="yes">
+        <labeltext><![CDATA[
+          @text = "You have " & #resleft[resRituals] & " bonus rituals left. Bonus rituals cost no gold, but count against your total rituals."
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <position><![CDATA[
+      portal[details].width = width
+      portal[details].height = portal[details].textheight
+
+      ~center our portals horizontally
+      perform portal[chkbonus].centerhorz
+      perform portal[details].centerhorz
+
+      ~position our details label under the checkbox
+      portal[details].top = portal[chkbonus].bottom + 10
+      ]]></position>
+
+    </template>
+
+
+  <!-- BuyRitual layout
+        Includes the BuyRitual and BuyCash templates. Added to the auto-
+        generated BuyRitual panel.
+  -->
+  <layout
+    id="BuyRitual">
+    <portalref portal="Vertical"/>
+    <templateref template="BuyRitual" taborder="10" thing="transact"/>
+    <templateref template="BuyCash" taborder="20" thing="transact"/>
+
+    <!-- This script sizes and positions the layout and its child visual elements. -->
+    <position><![CDATA[
+      perform template[BuyCash].render
+      template[BuyCash].left = width - template[BuyCash].width
+      height = template[BuyCash].height
+
+      template[BuyRitual].width = template[BuyCash].left - 15
+      template[BuyRitual].height = height
+
+      portal[Vertical].height = height
+      portal[Vertical].left = template[BuyRitual].right + 6
+      ]]></position>
+
+    </layout>
+
+
+  <!-- rituals layout
+        This layout orchestrates the display of the visual elements that comprise
+        the Rituals tab. This amounts to a title at the top and a dynamic table
+        below where the user can add the special abilities he wants.
+
+        The logic for this layout is similar to (albeit much simpler than) the
+        logic for the Basics tab. So please refer to the Basics tab for more details.
+  -->
+  <layout
+    id="rituals">
+    <portalref portal="rtRituals" taborder="10"/>
+    <portalref portal="rtScrollBk" taborder="20"/>
+
+    <!-- This script sizes and positions the layout and its child visual elements. -->
+    <position><![CDATA[
+      ~position and size the table to span the full layout; it will only use the
+      ~vertical space that it actually needs
+      perform portal[rtRituals].autoplace
+      perform portal[rtScrollBk].autoplace[10]
+      ]]></position>
+
+    </layout>
+
+
+  <!-- rituals panel
+        This is the "Rituals" panel shown within Hero Lab. This needs to appear
+        after magic items, so its order is 240.
+
+        The logic for this panel is similar to the logic for the Basics panel, so
+        please refer to the Basics panel for more details.
+  -->
+  <panel
+    id="rituals"
+    name="Rituals"
+    marginhorz="5"
+    marginvert="5"
+    order="240">
+    <live>!HideTab.rituals</live>
+    <layoutref layout="rituals"/>
+    <position><![CDATA[
+      ]]></position>
+    </panel>
+  </document>

@@ -1,0 +1,1339 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document signature="Hero Lab Data">
+  <thing id="wpAccurdag" name="Accurate dagger" compset="Melee">
+    <fieldval field="grCost" value="25"/>
+    <fieldval field="gearWeight" value="1"/>
+    <fieldval field="wpProf" value="3"/>
+    <fieldval field="wpShort" value="5"/>
+    <fieldval field="wpLong" value="10"/>
+    <usesource source="Dragon"/>
+    <tag group="WepDamage" tag="1d4"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="LightThrow"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <tag group="WepProp" tag="Accurate"/>
+    <tag group="WepGroup" tag="wgLightBl"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.wpDagger]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="wpAlhulak" name="Alhulak" compset="Melee">
+    <fieldval field="grCost" value="20"/>
+    <fieldval field="gearWeight" value="5"/>
+    <fieldval field="wpProf" value="3"/>
+    <usesource source="DarkSun"/>
+    <tag group="WepDamage" tag="1d8"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="WepProp" tag="Versatile"/>
+    <tag group="WepGroup" tag="wgFlail"/>
+    </thing>
+  <thing id="wpImproRan" name="Improvised Ranged" compset="Ranged">
+    <fieldval field="gearWeight" value="1"/>
+    <fieldval field="wpShort" value="5"/>
+    <fieldval field="wpLong" value="10"/>
+    <tag group="WepDamage" tag="1d4"/>
+    <tag group="WepCat" tag="wcImprov"/>
+    </thing>
+  <thing id="wpImproSma" name="Improvised Small Melee" compset="Melee">
+    <fieldval field="gearWeight" value="1"/>
+    <tag group="WepDamage" tag="1d4"/>
+    <tag group="WepCat" tag="wcImprov"/>
+    </thing>
+  <thing id="wpBastaswo" name="Bastard sword" compset="Melee">
+    <fieldval field="grCost" value="30"/>
+    <fieldval field="gearWeight" value="6"/>
+    <fieldval field="wpProf" value="3"/>
+    <tag group="WepDamage" tag="1d10"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="Versatile"/>
+    <tag group="WepGroup" tag="wgHeavyBl"/>
+    </thing>
+  <thing id="wpBattleax" name="Battleaxe" compset="Melee">
+    <fieldval field="grCost" value="15"/>
+    <fieldval field="gearWeight" value="6"/>
+    <fieldval field="wpProf" value="2"/>
+    <tag group="WepDamage" tag="1d10"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="WepProp" tag="Versatile"/>
+    <tag group="WepGroup" tag="wgAxe"/>
+    </thing>
+  <thing id="wpBladeAnn" name="Blade of Annihilation" compset="Melee">
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="PlEsForKin"/>
+    <tag group="WepDamage" tag="1d12"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="WepGroup" tag="wgHeavyBl"/>
+    <tag group="User" tag="HexbladeWp"/>
+    <eval phase="Setup" priority="400"><![CDATA[
+      ~hide us unless we're a Hexblade with the Infernal Pact
+      if (hero.child[fHexInfPac].tagis[Helper.ChosenOpt] = 0) then
+        perform assign[Hide.Weapon]
+        endif
+      ]]>
+      <after name="Build option activated"/>
+      </eval>
+    </thing>
+  <thing id="wpBladeCha" name="Blade of Chaos" compset="Melee">
+    <fieldval field="wpProf" value="3"/>
+    <usesource source="HeroElemCh"/>
+    <tag group="WepDamage" tag="2d4"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="WepProp" tag="HighCrit"/>
+    <tag group="WepGroup" tag="wgHeavyBl"/>
+    </thing>
+  <thing id="wpBladeWin" name="Blade of Winter&apos;s Mourning" compset="Melee">
+    <fieldval field="wpProf" value="3"/>
+    <usesource source="PlEsForKin"/>
+    <tag group="WepDamage" tag="1d10"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="WepGroup" tag="wgLightBl"/>
+    <tag group="User" tag="HexbladeWp"/>
+    <eval phase="Setup" priority="400"><![CDATA[
+      ~hide us unless we're a Hexblade with the Fey Pact
+      if (hero.child[fHexFeyPac].tagis[Helper.ChosenOpt] = 0) then
+        perform assign[Hide.Weapon]
+        endif
+      ]]>
+      <after name="Build option activated"/>
+      </eval>
+    </thing>
+  <thing id="wpBlowgun" name="Blowgun" compset="Ranged">
+    <fieldval field="grCost" value="5"/>
+    <fieldval field="gearWeight" value="2"/>
+    <fieldval field="wpProf" value="3"/>
+    <fieldval field="wpShort" value="5"/>
+    <fieldval field="wpLong" value="10"/>
+    <usesource source="Dragon"/>
+    <tag group="WepDamage" tag="1d4"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="Equipment" tag="TwoHand"/>
+    <tag group="WepProp" tag="LoadMinor"/>
+    <tag group="WepProp" tag="Small"/>
+    <tag group="User" tag="Use1HTable"/>
+    </thing>
+  <thing id="wpBola" name="Bola" compset="Melee">
+    <fieldval field="grCost" value="5"/>
+    <fieldval field="gearWeight" value="2"/>
+    <fieldval field="wpProf" value="3"/>
+    <fieldval field="wpShort" value="4"/>
+    <fieldval field="wpLong" value="8"/>
+    <usesource source="Dragon"/>
+    <tag group="WepDamage" tag="1d4"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="LightThrow"/>
+    <tag group="WepGroup" tag="wgFlail"/>
+    </thing>
+  <thing id="wpBroadswo" name="Broadsword" compset="Melee">
+    <fieldval field="grCost" value="20"/>
+    <fieldval field="gearWeight" value="5"/>
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="AdvenVault"/>
+    <tag group="WepDamage" tag="1d10"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="WepProp" tag="Versatile"/>
+    <tag group="WepGroup" tag="wgHeavyBl"/>
+    </thing>
+  <thing id="wpCahulaks" name="Cahulaks" compset="Melee">
+    <fieldval field="grCost" value="25"/>
+    <fieldval field="gearWeight" value="9"/>
+    <fieldval field="wpProf" value="2"/>
+    <fieldval field="wpShort" value="3"/>
+    <fieldval field="wpLong" value="6"/>
+    <usesource source="DarkSun"/>
+    <tag group="WepDamage" tag="1d8"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="HeavyThrow"/>
+    <tag group="WepProp" tag="Reach"/>
+    <tag group="WepGroup" tag="wgFlail"/>
+    <tag group="WepDamSec" tag="1d8"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepGroup" tag="wgFlail"/>
+    <tag group="WepProp" tag="Double"/>
+    </thing>
+  <thing id="wpCarrikal" name="Carrikal" compset="Melee">
+    <fieldval field="grCost" value="15"/>
+    <fieldval field="gearWeight" value="6"/>
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="DarkSun"/>
+    <tag group="WepDamage" tag="1d8"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="WepProp" tag="Brutal2"/>
+    <tag group="WepGroup" tag="wgAxe"/>
+    </thing>
+  <thing id="wpChatkcha" name="Chatkcha" compset="Melee">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="1"/>
+    <fieldval field="wpProf" value="2"/>
+    <fieldval field="wpShort" value="6"/>
+    <fieldval field="wpLong" value="12"/>
+    <usesource source="DarkSun"/>
+    <tag group="WepDamage" tag="1d6"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="WepProp" tag="LightThrow"/>
+    <tag group="WepGroup" tag="wgLightBl"/>
+    </thing>
+  <thing id="wpClub" name="Club" compset="Melee">
+    <fieldval field="grCost" value="1"/>
+    <fieldval field="gearWeight" value="3"/>
+    <fieldval field="wpProf" value="2"/>
+    <tag group="WepDamage" tag="1d6"/>
+    <tag group="WepCat" tag="wcSimple"/>
+    <tag group="WepGroup" tag="wgMace"/>
+    </thing>
+  <thing id="wpCraghamm" name="Craghammer" compset="Melee">
+    <fieldval field="grCost" value="20"/>
+    <fieldval field="gearWeight" value="6"/>
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="AdvenVault"/>
+    <tag group="WepDamage" tag="1d10"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="Versatile"/>
+    <tag group="WepProp" tag="Brutal2"/>
+    <tag group="WepGroup" tag="wgHammer"/>
+    </thing>
+  <thing id="wpCrossbow" name="Crossbow" compset="Ranged">
+    <fieldval field="grCost" value="25"/>
+    <fieldval field="gearWeight" value="4"/>
+    <fieldval field="wpProf" value="2"/>
+    <fieldval field="wpShort" value="15"/>
+    <fieldval field="wpLong" value="30"/>
+    <tag group="WepDamage" tag="1d8"/>
+    <tag group="WepCat" tag="wcSimple"/>
+    <tag group="Equipment" tag="TwoHand"/>
+    <tag group="WepProp" tag="LoadMinor"/>
+    <tag group="WepGroup" tag="wgCrossbow"/>
+    </thing>
+  <thing id="wpCuttiWhe" name="Cutting wheel" compset="Melee">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="1"/>
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="EbPG"/>
+    <tag group="WepDamage" tag="1d6"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="Defensive"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepGroup" tag="wgLightBl"/>
+    </thing>
+  <thing id="wpDagger" name="Dagger" compset="Melee">
+    <fieldval field="grCost" value="1"/>
+    <fieldval field="gearWeight" value="1"/>
+    <fieldval field="wpProf" value="3"/>
+    <fieldval field="wpShort" value="5"/>
+    <fieldval field="wpLong" value="10"/>
+    <tag group="WepDamage" tag="1d4"/>
+    <tag group="WepCat" tag="wcSimple"/>
+    <tag group="WepProp" tag="LightThrow"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepGroup" tag="wgLightBl"/>
+    </thing>
+  <thing id="wpDejada" name="Dejada" compset="Ranged">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="2"/>
+    <fieldval field="wpProf" value="2"/>
+    <fieldval field="wpShort" value="10"/>
+    <fieldval field="wpLong" value="20"/>
+    <usesource source="DarkSun"/>
+    <tag group="WepDamage" tag="1d8"/>
+    <tag group="WepCat" tag="wcSimple"/>
+    <tag group="WepProp" tag="LoadFree"/>
+    <tag group="WepGroup" tag="wgSling"/>
+    </thing>
+  <thing id="wpDoublaxe" name="Double axe" compset="Melee">
+    <fieldval field="grCost" value="40"/>
+    <fieldval field="gearWeight" value="15"/>
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="AdvenVault"/>
+    <tag group="WepDamage" tag="1d10"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="Stout"/>
+    <tag group="WepGroup" tag="wgAxe"/>
+    <tag group="WepDamSec" tag="1d10"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepGroup" tag="wgAxe"/>
+    <tag group="WepProp" tag="Double"/>
+    </thing>
+  <thing id="wpDoublfla" name="Double flail" compset="Melee">
+    <fieldval field="grCost" value="30"/>
+    <fieldval field="gearWeight" value="11"/>
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="AdvenVault"/>
+    <tag group="WepDamage" tag="1d8"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="Defensive"/>
+    <tag group="WepProp" tag="Stout"/>
+    <tag group="WepGroup" tag="wgFlail"/>
+    <tag group="WepDamSec" tag="1d8"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepGroup" tag="wgFlail"/>
+    <tag group="WepProp" tag="Double"/>
+    </thing>
+  <thing id="wpDoublSci" name="Double scimitar" compset="Melee">
+    <fieldval field="grCost" value="40"/>
+    <fieldval field="gearWeight" value="15"/>
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="EbPG"/>
+    <tag group="WepDamage" tag="1d6"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="Defensive"/>
+    <tag group="WepProp" tag="HighCrit"/>
+    <tag group="WepProp" tag="Stout"/>
+    <tag group="WepGroup" tag="wgHeavyBl"/>
+    <tag group="WepDamSec" tag="1d6"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepProp" tag="Double"/>
+    </thing>
+  <thing id="wpDoublswo" name="Double sword" compset="Melee">
+    <fieldval field="grCost" value="40"/>
+    <fieldval field="gearWeight" value="9"/>
+    <fieldval field="wpProf" value="3"/>
+    <usesource source="AdvenVault"/>
+    <tag group="WepDamage" tag="1d6"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="Defensive"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepGroup" tag="wgLightBl"/>
+    <tag group="WepDamSec" tag="1d6"/>
+    <tag group="WepGroup" tag="wgLightBl"/>
+    <tag group="WepProp" tag="Double"/>
+    </thing>
+  <thing id="wpDragoPaw" name="Dragon paw" compset="Melee">
+    <fieldval field="grCost" value="40"/>
+    <fieldval field="gearWeight" value="10"/>
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="DarkSun"/>
+    <tag group="WepDamage" tag="1d8"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="Defensive"/>
+    <tag group="WepProp" tag="Stout"/>
+    <tag group="WepGroup" tag="wgHeavyBl"/>
+    <tag group="WepDamSec" tag="1d6"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepGroup" tag="wgLightBl"/>
+    <tag group="WepProp" tag="Double"/>
+    </thing>
+  <thing id="wpDrowLon" name="Drow long knife" compset="Melee">
+    <fieldval field="grCost" value="15"/>
+    <fieldval field="gearWeight" value="2"/>
+    <fieldval field="wpProf" value="3"/>
+    <fieldval field="wpShort" value="5"/>
+    <fieldval field="wpLong" value="10"/>
+    <usesource source="EbPG"/>
+    <tag group="WepDamage" tag="1d6"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="HeavyThrow"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepGroup" tag="wgHeavyBl"/>
+    </thing>
+  <thing id="wpExecuaxe" name="Execution axe" compset="Melee">
+    <fieldval field="grCost" value="30"/>
+    <fieldval field="gearWeight" value="14"/>
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="AdvenVault"/>
+    <tag group="WepDamage" tag="1d12"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="Equipment" tag="TwoHand"/>
+    <tag group="WepProp" tag="HighCrit"/>
+    <tag group="WepProp" tag="Brutal2"/>
+    <tag group="WepGroup" tag="wgAxe"/>
+    </thing>
+  <thing id="wpFalchion" name="Falchion" compset="Melee">
+    <fieldval field="grCost" value="25"/>
+    <fieldval field="gearWeight" value="7"/>
+    <fieldval field="wpProf" value="3"/>
+    <tag group="WepDamage" tag="2d4"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="Equipment" tag="TwoHand"/>
+    <tag group="WepProp" tag="HighCrit"/>
+    <tag group="WepGroup" tag="wgHeavyBl"/>
+    </thing>
+  <thing id="wpFlail" name="Flail" compset="Melee">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="5"/>
+    <fieldval field="wpProf" value="2"/>
+    <tag group="WepDamage" tag="1d10"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="WepProp" tag="Versatile"/>
+    <tag group="WepGroup" tag="wgFlail"/>
+    </thing>
+  <thing id="wpFullblad" name="Fullblade" compset="Melee">
+    <fieldval field="grCost" value="30"/>
+    <fieldval field="gearWeight" value="10"/>
+    <fieldval field="wpProf" value="3"/>
+    <usesource source="AdvenVault"/>
+    <tag group="WepDamage" tag="1d12"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="Equipment" tag="TwoHand"/>
+    <tag group="WepProp" tag="HighCrit"/>
+    <tag group="WepGroup" tag="wgHeavyBl"/>
+    </thing>
+  <thing id="wpGarrote" name="Garrote" compset="Melee">
+    <fieldval field="grCost" value="1"/>
+    <fieldval field="gearWeight" value="1"/>
+    <fieldval field="wpProf" value="3"/>
+    <usesource source="Dragon"/>
+    <tag group="WepDamage" tag="1d4"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="Equipment" tag="TwoHand"/>
+    <tag group="WepProp" tag="HighCrit"/>
+    <tag group="WepProp" tag="Small"/>
+    <tag group="User" tag="Use1HTable"/>
+    </thing>
+  <thing id="wpGauntAxe" name="Gauntlet axe" compset="Melee">
+    <fieldval field="grCost" value="25"/>
+    <fieldval field="gearWeight" value="3"/>
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="DarkSun"/>
+    <tag group="WepDamage" tag="1d8"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="Defensive"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepGroup" tag="wgAxe"/>
+    </thing>
+  <thing id="wpGlaive" name="Glaive" compset="Melee">
+    <fieldval field="grCost" value="25"/>
+    <fieldval field="gearWeight" value="10"/>
+    <fieldval field="wpProf" value="2"/>
+    <tag group="WepDamage" tag="2d4"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="Equipment" tag="TwoHand"/>
+    <tag group="WepProp" tag="Reach"/>
+    <tag group="WepGroup" tag="wgHeavyBl"/>
+    <tag group="WepGroup" tag="wgPolearm"/>
+    </thing>
+  <thing id="wpGouge" name="Gouge" compset="Melee">
+    <fieldval field="grCost" value="30"/>
+    <fieldval field="gearWeight" value="12"/>
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="DarkSun"/>
+    <tag group="WepDamage" tag="2d6"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="Equipment" tag="TwoHand"/>
+    <tag group="WepProp" tag="Brutal1"/>
+    <tag group="WepGroup" tag="wgAxe"/>
+    <tag group="WepGroup" tag="wgSpear"/>
+    </thing>
+  <thing id="wpGreataxe" name="Greataxe" compset="Melee">
+    <fieldval field="grCost" value="30"/>
+    <fieldval field="gearWeight" value="12"/>
+    <fieldval field="wpProf" value="2"/>
+    <tag group="WepDamage" tag="1d12"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="Equipment" tag="TwoHand"/>
+    <tag group="WepProp" tag="HighCrit"/>
+    <tag group="WepGroup" tag="wgAxe"/>
+    </thing>
+  <thing id="wpGreatbow" name="Greatbow" compset="Ranged">
+    <fieldval field="grCost" value="30"/>
+    <fieldval field="gearWeight" value="5"/>
+    <fieldval field="wpProf" value="2"/>
+    <fieldval field="wpShort" value="25"/>
+    <fieldval field="wpLong" value="50"/>
+    <usesource source="AdvenVault"/>
+    <tag group="WepDamage" tag="1d12"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="Equipment" tag="TwoHand"/>
+    <tag group="WepProp" tag="LoadFree"/>
+    <tag group="WepGroup" tag="wgBow"/>
+    </thing>
+  <thing id="wpGreatclu" name="Greatclub" compset="Melee">
+    <fieldval field="grCost" value="1"/>
+    <fieldval field="gearWeight" value="10"/>
+    <fieldval field="wpProf" value="2"/>
+    <tag group="WepDamage" tag="2d4"/>
+    <tag group="WepCat" tag="wcSimple"/>
+    <tag group="Equipment" tag="TwoHand"/>
+    <tag group="WepGroup" tag="wgMace"/>
+    </thing>
+  <thing id="wpGreatspe" name="Greatspear" compset="Melee">
+    <fieldval field="grCost" value="25"/>
+    <fieldval field="gearWeight" value="8"/>
+    <fieldval field="wpProf" value="3"/>
+    <usesource source="AdvenVault"/>
+    <tag group="WepDamage" tag="1d10"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="Equipment" tag="TwoHand"/>
+    <tag group="WepProp" tag="Reach"/>
+    <tag group="WepGroup" tag="wgPolearm"/>
+    <tag group="WepGroup" tag="wgSpear"/>
+    </thing>
+  <thing id="wpGreatswo" name="Greatsword" compset="Melee">
+    <fieldval field="grCost" value="30"/>
+    <fieldval field="gearWeight" value="8"/>
+    <fieldval field="wpProf" value="3"/>
+    <tag group="WepDamage" tag="1d10"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="Equipment" tag="TwoHand"/>
+    <tag group="WepGroup" tag="wgHeavyBl"/>
+    </thing>
+  <thing id="wpGythka" name="Gythka" compset="Melee">
+    <fieldval field="grCost" value="25"/>
+    <fieldval field="gearWeight" value="9"/>
+    <fieldval field="wpProf" value="2"/>
+    <fieldval field="wpShort" value="5"/>
+    <fieldval field="wpLong" value="10"/>
+    <usesource source="DarkSun"/>
+    <tag group="WepDamage" tag="1d8"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="Defensive"/>
+    <tag group="WepProp" tag="HeavyThrow"/>
+    <tag group="WepGroup" tag="wgSpear"/>
+    <tag group="WepDamSec" tag="1d8"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepGroup" tag="wgSpear"/>
+    <tag group="WepProp" tag="Double"/>
+    </thing>
+  <thing id="wpHalberd" name="Halberd" compset="Melee">
+    <fieldval field="grCost" value="25"/>
+    <fieldval field="gearWeight" value="12"/>
+    <fieldval field="wpProf" value="2"/>
+    <tag group="WepDamage" tag="1d10"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="Equipment" tag="TwoHand"/>
+    <tag group="WepProp" tag="Reach"/>
+    <tag group="WepGroup" tag="wgAxe"/>
+    <tag group="WepGroup" tag="wgPolearm"/>
+    </thing>
+  <thing id="wpHandCro" name="Hand crossbow" compset="Ranged">
+    <fieldval field="grCost" value="25"/>
+    <fieldval field="gearWeight" value="2"/>
+    <fieldval field="wpProf" value="2"/>
+    <fieldval field="wpShort" value="10"/>
+    <fieldval field="wpLong" value="20"/>
+    <tag group="WepDamage" tag="1d6"/>
+    <tag group="WepCat" tag="wcSimple"/>
+    <tag group="WepProp" tag="LoadFree"/>
+    <tag group="WepGroup" tag="wgCrossbow"/>
+    </thing>
+  <thing id="wpHandaxe" name="Handaxe" compset="Melee">
+    <fieldval field="grCost" value="5"/>
+    <fieldval field="gearWeight" value="3"/>
+    <fieldval field="wpProf" value="2"/>
+    <fieldval field="wpShort" value="5"/>
+    <fieldval field="wpLong" value="10"/>
+    <tag group="WepDamage" tag="1d6"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepProp" tag="HeavyThrow"/>
+    <tag group="WepGroup" tag="wgAxe"/>
+    </thing>
+  <thing id="wpHeavyfla" name="Heavy flail" compset="Melee">
+    <fieldval field="grCost" value="25"/>
+    <fieldval field="gearWeight" value="10"/>
+    <fieldval field="wpProf" value="2"/>
+    <tag group="WepDamage" tag="2d6"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="Equipment" tag="TwoHand"/>
+    <tag group="WepGroup" tag="wgFlail"/>
+    </thing>
+  <thing id="wpHeavywar" name="Heavy war pick" compset="Melee">
+    <fieldval field="grCost" value="20"/>
+    <fieldval field="gearWeight" value="8"/>
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="AdvenVault"/>
+    <tag group="WepDamage" tag="1d12"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="Equipment" tag="TwoHand"/>
+    <tag group="WepProp" tag="HighCrit"/>
+    <tag group="WepProp" tag="Small"/>
+    <tag group="WepGroup" tag="wgPick"/>
+    </thing>
+  <thing id="wpImproLar" name="Improvised large melee" compset="Melee">
+    <fieldval field="gearWeight" value="6"/>
+    <tag group="WepDamage" tag="1d8"/>
+    <tag group="WepCat" tag="wcImprov"/>
+    <tag group="Equipment" tag="TwoHand"/>
+    </thing>
+  <thing id="wpIncendag" name="Incendiary dagger" compset="Melee">
+    <fieldval field="grCost" value="22"/>
+    <fieldval field="gearWeight" value="1"/>
+    <fieldval field="wpProf" value="3"/>
+    <fieldval field="wpShort" value="5"/>
+    <fieldval field="wpLong" value="10"/>
+    <usesource source="Dragon"/>
+    <tag group="WepDamage" tag="1d4"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="LightThrow"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <tag group="WepProp" tag="Energized"/>
+    <tag group="WepProp" tag="Unerring"/>
+    <tag group="WepGroup" tag="wgLightBl"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.wpDagger]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="wpJavelin" name="Javelin" compset="Melee">
+    <fieldval field="grCost" value="5"/>
+    <fieldval field="gearWeight" value="2"/>
+    <fieldval field="wpProf" value="2"/>
+    <fieldval field="wpShort" value="10"/>
+    <fieldval field="wpLong" value="20"/>
+    <tag group="WepDamage" tag="1d6"/>
+    <tag group="WepCat" tag="wcSimple"/>
+    <tag group="WepProp" tag="HeavyThrow"/>
+    <tag group="WepGroup" tag="wgSpear"/>
+    </thing>
+  <thing id="wpKatar" name="Katar" compset="Melee">
+    <fieldval field="grCost" value="3"/>
+    <fieldval field="gearWeight" value="1"/>
+    <fieldval field="wpProf" value="3"/>
+    <tag group="WepDamage" tag="1d6"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="HighCrit"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepGroup" tag="wgLightBl"/>
+    </thing>
+  <thing id="wpKhopesh" name="Khopesh" compset="Melee">
+    <fieldval field="grCost" value="20"/>
+    <fieldval field="gearWeight" value="8"/>
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="AdvenVault"/>
+    <tag group="WepDamage" tag="1d8"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="WepProp" tag="Versatile"/>
+    <tag group="WepProp" tag="Brutal1"/>
+    <tag group="WepGroup" tag="wgAxe"/>
+    <tag group="WepGroup" tag="wgHeavyBl"/>
+    </thing>
+  <thing id="wpKukri" name="Kukri" compset="Melee">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="2"/>
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="AdvenVault"/>
+    <tag group="WepDamage" tag="1d6"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepProp" tag="Brutal1"/>
+    <tag group="WepGroup" tag="wgLightBl"/>
+    </thing>
+  <thing id="wpKusariga" name="Kusari-gama" compset="Melee">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="3"/>
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="Dragon"/>
+    <tag group="WepDamage" tag="1d10"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="Defensive"/>
+    <tag group="WepProp" tag="Reach"/>
+    <tag group="WepGroup" tag="wgFlail"/>
+    <tag group="WepDamSec" tag="1d6"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepGroup" tag="wgLightBl"/>
+    <tag group="WepProp" tag="Double"/>
+    </thing>
+  <thing id="wpLance" name="Lance" compset="Melee">
+    <fieldval field="grCost" value="12"/>
+    <fieldval field="gearWeight" value="10"/>
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="MordensEmp"/>
+    <tag group="WepDamage" tag="1d10"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="WepProp" tag="Mounted"/>
+    <tag group="WepProp" tag="Small"/>
+    <tag group="WepProp" tag="Versatile"/>
+    <tag group="WepGroup" tag="wgSpear"/>
+    </thing>
+  <thing id="wpLancidag" name="Lancing dagger" compset="Melee">
+    <fieldval field="grCost" value="15"/>
+    <fieldval field="gearWeight" value="1"/>
+    <fieldval field="wpProf" value="3"/>
+    <fieldval field="wpShort" value="5"/>
+    <fieldval field="wpLong" value="10"/>
+    <usesource source="Dragon"/>
+    <tag group="WepDamage" tag="1d4"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="LightThrow"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <tag group="WepProp" tag="EmpowCrit"/>
+    <tag group="WepProp" tag="Energized"/>
+    <tag group="WepGroup" tag="wgLightBl"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.wpDagger]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="wpLightmac" name="Light mace" compset="Melee">
+    <fieldval field="grCost" value="3"/>
+    <fieldval field="gearWeight" value="2"/>
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="MordensEmp"/>
+    <tag group="WepDamage" tag="1d6"/>
+    <tag group="WepCat" tag="wcSimple"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepProp" tag="Small"/>
+    <tag group="WepGroup" tag="wgMace"/>
+    </thing>
+  <thing id="wpLightwar" name="Light war pick" compset="Melee">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="4"/>
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="AdvenVault"/>
+    <tag group="WepDamage" tag="1d6"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="WepProp" tag="HighCrit"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepGroup" tag="wgPick"/>
+    </thing>
+  <thing id="wpLongbow" name="Longbow" compset="Ranged">
+    <fieldval field="grCost" value="30"/>
+    <fieldval field="gearWeight" value="3"/>
+    <fieldval field="wpProf" value="2"/>
+    <fieldval field="wpShort" value="20"/>
+    <fieldval field="wpLong" value="40"/>
+    <tag group="WepDamage" tag="1d10"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="Equipment" tag="TwoHand"/>
+    <tag group="WepProp" tag="LoadFree"/>
+    <tag group="WepGroup" tag="wgBow"/>
+    </thing>
+  <thing id="wpLongspea" name="Longspear" compset="Melee">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="9"/>
+    <fieldval field="wpProf" value="2"/>
+    <tag group="WepDamage" tag="1d10"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="Equipment" tag="TwoHand"/>
+    <tag group="WepProp" tag="Reach"/>
+    <tag group="WepGroup" tag="wgPolearm"/>
+    <tag group="WepGroup" tag="wgSpear"/>
+    </thing>
+  <thing id="wpLongswor" name="Longsword" compset="Melee">
+    <fieldval field="grCost" value="15"/>
+    <fieldval field="gearWeight" value="4"/>
+    <fieldval field="wpProf" value="3"/>
+    <tag group="WepDamage" tag="1d8"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="WepProp" tag="Versatile"/>
+    <tag group="WepGroup" tag="wgHeavyBl"/>
+    </thing>
+  <thing id="wpLotulis" name="Lotulis" compset="Melee">
+    <fieldval field="grCost" value="40"/>
+    <fieldval field="gearWeight" value="9"/>
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="DarkSun"/>
+    <tag group="WepDamage" tag="1d10"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="Defensive"/>
+    <tag group="WepProp" tag="Stout"/>
+    <tag group="WepGroup" tag="wgHeavyBl"/>
+    <tag group="WepDamSec" tag="1d8"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepGroup" tag="wgHeavyBl"/>
+    <tag group="WepProp" tag="Double"/>
+    </thing>
+  <thing id="wpMace" name="Mace" compset="Melee">
+    <fieldval field="grCost" value="5"/>
+    <fieldval field="gearWeight" value="6"/>
+    <fieldval field="wpProf" value="2"/>
+    <tag group="WepDamage" tag="1d8"/>
+    <tag group="WepCat" tag="wcSimple"/>
+    <tag group="WepProp" tag="Versatile"/>
+    <tag group="WepGroup" tag="wgMace"/>
+    </thing>
+  <thing id="wpMaul" name="Maul" compset="Melee">
+    <fieldval field="grCost" value="30"/>
+    <fieldval field="gearWeight" value="12"/>
+    <fieldval field="wpProf" value="2"/>
+    <tag group="WepDamage" tag="2d6"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="Equipment" tag="TwoHand"/>
+    <tag group="WepGroup" tag="wgHammer"/>
+    </thing>
+  <thing id="wpMonkUnar" name="Monk unarmed strike" compset="Melee" holdable="no">
+    <fieldval field="wpProf" value="3"/>
+    <usesource source="PHB3"/>
+    <tag group="WepDamage" tag="1d8"/>
+    <tag group="WepCat" tag="wcSimple"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepGroup" tag="wgUnarmed"/>
+    <tag group="Helper" tag="Proficient"/>
+    <containerreq phase="Initialize" priority="750">hero#Class.clsMonk
+      <after name="Class tag final"/>
+      </containerreq>
+    </thing>
+  <thing id="wpMordenkr" name="Mordenkrad" compset="Melee">
+    <fieldval field="grCost" value="30"/>
+    <fieldval field="gearWeight" value="12"/>
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="AdvenVault"/>
+    <tag group="WepDamage" tag="2d6"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="Equipment" tag="TwoHand"/>
+    <tag group="WepProp" tag="Brutal1"/>
+    <tag group="WepGroup" tag="wgHammer"/>
+    </thing>
+  <thing id="wpMornings" name="Morningstar" compset="Melee">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="8"/>
+    <fieldval field="wpProf" value="2"/>
+    <tag group="WepDamage" tag="1d10"/>
+    <tag group="WepCat" tag="wcSimple"/>
+    <tag group="Equipment" tag="TwoHand"/>
+    <tag group="WepGroup" tag="wgMace"/>
+    </thing>
+  <thing id="wpNet" name="Net" compset="Melee">
+    <fieldval field="grCost" value="20"/>
+    <fieldval field="gearWeight" value="6"/>
+    <fieldval field="wpProf" value="2"/>
+    <fieldval field="wpShort" value="2"/>
+    <fieldval field="wpLong" value="5"/>
+    <usesource source="Dragon"/>
+    <tag group="WepDamage" tag="1d6"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepProp" tag="HeavyThrow"/>
+    <tag group="WepGroup" tag="wgFlail"/>
+    </thing>
+  <thing id="wpParrydag" name="Parrying dagger" compset="Melee">
+    <fieldval field="grCost" value="5"/>
+    <fieldval field="gearWeight" value="1"/>
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="AdvenVault"/>
+    <tag group="WepDamage" tag="1d4"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepProp" tag="Defensive"/>
+    <tag group="WepGroup" tag="wgLightBl"/>
+    </thing>
+  <thing id="wpPike" name="Pike" compset="Melee">
+    <fieldval field="grCost" value="15"/>
+    <fieldval field="gearWeight" value="6"/>
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="MordensEmp"/>
+    <tag group="WepDamage" tag="1d10"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="Equipment" tag="TwoHand"/>
+    <tag group="WepProp" tag="Reach"/>
+    <tag group="WepProp" tag="Small"/>
+    <tag group="WepGroup" tag="wgPolearm"/>
+    <tag group="WepGroup" tag="wgSpear"/>
+    </thing>
+  <thing id="wpPuchik" name="Puchik" compset="Melee">
+    <fieldval field="grCost" value="3"/>
+    <fieldval field="gearWeight" value="1"/>
+    <fieldval field="wpProf" value="3"/>
+    <usesource source="DarkSun"/>
+    <tag group="WepDamage" tag="1d6"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepProp" tag="HighCrit"/>
+    <tag group="WepGroup" tag="wgLightBl"/>
+    </thing>
+  <thing id="wpQuarters" name="Quarterstaff" compset="Melee">
+    <fieldval field="grCost" value="5"/>
+    <fieldval field="gearWeight" value="4"/>
+    <fieldval field="wpProf" value="2"/>
+    <tag group="WepDamage" tag="1d8"/>
+    <tag group="WepCat" tag="wcSimple"/>
+    <tag group="Equipment" tag="TwoHand"/>
+    <tag group="WepGroup" tag="wgStaff"/>
+    </thing>
+  <thing id="wpRapier" name="Rapier" compset="Melee">
+    <fieldval field="grCost" value="25"/>
+    <fieldval field="gearWeight" value="2"/>
+    <fieldval field="wpProf" value="3"/>
+    <tag group="WepDamage" tag="1d8"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="WepGroup" tag="wgLightBl"/>
+    </thing>
+  <thing id="wpRepeacro" name="Repeating crossbow" compset="Ranged">
+    <fieldval field="grCost" value="35"/>
+    <fieldval field="gearWeight" value="6"/>
+    <fieldval field="wpProf" value="2"/>
+    <fieldval field="wpShort" value="10"/>
+    <fieldval field="wpLong" value="20"/>
+    <usesource source="AdvenVault"/>
+    <tag group="WepDamage" tag="1d8"/>
+    <tag group="WepCat" tag="wcSimple"/>
+    <tag group="Equipment" tag="TwoHand"/>
+    <tag group="WepProp" tag="LoadFree"/>
+    <tag group="WepGroup" tag="wgCrossbow"/>
+    </thing>
+  <thing id="wpResondag" name="Resonating dagger" compset="Melee">
+    <fieldval field="grCost" value="25"/>
+    <fieldval field="gearWeight" value="1"/>
+    <fieldval field="wpProf" value="3"/>
+    <fieldval field="wpShort" value="5"/>
+    <fieldval field="wpLong" value="10"/>
+    <usesource source="Dragon"/>
+    <tag group="WepDamage" tag="1d4"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="LightThrow"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="Equipment" tag="SuperImpl"/>
+    <tag group="WepProp" tag="Energized"/>
+    <tag group="WepProp" tag="Forceful"/>
+    <tag group="WepGroup" tag="wgLightBl"/>
+    <eval phase="Setup" priority="75">doneif (hero.isidentity[SuperImpl] = 0)
+perform assign[Helper.Proficient]
+perform assign[ImplemType.wpDagger]
+      
+      <before name="Magic Weapon Copy"/>
+      <after name="Superior implement training"/>
+      </eval>
+    </thing>
+  <thing id="wpScimitar" name="Scimitar" compset="Melee">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="4"/>
+    <fieldval field="wpProf" value="2"/>
+    <tag group="WepDamage" tag="1d8"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="WepProp" tag="HighCrit"/>
+    <tag group="WepGroup" tag="wgHeavyBl"/>
+    </thing>
+  <thing id="wpScourge" name="Scourge" compset="Melee">
+    <fieldval field="grCost" value="3"/>
+    <fieldval field="gearWeight" value="2"/>
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="AdvenVault"/>
+    <tag group="WepDamage" tag="1d8"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepGroup" tag="wgFlail"/>
+    </thing>
+  <thing id="wpScourExq" name="Scourge of Exquisite Agony" compset="Melee">
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="PlEsShadow"/>
+    <tag group="WepDamage" tag="1d10"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="WepProp" tag="Reach"/>
+    <tag group="WepGroup" tag="wgFlail"/>
+    <tag group="User" tag="HexbladeWp"/>
+    <eval phase="Setup" priority="400"><![CDATA[
+      ~hide us unless we're a Hexblade with the Gloom Pact
+      if (hero.child[fHexGloPac].tagis[Helper.ChosenOpt] = 0) then
+        perform assign[Hide.Weapon]
+        endif
+      ]]>
+      <after name="Build option activated"/>
+      </eval>
+    </thing>
+  <thing id="wpScythe" name="Scythe" compset="Melee">
+    <fieldval field="grCost" value="5"/>
+    <fieldval field="gearWeight" value="10"/>
+    <fieldval field="wpProf" value="2"/>
+    <tag group="WepDamage" tag="2d4"/>
+    <tag group="WepCat" tag="wcSimple"/>
+    <tag group="Equipment" tag="TwoHand"/>
+    <tag group="WepGroup" tag="wgHeavyBl"/>
+    </thing>
+  <thing id="wpSerrapic" name="Serrated pick" compset="Melee">
+    <fieldval field="grCost" value="15"/>
+    <fieldval field="gearWeight" value="4"/>
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="MordensEmp"/>
+    <tag group="WepDamage" tag="1d10"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="HighCrit"/>
+    <tag group="WepProp" tag="Small"/>
+    <tag group="WepGroup" tag="wgPick"/>
+    </thing>
+  <thing id="wpShortspe" name="Short spear" compset="Melee">
+    <fieldval field="grCost" value="2"/>
+    <fieldval field="gearWeight" value="1"/>
+    <fieldval field="wpProf" value="2"/>
+    <fieldval field="wpShort" value="5"/>
+    <fieldval field="wpLong" value="10"/>
+    <usesource source="MordensEmp"/>
+    <tag group="WepDamage" tag="1d6"/>
+    <tag group="WepCat" tag="wcSimple"/>
+    <tag group="WepProp" tag="LightThrow"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepProp" tag="Small"/>
+    <tag group="WepGroup" tag="wgSpear"/>
+    </thing>
+  <thing id="wpShortswo" name="Short sword" compset="Melee">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="2"/>
+    <fieldval field="wpProf" value="3"/>
+    <tag group="WepDamage" tag="1d6"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepGroup" tag="wgLightBl"/>
+    </thing>
+  <thing id="wpShortbow" name="Shortbow" compset="Ranged">
+    <fieldval field="grCost" value="25"/>
+    <fieldval field="gearWeight" value="2"/>
+    <fieldval field="wpProf" value="2"/>
+    <fieldval field="wpShort" value="15"/>
+    <fieldval field="wpLong" value="30"/>
+    <tag group="WepDamage" tag="1d8"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="Equipment" tag="TwoHand"/>
+    <tag group="WepProp" tag="LoadFree"/>
+    <tag group="WepProp" tag="Small"/>
+    <tag group="WepGroup" tag="wgBow"/>
+    </thing>
+  <thing id="wpShuriken" name="Shuriken" compset="Ranged">
+    <fieldval field="gearWeight" value="0.1"/>
+    <fieldval field="wpProf" value="3"/>
+    <fieldval field="wpShort" value="6"/>
+    <fieldval field="wpLong" value="12"/>
+    <tag group="WepDamage" tag="1d4"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="LightThrow"/>
+    <tag group="WepGroup" tag="wgLightBl"/>
+    </thing>
+  <thing id="wpSickle" name="Sickle" compset="Melee">
+    <fieldval field="grCost" value="2"/>
+    <fieldval field="gearWeight" value="2"/>
+    <fieldval field="wpProf" value="2"/>
+    <tag group="WepDamage" tag="1d6"/>
+    <tag group="WepCat" tag="wcSimple"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepGroup" tag="wgLightBl"/>
+    </thing>
+  <thing id="wpSingiSti" name="Singing stick" compset="Melee">
+    <fieldval field="grCost" value="40"/>
+    <fieldval field="gearWeight" value="2"/>
+    <fieldval field="wpProf" value="3"/>
+    <usesource source="DarkSun"/>
+    <tag group="WepDamage" tag="1d6"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="Defensive"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepGroup" tag="wgMace"/>
+    </thing>
+  <thing id="wpSling" name="Sling" compset="Ranged">
+    <fieldval field="grCost" value="1"/>
+    <fieldval field="gearWeight" value="0"/>
+    <fieldval field="wpProf" value="2"/>
+    <fieldval field="wpShort" value="10"/>
+    <fieldval field="wpLong" value="20"/>
+    <tag group="WepDamage" tag="1d6"/>
+    <tag group="WepCat" tag="wcSimple"/>
+    <tag group="WepProp" tag="LoadFree"/>
+    <tag group="WepGroup" tag="wgSling"/>
+    </thing>
+  <thing id="wpSpear" name="Spear" compset="Melee">
+    <fieldval field="grCost" value="5"/>
+    <fieldval field="gearWeight" value="6"/>
+    <fieldval field="wpProf" value="2"/>
+    <tag group="WepDamage" tag="1d8"/>
+    <tag group="WepCat" tag="wcSimple"/>
+    <tag group="WepProp" tag="Versatile"/>
+    <tag group="WepGroup" tag="wgSpear"/>
+    </thing>
+  <thing id="wpSpikecha" name="Spiked chain" compset="Melee">
+    <fieldval field="grCost" value="30"/>
+    <fieldval field="gearWeight" value="10"/>
+    <fieldval field="wpProf" value="3"/>
+    <tag group="WepDamage" tag="2d4"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="Equipment" tag="TwoHand"/>
+    <tag group="WepProp" tag="Reach"/>
+    <tag group="WepGroup" tag="wgFlail"/>
+    </thing>
+  <thing id="wpSpikegau" name="Spiked gauntlet" compset="Melee">
+    <fieldval field="grCost" value="5"/>
+    <fieldval field="gearWeight" value="1"/>
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="AdvenVault"/>
+    <tag group="WepDamage" tag="1d6"/>
+    <tag group="WepCat" tag="wcSimple"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepGroup" tag="wgUnarmed"/>
+    </thing>
+  <thing id="wpSpikeshi" name="Spiked shield" compset="Melee">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="7"/>
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="AdvenVault"/>
+    <tag group="WepDamage" tag="1d6"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepGroup" tag="wgLightBl"/>
+    </thing>
+  <thing id="wpStarsBla" name="Starshadow Blade" compset="Melee">
+    <fieldval field="wpProf" value="3"/>
+    <usesource source="Dragon"/>
+    <tag group="WepDamage" tag="1d10"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="WepGroup" tag="wgHeavyBl"/>
+    <tag group="User" tag="HexbladeWp"/>
+    <eval phase="Setup" priority="400"><![CDATA[
+      ~hide us unless we're a Hexblade with the Star Pact
+      if (hero.child[fHexStaPac].tagis[Helper.ChosenOpt] = 0) then
+        perform assign[Hide.Weapon]
+        endif
+      ]]>
+      <after name="Build option activated"/>
+      </eval>
+    </thing>
+  <thing id="wpSupercro" name="Superior crossbow" compset="Ranged">
+    <fieldval field="grCost" value="30"/>
+    <fieldval field="gearWeight" value="6"/>
+    <fieldval field="wpProf" value="3"/>
+    <fieldval field="wpShort" value="20"/>
+    <fieldval field="wpLong" value="40"/>
+    <usesource source="AdvenVault"/>
+    <tag group="WepDamage" tag="1d10"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="Equipment" tag="TwoHand"/>
+    <tag group="WepProp" tag="LoadMinor"/>
+    <tag group="WepGroup" tag="wgCrossbow"/>
+    </thing>
+  <thing id="wpSwordWhi" name="Sword of the White Well" compset="Melee">
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="Dragon"/>
+    <tag group="WepDamage" tag="1d12"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="WepGroup" tag="wgHeavyBl"/>
+    <tag group="User" tag="HexbladeWp"/>
+    <eval phase="Setup" priority="400"><![CDATA[
+      ~hide us unless we're a Hexblade with the White Well Pact
+      if (hero.child[fHexWhiPac].tagis[Helper.ChosenOpt] = 0) then
+        perform assign[Hide.Weapon]
+        endif
+      ]]>
+      <after name="Build option activated"/>
+      </eval>
+    </thing>
+  <thing id="wpTalenBoo" name="Talenta boomerang" compset="Melee">
+    <fieldval field="grCost" value="5"/>
+    <fieldval field="gearWeight" value="1"/>
+    <fieldval field="wpProf" value="2"/>
+    <fieldval field="wpShort" value="10"/>
+    <fieldval field="wpLong" value="20"/>
+    <usesource source="EbPG"/>
+    <tag group="WepDamage" tag="1d4"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="LightThrow"/>
+    <tag group="WepGroup" tag="wgLightBl"/>
+    </thing>
+  <thing id="wpTalenSha" name="Talenta sharrash" compset="Melee">
+    <fieldval field="grCost" value="30"/>
+    <fieldval field="gearWeight" value="10"/>
+    <fieldval field="wpProf" value="3"/>
+    <usesource source="EbPG"/>
+    <tag group="WepDamage" tag="1d8"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="Equipment" tag="TwoHand"/>
+    <tag group="WepProp" tag="HighCrit"/>
+    <tag group="WepProp" tag="Small"/>
+    <tag group="WepGroup" tag="wgHeavyBl"/>
+    <tag group="WepGroup" tag="wgPolearm"/>
+    </thing>
+  <thing id="wpTalenTan" name="Talenta tangat" compset="Melee">
+    <fieldval field="grCost" value="20"/>
+    <fieldval field="gearWeight" value="8"/>
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="EbPG"/>
+    <tag group="WepDamage" tag="1d8"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="HighCrit"/>
+    <tag group="WepProp" tag="Versatile"/>
+    <tag group="WepProp" tag="Small"/>
+    <tag group="WepGroup" tag="wgHeavyBl"/>
+    </thing>
+  <thing id="wpTalid" name="Talid" compset="Melee">
+    <fieldval field="grCost" value="5"/>
+    <fieldval field="gearWeight" value="1"/>
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="DarkSun"/>
+    <tag group="WepDamage" tag="1d6"/>
+    <tag group="WepCat" tag="wcSimple"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepGroup" tag="wgUnarmed"/>
+    </thing>
+  <thing id="wpThrowham" name="Throwing hammer" compset="Melee">
+    <fieldval field="grCost" value="5"/>
+    <fieldval field="gearWeight" value="2"/>
+    <fieldval field="wpProf" value="2"/>
+    <fieldval field="wpShort" value="5"/>
+    <fieldval field="wpLong" value="10"/>
+    <tag group="WepDamage" tag="1d6"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepProp" tag="HeavyThrow"/>
+    <tag group="WepGroup" tag="wgHammer"/>
+    </thing>
+  <thing id="wpTortoBla" name="Tortoise blade" compset="Melee">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="7"/>
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="DarkSun"/>
+    <tag group="WepDamage" tag="1d6"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepGroup" tag="wgLightBl"/>
+    </thing>
+  <thing id="wpTratnyr" name="Tratnyr" compset="Melee">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="5"/>
+    <fieldval field="wpProf" value="2"/>
+    <fieldval field="wpShort" value="10"/>
+    <fieldval field="wpLong" value="20"/>
+    <usesource source="AdvenVault"/>
+    <tag group="WepDamage" tag="1d8"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="HeavyThrow"/>
+    <tag group="WepProp" tag="Versatile"/>
+    <tag group="WepGroup" tag="wgSpear"/>
+    </thing>
+  <thing id="wpTrident" name="Trident" compset="Melee">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="4"/>
+    <fieldval field="wpProf" value="2"/>
+    <fieldval field="wpShort" value="3"/>
+    <fieldval field="wpLong" value="6"/>
+    <usesource source="AdvenVault"/>
+    <tag group="WepDamage" tag="1d8"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="WepProp" tag="HeavyThrow"/>
+    <tag group="WepProp" tag="Versatile"/>
+    <tag group="WepGroup" tag="wgSpear"/>
+    </thing>
+  <thing id="wpTrikal" name="Trikal" compset="Melee">
+    <fieldval field="grCost" value="25"/>
+    <fieldval field="gearWeight" value="12"/>
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="DarkSun"/>
+    <tag group="WepDamage" tag="1d10"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="Equipment" tag="TwoHand"/>
+    <tag group="WepProp" tag="Reach"/>
+    <tag group="WepGroup" tag="wgAxe"/>
+    <tag group="WepGroup" tag="wgPolearm"/>
+    </thing>
+  <thing id="wpTriplfla" name="Triple-headed flail" compset="Melee">
+    <fieldval field="grCost" value="15"/>
+    <fieldval field="gearWeight" value="6"/>
+    <fieldval field="wpProf" value="3"/>
+    <usesource source="AdvenVault"/>
+    <tag group="WepDamage" tag="1d10"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="Versatile"/>
+    <tag group="WepGroup" tag="wgFlail"/>
+    </thing>
+  <thing id="wpUrgrosh" name="Urgrosh" compset="Melee">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="8"/>
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="AdvenVault"/>
+    <tag group="WepDamage" tag="1d12"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="Defensive"/>
+    <tag group="WepProp" tag="Stout"/>
+    <tag group="WepGroup" tag="wgAxe"/>
+    <tag group="WepDamSec" tag="1d6"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepGroup" tag="wgSpear"/>
+    <tag group="WepProp" tag="Double"/>
+    </thing>
+  <thing id="wpWarPic" name="War Pick" compset="Melee">
+    <fieldval field="grCost" value="15"/>
+    <fieldval field="gearWeight" value="6"/>
+    <fieldval field="wpProf" value="2"/>
+    <tag group="WepDamage" tag="1d8"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="WepProp" tag="Versatile"/>
+    <tag group="WepProp" tag="HighCrit"/>
+    <tag group="WepProp" tag="Small"/>
+    <tag group="WepGroup" tag="wgPick"/>
+    </thing>
+  <thing id="wpWaraxe" name="Waraxe" compset="Melee">
+    <fieldval field="grCost" value="30"/>
+    <fieldval field="gearWeight" value="10"/>
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="AdvenVault"/>
+    <tag group="WepDamage" tag="1d12"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="Versatile"/>
+    <tag group="WepGroup" tag="wgAxe"/>
+    </thing>
+  <thing id="wpWarhamme" name="Warhammer" compset="Melee">
+    <fieldval field="grCost" value="15"/>
+    <fieldval field="gearWeight" value="5"/>
+    <fieldval field="wpProf" value="2"/>
+    <tag group="WepDamage" tag="1d10"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    <tag group="WepProp" tag="Versatile"/>
+    <tag group="WepGroup" tag="wgHammer"/>
+    </thing>
+  <thing id="wpWhip" name="Whip" compset="Melee">
+    <fieldval field="grCost" value="1"/>
+    <fieldval field="gearWeight" value="2"/>
+    <fieldval field="wpProf" value="3"/>
+    <usesource source="Dragon"/>
+    <tag group="WepDamage" tag="1d4"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="Reach"/>
+    </thing>
+  <thing id="wpWidowKni" name="Widow&apos;s knife" compset="Melee">
+    <fieldval field="grCost" value="1"/>
+    <fieldval field="gearWeight" value="1"/>
+    <fieldval field="wpProf" value="3"/>
+    <fieldval field="wpShort" value="5"/>
+    <fieldval field="wpLong" value="10"/>
+    <usesource source="DarkSun"/>
+    <tag group="WepDamage" tag="1d4"/>
+    <tag group="WepCat" tag="wcSimple"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepProp" tag="LightThrow"/>
+    <tag group="WepGroup" tag="wgLightBl"/>
+    </thing>
+  <thing id="wpWristRaz" name="Wrist razors" compset="Melee">
+    <fieldval field="grCost" value="1"/>
+    <fieldval field="gearWeight" value="1"/>
+    <fieldval field="wpProf" value="3"/>
+    <usesource source="DarkSun"/>
+    <tag group="WepDamage" tag="1d4"/>
+    <tag group="WepCat" tag="wcSimple"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepGroup" tag="wgLightBl"/>
+    </thing>
+  <thing id="wpXendrBoo" name="Xen&apos;drik boomerang" compset="Melee">
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="2"/>
+    <fieldval field="wpProf" value="2"/>
+    <fieldval field="wpShort" value="6"/>
+    <fieldval field="wpLong" value="12"/>
+    <usesource source="EbPG"/>
+    <tag group="WepDamage" tag="1d6"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="LightThrow"/>
+    <tag group="WepGroup" tag="wgLightBl"/>
+    </thing>
+  <thing id="wpZadatl" name="Zadatl" compset="Melee">
+    <fieldval field="grCost" value="30"/>
+    <fieldval field="gearWeight" value="7"/>
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="Dragon"/>
+    <tag group="WepDamage" tag="1d8"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="Equipment" tag="TwoHand"/>
+    <tag group="WepProp" tag="HighCrit"/>
+    <tag group="WepProp" tag="Reach"/>
+    <tag group="WepGroup" tag="wgPolearm"/>
+    <tag group="WepGroup" tag="wgSpear"/>
+    </thing>
+  <thing id="wpZulaat" name="Zulaat" compset="Melee">
+    <fieldval field="grCost" value="30"/>
+    <fieldval field="gearWeight" value="12"/>
+    <fieldval field="wpProf" value="2"/>
+    <usesource source="EbPG"/>
+    <tag group="WepDamage" tag="2d4"/>
+    <tag group="WepCat" tag="wcSuperior"/>
+    <tag group="WepProp" tag="Defensive"/>
+    <tag group="WepProp" tag="Stout"/>
+    <tag group="WepGroup" tag="wgHeavyBl"/>
+    <tag group="WepDamSec" tag="2d4"/>
+    <tag group="WepProp" tag="OffHand"/>
+    <tag group="WepGroup" tag="wgHeavyBl"/>
+    <tag group="WepProp" tag="Double"/>
+    </thing>
+  </document>

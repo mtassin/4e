@@ -1,0 +1,1262 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<document signature="Hero Lab Data">
+
+  <!-- Link our Dark Elf racial powers -->
+  <thing
+    id="pRacDarkfi"
+    name=""
+    compset="">
+    <tag group="PowerLink" tag="Lolth1" name="Lolthtouched"/>
+    </thing>
+  <thing
+    id="pRacCloDar"
+    name=""
+    compset="">
+    <tag group="PowerLink" tag="Lolth1" name="Lolthtouched"/>
+    </thing>
+  <thing
+    id="pFtWebsDar"
+    name=""
+    compset="">
+    <tag group="PowerLink" tag="Lolth1" name="Lolthtouched"/>
+    </thing>
+
+  <!-- Dragonborn racial powers - choose one -->
+  <thing
+    id="pRacDraBre"
+    name=""
+    compset="">
+    <tag group="User" tag="NeedChosen"/>
+    </thing>
+  <thing
+    id="pRacDragon"
+    name=""
+    compset="">
+    <tag group="User" tag="NeedChosen"/>
+    </thing>
+
+  <!-- Human racial powers - choose one -->
+  <thing
+    id="pRacHerEff"
+    name=""
+    compset="">
+    <tag group="User" tag="NeedChosen"/>
+    </thing>
+
+  <!-- Half-elf racial powers - choose one -->
+  <thing
+    id="pRacKnaSuc"
+    name=""
+    compset="">
+    <tag group="User" tag="NeedChosen"/>
+    </thing>
+
+  <!-- Choose an ability for various other powers that give you the choice of
+      what to attack with -->
+  <thing
+    id="pRacDraBre"
+    name=""
+    compset="">
+    <tag group="User" tag="AttrPhys"/>
+    <tag group="AttackVs" tag="defRef"/>
+    </thing>
+  <thing
+    id="pRacRazSto"
+    name=""
+    compset="">
+    <tag group="User" tag="AttrPhys"/>
+    </thing>
+  <thing
+    id="pRacDarkfi"
+    name=""
+    compset="">
+    <tag group="User" tag="AttrMental"/>
+    <tag group="AttackVs" tag="defRef"/>
+    </thing>
+  <thing
+    id="pFtWebsDar"
+    name=""
+    compset="">
+    <tag group="User" tag="AttrMental"/>
+    </thing>
+  <thing
+    id="pRacFirepu"
+    name=""
+    compset="">
+    <tag group="User" tag="AttrPhys"/>
+    </thing>
+  <thing
+    id="pRacEarths"
+    name=""
+    compset="">
+    <tag group="User" tag="AttrPhys"/>
+    </thing>
+  <thing
+    id="pRacAciSur"
+    name=""
+    compset="">
+    <tag group="User" tag="AttrPhys"/>
+    </thing>
+  <thing
+    id="pFtImprRaz"
+    name=""
+    compset="">
+    <tag group="User" tag="AttrPhys"/>
+    </thing>
+  <thing
+    id="pParDarkbl"
+    name=""
+    compset="">
+    <tag group="User" tag="AttrPhys"/>
+    </thing>
+  <thing
+    id="pParEleFur"
+    name=""
+    compset="">
+    <tag group="User" tag="AttrPhys"/>
+    </thing>
+  <thing
+    id="pParLanDaw"
+    name=""
+    compset="">
+    <tag group="User" tag="AttrMental"/>
+    </thing>
+  <thing
+    id="pParMoonfi"
+    name=""
+    compset="">
+    <tag group="User" tag="AttrMental"/>
+    </thing>
+  <thing
+    id="pParWinWhi"
+    name=""
+    compset="">
+    <tag group="User" tag="AttrMental"/>
+    </thing>
+  <thing
+    id="pParFirCon"
+    name=""
+    compset="">
+    <tag group="User" tag="AttrPhys"/>
+    </thing>
+  <thing
+    id="pParAccFla"
+    name=""
+    compset="">
+    <tag group="User" tag="AttrMental"/>
+    </thing>
+  <thing
+    id="pParFroOut"
+    name=""
+    compset="">
+    <tag group="User" tag="AttrPhys"/>
+    </thing>
+  <thing
+    id="pParTemBur"
+    name=""
+    compset="">
+    <tag group="User" tag="AttrPhys"/>
+    </thing>
+  <thing
+    id="pParPurGlo"
+    name=""
+    compset="">
+    <tag group="User" tag="AttrMental"/>
+    </thing>
+  <thing
+    id="pParTeaSel"
+    name=""
+    compset="">
+    <tag group="User" tag="AttrMental"/>
+    </thing>
+  <thing
+    id="pParFirCom"
+    name=""
+    compset="">
+    <tag group="User" tag="AttrPhys"/>
+    </thing>
+  <thing
+    id="pParAllLig"
+    name=""
+    compset="">
+    <tag group="User" tag="AttrMental"/>
+    </thing>
+
+  <!-- Link our artificer class powers and add an appropriate use total to each -
+      we add both appropriate link tags, then delete the one that doesn't apply -->
+  <thing
+    id="pArtHeaInf"
+    name=""
+    compset="">
+    <fieldval field="spcMax" value="2"/>
+    <tag group="PowerLink" tag="HealInf1" name="Healing Infusion"/>
+    <tag group="PowerLink" tag="HealInf2" name="Healing Infusion"/>
+    <tag group="PowerLink" tag="HealInf3" name="Healing Infusion"/>
+    <eval phase="Setup" priority="5000"><![CDATA[
+if (hero.tagis[Hero.Hybrid] <> 0) then
+  field[spcMax].value -= 1
+  perform delete[PowerLink.HealInf2]
+  perform delete[PowerLink.HealInf3]
+elseif (hero.tagvalue[Level.?] >= 16) then
+  field[spcMax].value += 1
+  perform delete[PowerLink.HealInf1]
+  perform delete[PowerLink.HealInf2]
+else
+  perform delete[PowerLink.HealInf1]
+  perform delete[PowerLink.HealInf3]
+  endif]]>
+      <before name="pwLinkUses final"/>
+      <after name="Level final"/>
+      </eval>
+    </thing>
+  <thing
+    id="pArtHeaFor"
+    name=""
+    compset="">
+    <fieldval field="spcMax" value="2"/>
+    <tag group="PowerLink" tag="HealInf1" name="Healing Infusion"/>
+    <tag group="PowerLink" tag="HealInf2" name="Healing Infusion"/>
+    <tag group="PowerLink" tag="HealInf3" name="Healing Infusion"/>
+    <eval phase="Setup" priority="5000"><![CDATA[
+if (hero.tagis[Hero.Hybrid] <> 0) then
+  field[spcMax].value -= 1
+  perform delete[PowerLink.HealInf2]
+  perform delete[PowerLink.HealInf3]
+elseif (hero.tagvalue[Level.?] >= 16) then
+  field[spcMax].value += 1
+  perform delete[PowerLink.HealInf1]
+  perform delete[PowerLink.HealInf2]
+else
+  perform delete[PowerLink.HealInf1]
+  perform delete[PowerLink.HealInf3]
+  endif]]>
+      <before name="pwLinkUses final"/>
+      <after name="Level final"/>
+      </eval>
+    </thing>
+  <thing
+    id="pArtHeaShi"
+    name=""
+    compset="">
+    <fieldval field="spcMax" value="2"/>
+    <tag group="PowerLink" tag="HealInf1" name="Healing Infusion"/>
+    <tag group="PowerLink" tag="HealInf2" name="Healing Infusion"/>
+    <tag group="PowerLink" tag="HealInf3" name="Healing Infusion"/>
+    <eval phase="Setup" priority="5000"><![CDATA[
+if (hero.tagis[Hero.Hybrid] <> 0) then
+  field[spcMax].value -= 1
+  perform delete[PowerLink.HealInf2]
+  perform delete[PowerLink.HealInf3]
+elseif (hero.tagvalue[Level.?] >= 16) then
+  field[spcMax].value += 1
+  perform delete[PowerLink.HealInf1]
+  perform delete[PowerLink.HealInf2]
+else
+  perform delete[PowerLink.HealInf1]
+  perform delete[PowerLink.HealInf3]
+  endif]]>
+      <before name="pwLinkUses final"/>
+      <after name="Level final"/>
+      </eval>
+    </thing>
+
+  <!-- A lot of feat powers take up actual power slots -->
+  <thing
+    id="pFtUncaAim"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="6"/>
+    </thing>
+  <thing
+    id="pFtStinSho"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="3"/>
+    </thing>
+  <thing
+    id="pFtCripNee"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="9"/>
+    </thing>
+
+  <thing
+    id="pFtBolaRec"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="6"/>
+    </thing>
+  <thing
+    id="pFtBindBol"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="3"/>
+    </thing>
+  <thing
+    id="pFtFellBol"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="9"/>
+    </thing>
+
+  <thing
+    id="pFtBrutIns"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="6"/>
+    </thing>
+  <thing
+    id="pFtDeatMes"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="3"/>
+    </thing>
+  <thing
+    id="pFtBravFin"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="9"/>
+    </thing>
+
+  <thing
+    id="pFtCuttScr"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="6"/>
+    </thing>
+  <thing
+    id="pFtSuddRet"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="3"/>
+    </thing>
+  <thing
+    id="pFtQuicKil"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="9"/>
+    </thing>
+
+  <thing
+    id="pFtPotePoi"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="6"/>
+    </thing>
+  <thing
+    id="pFtImprPoi"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="3"/>
+    </thing>
+  <thing
+    id="pFtProgTox"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="9"/>
+    </thing>
+
+  <thing
+    id="pFtBodyShi"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="6"/>
+    </thing>
+  <thing
+    id="pFtChokGra"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="3"/>
+    </thing>
+  <thing
+    id="pFtStraHol"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="9"/>
+    </thing>
+
+  <thing
+    id="pFtDragZea"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="12"/>
+    </thing>
+
+  <thing
+    id="pFtImprImm"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="12"/>
+    </thing>
+
+  <thing
+    id="pFtNetShi"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="6"/>
+    </thing>
+
+  <thing
+    id="pFtNetSwe"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="3"/>
+    </thing>
+
+  <thing
+    id="pFtNetTra"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="9"/>
+    </thing>
+
+  <thing
+    id="pFtWhipCra"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="6"/>
+    </thing>
+
+  <thing
+    id="pFtWhipSna"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="3"/>
+    </thing>
+
+  <thing
+    id="pFtEntaWhi"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="9"/>
+    </thing>
+
+  <thing
+    id="pFtAgresFa"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="16"/>
+    </thing>
+
+  <thing
+    id="pFtEnlaFam"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="16"/>
+    </thing>
+
+  <thing
+    id="pFtInfuFam"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="10"/>
+    </thing>
+
+  <thing
+    id="pFtDragShi"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="10"/>
+    </thing>
+
+  <thing
+    id="pFtSibeUnl"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="16"/>
+    </thing>
+
+  <thing
+    id="pFtDragReb"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="3"/>
+    <tag group="PowerUse" tag="Encounter"/>
+    <tag group="PowerType" tag="Encounter" name="***DELETE***"/>
+    </thing>
+
+  <thing
+    id="pFtHandJus"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="3"/>
+    <tag group="PowerUse" tag="Encounter"/>
+    <tag group="PowerType" tag="Encounter" name="***DELETE***"/>
+    </thing>
+
+  <thing
+    id="pFtRighInt"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="9"/>
+    </thing>
+
+  <thing
+    id="pFtRighSav"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="6"/>
+    </thing>
+
+  <thing
+    id="pFtFuriDem"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="3"/>
+    </thing>
+
+  <thing
+    id="pFtThieGet"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="8"/>
+    </thing>
+
+  <thing
+    id="pFtSeveDef"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="4"/>
+    </thing>
+
+  <thing
+    id="pFtGuilSwi"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="10"/>
+    </thing>
+
+  <thing
+    id="pFtThugMen"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="8"/>
+    </thing>
+
+  <thing
+    id="pFtPommStr"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="4"/>
+    </thing>
+
+  <thing
+    id="pFtOppoSho"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="10"/>
+    </thing>
+
+  <thing
+    id="pFtDestPow"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    </thing>
+
+  <thing
+    id="pFtExplPow"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="6"/>
+    </thing>
+
+  <thing
+    id="pFtForcPow"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="6"/>
+    </thing>
+
+  <thing
+    id="pFtPenePow"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="9"/>
+    </thing>
+
+  <thing
+    id="pFtSeekPow"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="6"/>
+    </thing>
+
+  <thing
+    id="pFtArgeFal"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="6"/>
+    </thing>
+
+  <thing
+    id="pFtNetSna"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="PowerType" tag="AtWill"/>
+    <tag group="PowerUse" tag="AtWill"/>
+    <tag group="PowerType" tag="AtWill" name="***DELETE***"/>
+    <tag group="ReqLevel" tag="1"/>
+    </thing>
+
+  <thing
+    id="pFtShadStr"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="6"/>
+    </thing>
+
+  <thing
+    id="pFtBlacBla"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="3"/>
+    <tag group="PowerUse" tag="Encounter"/>
+    <tag group="PowerType" tag="Encounter" name="***DELETE***"/>
+    </thing>
+
+  <thing
+    id="pFtGathSha"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="9"/>
+    <tag group="PowerUse" tag="Daily"/>
+    <tag group="PowerType" tag="Daily" name="***DELETE***"/>
+    </thing>
+
+  <thing
+    id="pFtMemoWea"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="6"/>
+    </thing>
+
+  <thing
+    id="pFtSunsDan"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="PowerType" tag="AtWill"/>
+    <tag group="PowerUse" tag="AtWill"/>
+    <tag group="PowerType" tag="AtWill" name="***DELETE***"/>
+    <tag group="ReqLevel" tag="1"/>
+    </thing>
+
+  <thing
+    id="pFtWolfFre"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="PowerType" tag="AtWill"/>
+    <tag group="PowerUse" tag="AtWill"/>
+    <tag group="PowerType" tag="AtWill" name="***DELETE***"/>
+    <tag group="ReqLevel" tag="1"/>
+    </thing>
+
+  <thing
+    id="pFtDragBeh"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="6"/>
+    </thing>
+
+  <thing
+    id="pFtTripCah"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="3"/>
+    </thing>
+
+  <thing
+    id="pFtBindCah"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="9"/>
+    </thing>
+
+  <thing
+    id="pFtWardTal"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="6"/>
+    </thing>
+
+  <thing
+    id="ftDragoNov"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="3"/>
+    </thing>
+
+  <thing
+    id="ftDragoSpe"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="9"/>
+    </thing>
+
+  <thing
+    id="pFtGougPre"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="6"/>
+    </thing>
+
+  <thing
+    id="pFtGougSwe"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="3"/>
+    </thing>
+
+  <thing
+    id="pFtGougPin"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="9"/>
+    </thing>
+
+  <thing
+    id="pFtGythPar"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="6"/>
+    </thing>
+
+  <thing
+    id="pFtGythCla"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="3"/>
+    </thing>
+
+  <thing
+    id="pFtGythArc"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="9"/>
+    </thing>
+
+  <thing
+    id="pFtLotuPar"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="6"/>
+    </thing>
+
+  <thing
+    id="pFtLotuFlu"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="3"/>
+    </thing>
+
+  <thing
+    id="pFtWhirLot"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="9"/>
+    </thing>
+
+  <thing
+    id="pFtZadaExp"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="6"/>
+    </thing>
+
+  <thing
+    id="pFtZadaGra"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="3"/>
+    </thing>
+
+  <thing
+    id="pFtZadaCon"
+    name=""
+    compset="">
+    <tag group="User" tag="PwrAsClass"/>
+    <tag group="ReqLevel" tag="9"/>
+    </thing>
+
+  <!-- Power should be changed to daily, since that's when it resets -->
+  <thing
+    id="pPalLayOn"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="AtWill" name="***DELETE***"/>
+    <tag group="PowerUse" tag="Daily"/>
+    <eval phase="Traits" priority="5000"><![CDATA[
+~we can use this power a number of times equal to Wis modifier (minimum 1)
+field[spcMax].value = maximum(#attrbasebonus[attrWis],1)
+]]>
+      <after name="Calc attrBonus"/>
+      </eval>
+    </thing>
+
+  <!-- Staff of Defense gives a +1 to AC -->
+  <thing
+    id="pWizStaDef"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000"><![CDATA[
+      #traitmodify[defAC,trtBonus,1,""]
+      ]]></eval>
+    </thing>
+
+  <!-- Wizard Cantrips need to be turned into features
+  FIX - don't think we need this any more??
+  <thing
+    id="pWizGhoSou"
+    name=""
+    compset="">
+    <tag group="PowerType" tag="AtWill" name="***DELETE***"/>
+    <tag group="PowerType" tag="Feature"/>
+    <tag group="PowerUse" tag="AtWill"/>
+    </thing>
+  <thing
+    id="pWizLight"
+    name=""
+    compset="">
+    <tag group="PowerType" tag="AtWill" name="***DELETE***"/>
+    <tag group="PowerType" tag="Feature"/>
+    <tag group="PowerUse" tag="AtWill"/>
+    </thing>
+  <thing
+    id="pWizMagHan"
+    name=""
+    compset="">
+    <tag group="PowerType" tag="AtWill" name="***DELETE***"/>
+    <tag group="PowerType" tag="Feature"/>
+    <tag group="PowerUse" tag="AtWill"/>
+    </thing>
+  <thing
+    id="pWizPresti"
+    name=""
+    compset="">
+    <tag group="PowerType" tag="AtWill" name="***DELETE***"/>
+    <tag group="PowerType" tag="Feature"/>
+    <tag group="PowerUse" tag="AtWill"/>
+    </thing> -->
+
+  <!-- Disable epic destiny powers unless we have the right deity -->
+  <thing
+    id="pEpcBatJud"
+    name=""
+    compset="">
+    <eval index="1" phase="Final" priority="10000">
+      <![CDATA[
+      ~ignore if partial
+      doneif (hero.tagis[Deity.dtyTorm] <> 0)
+      perform assign[Hide.Special]
+      ]]></eval>
+    </thing>
+  <thing
+    id="pEpcForCre"
+    name=""
+    compset="">
+    <eval index="1" phase="Final" priority="10000">
+      <![CDATA[
+      doneif (hero.tagis[Deity.dtyMoradin] <> 0)
+      perform assign[Hide.Special]
+      ]]></eval>
+    </thing>
+  <thing
+    id="pEpcHigArc"
+    name=""
+    compset="">
+    <eval index="1" phase="Final" priority="10000">
+      <![CDATA[
+      doneif (hero.tagis[Deity.dtyCorello] <> 0)
+      perform assign[Hide.Special]
+      ]]></eval>
+    </thing>
+  <thing
+    id="pEpcHorLif"
+    name=""
+    compset="">
+    <eval index="1" phase="Final" priority="10000">
+      <![CDATA[
+      ~ignore if partial
+      doneif (hero.tagis[Deity.dtyChaunte] <> 0)
+      perform assign[Hide.Special]
+      ]]></eval>
+    </thing>
+  <thing
+    id="pEpcRenDaw"
+    name=""
+    compset="">
+    <eval index="1" phase="Final" priority="10000">
+      <![CDATA[
+      doneif (hero.tagis[Deity.dtyAmaunat] <> 0)
+      perform assign[Hide.Special]
+      ]]></eval>
+    </thing>
+  <thing
+    id="pEpcSunCen"
+    name=""
+    compset="">
+    <eval index="1" phase="Final" priority="10000">
+      <![CDATA[
+      doneif (hero.tagis[Deity.dtySune] <> 0)
+      perform assign[Hide.Special]
+      ]]></eval>
+    </thing>
+  <thing
+    id="pEpcSupKno"
+    name=""
+    compset="">
+    <eval index="1" phase="Final" priority="10000">
+      <![CDATA[
+      ~ignore if partial
+      doneif (hero.tagis[Deity.dtyOghma] <> 0)
+      perform assign[Hide.Special]
+      ]]></eval>
+    </thing>
+  <thing
+    id="pEpcTemGla"
+    name=""
+    compset="">
+    <eval index="1" phase="Final" priority="10000">
+      <![CDATA[
+      ~ignore if partial
+      doneif (hero.tagis[Deity.dtyTempus] <> 0)
+      perform assign[Hide.Special]
+      ]]></eval>
+    </thing>
+  <thing
+    id="pEpcTruDea"
+    name=""
+    compset="">
+    <eval index="1" phase="Final" priority="10000">
+      <![CDATA[
+      doneif (hero.tagis[Deity.dtyKelemvo] <> 0)
+      perform assign[Hide.Special]
+      ]]></eval>
+    </thing>
+  <thing
+    id="pEpcWaxFor"
+    name=""
+    compset="">
+    <eval index="1" phase="Final" priority="10000">
+      <![CDATA[
+      doneif (hero.tagis[Deity.dtySelune] <> 0)
+      perform assign[Hide.Special]
+      ]]></eval>
+    </thing>
+
+  <!-- Eldritch Blast & Eldritch Strike reconfigure based on class selection -->
+  <thing
+    id="pWlkEldBla"
+    name=""
+    compset="">
+    <fieldval field="pwAtkExtra" value=""/>
+    <tag group="Attack" tag="attrCha" name="***DELETE***"/>
+    <tag group="DamageAttr" tag="attrCha" name="***DELETE***"/>
+    <tag group="AttackVs" tag="defRef"/>
+    </thing>
+  <thing
+    id="pWlkEldStr"
+    name=""
+    compset="">
+    <fieldval field="pwAtkExtra" value=""/>
+    <tag group="Attack" tag="attrCha" name="***DELETE***"/>
+    <tag group="DamageAttr" tag="attrCha" name="***DELETE***"/>
+    <tag group="AttackVs" tag="defAC"/>
+    </thing>
+
+  <thing
+    id="pWrlFurSma"
+    name=""
+    compset="">
+    <tag group="DamageAttr" tag="attrStr"/>
+    </thing>
+
+  <thing
+    id="pPalBlaLig"
+    name=""
+    compset="">
+    <tag group="AttackType" tag="MeleeWep"/>
+    </thing>
+
+  <!-- These genasi powers need to be marked as coming from the race, so we can
+      configure them -->
+  <thing
+    id="pRacFirepu"
+    name=""
+    compset="">
+    <tag group="ConfSource" tag="Race"/>
+    </thing>
+  <thing
+    id="pRacEarths"
+    name=""
+    compset="">
+    <tag group="ConfSource" tag="Race"/>
+    </thing>
+  <thing
+    id="pRacAciSur"
+    name=""
+    compset="">
+    <tag group="ConfSource" tag="Race"/>
+    </thing>
+
+  <!-- Rage Strike gets better depending on your level -->
+  <thing
+    id="pBbnRagStr"
+    name=""
+    compset="">
+    <fieldval field="spcMax" value="2"/>
+    <tag group="DamageAttr" tag="attrStr"/>
+    <eval phase="Setup" priority="5000"><![CDATA[
+      ~only available at level 5+
+      if (#level[] < 5) then
+        perform assign[Helper.Disable]
+        perform assign[Hide.Special]
+        endif
+
+      if (#level[] < 5) then
+        perform assign[Damage.Weapon3]
+      elseif (#level[] < 9) then
+        perform assign[Damage.Weapon4]
+      elseif (#level[] < 15) then
+        perform assign[Damage.Weapon5]
+      elseif (#level[] < 19) then
+        perform assign[Damage.Weapon6]
+      elseif (#level[] < 25) then
+        perform assign[Damage.Weapon7]
+      elseif (#level[] < 29) then
+        perform assign[Damage.Weapon8]
+      else
+        perform assign[Damage.Weapon9]
+        endif
+      ]]></eval>
+    </thing>
+
+  <!-- For some reason this is incorrectly marked as an encounter power if you
+      do the full download, but an at-will power otherwise? -->
+  <thing
+    id="pBmnDemDan"
+    name=""
+    compset="">
+    <tag group="PowerType" tag="AtWill" name="***DELETE***"/>
+    <tag group="PowerType" tag="Encounter" name="***DELETE***"/>
+    <tag group="PowerType" tag="AtWill"/>
+    </thing>
+
+  <thing id="pMIWoundp3" name="Woundpatch (Level 3)" description="Place the woundpatch on yourself or another living creature. Until the end of the encounter, the next time the creature spends a healing surge, it regains 5 extra hit points." compset="Power">
+    <tag group="ActionType" tag="Minor"/>
+    <tag group="PowerClass" tag="MagicItem"/>
+    <tag group="PowerType" tag="Consumable"/>
+    </thing>
+  <thing id="pMIWound13" name="Woundpatch (Level 13)" description="Place the woundpatch on yourself or another living creature. Until the end of the encounter, the next time the creature spends a healing surge, it regains 10 extra hit points." compset="Power">
+    <tag group="ActionType" tag="Minor"/>
+    <tag group="PowerClass" tag="MagicItem"/>
+    <tag group="PowerType" tag="Consumable"/>
+    </thing>
+  <thing id="pMIWound23" name="Woundpatch (Level 23)" description="Place the woundpatch on yourself or another living creature. Until the end of the encounter, the next time the creature spends a healing surge, it regains 15 extra hit points." compset="Power">
+    <tag group="ActionType" tag="Minor"/>
+    <tag group="PowerClass" tag="MagicItem"/>
+    <tag group="PowerType" tag="Consumable"/>
+    </thing>
+
+  <!-- There's some stupid wording that means this power doesn't have its count
+      increased automatically... -->
+  <thing
+    id="pWrlInsWor"
+    name=""
+    compset="">
+    <eval index="2" phase="Traits" priority="1000"><![CDATA[if (hero.tagvalue[Level.?] >= 16) then
+  field[spcMax].value += 1
+  endif]]>
+      <after name="Level final"/>
+      </eval>
+    </thing>
+
+  <!-- Healer's Mercy can replace Turn Undead -->
+  <thing
+    id="pClrHeaMer"
+    name=""
+    compset="">
+    <tag group="User" tag="FeatureChk"/>
+    <evalrule phase="Setup" priority="250" message="Class feature error">perform hero.child[pClrTurUnd].setfocus
+call FeatureDis
+
+~hide us if we're not selected
+if (field[usrIsCheck].value = 0) then
+  perform assign[Hide.Special]
+  endif
+      </evalrule>
+    </thing>
+
+  <!-- Shielding Elixir can replace Resistive Formula -->
+  <thing
+    id="pArtHeaShi"
+    name=""
+    compset="">
+    <tag group="User" tag="FeatureChk"/>
+    <evalrule phase="Setup" priority="250" message="Class feature error">perform hero.child[pArtHeaFor].setfocus
+call FeatureDis
+
+~hide us if we're not selected
+if (field[usrIsCheck].value = 0) then
+  perform assign[Hide.Special]
+  endif
+      </evalrule>
+    </thing>
+
+  <thing
+    id="pRacGorCha"
+    name=""
+    compset="">
+    <tag group="User" tag="AttrPhys"/>
+    <tag group="DamageAttr" tag="attrStr" name="***DELETE***"/>
+    <eval index="2" phase="Traits" priority="1000"><![CDATA[
+      perform pushtags[Attack.?,DamageAttr]
+      if (hero.tagvalue[Level.?] < 11) then
+        field[pwAtkMod].value = 4
+      elseif (hero.tagvalue[Level.?] < 21) then
+        field[pwAtkMod].value = 6
+      else
+        field[pwAtkMod].value = 8
+        endif
+      ]]>
+      <after name="Level final"/>
+      </eval>
+    </thing>
+
+  <thing
+    id="pDrdResLif"
+    name=""
+    compset="">
+    <tag group="PowerClass" tag="clsSentine"/>
+    <tag group="ReqLevel" tag="8"/>
+    </thing>
+
+  <thing
+    id="pRogCunEsc"
+    name=""
+    compset="">
+    <tag group="PowerClass" tag="clsThief"/>
+    <tag group="ReqLevel" tag="5"/>
+    </thing>
+
+  <thing
+    id="pClrHolCle"
+    name=""
+    compset="">
+    <tag group="PowerClass" tag="clsWarprie"/>
+    <tag group="ReqLevel" tag="4"/>
+    </thing>
+
+  <thing
+    id="pClrResurr"
+    name=""
+    compset="">
+    <tag group="PowerClass" tag="clsWarprie"/>
+    <tag group="ReqLevel" tag="8"/>
+    </thing>
+
+  <!-- Warpriest channel divinity powers -->
+  <thing
+    id="pClrSmiUnd"
+    name=""
+    compset="">
+    <tag group="PowerLink" tag="ChanDiv1" name="Channel Divinity"/>
+    </thing>
+  <thing
+    id="pClrStoRes"
+    name=""
+    compset="">
+    <tag group="PowerLink" tag="ChanDiv1" name="Channel Divinity"/>
+    </thing>
+  <thing
+    id="pClrStoSur"
+    name=""
+    compset="">
+    <tag group="PowerLink" tag="ChanDiv1" name="Channel Divinity"/>
+    </thing>
+  <thing
+    id="pClrSooLig"
+    name=""
+    compset="">
+    <tag group="PowerLink" tag="ChanDiv1" name="Channel Divinity"/>
+    </thing>
+  <thing
+    id="pClrStaHan"
+    name=""
+    compset="">
+    <tag group="PowerLink" tag="ChanDiv1" name="Channel Divinity"/>
+    </thing>
+
+  </document>

@@ -1,0 +1,767 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the definition of the "Basics" tab panel. This tab is where
+      the user configures that attributes and skills of the character.
+
+      All public visual elements used with this tab panel start with the prefix "ba"
+      to associate them with the tab.
+-->
+
+<document signature="Hero Lab Data">
+
+
+  <!-- baAttrTtl portal
+        Displays the title of the "Attributes" table. Normally this would be
+        a headertitle script for the "baAttrib" table; however, this is not
+        possible for the 4e files, because the Attributes table is narrower
+        than the title. This is to allow the Defenses table to be wider,
+        which allows the arrows pointing from attributes to defenses to line
+        up properly.
+  -->
+  <portal
+    id="baAttrTtl"
+    style="lblTitle">
+    <label
+      istitle="yes">
+      <labeltext><![CDATA[
+        @text = "Ability Scores"
+
+        ~if this is a monster, do nothing else
+        doneif (hero.tagis[Hero.Monster] <> 0)
+
+        ~set the focus to our 'ability points left' pick for future reference
+        perform hero.child[resAbilPts].setfocus
+
+        ~if we have a maximum points of 0, we're just picking scores, not
+        ~calculating, so do nothing else
+        doneif (focus.field[resMax].value = 0)
+
+        ~if we have points left, show it
+        if (focus.field[resLeft].value > 0) then
+          @text = "{text ffff88}Ability Scores (" & focus.field[resLeft].value & " points left)"
+
+        ~if we took too many, show it
+        elseif (focus.field[resLeft].value < 0) then
+          var over as number
+          over = focus.field[resLeft].value * -1
+          @text = "{text ff0000}Ability Scores (" & over & " points over!)"
+          endif
+        ]]></labeltext>
+      </label>
+    </portal>
+
+  <!-- baAttrib portal
+        Presents a fixed table that consists of the various attributes for the
+        character. The "explicit" sortset is used to enforce a hand-numbered
+        ordering of the attributes. Since the full list is short enough to always
+        be visible, the table has no scroller.
+  -->
+  <portal
+    id="baAttrib"
+    style="tblInvis">
+    <table_fixed
+      component="Attribute"
+      showtemplate="baAttrPick"
+      showsortset="explicit"
+      scrollable="no">
+      </table_fixed>
+    </portal>
+
+
+  <!-- baDefenses portal
+        Presents a fixed table containing all the hero's defenses. The sortset allows
+        us to dictate the order of display via a hand-numbered sequence. All traits
+        are always visible, so we don't need a scroller.
+  -->
+  <portal
+    id="baDefTtl"
+    style="lblTitle">
+    <label
+      istitle="yes"
+      text="Defenses">
+      </label>
+    </portal>
+  <portal
+    id="baDefenses"
+    style="tblInvis">
+    <table_fixed
+      component="Defense"
+      showtemplate="baDefPick"
+      showsortset="explicit"
+      scrollable="no">
+      <list><![CDATA[
+        !thingid.defAC
+        ]]></list>
+      </table_fixed>
+    </portal>
+
+
+  <!-- baTraitWd portal
+        Presents a fixed table with wide derived traits in it. The sortset allows
+        us to dictate the order of display via a hand-numbered sequence. All traits
+        are always visible, so we don't need a scroller.
+
+        NOTE: Other traits are added to this if we're a monster, so we need to
+          always update.
+  -->
+  <portal
+    id="baTraitWd"
+    style="tblInvis">
+    <table_fixed
+      component="Derived"
+      showtemplate="baTrtPick"
+      showsortset="explicit"
+      scrollable="no"
+      alwaysupdate="yes">
+      <list><![CDATA[
+        User.BasicsWide
+        ]]></list>
+      </table_fixed>
+    </portal>
+
+
+  <!-- baTraitNr portal
+        As baTraitWd, above, but shows narrow traits instead.
+
+        NOTE: Other traits are added to this if we're a monster, so we need to
+          always update.
+  -->
+  <portal
+    id="baTraitNr"
+    style="tblInvis">
+    <table_fixed
+      component="Derived"
+      showtemplate="baTrtPick"
+      showsortset="explicit"
+      scrollable="no"
+      alwaysupdate="yes">
+      <list><![CDATA[
+        User.BasicsNarr
+        ]]></list>
+      </table_fixed>
+    </portal>
+
+
+  <!-- Ability score increase table and empty label-->
+  <portal
+    id="baAttrIncr"
+    style="tblInvis">
+    <table_fixed
+      component="AttrIncr"
+      showtemplate="AttrInPick"
+      showsortset="AttrIncr"
+      columns="2">
+      </table_fixed>
+    </portal>
+  <portal
+    id="baAtInNone"
+    style="lblDisable">
+    <label
+      istitle="yes"
+      text="- No Attribute Increases Yet -">
+      </label>
+    </portal>
+
+
+  <!-- baAttrPick template
+        Displays one attribute within the table of attributes. We setup suitable
+        margins around each template, which provides substantial spacing between
+        each item and the edges of the table. Each attribute consists of its name,
+        an incrementer where the user can assign the value, and an info button that
+        provides details on the attribute when the user moves the mouse over it.
+  -->
+  <template
+    id="baAttrPick"
+    name="Attribute Pick"
+    compset="Attribute">
+
+    <portal
+      id="key"
+      style="lblNormal"
+      showinvalid="yes">
+      <label>
+        <labeltext><![CDATA[
+          @text = "{font Wingdings}{text 0092f7}«"
+          ]]></labeltext>
+        </label>
+      <mouseinfo><![CDATA[
+        @text = "This is a Key Ability for your class."
+        ]]></mouseinfo>
+      </portal>
+
+    <portal
+      id="powers"
+      style="lblNormal"
+      showinvalid="yes">
+      <label>
+        <labeltext><![CDATA[
+          @text = "{text 909090}" & field[attrPowers].text
+          ]]></labeltext>
+        </label>
+      <mouseinfo><![CDATA[
+        @text = field[attrPowers].value & " of your attack powers are linked to this ability score."
+        ]]></mouseinfo>
+      </portal>
+
+    <portal
+      id="name"
+      style="lblXXLarge"
+      showinvalid="yes">
+      <label>
+        <labeltext><![CDATA[
+          @text = left(field[name].text,3)
+          @text = uppercase(@text)
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <portal
+      id="value"
+      style="incrBig">
+      <incrementer
+        field="trtUser">
+        </incrementer>
+      <mouseinfo><![CDATA[
+        @text = "Allocate points to this attribute by clicking on the arrows to increase/decrease the number of points assigned."
+        ]]></mouseinfo>
+      </portal>
+
+    <portal
+      id="bonus"
+      style="lblAtBonus"
+      showinvalid="yes">
+      <label>
+        <labeltext><![CDATA[
+          ~if we don't have an in-play adjustment, just show our normal
+          ~attribute bonus
+          if (field[trtInPlay].value = 0) then
+            @text = field[attrBonus].text
+
+          ~otherwise, show before/after values
+          else
+            @text = "{size 48}{text a0a0a0}" & signed(field[attrBnBase].value)
+            @text &= "/{text 010101}{size 60}" & signed(field[attrBonus].value)
+            endif
+
+          ~add a little vertical spacing to make everything look nice
+          @text = "{vert 5}" & @text
+          ]]></labeltext>
+        </label>
+      <mouseinfo><![CDATA[
+        var traithist as string
+        call TraitHist
+        @text = traithist
+        ]]></mouseinfo>
+      </portal>
+
+    <position><![CDATA[
+      ~set up our height to a fixed value, so we match up with the bitmap used
+      ~in the 'defenses' table
+      height = 46
+      ~if this is a "sizing" calculation, we're done
+      doneif (issizing <> 0)
+
+      ~position our key ability icon and power counter to the left
+      portal[key].top = ((height / 2) - portal[key].height) / 2
+      portal[key].left = 3
+      portal[powers].top = (height / 2)
+      perform portal[powers].centeron[horz,key]
+
+      ~center the portals vertically
+      perform portal[name].centervert
+      perform portal[value].centervert
+
+      ~position the bonus portal so that it looks right when paired up with the
+      ~bitmap in the defenses table
+      if (tagvalue[explicit.?] % 2 = 1) then
+        portal[bonus].top = 3
+      else
+        portal[bonus].top = 7
+      endif
+
+      ~position the incrementer kinda in the middle
+      portal[value].left = 80
+
+      ~hide our key ability portal unless this is a key ability
+      portal[key].visible = hero.isidentity[KeyAbility]
+      portal[powers].visible = hero.isidentity[KeyAbility]
+      if (field[attrPowers].value <= 0) then
+        portal[powers].visible = 0
+        endif
+
+      ~position the name on the left, centered in the space
+      portal[name].left = portal[key].right + (portal[value].left - portal[name].width - portal[key].right) / 2
+
+      ~position the bonus at the far right
+      perform portal[bonus].alignedge[right,0]
+      ]]></position>
+
+    </template>
+
+
+  <!-- baDefPick template
+        Displays one defense within the table of defenses. The defense name is shown on
+        the left, with appropriate details about the derived value on the right.
+        At the right edge is an info button that can be moused over for more info.
+        As with the other templates above, we use the margins to establish good
+        visual spacing between and around the items in the table.
+  -->
+  <template
+    id="baDefPick"
+    name="Defense Pick"
+    compset="Defense">
+
+    <portal
+      id="defpoint"
+      style="imgNormal">
+      <image_literal
+        image="defense_point.bmp"
+        istransparent="yes">
+        </image_literal>
+      </portal>
+
+    <portal
+      id="name"
+      style="lblXLarge"
+      showinvalid="yes">
+      <label>
+        <labeltext><![CDATA[
+          ~grey out our name a little, to make the defense value below it more
+          ~prominent
+          @text = "{text 909090}" & uppercase(field[trtAbbrev].text)
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <portal
+      id="details"
+      style="lblXXLarge">
+      <label>
+        <labeltext><![CDATA[
+          ~if we don't have an in-play adjustment, just show our normal
+          ~attribute bonus
+          if (field[trtInPlay].value = 0) then
+            @text = field[trtText].text
+            done
+            endif
+
+          ~otherwise, show before/after values
+          var base as number
+          base = field[trtFinal].value - field[trtInPlay].value
+          @text = "{size 48}{text a0a0a0}" & base
+          @text &= "/{text 010101}{size 60}" & field[trtFinal].value
+          ]]></labeltext>
+        </label>
+      <live>!Hero.Monster</live>
+      <mouseinfo><![CDATA[
+        var traithist as string
+        call TraitHist
+        @text = traithist
+        ]]></mouseinfo>
+      </portal>
+
+    <portal
+      id="incr"
+      style="incrDef">
+      <incrementer
+        field="trtUser">
+        </incrementer>
+      <live>Hero.Monster</live>
+      <mouseinfo><![CDATA[
+        var traithist as string
+        call TraitHist
+        @text = traithist
+        ]]></mouseinfo>
+      </portal>
+
+    <position><![CDATA[
+      ~set up our height; our width is pre-initialized for us
+      height = portal[defpoint].height
+
+      ~if this is a "sizing" calculation, we're done
+      doneif (issizing <> 0)
+
+      ~our arrow is only visible if we're in a table
+      portal[defpoint].visible = intable[baDefenses]
+
+      ~center our portals in the remaining space
+      if (portal[defpoint].visible <> 0) then
+        portal[name].width = width - portal[defpoint].right
+        portal[name].left = portal[defpoint].right
+        portal[details].width = width - portal[defpoint].right
+        portal[details].left = portal[defpoint].right
+      else
+        perform portal[name].centerhorz
+        perform portal[details].centerhorz
+        endif
+
+      ~position the name just above the centerpoint, and the defense value just
+      ~below the centerpoint to make things look good
+      portal[name].top = (height / 2) - portal[name].height - 3
+      portal[details].top = (height / 2)
+
+      ~position our incrementer at the same position as our defense label -
+      ~only one of them will be live
+      portal[incr].top = (height / 2)
+      perform portal[incr].alignedge[right,-3]
+
+      ~if we're a monster, reposition our name to look a bit better
+      if (hero.tagis[Hero.Monster] <> 0) then
+        if (portal[defpoint].visible <> 0) then
+          portal[name].width -= 20
+        else
+          portal[name].left -= 10
+          endif
+        endif
+      ]]></position>
+
+    </template>
+
+
+  <!-- baTrtPick template
+        Displays one trait within the table of traits. The trait name is shown on
+        the left, with appropriate details about the derived value on the right.
+        At the right edge is an info button that can be moused over for more info.
+        As with the other templates above, we use the margins to establish good
+        visual spacing between and around the items in the table.
+  -->
+  <template
+    id="baTrtPick"
+    name="Trait Pick"
+    compset="Trait"
+    marginhorz="5"
+    marginvert="3">
+
+    <portal
+      id="name"
+      style="lblLarge"
+      showinvalid="yes">
+      <label>
+        <labeltext><![CDATA[
+          @text = field[name].text & ":"
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <portal
+      id="details"
+      style="lblLarge">
+      <label>
+        <labeltext><![CDATA[
+          @text = "{align left}" & field[trtText].text
+
+          ~if this is our 'Health' trait, add the healing surge info
+          if (tagis[thingid.trHealth] <> 0) then
+            @text &= " hp, " & hero.child[trSurges].field[trtText].text & " {text 808080}(x"
+            @text &= hero.child[trSurgeVal].field[trtText].text
+            @text &= "){text 010101} surges"
+            endif
+          ]]></labeltext>
+        </label>
+      <mouseinfo><![CDATA[
+        var traithist as string
+        call TraitHist
+        @text = traithist
+        ]]></mouseinfo>
+      </portal>
+
+    <portal
+      id="incr"
+      style="incrWide">
+      <incrementer
+        field="trtUser">
+        </incrementer>
+      <live>Hero.Monster</live>
+      <mouseinfo><![CDATA[
+        var traithist as string
+        call TraitHist
+        @text = traithist
+        ]]></mouseinfo>
+      </portal>
+
+    <position><![CDATA[
+      ~set up our height based on our tallest portal
+      height = portal[name].height
+
+      ~if this is a "sizing" calculation, we're done
+      doneif (issizing <> 0)
+
+      ~our size is very very wide and not editable
+      if (tagis[thingid.trSize] <> 0) then
+        perform portal[incr].setstyle[incrSize]
+        portal[incr].width = 126
+        endif
+
+      ~position the name on the left and give it some reasonable space
+      portal[name].left = 0
+
+      ~position the details to the right of the name and the left of the info portal
+      perform portal[details].alignrel[ltor,name,10]
+      portal[details].width = width - portal[details].left - 10
+
+      ~if this is adjustable and we're a monster, show the incrementer instead
+      portal[incr].left = portal[details].left
+      if (tagis[User.CanAdjust] + hero.tagis[Hero.Monster] = 2) then
+        portal[details].visible = 0
+      else
+        portal[incr].visible = 0
+        endif
+      ]]></position>
+
+    </template>
+
+
+  <!-- AttrInPick template
+        Displays information about an attribute increase pick.
+  -->
+  <template
+    id="AttrInPick"
+    name="Attribute Increase Pick"
+    compset="AttrIncr"
+    marginvert="3">
+
+    <portal
+      id="name"
+      style="lblNormal"
+      showinvalid="yes">
+      <label>
+        <labeltext><![CDATA[
+          @text = "Lv " & tagvalue[explicit.?] & ":"
+          if (tagis[User.AllAttrs] <> 0) then
+            @text &= " All attributes"
+            endif
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <portal
+      id="attr1"
+      style="menuNormal"
+      showinvalid="yes">
+      <menu_things
+        field="atiAttr1"
+        component="none"
+        usepicks="hero"
+        maxvisible="10"
+        sortset="explicit">
+        <candidate>component.Attribute</candidate>
+        </menu_things>
+      </portal>
+
+    <portal
+      id="attr2"
+      style="menuNormal"
+      showinvalid="yes">
+      <menu_things
+        field="atiAttr2"
+        component="none"
+        usepicks="hero"
+        maxvisible="10"
+        sortset="explicit">
+        <candidate>component.Attribute</candidate>
+        </menu_things>
+      </portal>
+
+    <position><![CDATA[
+      ~set up our height; our width is pre-initialized for us
+      height = portal[attr1].height
+
+      ~if this is a "sizing" calculation, we're done
+      doneif (issizing <> 0)
+
+      ~position our tallest portals at the top
+      portal[attr1].top = 0
+      portal[attr2].top = 0
+
+      ~center the other portals on the tallest ones
+      perform portal[name].centeron[vert,attr1]
+
+      ~position our menus
+      portal[attr1].left = 40
+      portal[attr1].width = 90
+      portal[attr2].left = portal[attr1].right + 5
+      portal[attr2].width = portal[attr1].width
+
+      ~hide our menus if we have the 'all attributes' flag
+      if (tagis[User.AllAttrs] <> 0) then
+        portal[attr1].visible = 0
+        portal[attr2].visible = 0
+        endif
+      ]]></position>
+
+    </template>
+
+
+  <!-- basics layout
+        This layout orchestrates the display of all various visual elements that
+        comprise the Basics tab. We have titles above the attributes and skills,
+        the attributes and skills tables themselves, a horizontal separator, and
+        the table of derived traits.
+        Each of these portals and templates is identified as a "reference" by the
+        layout. Using references allows distinct instances of portals and templates
+        to be re-used within multiple layouts. You can even use the same template
+        multiple times within a single layout.
+        The visual elements used in the layout are all sized and positioned via
+        the "position" script. This script is invoked to setup the dimensions of
+        visual elements and trigger the positioning of the contents of those
+        elements via the "render" invocation.
+
+        The tab order between items is controlled via the optional "taborder" XML
+        attribute on the various portal and template references. Within a template,
+        the tab order is dictated by the order the portals are listed within the
+        XML. Within a table, the tab order is dictated by the item sequence. The
+        "taborder" attribute coordinates the relative sequence of portals and
+        templates within the layout. In this layout, the tab order will move down
+        the left column and then shift over to the right column.
+  -->
+  <layout
+    id="basics">
+    <portalref portal="baAttrTtl"/>
+    <portalref portal="baAttrib" taborder="10"/>
+    <portalref portal="baDefTtl"/>
+    <portalref portal="baDefenses" taborder="15"/>
+    <portalref reference="horz1" portal="Horizontal"/>
+    <portalref portal="baTraitNr" taborder="20"/>
+    <portalref portal="baTraitWd" taborder="30"/>
+    <portalref reference="horz2" portal="Horizontal"/>
+    <portalref portal="baAttrIncr"/>
+    <portalref portal="baAtInNone"/>
+    <templateref reference="armorclass" template="baDefPick" thing="defAC" taborder="17"/>
+
+    <!-- This script sizes and positions the layout and its child visual elements. -->
+    <position><![CDATA[
+      ~position the attributes title at the top-left
+      portal[baAttrTtl].left = 0
+      portal[baAttrTtl].width = width * 17 / 30
+
+      ~size and position the attributes table under the title; we set the
+      ~height to the full layout height, but the table will only use the space
+      ~it needs.
+      portal[baAttrib].width = portal[baAttrTtl].width - 20
+      portal[baAttrib].left = 0
+      portal[baAttrib].top = portal[baAttrTtl].bottom + 5
+      portal[baAttrib].height = height
+
+      ~put our defenses title to the right of the ability scores
+      portal[baDefTtl].left = portal[baAttrTtl].right + 10
+      portal[baDefTtl].width = width - portal[baDefTtl].left
+      portal[baDefTtl].top = portal[baAttrTtl].top
+
+      ~put our defenses table under our defenses title, taking up all the height
+      ~it needs
+      portal[baDefenses].left = portal[baAttrib].right
+      portal[baDefenses].width = (width - portal[baDefenses].left) * 2 / 3 - 10
+      portal[baDefenses].top = portal[baDefTtl].bottom + 5
+      portal[baDefenses].height = height
+
+      ~put our AC template beside the defenses title, half way up - it needs
+      ~extra space if we're a monster, for the incrementer
+      template[armorclass].left = portal[baDefenses].right + 10
+      template[armorclass].width = width - template[armorclass].left
+      if (hero.tagis[Hero.Monster] = 0) then
+        template[armorclass].width -= 20
+        endif
+      perform template[armorclass].render
+      template[armorclass].top = portal[baDefenses].top + (portal[baDefenses].height - template[armorclass].height) / 2
+
+      ~set the first separator width and position it beneath the attributes
+      portal[horz1].width = width - 50
+      portal[horz1].top = portal[baAttrib].bottom + 5
+      portal[horz1].left = (width - portal[horz1].width) / 2
+
+      ~size and position the traits table beneath the separator; we set the height
+      ~the the full layout height, but the table will only use the space it needs
+      portal[baTraitNr].width = portal[baAttrib].width * 18 / 30
+      portal[baTraitNr].left = portal[baTraitNr].left
+      portal[baTraitNr].top = portal[horz1].bottom + 10
+      portal[baTraitNr].height = height
+
+      ~now put the wide traits table beside the narrow traits table
+      portal[baTraitWd].left = portal[baTraitNr].right + 10
+      portal[baTraitWd].width = width - portal[baTraitWd].left
+      portal[baTraitWd].top = portal[baTraitNr].top
+      portal[baTraitWd].height = height
+
+      ~set the second separator width and position it beneath the traits
+      portal[horz2].width = portal[horz1].width
+      portal[horz2].top = maximum(portal[baTraitNr].bottom,portal[baTraitWd].bottom) + 5
+      portal[horz2].left = portal[horz1].left
+
+      ~the ability increase table appears below everything else, spanning the
+      ~whole form
+      portal[baAttrIncr].width = width
+      portal[baAttrIncr].top = portal[horz2].bottom + 10
+      portal[baAttrIncr].left = 0
+      portal[baAttrIncr].height = height
+
+      ~position our 'no increase yet' label at the same place as the table
+      portal[baAtInNone].top = portal[baAttrIncr].top + 10
+      perform portal[baAtInNone].centeron[horz,baAttrIncr]
+      portal[baAtInNone].visible = !portal[baAttrIncr].itemcount
+
+      ~if this is a monster, we don't need the attribute increase stuff
+      if (hero.tagis[Hero.Monster] <> 0) then
+        portal[horz2].visible = 0
+        portal[baAttrIncr].visible = 0
+        portal[baAtInNone].visible = 0
+        endif
+
+      ~set the height needed appropriately
+      if (portal[baAttrIncr].visible <> 0) then
+        height = portal[baAttrIncr].bottom
+      elseif (portal[baAtInNone].visible <> 0) then
+        height = portal[baAtInNone].bottom
+      else
+        height = maximum(portal[baTraitNr].bottom, portal[baTraitWd].bottom)
+        endif
+      ]]></position>
+
+    </layout>
+
+
+  <!-- basics panel
+        This is the "Basics" panel shown within Hero Lab.
+
+        The "order" attribute dictates the sequence in which the various tabs will
+        be displayed. To keep everything well organized, We break the tabs up into
+        four logical groupings: (1) traits and creation details, (2) equipment,
+        (3) details, and (4) in-play support. Each of these groupings will have a
+        three-digit value that starts with the grouping number. Since the Basics
+        panel should appear first within the traits group, it has an order of "110".
+
+        As we assign order values, We'll leave gaps in the sequence (e.g. 110, 120,
+        etc.). This will allow us to easily change our minds and slip a new panel
+        inbetween two existing ones as the data files evolve, without having to go
+        through and re-number everything.
+
+        We setup a suitable margin around the edges of the panel. This ensures that
+        there is a little bit of spacing from the edges and eliminates the need for
+        our positioning scripts to make the appropriate adjustments.
+
+        Like with layouts, panels have a "position" script to setup the dimensions
+        of child elements and orchestrate the rendering of their contents. In many
+        cases, as with this panel, the default handling of panels will ensure that
+        the layouts are properly rendered.
+
+        The panel is assigned a "live" tagexpr so that its visibility can be
+        controlled for different types of characters. While not really useful in the
+        sample data files, this approach can be quite useful when the data files
+        expand to govern creation of widely varying characters, such as vampires vs.
+        ghosts vs. mortals in the World of Darkness game system.
+  -->
+  <panel
+    id="basics"
+    name="Abilities"
+    marginhorz="5"
+    marginvert="5"
+    order="120">
+    <live>!HideTab.basics</live>
+    <layoutref layout="basics"/>
+    <position><![CDATA[
+      ~get the height used by the layout and use it, as that means we scroll
+      ~if necessary
+      perform layout[basics].render
+      height = layout[basics].height
+      ]]></position>
+    </panel>
+  </document>

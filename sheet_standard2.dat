@@ -1,0 +1,1079 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the definition of the second page of the standard character
+      sheet for output. The second page is handled as a spillover sheet that will
+      output any details that didn't fit on the first page. This is a technique that
+      you will likely use for whatever game system you choose to support.
+
+      The first page of the character sheet will be found in "sheet_standard1.dat".
+
+      The portals used to output the equipment below are the same ones used on the
+      first page of the character sheet. As such, those portals will be found in
+      the file that defines the first page.
+-->
+
+<document signature="Hero Lab Data">
+
+
+  <!-- oPersonal table - show our background details - there should only ever
+      be one pick in here, but we put it in a table so it gets spilled to the
+      last sheet appropriately -->
+  <portal
+    id="oPersonal"
+    style="outNormal">
+    <output_table
+      component="Personal"
+      showtemplate="oPersPick"
+      varyheight="yes">
+      <list><![CDATA[
+        !Helper.NoPersText & !hero#source.OutHidePrs
+        ]]></list>
+      <headertitle><![CDATA[
+        @text = "Personal Details"
+        ]]></headertitle>
+      </output_table>
+    </portal>
+
+
+  <!-- oAtWill / oEncounter / oDaily / oUtility portal
+        This is a table of all hero powers. It doesn't include magic item
+        powers - those appear under the magic item list
+  -->
+  <portal
+    id="oAtWill"
+    style="outNormal">
+    <output_table
+      component="PowerOut"
+      showtemplate="oPowerPick">
+      <list><![CDATA[
+        (PowerType.AtWill | (PowerType.Feature & PowerUse.AtWill)) &
+        !PowerClass.MagicItem & (!User.FeatureChk | !Helper.Disable)
+        ]]></list>
+      <headertitle><![CDATA[
+        @text = "At-Will Powers"
+        ]]></headertitle>
+      </output_table>
+    </portal>
+  <portal
+    id="oEncounter"
+    style="outNormal">
+    <output_table
+      component="PowerOut"
+      showtemplate="oPowerPick">
+      <list><![CDATA[
+        (PowerType.Encounter | (PowerType.Feature & PowerUse.Encounter)) &
+        !PowerClass.MagicItem & (!User.FeatureChk | !Helper.Disable)
+        ]]></list>
+      <headertitle><![CDATA[
+        @text = "Encounter Powers"
+        ]]></headertitle>
+      </output_table>
+    </portal>
+  <portal
+    id="oDaily"
+    style="outNormal">
+    <output_table
+      component="PowerOut"
+      showtemplate="oPowerPick">
+      <list><![CDATA[
+        (PowerType.Daily | (PowerType.Feature & PowerUse.Daily)) &
+        !PowerClass.MagicItem & (!User.FeatureChk | !Helper.Disable)
+        ]]></list>
+      <headertitle><![CDATA[
+        @text = "Daily Powers"
+        ]]></headertitle>
+      </output_table>
+    </portal>
+  <portal
+    id="oUtility"
+    style="outNormal">
+    <output_table
+      component="PowerOut"
+      showtemplate="oPowerPick">
+      <list><![CDATA[
+        PowerType.Utility & (!User.FeatureChk | !Helper.Disable)
+        ]]></list>
+      <headertitle><![CDATA[
+        @text = "Utility Powers"
+        ]]></headertitle>
+      </output_table>
+    </portal>
+
+
+  <!-- oGear portal
+        This is a table of all Gear carried by the actor. The gear list needs to
+        exclude weapons and armor, since those are already listed in the separate
+        sections for those item types.
+  -->
+  <portal
+    id="oGear"
+    style="outNormal">
+    <output_table
+      component="Gear"
+      showtemplate="oGearPick">
+      <list><![CDATA[
+        !Hide.Weapon & !Equipment.Natural & !Print.NoPrint
+        ]]></list>
+      <headertitle><![CDATA[
+        @text = "Gear  (Cash: " & herofield[acCashNet].text & ")"
+        ]]></headertitle>
+      </output_table>
+    </portal>
+
+
+  <!-- oMagicItem portal
+        This is a table of all magic items, magic item powers, and constructed
+        magic items (like magic weapons and armor).
+  -->
+  <portal
+    id="oMagicItem"
+    style="outNormal">
+    <output_table
+      component="MagicItTbl"
+      showtemplate="oMagicPick"
+      showsortset="ItemSlot">
+      <list><![CDATA[
+        component.MagicItem | Helper.ConstrItem
+        ]]></list>
+      <headertitle><![CDATA[
+        @text = "Magic Items"
+        ]]></headertitle>
+      </output_table>
+    </portal>
+
+  <!-- oItemPower portal
+        This lists all magic item powers.
+  -->
+  <portal
+    id="oItemPower"
+    style="outNormal">
+    <output_table
+      component="Power"
+      showtemplate="oPowerPick"
+      showsortset="SpecialTab">
+      <list><![CDATA[
+        PowerClass.MagicItem
+        ]]></list>
+      <headertitle><![CDATA[
+        @text = "Magic Item Powers"
+        ]]></headertitle>
+      </output_table>
+    </portal>
+
+  <!-- oRitual portal
+        This is a table of all rituals.
+  -->
+  <portal
+    id="oRitual"
+    style="outNormal">
+    <output_table
+      component="Ritual"
+      showtemplate="oRitPick">
+      <list><![CDATA[
+        ]]></list>
+      <headertitle><![CDATA[
+        @text = "Rituals"
+        ]]></headertitle>
+      </output_table>
+    </portal>
+
+
+  <!-- oAdjust portal
+        This is a table of all Activated Adjustments applied to the actor, which
+        includes all permanent adjustments, all activated abilities, and all activated
+        temporary adjustments. We use a two-column table layout for compactness.
+  -->
+  <portal
+    id="oAdjust"
+    style="outNormal">
+    <output_table
+      component="Adjustment"
+      showtemplate="oAdjPick"
+      columns="2">
+      <list><![CDATA[
+        Helper.Activated
+        ]]></list>
+      <headertitle><![CDATA[
+        @text = "Activated Adjustments"
+        ]]></headertitle>
+      </output_table>
+    </portal>
+
+
+  <!-- oRPGAFound portal
+        This is a table of all RPGA Found Items on the actor. It only appears
+        when the RPGA source is selected.
+  -->
+  <portal
+    id="oRPGAFound"
+    style="outNormal">
+    <output_table
+      component="RPGAFound"
+      showtemplate="oRPGAFPick"
+      varyheight="yes">
+      <headertitle><![CDATA[
+        @text = "Found Items"
+        ]]></headertitle>
+      </output_table>
+    <live>source.RPGA</live>
+    </portal>
+
+
+  <!-- oPowerPick template
+        This template presents a power, with optional checkboxes for checking
+        whether it's been used or not.
+  -->
+  <template
+    id="oPowerPick"
+    name="Output Power Table"
+    compset="Power"
+    marginvert="5">
+
+    <portal
+      id="name"
+      style="outSmall">
+      <output_label>
+        <labeltext><![CDATA[
+          @text = field[name].text
+
+          ~if this is a feature, say so
+          if (tagis[PowerType.Feature] <> 0) then
+            @text &= "{/b} (Feature)"
+            endif
+
+          ~if this is a magic item power, append the power type
+          if (tagis[PowerClass.MagicItem] <> 0) then
+            @text &= " {/b}(" & tagabbrevs[PowerUse.?, "???"] & ")"
+            endif
+          ]]></labeltext>
+        </output_label>
+      </portal>
+
+    <portal
+      id="dots"
+      style="outDots">
+      <output_dots>
+        </output_dots>
+      </portal>
+
+    <portal
+      id="used1"
+      style="outValBTn">
+      <output_label
+        text=" ">
+        </output_label>
+      </portal>
+    <portal
+      id="used2"
+      style="outValBTn">
+      <output_label
+        text=" ">
+        </output_label>
+      </portal>
+    <portal
+      id="used3"
+      style="outValBTn">
+      <output_label
+        text=" ">
+        </output_label>
+      </portal>
+    <portal
+      id="used4"
+      style="outValBTn">
+      <output_label
+        text=" ">
+        </output_label>
+      </portal>
+    <portal
+      id="used5"
+      style="outValBTn">
+      <output_label
+        text=" ">
+        </output_label>
+      </portal>
+
+    <position><![CDATA[
+      ~our height is the height of the tallest portal
+      height = portal[name].height
+      doneif (issizing <> 0)
+
+      ~size our 'used' boxes appropriately
+      portal[used1].width = portal[used1].height
+      portal[used2].width = portal[used2].height
+      portal[used3].width = portal[used3].height
+      portal[used4].width = portal[used4].height
+      portal[used5].width = portal[used5].height
+
+      ~position our 'used' boxes at the right
+      perform portal[used1].alignedge[right,-5]
+      perform portal[used2].alignrel[rtol,used1,-15]
+      perform portal[used3].alignrel[rtol,used2,-15]
+      perform portal[used4].alignrel[rtol,used3,-15]
+      perform portal[used5].alignrel[rtol,used4,-15]
+
+      ~center them vertically on the row
+      perform portal[used1].centervert
+      perform portal[used2].centervert
+      perform portal[used3].centervert
+      perform portal[used4].centervert
+      perform portal[used5].centervert
+
+      ~if this is an at-will power, no need to show anything
+      var maxright as number
+      if (tagis[PowerType.AtWill] <> 0) then
+        portal[used1].visible = 0
+        portal[used2].visible = 0
+        portal[used3].visible = 0
+        portal[used4].visible = 0
+        portal[used5].visible = 0
+        maxright = width
+
+      ~otherwise, show as many boxes as necessary
+      else
+        if (field[spcMax].value < 5) then
+          portal[used5].visible = 0
+          maxright = portal[used4].left
+          endif
+        if (field[spcMax].value < 4) then
+          portal[used4].visible = 0
+          maxright = portal[used3].left
+          endif
+        if (field[spcMax].value < 3) then
+          portal[used3].visible = 0
+          maxright = portal[used2].left
+          endif
+        if (field[spcMax].value < 2) then
+          portal[used2].visible = 0
+          maxright = portal[used1].left
+          endif
+        endif
+
+      ~position our 'dots' portal between the boxes and name
+      portal[dots].left = portal[name].right + 15
+      portal[dots].width = maxright - portal[dots].left - 15
+      perform portal[dots].centervert
+      ]]></position>
+
+    </template>
+
+
+  <!-- oMagicPick template
+        This template presents a magic item.
+  -->
+  <template
+    id="oMagicPick"
+    name="Output Magic Item Table"
+    compset="MagicItTbl"
+    marginvert="5">
+
+    <portal
+      id="slot"
+      style="outHeader">
+      <output_label
+        field="mgitSlot">
+        </output_label>
+      </portal>
+
+    <portal
+      id="name"
+      style="outSmall">
+      <output_label
+        field="name">
+        </output_label>
+      </portal>
+
+    <position><![CDATA[
+      height = portal[slot].height + 2 + portal[name].height
+      doneif (issizing <> 0)
+
+      ~position our name under the item slot
+      portal[name].top = portal[slot].bottom + 2
+      portal[name].left = 15
+      ]]></position>
+
+    </template>
+
+
+  <!-- oMagicUse template
+        This template tracks how many magic items have been used today.
+  -->
+  <template
+    id="oMagicUse"
+    name="Output Magic Item Uses"
+    compset="Actor">
+
+    <portal
+      id="tier1"
+      style="outValBTn">
+      <output_label
+        text=" ">
+        </output_label>
+      </portal>
+    <portal
+      id="tier2"
+      style="outValBTn">
+      <output_label
+        text=" ">
+        </output_label>
+      </portal>
+    <portal
+      id="tier3"
+      style="outValBTn">
+      <output_label
+        text=" ">
+        </output_label>
+      </portal>
+
+    <portal
+      id="tiername"
+      style="outNameSm">
+      <output_label>
+        <labeltext><![CDATA[
+          if (#level[] <= 10) then
+            @text = "Heroic (1 use)"
+          elseif (#level[] <= 20) then
+            @text = "Paragon (2 uses)"
+          else
+            @text = "Epic (3 uses)"
+            endif
+          ]]></labeltext>
+        </output_label>
+      </portal>
+
+    <portal
+      id="mile1"
+      style="outValBTn">
+      <output_label
+        text=" ">
+        </output_label>
+      </portal>
+    <portal
+      id="mile2"
+      style="outValBTn">
+      <output_label
+        text=" ">
+        </output_label>
+      </portal>
+    <portal
+      id="mile3"
+      style="outValBTn">
+      <output_label
+        text=" ">
+        </output_label>
+      </portal>
+    <portal
+      id="mile4"
+      style="outValBTn">
+      <output_label
+        text=" ">
+        </output_label>
+      </portal>
+    <portal
+      id="mile5"
+      style="outValBTn">
+      <output_label
+        text=" ">
+        </output_label>
+      </portal>
+
+    <portal
+      id="milename"
+      style="outNameSm">
+      <output_label
+        text="+1 per Milestone">
+        </output_label>
+      </portal>
+
+    <!-- Portals used as the header -->
+    <portal
+      id="hdrtitle"
+      style="outTitle">
+      <output_label
+        text="Daily Magic Item Uses">
+        </output_label>
+      </portal>
+
+    <position><![CDATA[
+      ~set up the total height we need
+      height = portal[hdrtitle].height + 20 + portal[tier1].height + 20 + portal[mile1].height
+
+      ~our title spans the entire width of the template
+      portal[hdrtitle].width = width
+
+      ~setup appropriate widths for the boxes
+      portal[tier1].width = portal[tier1].height
+      portal[tier2].width = portal[tier2].height
+      portal[tier3].width = portal[tier3].height
+      portal[mile1].width = portal[mile1].height
+      portal[mile2].width = portal[mile2].height
+      portal[mile3].width = portal[mile3].height
+      portal[mile4].width = portal[mile4].height
+      portal[mile5].width = portal[mile5].height
+
+      ~position our tier boxes under the title, and center everything else on
+      ~them
+      perform portal[tier1].alignrel[ttob,hdrtitle,20]
+      perform portal[tier2].centeron[vert,tier1]
+      perform portal[tier3].centeron[vert,tier1]
+      perform portal[tiername].centeron[vert,tier1]
+
+      ~position our milestone boxes under the tier boxes
+      perform portal[mile1].alignrel[ttob,tier1,20]
+      perform portal[mile2].centeron[vert,mile1]
+      perform portal[mile3].centeron[vert,mile1]
+      perform portal[mile4].centeron[vert,mile1]
+      perform portal[mile5].centeron[vert,mile1]
+      perform portal[milename].centeron[vert,mile1]
+
+      ~position everything horizontally - hide any tier boxes we don't need
+      portal[tier1].left = 25
+      portal[tier2].left = portal[tier1].right + 25
+      portal[tier3].left = portal[tier2].right + 25
+      if (#level[] <= 10) then
+        portal[tier2].visible = 0
+        portal[tier3].visible = 0
+        portal[tiername].left = portal[tier2].left
+      elseif (#level[] <= 20) then
+        portal[tier3].visible = 0
+        portal[tiername].left = portal[tier3].left
+      else
+        portal[tiername].left = portal[tier3].right + 5
+        endif
+
+      ~now position the milestone boxes
+      portal[mile1].left = portal[tier1].left
+      portal[mile2].left = portal[mile1].right + 25
+      portal[mile3].left = portal[mile2].right + 25
+      portal[mile4].left = portal[mile3].right + 25
+      portal[mile5].left = portal[mile4].right + 25
+      portal[milename].left = portal[mile5].right + 25
+      ]]></position>
+
+    </template>
+
+
+  <!-- oRitPick template
+        This template presents a ritual.
+  -->
+  <template
+    id="oRitPick"
+    name="Output Ritual Table"
+    compset="Ritual"
+    marginvert="5">
+
+    <portal
+      id="name"
+      style="outSmall">
+      <output_label
+        field="name">
+        </output_label>
+      </portal>
+
+    <position><![CDATA[
+      ~our height is the height of the tallest portal
+      height = portal[name].height
+      doneif (issizing <> 0)
+      ]]></position>
+
+    </template>
+
+
+  <!-- oGearPick template
+        This template presents the basic gear possessed. Gear that is in quantities
+        other than one has the proper quantity listed next to it. We use a small
+        horizontal margin to indent everything slightly.
+  -->
+  <template
+    id="oGearPick"
+    name="Output Gear Table"
+    compset="Equipment">
+
+    <portal
+      id="value"
+      style="outPlain">
+      <output_label>
+        <labeltext><![CDATA[
+          if (stackable = 0) then
+            @text = ""
+          elseif (field[stackQty].value = 1) then
+            @text = ""
+          else
+            @text = field[stackQty].value & "x"
+            endif
+          ]]></labeltext>
+        </output_label>
+      </portal>
+
+    <portal
+      id="name"
+      style="outSmall">
+      <output_label
+        field="name">
+        </output_label>
+      </portal>
+
+    <position><![CDATA[
+      ~our height is the height of the tallest portal
+      height = portal[name].height
+      doneif (issizing <> 0)
+
+      ~size the name to fit the available space
+      portal[name].left = 70
+      if (portal[name].right > width) then
+        portal[name].width = width - portal[name].left
+        perform portal[name].sizetofit[36]
+        perform portal[name].autosize
+        endif
+
+      ~center all portals vertically
+      perform portal[value].centervert
+      perform portal[name].centervert
+
+      ~put the value in the blank space on the left
+      perform portal[value].alignrel[rtol,name,-10]
+      ]]></position>
+
+    </template>
+
+
+  <template
+    id="oPersPick"
+    name="Output Personal Table"
+    compset="Personal">
+
+    <portal
+      id="text"
+      style="outPlain">
+      <output_label
+        field="perInfo">
+        </output_label>
+      </portal>
+
+    <position><![CDATA[
+      portal[text].width = width
+      portal[text].height = portal[text].textheight
+      height = portal[text].height
+      ]]></position>
+    </template>
+
+
+  <!-- oPortrait template
+        This template presents the character portrait, showing the first portrait
+        assigned to the character.
+  -->
+  <template
+    id="oPortrait"
+    name="Output Image"
+    compset="Actor">
+
+    <portal
+      id="image"
+      style="outNormal">
+      <output_image
+        field="acTacImage">
+        </output_image>
+      </portal>
+
+    <portal
+      id="imgBorder"
+      style="outCharImg">
+      <output_label
+        text=" ">
+        </output_label>
+      </portal>
+
+    <position><![CDATA[
+      ~if we don't have an image, set our height to 0, hide the image, and get out
+      if (portal[image].isimage = 0) then
+        height = 0
+        portal[image].visible = 0
+        portal[imgBorder].visible = 0
+        done
+        endif
+
+      ~leave a margin of one pixel around all edges to draw our border
+      var margin as number
+      margin = 1
+      portal[image].left = margin
+      portal[image].top = margin
+      portal[image].width = width - margin * 2
+      portal[image].height = height - margin * 2
+
+      ~optimally fit the image to the region available
+      perform portal[image].imagefit
+
+      ~center the image if it's narrower than the available width
+      perform portal[image].centerhorz
+
+      ~our full height is the bottom of the image plus our margin
+      height = portal[image].bottom + margin
+
+      ~set the border to span our full dimensions
+      portal[imgBorder].width = width
+      portal[imgBorder].height = height
+      ]]></position>
+
+    </template>
+
+
+  <!-- oAdjPick template
+        This template presents the activated adjustments for the character.
+  -->
+  <template
+    id="oAdjPick"
+    name="Output Adjustments Table"
+    compset="Adjustment"
+    marginhorz="10">
+
+    <portal
+      id="name"
+      style="outNormLt">
+      <output_label
+        field="adjName">
+        </output_label>
+      </portal>
+
+    <position><![CDATA[
+      ~our height is the vertical extent of our portals
+      height = portal[name].height
+
+      ~size the name to fit the available space
+      perform portal[name].sizetofit[36]
+      ]]></position>
+
+    </template>
+
+
+  <!-- oRPGAFPick template
+        This template presents the found items for the character.
+  -->
+  <template
+    id="oRPGAFPick"
+    name="Output Found Items Table"
+    compset="RPGAFound"
+    marginhorz="10">
+
+    <portal
+      id="name"
+      style="outSmall">
+      <output_label>
+        <labeltext><![CDATA[
+          @text = "{align left}{b}Lvl " & field[rpgaLevel].value & "{/b} - "
+          if (field[rpgaJourn].ischosen = 0) then
+            @text &= "(no adventure chosen)"
+          else
+            @text &= field[rpgaJourn].chosen.field[jrnTitle].text
+            endif
+          @text &= " - "
+          if (field[rpgaItem].ischosen = 0) then
+            @text &= "(no item chosen)"
+          else
+            @text &= field[rpgaItem].chosen.field[name].text
+            endif
+          ]]></labeltext>
+        </output_label>
+      </portal>
+
+    <position><![CDATA[
+      ~our height is the vertical extent of our portals
+      portal[name].width = width
+      perform portal[name].autoheight
+      height = portal[name].height
+      ]]></position>
+
+    </template>
+
+
+  <!-- oValidate template
+        This template presents the validation report at the bottom of the sheet.
+  -->
+  <template
+    id="oValidate"
+    name="Output Validation"
+    compset="Actor">
+
+    <portal
+      id="border"
+      style="outValBox">
+      <output_label
+        text=" ">
+        </output_label>
+      </portal>
+
+    <portal
+      id="validate"
+      style="outValid">
+      <output_label>
+        <labeltext><![CDATA[
+
+          ~start with an opening that lists the number of issues
+          @text = "Validation Report (" & hero.errorcount & " issues):"
+
+          ~turn off bold and reduce the font size slightly
+          @text &= "{/b}{size 34} "
+
+          ~first we've got the validation report stream; if there's nothing to
+          ~report, indicate that fact
+          if (hero.errorcount = 0) then
+            @text &= "Nothing identified"
+          else
+            @text &= hero.errorlist
+            endif
+
+          ~if there are any activated abilities, report them
+          var active as string
+          var ismore as number
+          foreach pick in hero from Ability where "User.Activation & Helper.Activated & !Hide.InPlay"
+            if (ismore <> 0) then
+              active &= ", "
+              endif
+            active &= eachpick.field[name].text
+            ismore = 1
+            nexteach
+
+          ~append any active abilities to the report
+          if (empty(active) = 0) then
+            @text &= "; {b}Active:{/b} " & active
+            endif
+          ]]></labeltext>
+        </output_label>
+      </portal>
+
+    <position><![CDATA[
+      ~limit the report to a maximum of 4 lines of details; if there are more than
+      ~4 lines, we assume the GM will be reviewing the character by hand
+      var maxlines as number
+      maxlines = 4
+
+      ~leave bit of a margin on the left and right sides for a gap from the border
+      portal[validate].width = width - 20
+
+      ~calculate the height of the validation report, limiting it appropriately
+      portal[validate].height = portal[validate].textheight
+      if (portal[validate].height > portal[validate].fontheight * maxlines) then
+        portal[validate].height = portal[validate].fontheight * maxlines
+        endif
+
+      ~the border is the full width of the template and includes some padding at the
+      ~top and bottom for a vertical gap from the border
+      portal[border].width = width
+      portal[border].height = portal[validate].height + 12
+
+      ~our overall height is the height of the border
+      height = portal[border].height
+
+      ~center the validation report text within the template
+      perform portal[validate].centerhorz
+      perform portal[validate].centervert
+      ]]></position>
+    </template>
+
+
+  <!-- oS2Left layout
+        This layout contains the power list and gear for the hero.
+  -->
+  <layout
+    id="oS2Left">
+    <portalref portal="oAtWill"/>
+    <portalref portal="oEncounter"/>
+    <portalref portal="oDaily"/>
+    <portalref portal="oUtility"/>
+    <portalref portal="oGear"/>
+    <position><![CDATA[
+      perform portal[oAtWill].autoplace
+      perform portal[oEncounter].autoplace
+      perform portal[oDaily].autoplace
+      perform portal[oUtility].autoplace
+      perform portal[oGear].autoplace
+
+      ~the height of the layout is the bottommost extent of the elements within
+      height = autotop
+      ]]></position>
+    </layout>
+
+
+  <!-- oS2Middle layout
+        This layout contains the magic item list and rituals for the hero.
+  -->
+  <layout
+    id="oS2Middle">
+    <portalref portal="oMagicItem"/>
+    <portalref portal="oItemPower"/>
+    <portalref portal="oRitual"/>
+    <templateref template="oMagicUse" thing="actor"/>
+    <position><![CDATA[
+      perform portal[oMagicItem].autoplace
+      perform template[oMagicUse].autoplace
+      perform portal[oItemPower].autoplace
+      perform portal[oRitual].autoplace
+
+      ~the height of the layout is the bottommost extent of the elements within
+      height = autotop
+      ]]></position>
+    </layout>
+
+
+  <!-- oS2Right layout
+        This layout contains the portrait and background details for the hero.
+  -->
+  <layout
+    id="oS2Right">
+    <portalref portal="oPersonal"/>
+    <templateref template="oPortrait" thing="actor"/>
+    <position><![CDATA[
+      perform portal[oPersonal].autoplace
+      perform template[oPortrait].autoplace
+
+      ~the height of the layout is the bottommost extent of the elements within
+      height = autotop
+      ]]></position>
+    </layout>
+
+
+  <!-- oSpillover layout
+        This layout contains all the remaining armor, weapons, and gear for the
+        character. If not all of the equipment can fit on the first sheet, the gear
+        that remains is output on a spillover sheet. Spillover sheets continue to
+        print as long as data remains that has not yet been output. This layout is
+        designed so that it can be re-used for both the lefthand and righthand
+        columns on the same sheet. So this layout shows all the armor it can, until
+        it either runs out of armor or runs out of available space. Then it does
+        the same for weapons, and finally for gear.
+  -->
+  <layout
+    id="oSpillover">
+    <portalref portal="oRaceFeats"/>
+    <portalref portal="oClsFeats"/>
+    <portalref portal="oFeats"/>
+    <portalref portal="oLangs"/>
+    <portalref portal="oAttacks"/>
+    <portalref portal="oWeapon"/>
+    <portalref portal="oArmor"/>
+    <portalref portal="oAtWill"/>
+    <portalref portal="oEncounter"/>
+    <portalref portal="oDaily"/>
+    <portalref portal="oUtility"/>
+    <portalref portal="oGear"/>
+    <portalref portal="oMagicItem"/>
+    <portalref portal="oItemPower"/>
+    <portalref portal="oRitual"/>
+    <portalref portal="oAdjust"/>
+    <portalref portal="oRPGAFound"/>
+    <position><![CDATA[
+      perform portal[oRaceFeats].autoplace
+      perform portal[oClsFeats].autoplace
+      perform portal[oFeats].autoplace
+      perform portal[oLangs].autoplace
+      perform portal[oAttacks].autoplace
+      perform portal[oWeapon].autoplace
+      perform portal[oArmor].autoplace
+      perform portal[oAtWill].autoplace
+      perform portal[oEncounter].autoplace
+      perform portal[oDaily].autoplace
+      perform portal[oUtility].autoplace
+      perform portal[oGear].autoplace
+      perform portal[oMagicItem].autoplace
+      perform portal[oItemPower].autoplace
+      perform portal[oRitual].autoplace
+      perform portal[oAdjust].autoplace
+      perform portal[oRPGAFound].autoplace
+
+      ~the height of the layout is the bottommost extent of the elements within
+      height = autotop
+      ]]></position>
+    </layout>
+
+
+  <!-- oValidate layout
+        This layout contains the validation report at the bottom of the sheet.
+  -->
+  <layout
+    id="oValidate">
+    <templateref template="oValidate" thing="actor" ispick="yes"/>
+    <position><![CDATA[
+      ~position the validation template at the top
+      perform template[oValidate].autoplace
+
+      ~the height of the layout is the bottommost extent of the elements within
+      height = autotop
+      ]]></position>
+    </layout>
+
+
+  <!-- standard2 sheet
+        This is the second and subsequent page of the character sheet.
+  -->
+  <sheet
+    id="standard2"
+    name="Standard character sheet, page #2">
+    <layoutref layout="oS2Left"/>
+    <layoutref layout="oS2Middle"/>
+    <layoutref layout="oS2Right"/>
+    <layoutref layout="oSpillover" reference="left"/>
+    <layoutref layout="oSpillover" reference="middle"/>
+    <layoutref layout="oSpillover" reference="right"/>
+    <layoutref layout="oValidate"/>
+    <position><![CDATA[
+      ~setup the gap to be used between the various sections of the character sheet
+      autogap = 20
+      scenevalue[sectiongap] = autogap
+
+      ~calculate the width of the 3 columns of the character sheet, leaving
+      ~suitable gaps between them
+      var colwidth as number
+      colwidth = (width - 50) / 3
+
+      ~if the user wants to omit the validation report, the hide it and allow the
+      ~rest of the sheet to fill that space; otherwise, output the layout and the
+      ~top of the validation report establishes the bottom for all other output
+      var extent as number
+      if (hero.tagis[source.Validation] = 0) then
+        layout[oValidate].visible = 0
+        extent = height
+      else
+        layout[oValidate].width = width
+        perform layout[oValidate].render
+        layout[oValidate].top = height - layout[oValidate].height
+        extent = layout[oValidate].top - autogap
+        endif
+
+      ~put our left layout on the right
+      layout[oS2Left].width = colwidth
+      layout[oS2Left].height = extent
+      perform layout[oS2Left].render
+
+      ~put our middle layout in the middle
+      layout[oS2Middle].width = colwidth
+      layout[oS2Middle].left = (width - layout[oS2Middle].width) / 2
+      layout[oS2Middle].height = extent
+      perform layout[oS2Middle].render
+
+      ~put our right layout... on the right
+      layout[oS2Right].width = colwidth
+      layout[oS2Right].left = width - layout[oS2Right].width
+      layout[oS2Right].height = extent
+      perform layout[oS2Right].render
+
+      ~now put spillover layouts under our main layouts, just in case there's
+      ~anything else that still needs to be output
+      layout[left].top = layout[oS2Left].bottom + autogap
+      layout[left].width = colwidth
+      layout[left].height = extent - layout[left].top
+      perform layout[left].render
+
+      layout[middle].top = layout[oS2Middle].bottom + autogap
+      layout[middle].width = colwidth
+      layout[middle].left = layout[oS2Middle].left
+      layout[middle].height = extent - layout[middle].top
+      perform layout[middle].render
+
+      layout[right].top = layout[oS2Right].bottom + autogap
+      layout[right].width = colwidth
+      layout[right].left = width - layout[right].width
+      layout[right].height = extent - layout[right].top
+      perform layout[right].render
+      ]]></position>
+    </sheet>
+
+
+  </document>

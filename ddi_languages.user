@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document signature="Hero Lab Data">
+  <thing id="lanCommon" name="Common" compset="Language" uniqueness="unique"></thing>
+  <thing id="lanGoblin" name="Goblin" compset="Language" uniqueness="unique"></thing>
+  <thing id="lanPrimord" name="Primordial" compset="Language" uniqueness="unique"></thing>
+  <thing id="lanDraconi" name="Draconic" compset="Language" uniqueness="unique"></thing>
+  <thing id="lanElven" name="Elven" compset="Language" uniqueness="unique"></thing>
+  <thing id="lanDeepSpe" name="Deep Speech" compset="Language" uniqueness="unique"></thing>
+  <thing id="lanDwarven" name="Dwarven" compset="Language" uniqueness="unique"></thing>
+  <thing id="lanAbyssal" name="Abyssal" compset="Language" uniqueness="unique">
+    <tag group="User" tag="Not1stLev"/>
+    </thing>
+  <thing id="lanGiant" name="Giant" compset="Language" uniqueness="unique"></thing>
+  <thing id="lanThrikre" name="Thri-kreen" compset="Language" uniqueness="unique"></thing>
+  <thing id="lanSuperna" name="Supernal" compset="Language" uniqueness="unique">
+    <tag group="User" tag="Not1stLev"/>
+    </thing>
+  <thing id="lanChondat" name="Chondathan" compset="Language" uniqueness="unique"></thing>
+  <thing id="lanDamaran" name="Damaran" compset="Language" uniqueness="unique"></thing>
+  <thing id="lanUntheri" name="Untheric" compset="Language" uniqueness="unique"></thing>
+  <thing id="lanQuori" name="Quori" compset="Language" uniqueness="unique"></thing>
+  <thing id="lanAnyone" name="Any one" compset="Language" uniqueness="unique"></thing>
+  <thing id="lanShou" name="Shou" compset="Language" uniqueness="unique"></thing>
+  <thing id="lanNethere" name="Netherese" compset="Language" uniqueness="unique"></thing>
+  </document>

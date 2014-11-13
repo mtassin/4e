@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<document signature="Hero Lab Data">
+
+  <!-- Abyssal requires level 2+ -->
+  <thing
+    id="lanAbyssal"
+    name=""
+    compset="">
+    <tag group="User" tag="Not1stLev"/>
+    </thing>
+
+  <!-- New language - Supernal - requires level 2+ -->
+  <thing
+    id="lanSuperna"
+    name="Supernal"
+    compset="Language"
+    uniqueness="unique">
+    <tag group="User" tag="Not1stLev"/>
+    </thing>
+
+  </document>

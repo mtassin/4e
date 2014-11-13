@@ -1,0 +1,262 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link href="../../../docs/common/styles.css" rel="STYLESHEET">
+<title>4th Edition Data Files for Hero Lab</title>
+</head>
+
+<body>
+
+<div align="center">
+  <table class="banner" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td>
+        <p align="center" class="banner">User Manual
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div align="center">
+  <table border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td></td>
+    </tr>
+  </table>
+</div>
+
+<p class="section">Welcome
+
+<p class="body">Welcome to the Hero Lab® 4th Edition Data File Manual, where you’ll learn how to create and manage your 4th Edition characters.
+
+
+<p class="section">Printer Friendly
+
+<p class="body">Although this document uses color, it should print in standard
+black-and-white from any standard web browser.
+
+
+<p class="section">Contents
+
+
+<ol class="default">
+<li class="bullet"><a href="#downloader">How to Download Data</a>
+<li class="bullet"><a href="#configure">Configuring Your Hero</a>
+<li class="bullet"><a href="#summary">Tabs &amp; Summary Panels</a>
+<li class="bullet"><a href="#magicitems">Magic Weapons &amp; Armor</a>
+<li class="bullet"><a href="#advance">Advancing Your Hero - the Journal tab</a>
+<li class="bullet"><a href="#special">Special Abilities</a>
+<li class="bullet"><a href="#inplay">In-Play</a>
+<li class="bullet"><a href="#editor">Editor</a>
+<li class="bullet"><a href="#dashboard">Dashboard</a>
+<li class="bullet"><a href="#tactical_console">Tactical Console</a>
+<li class="bullet"><a href="#monsters">Monsters</a>
+<li class="bullet"><a href="#output">Printing & Statblock Output</a>
+
+</ol>
+
+
+<p class="section" id="downloader">How to Download Data
+
+<p class="body">For those of you with D&D Insider accounts, we include a program is included to help you download game data for 4th Edition. Within Hero Lab, go to the <font class="strong">Tools</font> menu, <font class="strong">Explore Folders</font> submenu, and choose <font class="strong">Game System Data Folder</font>.
+
+<p class="subsection">On Windows:
+
+<p class="body">An Explorer window should open showing files for this game system. Find the <font class="strong">ddidownloader.exe</font> program and launch it by double-clicking on it. The following screen should appear:
+
+<p class="body"><img src="downloader.png"/>
+
+<p class="subsection">On Mac:
+
+<p class="body">A Finder window should open showing files for this game system. Find the <font class="strong">ddidownloader_mac.zip</font> file and double-click to extract the latest downloader. Once unzipped, the latest downloader will be selected. Press space or double-click the selected file to launch the downloader. The following screen should appear:
+
+<p class="body"><img src="downloader_mac.png"/>
+
+<p class="body">Note that if you used previous versions of the downloader, those ddidownloader_mac files may still be present in the folder. You can delete the old versions, or simply ignore them and always launch the newest version of the file (which may have a name like "ddidownloader_mac 2").
+
+<p class="subsection">Downloading Data
+
+<p class="body">First, <font class="strong">make sure you're using the latest version of the downloader</font>. The month the downloader was released in is displayed in the welcome banner - it should match the month listed in the launch notes for the data files (e.g. both will say "March 2012"). If the two are not the same, make sure you have the latest version of the data files and downloader, or you may experience unexpected behavior when running an older downloader.
+
+<p class="body">Pressing 1, 2, r, d, or x selects one of the following options:
+
+<ul class="bullet">
+
+<li><font class="strong">1. Download data (no D&D insider account)</font><br>
+This option downloads all publically accessible data from D&D insider. Once completed, you can press any key to exit.<br>
+<b>NOTE</b>: Since not all data is publically available from D&D insider, only partial information will be available for the game system.<br>
+<b>NOTE</b>: This download may take up to 20-30 minutes to complete.</li>
+
+<li><font class="strong">2. Download data (with D&D insider account)</font><br>
+This option asks for your D&D insider username and password, then downloads all accessible data from D&D insider. Once completed, you can press any key to exit.<br>
+<b>NOTE</b>: Although we ask for your username and password, we don't store it or send it anywhere other than to the D&D insider login page.<br>
+<b>NOTE</b>: This download may take up to 3-4 hours to complete, as it involves downloading a <strong>lot</strong> of data.</li>
+
+<li><font class="strong">r. Restore previous data (if present)</font><br>
+Choose this option to revert back to the previous version of the data files you were using before your latest download. This can be useful if you downloaded updated content which causes the data files to no longer compile. (Note that if you choose this option, then relaunch the program and choose it again, it restores the files from your latest download.)</li>
+
+<li><font class="strong">d. Delete existing data</font><br>
+This option deletes the Hero Lab files generated from D&D insider (all files with names beginning ddi_).</li>
+
+<li><font class="strong">x. Exit</font><br>
+This option exits the program without taking any actions.</li>
+
+</ul>
+
+<p class="body">Once data has been downloaded, the downloader generates multiple files in its directory (named ddi_*) that contain the data retrieved from D&D insider. After the download has finished, relaunch Hero Lab or reload the game system to gain access to the new data.
+
+<p class="body">The downloader is open source; you can find the source code at <a href="http://code.google.com/p/ddidownloader/">http://code.google.com/p/ddidownloader/</a>.
+
+<p class="body">Alternatively, you can post questions about the downloader at <a href="http://forums.wolflair.com/forumdisplay.php?f=58">http://forums.wolflair.com/forumdisplay.php?f=58</a>.
+
+<p class="section" id="configure">Configuring Your Hero
+
+<p class="body">When you load 4th Edition for the first time, you'll see the Configure Hero form.
+
+<p class="body"><img src="configure.png"/>
+
+<p class="body">This allows you to select the starting level, gold, and ability points for the hero. By clicking the rules button on the right, you can also choose which settings the hero should use.
+
+<p class="body">You can create & edit <a href="#monsters">Monsters</a> by changing the <font class="strong">"Character Type"</font> setting to "Monster (NPC)". See the <a href="#monsters">Monsters</a> section, below, for details.
+
+
+<p class="section" id="summary">Tabs &amp; Summary Panels
+
+<p class="body">To switch between different facets of the hero, click the tabs at the top of the form:
+
+<p class="body"><img src="abilities.png"/>
+
+<p class="body">The contents of these tabs should be mostly self-explanatory. If a tab name is displayed in red, it contains errors that you should fix, or the hero will not be legal.
+
+<p class="body">On the right of the form, you can see summary panels. Increasing the width of the Hero Lab window will cause more summary panels will become visible. These panels give you important information about your Hero - for example, when you're looking at the Abilities tab, you can look at the Skills summary panel to keep track of your skill details as you make changes.
+
+
+<p class="section" id="magicitems">Magic Weapons &amp; Armor
+
+<p class="body">Magic weapons &amp; armor are added on the Armory tab. To add one, click the "Add New Weapon / Armor" button, and choose the "Magic Weapon / Armor" entry from the top of the list. You'll be presented with this form:
+
+<p class="body"><img src="magicitem.png"/>
+
+<p class="body">From here, you can select a type of magic item and a type of equipment to customize. Hero Lab automatically calculates all the rest.
+
+
+<p class="section" id="advance">Advancing Your Hero - the Journal tab
+
+<p class="body"><img src="journal.png"/>
+
+<p class="body">During an adventure, the GM will award you experience points and treasure. To track that, you'll use the Journal tab.
+
+<p class="body">You can add a new journal entry for each adventure, give it an appropriate title and notes (by clicking the pencil "Notes" button), and track the dates that it occurred on. To add experience points or cash, enter the appropriate values and click the "Add XP" or "Add $" buttons.
+
+<p class="body">Deleting a journal entry will subtract any XP or cash you added to the hero from it, so be careful!
+
+<p class="section" id="special">Special Abilities
+
+<p class="body"><img src="special.png"/>
+
+<p class="body">The Special tab displays a summary of your powers, consumables and features for quick reference during game play. You can see an abbreviated list on the "Powers" summary panel to the right of the form.
+
+<p class="section" id="inplay">In-Play
+
+<p class="body"><img src="inplay.png"/>
+
+<p class="body">The In-Play tab allows you to use Hero Lab at the gaming table, by keeping track of your health, action points, and healing surges. You can also add temporary adjustments to account for the effects of powers used by you or upon you by other heroes.
+
+
+<p class="section" id="editor">Editor
+
+<p class="body"><img src="editor.png"/>
+
+<p class="body">By selecting "Launch Editor" from the "Tools" menu, you can use Hero Lab's integrated editor to create your own content for the game system.
+
+<p class="body"><a href="../../../docs/redirect/kit_editor.htm">Click here</a> for more information on using the editor.
+
+<p class="section" id="dashboard">Dashboard
+
+<table border=0 cellspacing=0 cellpadding=0>
+  <tr>
+     <td></td>
+      </tr>
+      <tr>
+      <td valign="center"><img class="border" src="dashboard.png"></td>
+      <td></td>
+     <td valign="center">
+
+<p class="body">The Dashboard appears when more than one hero is present in the portfolio. (You can add additional heroes by creating or importing them from the Portfolio menu.)
+
+<p class="body">Each hero displays its name and current health. You can mouse over the icons for additional information - in order from left to right the show special abilities, skills, attack & defense, ability scores, and adjustments.
+
+<p class="body">You can click the crosshair button to switch to the appropriate hero, or the gear button to fetch gear from that hero to the current hero.
+
+<p class="body">You can find more information about the Dashboard in the main Hero Lab manual.
+</ul>
+            </td>
+          </tr>
+        </table>
+
+
+<p class="section" id="adjustments">Tactical Console
+
+<p class="body"><img src="taccon.png"/>
+
+<p class="body">The Tactical Console shows a list of all the heroes in the portfolio, with the same buttons found on the <a href="#dashboard">Dashboard</a> to show information about them.
+
+<p class="body">Out of combat, enemies are sorted to the top of the list, and allies are sorted below them. A skill summary is displayed for each hero, as well as saving throws, defense and the Notice skill value.
+
+<p class="body">In combat, the list is sorted by initiative order. Once a hero acts, he moves to the bottom of the list - in this way, the next hero to act is always shown at the top of the list (with the exception of heroes who delayed or readied actions). Once all heroes have acted, press "Next Round" to start a new round.
+
+<p class="body">You can find more information about the Tactical Console in the main Hero Lab manual.
+
+
+<p class="section" id="monsters">Monsters
+
+<p class="body"><img src="monster.png"/>
+
+<p class="body">You can create & edit <a href="#monsters">Monsters</a> by changing the <font class="strong">"Character Type"</font> setting to "Monster (NPC)". If you do this, several Hero-specific tabs (class, race) disappear and a new one - the Monster tab - is added.
+
+<p class="body">The Monster tab allows you to create a monster with just a few clicks of the mouse. Once you've entered the monster options (including movement types, resistances and immunities) and powers on the Monster tab, you can configure its ability scores & defenses on the Abilities tab, and trained skills on the Skills tab. The monster will appear on the Dashboard and Tactical Console with the heroes, and you can then use Hero Lab to manage encounters between them.
+
+
+<p class="section" id="output">Printing & Statblock Output
+
+<p class="body">Hero Lab can print and save PDFs in several different formats:
+
+<ul class="bullet">
+<li class="bullet"><font class="strong">Standard Character Sheet</font> - a default 2-page character sheet, which expands to 3+ pages if the space is required.
+
+<li class="bullet"><font class="strong">Standard Character Sheet &amp; Power Cards</font> - a default 2-page character sheet, with power cards printed at the end.
+
+<li class="bullet"><font class="strong">Journal Contents</font> - a summary of all journal entries for the hero.
+
+<li class="bullet"><font class="strong">Complete Character Dossier</font> - A 2 page character sheet with power cards and journal output.
+
+<li class="bullet"><font class="strong">Power Cards</font> - A printout of power cards for all the at-will, encounter and utility powers the hero has.
+
+</ul>
+
+<p class="body">To change the format from the Print Preview form, click the "Dossiers" button.
+
+<p class="body">To generate a statblock for the hero, choose "<font class="strong">Output Active Hero Summary</font>" from the File menu. You can choose to generate the statblock in plain text, HTML or BBCode, and then save it to a file or copy it to the clipboard (by right-clicking in the summary and choosing "Select All", then hitting Ctrl+C on the keyboard).
+
+
+
+<p class="section">Legal Information
+
+<p class="body">Hero Lab and the Hero Lab logo are registered trademarks of LWD Technology, Inc.
+
+<p class="body">Dungeons &amp; Dragons and all other Wizards of the Coast product names are trademarks of Wizards of the Coast. ©2008-2014 Wizards of the Coast, Inc.
+
+
+<p class="section" id="issues">Known Issues / Feature Requests
+
+<ul class="bullet">
+
+<li class="bullet">None at this time.
+
+</ul>
+
+</body>
+
+</html>

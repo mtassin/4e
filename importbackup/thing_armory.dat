@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the assortment of weapons, armor, and shields for the game
+      system. The various effects of each piece of equipment are controlled entirely
+      through field values and a few tags. Scripts on the underlying components use
+      these characteristics to apply all the correct behaviors.
+-->
+
+<document signature="Hero Lab Data">
+
+  <!-- Weapon Proficiencies -->
+  <thing
+    id="wcSimple"
+    name="Simple"
+    compset="WepCat">
+    </thing>
+  <thing
+    id="wcMilitary"
+    name="Military"
+    compset="WepCat">
+    </thing>
+  <thing
+    id="wcSuperior"
+    name="Superior"
+    compset="WepCat">
+    </thing>
+  <thing
+    id="wcImprov"
+    name="Improvised"
+    compset="WepCat">
+    </thing>
+
+  <!-- Armor Proficiencies - each armor proficiency knows the type of its main
+      armor, and is assigned the Helper.Proficient tag when the hero is
+      proficient with that armor type -->
+  <thing
+    id="apCloth"
+    name="Cloth Armor"
+    compset="ArmorProf">
+    <tag group="ArmorCat" tag="Light"/>
+    <tag group="ArmorType" tag="arClothArm"/>
+    </thing>
+  <thing
+    id="apLeather"
+    name="Leather Armor"
+    compset="ArmorProf">
+    <tag group="ArmorCat" tag="Light"/>
+    <tag group="ArmorType" tag="arLeathArm"/>
+    </thing>
+  <thing
+    id="apHide"
+    name="Hide Armor"
+    compset="ArmorProf">
+    <tag group="ArmorCat" tag="Light"/>
+    <tag group="ArmorType" tag="arHideArm"/>
+    </thing>
+  <thing
+    id="apBanded"
+    name="Banded Mail"
+    compset="ArmorProf">
+    <tag group="ArmorCat" tag="Heavy"/>
+    <tag group="ArmorType" tag="arBandeMai"/>
+    </thing>
+  <thing
+    id="apChain"
+    name="Chainmail"
+    compset="ArmorProf">
+    <tag group="ArmorCat" tag="Heavy"/>
+    <tag group="ArmorType" tag="arChainmai"/>
+    </thing>
+  <thing
+    id="apScale"
+    name="Scale Armor"
+    compset="ArmorProf">
+    <tag group="ArmorCat" tag="Heavy"/>
+    <tag group="ArmorType" tag="arScaleArm"/>
+    </thing>
+  <thing
+    id="apPlate"
+    name="Plate Armor"
+    compset="ArmorProf">
+    <tag group="ArmorCat" tag="Heavy"/>
+    <tag group="ArmorType" tag="arPlateArm"/>
+    </thing>
+  <thing
+    id="apFullPlat"
+    name="Full Plate Armor"
+    compset="ArmorProf">
+    <tag group="ArmorCat" tag="Heavy"/>
+    <tag group="ArmorType" tag="arFullPla"/>
+    </thing>
+  <thing
+    id="apRing"
+    name="Ring Mail"
+    compset="ArmorProf">
+    <tag group="ArmorCat" tag="Heavy"/>
+    <tag group="ArmorType" tag="arRingMai"/>
+    </thing>
+  <thing
+    id="apSpiked"
+    name="Spiked Plate"
+    compset="ArmorProf">
+    <tag group="ArmorCat" tag="Heavy"/>
+    <tag group="ArmorType" tag="arSpikePl"/>
+    </thing>
+  <thing
+    id="apSplint"
+    name="Splint Mail"
+    compset="ArmorProf">
+    <tag group="ArmorCat" tag="Heavy"/>
+    <tag group="ArmorType" tag="arSplinMai"/>
+    </thing>
+  <thing
+    id="apStudded"
+    name="Studded Leather"
+    compset="ArmorProf">
+    <tag group="ArmorCat" tag="Heavy"/>
+    <tag group="ArmorType" tag="arStuddLea"/>
+    </thing>
+  <thing
+    id="apShieldLg"
+    name="Light Shields"
+    compset="ArmorProf">
+    <tag group="ArmorType" tag="arLightShi"/>
+    </thing>
+  <thing
+    id="apShieldHv"
+    name="Heavy Shields"
+    compset="ArmorProf">
+    <tag group="ArmorType" tag="arHeavyShi"/>
+    </thing>
+  <thing
+    id="apShieldBr"
+    name="Barbed Shields"
+    compset="ArmorProf">
+    <tag group="ArmorType" tag="arBarbShi"/>
+    </thing>
+
+  <!-- Weapon Groups -->
+  <thing
+    id="wgAxe"
+    name="Axe"
+    compset="WepGroup">
+    </thing>
+  <thing
+    id="wgBow"
+    name="Bow"
+    compset="WepGroup">
+    </thing>
+  <thing
+    id="wgCrossbow"
+    name="Crossbow"
+    compset="WepGroup">
+    </thing>
+  <thing
+    id="wgFlail"
+    name="Flail"
+    compset="WepGroup">
+    </thing>
+  <thing
+    id="wgHammer"
+    name="Hammer"
+    compset="WepGroup">
+    </thing>
+  <thing
+    id="wgHeavyBl"
+    name="Heavy Blade"
+    compset="WepGroup">
+    </thing>
+  <thing
+    id="wgLightBl"
+    name="Light Blade"
+    compset="WepGroup">
+    </thing>
+  <thing
+    id="wgMace"
+    name="Mace"
+    compset="WepGroup">
+    </thing>
+  <thing
+    id="wgPick"
+    name="Pick"
+    compset="WepGroup">
+    </thing>
+  <thing
+    id="wgPolearm"
+    name="Polearm"
+    compset="WepGroup">
+    </thing>
+  <thing
+    id="wgSling"
+    name="Sling"
+    compset="WepGroup">
+    </thing>
+  <thing
+    id="wgSpear"
+    name="Spear"
+    compset="WepGroup">
+    </thing>
+  <thing
+    id="wgStaff"
+    name="Staff"
+    compset="WepGroup">
+    </thing>
+  <thing
+    id="wgUnarmed"
+    name="Unarmed"
+    compset="WepGroup">
+    </thing>
+
+  <!-- Unarmed Strike -->
+  <thing
+    id="wpUnarmed"
+    name="Unarmed Strike"
+    compset="Melee"
+    isunique="yes"
+    holdable="no">
+    <fieldval field="wpProf" value="0"/>
+    <fieldval field="grCost" value="0"/>
+    <fieldval field="gearWeight" value="0"/>
+    <tag group="WepDamage" tag="1d4"/>
+    <tag group="WepCat" tag="Improvised"/>
+    <tag group="WepGroup" tag="wgUnarmed"/>
+    <tag group="Equipment" tag="Natural"/>
+    <tag group="Helper" tag="Proficient"/>
+    </thing>
+
+  <!-- Sample Weapons / Armor -->
+  <thing id="wpMSample" name="Sample Melee Weapon" description="Sample Weapon." compset="Melee">
+    <fieldval field="wpProf" value="2"/>
+    <fieldval field="grCost" value="10"/>
+    <fieldval field="gearWeight" value="2"/>
+    <usesource source="Sample"/>
+    <tag group="Equipment" tag="TwoHand"/>
+    <tag group="WepProp" tag="Reach"/>
+    <tag group="WepGroup" tag="wgFlail"/>
+    <tag group="WepGroup" tag="wgMace"/>
+    <tag group="WepDamage" tag="1d10"/>
+    <tag group="WepCat" tag="wcMilitary"/>
+    </thing>
+  <thing id="wpRSample" name="Sample Ranged Weapon" description="Sample Weapon." compset="Ranged">
+    <fieldval field="wpProf" value="2"/>
+    <fieldval field="wpShort" value="10"/>
+    <fieldval field="wpLong" value="20"/>
+    <fieldval field="grCost" value="5"/>
+    <fieldval field="gearWeight" value="2"/>
+    <usesource source="Sample"/>
+    <tag group="WepDamage" tag="1d6"/>
+    <tag group="WepCat" tag="wcSimple"/>
+    <tag group="WepProp" tag="HeavyThrow"/>
+    <tag group="WepGroup" tag="wgLightBl"/>
+    </thing>
+  <thing id="arSample" name="Sample Armor" description="Sample armor." compset="Armor">
+    <fieldval field="arAC" value="5"/>
+    <fieldval field="arCheck" value="-1"/>
+    <fieldval field="arSpeed" value="-1"/>
+    <fieldval field="grCost" value="2"/>
+    <fieldval field="gearWeight" value="5"/>
+    <usesource source="Sample"/>
+    <tag group="ArmorCat" tag="Light"/>
+    <tag group="ArmorType" tag="arLeathArm"/>
+    </thing>
+
+  </document>

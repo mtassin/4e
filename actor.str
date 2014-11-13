@@ -1,0 +1,1127 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the definitions of components associated directly with the
+      actor and its management.
+-->
+
+<document signature="Hero Lab Structure">
+
+  <!-- Actor component
+        Encapsulates all the details associated with every actor
+  -->
+  <component
+    id="Actor"
+    name="Actor"
+    autocompset="no"
+    ispublic="no">
+
+    <!-- Image to display in the TacCon -->
+    <field
+      id="acTacImage"
+      name="Image"
+      type="derived">
+      </field>
+
+    <!-- Number of hands of equipment the actor can use simultaneously -->
+    <field
+      id="acHands"
+      name="Hands Available"
+      type="derived"
+      defvalue="2">
+      </field>
+
+    <!-- Maximum health for the actor -->
+    <field
+      id="acHPMax"
+      name="Max Health"
+      type="derived">
+      <!-- Calculate the maximum health for the actor as the minimum plus any bonus.
+      -->
+      <calculate phase="Final" priority="8000" name="Calc acHPMax">
+        <after name="Calc trtFinal"/><![CDATA[
+        @value = #trait[trHealth]
+        ]]></calculate>
+      </field>
+
+    <!-- "Bloodied" health valuefor the actor -->
+    <field
+      id="acHPBlood"
+      name="Bloodied Health"
+      type="derived">
+      <!-- Calculate the maximum health for the actor as the minimum plus any bonus.
+      -->
+      <calculate phase="Final" priority="9000" name="Calc acHPBlood">
+        <after name="Calc acHPMax"/><![CDATA[
+        @value = round(field[acHPMax].value / 2, 0, -1)
+        ]]></calculate>
+      </field>
+
+    <!-- Current health -->
+    <field
+      id="acHPNow"
+      name="Current Health"
+      type="derived">
+      <!-- Calculate the current health for the actor based on the maximum and any
+            actual damage that has been sustained.
+      -->
+      <calculate phase="Final" priority="9000" name="Calc acHPNow">
+        <after name="Calc acHPMax"/><![CDATA[
+        @value = field[acHPMax].value - hero.usagepool[DmgNet].value
+        ]]></calculate>
+      </field>
+
+    <!-- Health summary for display -->
+    <field
+      id="acHPSumm"
+      name="Health Summary"
+      type="derived"
+      maxfinal="50">
+      <!-- Calculate a value that is based on all the fields referenced by the
+            "finalize" script. This ensures that the field always changes if any of
+            its pieces changes, which triggers the finalized value to be updated.
+      -->
+      <calculate phase="Render" priority="1000">
+        <after name="Calc acHPNow"/><![CDATA[
+        ~make sure this value consists of the elements that could cause the summary to change
+        @value = field[acHPNow].value * 10000 + field[acHPMax].value * 100
+        ]]></calculate>
+      <!-- Final value for display shows the current and maximum health, in pink
+          if the hero is bloodied
+      -->
+      <finalize><![CDATA[
+        @text = ""
+        if (hero.tagis[Hero.Bloodied] <> 0) then
+          @text &= "{text ffaaaa}"
+          endif
+        @text &= field[acHPNow].value & " / " & field[acHPMax].value
+        if (hero.tagis[Hero.Bloodied] <> 0) then
+          @text &= "{text 010101}"
+          endif
+        ]]></finalize>
+      </field>
+
+    <!-- Healing surges summary for display -->
+    <field
+      id="acSurgSumm"
+      name="Healing Surge Summary"
+      type="derived"
+      maxfinal="50">
+      <!-- Calculate a value that is based on all the fields referenced by the
+            "finalize" script. This ensures that the field always changes if any of
+            its pieces changes, which triggers the finalized value to be updated.
+      -->
+      <calculate phase="Render" priority="1000"><![CDATA[
+        ~make sure this value consists of the elements that could cause the summary to change
+        @value = hero.child[trkSurges].field[trkLeft].value * 100 + hero.child[trkSurges].field[trkMax].value
+        ]]></calculate>
+      <!-- Final value for display shows the current and maximum power points.
+      -->
+      <finalize><![CDATA[
+        @text = hero.child[trkSurges].field[trkLeft].value & " / " & hero.child[trkSurges].field[trkMax].value
+        ]]></finalize>
+      </field>
+
+    <!-- Race summary for display -->
+    <field
+      id="acRace"
+      name="Race Summary"
+      type="derived"
+      nevercache="yes"
+      maxfinal="50">
+      <!-- Final value for display shows the current class
+      -->
+      <finalize><![CDATA[
+        if (hero.tagis[Hero.Monster] <> 0) then
+          @text = field[acMonRole].chosen.field[name].text
+          @text &= " (" & #traittext[trSize] & " "
+          @text &= field[acMonOrig].chosen.field[name].text & " "
+          @text &= field[acMonType].chosen.field[name].text
+          if (field[acMonElite].value <> 0) then
+            @text &= ", elite"
+            endif
+          if (field[acMonLead].value <> 0) then
+            @text &= ", leader"
+            endif
+          @text &= ")"
+          done
+          endif
+
+        perform hero.findchild[Race].setfocus
+        if (state.isfocus = 0) then
+          @text = "(No race)"
+          done
+          endif
+        @text = focus.field[name].text
+        ]]></finalize>
+      </field>
+
+    <!-- Class summary for display -->
+    <field
+      id="acClass"
+      name="Class Summary"
+      type="derived"
+      nevercache="yes"
+      maxfinal="50">
+      <!-- Final value for display shows the current class
+      -->
+      <finalize><![CDATA[
+        @text = ""
+
+        ~monsters have no class
+        doneif (hero.tagis[Hero.Monster] <> 0)
+
+        foreach pick in hero from Class
+          if (empty(@text) = 0) then
+            @text &= " / "
+            endif
+          @text &= eachpick.field[name].text
+          nexteach
+
+        if (empty(@text) = 0) then
+          @text &= " " & hero.tagvalue[Level.?]
+        else
+          @text = "(No class)"
+          endif
+        ]]></finalize>
+      </field>
+
+    <!-- Character type: Hero (PC) / Monster (NPC) -->
+    <field
+      id="acType"
+      name="Character Type"
+      type="user"
+      minvalue="0"
+      maxvalue="1">
+      </field>
+
+    <!-- For NPCs, you can enter a book id (SKU) and name -->
+    <field
+      id="acBookId"
+      name="Book Identifier / SKU"
+      type="user"
+      maxlength="25">
+      </field>
+    <field
+      id="acBookName"
+      name="Book Name"
+      type="user"
+      maxlength="100">
+      </field>
+
+
+    <!-- Starting character points to allocate -->
+    <field
+      id="acStartCP"
+      name="Character Points"
+      type="user"
+      defvalue="22">
+      </field>
+
+    <!-- Starting level for the character -->
+    <field
+      id="acStartLev"
+      name="Starting Level"
+      type="user"
+      defvalue="1"
+      minvalue="1"
+      maxvalue="30">
+      </field>
+
+    <!-- Starting cash for the character (GP only) -->
+    <field
+      id="acCashCfg"
+      name="Starting GP"
+      type="user"
+      defvalue="100">
+      </field>
+
+    <!-- Current cash for the character -->
+    <field
+      id="acCashAD"
+      name="Current AD"
+      type="derived">
+      <calculate phase="Effects" priority="4999">
+        <before name="acCashNet final"/><![CDATA[
+        @value = hero.usagepool[TotalAD].value
+        ]]></calculate>
+      </field>
+    <field
+      id="acCashPP"
+      name="Current PP"
+      type="derived">
+      <calculate phase="Effects" priority="4999">
+        <before name="acCashNet final"/><![CDATA[
+        @value = hero.usagepool[TotalPP].value
+        ]]></calculate>
+      </field>
+    <field
+      id="acCashGP"
+      name="Current GP"
+      type="derived">
+      <calculate phase="Effects" priority="4999">
+        <before name="acCashNet final"/><![CDATA[
+        @value = hero.usagepool[TotalGP].value + field[acCashCfg].value
+        ]]></calculate>
+      </field>
+    <field
+      id="acCashSP"
+      name="Current SP"
+      type="derived">
+      <calculate phase="Effects" priority="4999">
+        <before name="acCashNet final"/><![CDATA[
+        @value = hero.usagepool[TotalSP].value
+        ]]></calculate>
+      </field>
+    <field
+      id="acCashCP"
+      name="Current CP"
+      type="derived">
+      <calculate phase="Effects" priority="4999">
+        <before name="acCashNet final"/><![CDATA[
+        @value = hero.usagepool[TotalCP].value
+        ]]></calculate>
+      </field>
+
+    <!-- Net cash for the character -->
+    <field
+      id="acCashNet"
+      name="Net Cash"
+      type="derived"
+      maxfinal="250">
+      <calculate phase="Effects" priority="5000" name="acCashNet final"><![CDATA[
+        ~get the normalized gold value of all our coins, so we can use it to
+        ~work out exactly how much money we have
+        var ad as number
+        var pp as number
+        var gp as number
+        var sp as number
+        var cp as number
+        var text as string
+        ad = herofield[acCashAD].value
+        pp = herofield[acCashPP].value
+        gp = herofield[acCashGP].value
+        sp = herofield[acCashSP].value
+        cp = herofield[acCashCP].value
+        @value = ad * 10000 + pp * 100 + gp + sp / 10 + cp / 100
+        ]]></calculate>
+      <finalize><![CDATA[
+        var ad as number
+        var pp as number
+        var gp as number
+        var sp as number
+        var cp as number
+        var text as string
+        ad = herofield[acCashAD].value
+        pp = herofield[acCashPP].value
+        gp = herofield[acCashGP].value
+        sp = herofield[acCashSP].value
+        cp = herofield[acCashCP].value
+        call MoneyText
+        @text = text
+        ]]></finalize>
+      </field>
+
+    <!-- Whether character is abandoning his action in combat for benefits in the next turn  -->
+    <field
+      id="acAbandon"
+      name="Abandoning"
+      type="derived"
+      persistence="full">
+      </field>
+
+    <!-- Maximum number of permitted multiclasses -->
+    <field
+      id="acMaxMulti"
+      name="Maximum Multiclasses"
+      type="derived"
+      defvalue="1">
+      </field>
+
+    <!-- Holds tag expressions for power tables on class tab - filled in by script -->
+    <field
+      id="acClAtWExp"
+      name="Class At-Will Power Expr"
+      type="derived"
+      maxlength="500"
+      defvalue="FALSE">
+      </field>
+    <field
+      id="acClEncExp"
+      name="Class Encounter Power Expr"
+      type="derived"
+      maxlength="500"
+      defvalue="FALSE">
+      </field>
+    <field
+      id="acClDaiExp"
+      name="Class Daily Power Expr"
+      type="derived"
+      maxlength="500"
+      defvalue="FALSE">
+      </field>
+    <field
+      id="acClUtiExp"
+      name="Class Utility Power Expr"
+      type="derived"
+      maxlength="500"
+      defvalue="FALSE">
+      </field>
+
+    <!-- Whether to only show "recommended" powers for a class -->
+    <field
+      id="acRecOnly"
+      name="Show Recommended Powers Only?"
+      type="user"
+      defvalue="1"
+      minvalue="0"
+      maxvalue="1">
+      </field>
+
+    <!-- Term for At-Will Powers -->
+    <field
+      id="acTermAtW"
+      name="At-Will Power Term"
+      type="derived"
+      maxlength="25"
+      defvalue="At-Will Power">
+      </field>
+    <field
+      id="acTermAtWs"
+      name="At-Will Power Term Plural"
+      type="derived"
+      maxlength="25"
+      defvalue="At-Will Powers">
+      </field>
+
+    <!-- Holds tag expressions for power tables on multiclass tab - filled in by script -->
+    <field
+      id="acMCAtWExp"
+      name="Multiclass At-Will Power Expr"
+      type="derived"
+      maxlength="500"
+      defvalue="FALSE">
+      </field>
+    <field
+      id="acMCEncExp"
+      name="Multiclass Encounter Pwr Expr"
+      type="derived"
+      maxlength="500"
+      defvalue="FALSE">
+      </field>
+    <field
+      id="acMCDaiExp"
+      name="Multiclass Daily Power Expr"
+      type="derived"
+      maxlength="500"
+      defvalue="FALSE">
+      </field>
+    <field
+      id="acMCUtiExp"
+      name="Multiclass Utility Power Expr"
+      type="derived"
+      maxlength="500"
+      defvalue="FALSE">
+      </field>
+
+    <!-- Holds tag expressions for paragon path chooser - filled in by script -->
+    <field
+      id="acPathExp"
+      name="Paragon Path Expr"
+      type="derived"
+      maxlength="500"
+      defvalue="FALSE">
+      </field>
+
+    <!-- Holds tag expressions for epic destiny chooser - filled in by script -->
+    <field
+      id="acDestExp"
+      name="Epic Destiny Expr"
+      type="derived"
+      maxlength="500"
+      defvalue="FALSE">
+      </field>
+
+    <!-- Holds tag expressions for valid implements for this hero - by default
+          any implement can be used -->
+    <field
+      id="acImplExp"
+      name="Implement Expr"
+      type="derived"
+      maxlength="1000"
+      defvalue="ImplemType.? &amp; component.Gear">
+      </field>
+
+    <!-- Background bonus skill, if any -->
+    <field
+      id="acBGSkill"
+      name="Background Skill Bonus"
+      type="user"
+      style="menu">
+      </field>
+    <field
+      id="acBGExpr"
+      name="Background Skill Expression"
+      type="derived"
+      maxlength="500"
+      defvalue="FALSE">
+      </field>
+    <field
+      id="actBGSkCls"
+      name="Background Skill Is Class"
+      type="user"
+      minvalue="0"
+      maxvalue="1">
+      </field>
+
+    <!-- RPGA details -->
+    <field
+      id="acRPGANum"
+      name="RPGA Number"
+      type="user"
+      maxlength="100">
+      </field>
+    <field
+      id="acRPGAChar"
+      name="RPGA Character Number"
+      type="user"
+      maxlength="100">
+      </field>
+    <field
+      id="acRPGAComp"
+      name="RPGA Adventuring Company"
+      type="user"
+      maxlength="100">
+      </field>
+
+    <!-- Monster details -->
+    <field
+      id="acMonRole"
+      name="Monster Role"
+      type="user"
+      style="menu">
+      </field>
+    <field
+      id="acMonOrig"
+      name="Monster Origin"
+      type="user"
+      style="menu">
+      </field>
+    <field
+      id="acMonType"
+      name="Monster Type"
+      type="user"
+      style="menu">
+      </field>
+    <field
+      id="acMonElite"
+      name="Monster Is Elite?"
+      type="user"
+      minvalue="0"
+      maxvalue="1">
+      </field>
+    <field
+      id="acMonLead"
+      name="Monster Is Leader?"
+      type="user"
+      minvalue="0"
+      maxvalue="1">
+      </field>
+    <field
+      id="acMonXP"
+      name="Monster XP Award"
+      type="user"
+      minvalue="0">
+      </field>
+
+    <!-- Assign tags relating to important damage states -->
+    <eval index="1" phase="Final" priority="9100" name="Hero damage tags final">
+      <after name="Calc acHPBlood"/>
+      <after name="Calc acHPNow"/><![CDATA[
+      ~if no damage has been incurred, assign a tag to indicate that state
+      if (field[acHPNow].value >= field[acHPMax].value) then
+        perform hero.assign[Hero.NoDamage]
+
+      ~if the hero is dead or otherwise out of combat, indicate that state
+      elseif (field[acHPNow].value <= 0) then
+        perform hero.assign[Hero.Dead]
+
+      ~if the hero is bloodied, indicate it
+      elseif (field[acHPNow].value <= field[acHPBlood].value) then
+        perform hero.assign[Hero.Bloodied]
+        endif
+      ]]></eval>
+
+    <!-- Copy the first user image for use in the TacCon -->
+    <eval index="2" phase="Final" priority="1000"><![CDATA[
+      ~all heroes should be able to reroll initiative
+      perform hero.assign[Hero.RerollInit]
+
+      field[acTacImage].value = hero.findchild[UserImage,"TRUE",_CompSeq_].field[uimgImage].value
+      ]]></eval>
+
+    <eval index="4" phase="Setup" priority="10" name="Level final"><![CDATA[
+      ~calculate the highest level we have the XP for - that's what level we are
+      var level as number
+      var i as number
+      var findmech as string
+      findmech = "XP"
+      call FindMech
+      if (state.isfocus = 0) then
+        notify "No XP table mechanics found!"
+      else
+        for i = 1 to focus.field[XPTable].arrayrows - 1
+          if (hero.child[resXP].field[resMax].value >= focus.field[XPTable].arrayvalue[i]) then
+            level = i
+            endif
+          next
+        endif
+
+      ~make sure our level is at least 1
+      if (level < 1) then
+        level = 1
+        endif
+
+      ~assign an appropriate level tag to the hero
+      perform hero.assignstr["Level." & level]
+
+      var findmech as string
+
+      ~set the number of powers based on our level - count the filled columns
+      ~in the mechanics tables. First, the at-will powers.
+      findmech = "PwrAtWill"
+      call FindMech
+      if (state.isfocus = 0) then
+        notify "No At-Will Power Table mechanics found!"
+      else
+        for i = 0 to focus.field[ClPwrTable].matrixcols - 1
+          if (focus.field[ClPwrTable].matrixvalue[level,i] <> 0) then
+            #resmax[resAtWill] += 1
+            endif
+          next
+        endif
+
+      ~encounter powers
+      findmech = "PwrEncount"
+      call FindMech
+      if (state.isfocus = 0) then
+        notify "No Encounter Power Table mechanics found!"
+      else
+        for i = 0 to focus.field[ClPwrTable].matrixcols - 1
+          if (focus.field[ClPwrTable].matrixvalue[level,i] <> 0) then
+            #resmax[resEncount] += 1
+            endif
+          next
+        endif
+
+      ~utility powers
+      findmech = "PwrUtility"
+      call FindMech
+      if (state.isfocus = 0) then
+        notify "No Utility Power Table mechanics found!"
+      else
+        for i = 0 to focus.field[ClPwrTable].matrixcols - 1
+          if (focus.field[ClPwrTable].matrixvalue[level,i] <> 0) then
+            #resmax[resUtility] += 1
+            endif
+          next
+        endif
+
+      ~daily powers
+      findmech = "PwrDaily"
+      call FindMech
+      if (state.isfocus = 0) then
+        notify "No Daily Power Table mechanics found!"
+      else
+        for i = 0 to focus.field[ClPwrTable].matrixcols - 1
+          if (focus.field[ClPwrTable].matrixvalue[level,i] <> 0) then
+            #resmax[resDaily] += 1
+            endif
+          next
+        endif
+
+      ~feats
+      var findmech as string
+      findmech = "Feat"
+      call FindMech
+      if (state.isfocus = 0) then
+        notify "No Feat Table mechanics found!"
+      else
+        #resmax[resFeats] += focus.field[FeatTable].arrayvalue[level]
+        endif
+      ]]></eval>
+
+    <eval index="5" phase="Final" priority="1000" name="Implement expression final"><![CDATA[
+      ~if we don't have any implement type tags on the hero, we should just
+      ~accept all implements for safety, so get out
+      doneif (hero.tagis[ImplemType.?] = 0)
+
+      ~build a tag expression out of all our implement type tags
+      field[acImplExp].text = hero.tagids[ImplemType.?, " | "] & "& component.Gear"
+      ]]></eval>
+
+    <eval index="6" phase="Final" priority="1000">
+      <after name="Class tag final"/>
+      <after name="Multiclass tag final"/>
+      <after name="Race tag final"/>
+      <![CDATA[
+      ~get our base expression to select powers with
+      var expr as string
+      expr = replace(hero.tagids[Class.?, " | "], "Class.", "PowerClass.", 0)
+      if (hero.tagis[Theme.?] <> 0) then
+        expr &= "| " & replace(hero.tagids[Theme.?, " | "], "Theme.", "PowerTheme.", 0)
+      endif
+      expr = "(" & expr & "| PowerClass.SkillPower | PowerClass.ThemePower ) & ReqLevel.? & "
+
+      ~if appropriate, limit it to recommended-only powers
+      if (hero.tagis[User.RecomPower] <> 0) then
+        if (field[acRecOnly].value <> 0) then
+          expr &= "(" & replace(hero.tagids[Class.?, " | "], "Class.", "RecomClass.", 0) & ") & "
+          endif
+        endif
+
+      ~set up the tag expressions for class power tables
+      ~NOTE: The at-will expression can be set separately, so don't overwrite
+      ~it if so
+      if (compare(field[acClAtWExp].text,"FALSE") = 0) then
+        field[acClAtWExp].text = expr & "PowerType.AtWill"
+        endif
+      field[acClEncExp].text = expr & "PowerType.Encounter"
+      field[acClDaiExp].text = expr & "PowerType.Daily"
+      field[acClUtiExp].text = expr & "PowerType.Utility"
+
+      ~set up the tag expressions for multiclass power tables, if we have them
+      if (hero.tagis[Multiclass.?] <> 0) then
+        expr = replace(hero.tagids[Multiclass.?, " | "], "Multiclass.", "PowerClass.", 0)
+        expr = "(" & expr & ") & "
+        field[acMCAtWExp].text = expr & "PowerType.AtWill"
+        field[acMCEncExp].text = expr & "PowerType.Encounter"
+        field[acMCDaiExp].text = expr & "PowerType.Daily"
+        field[acMCUtiExp].text = expr & "PowerType.Utility"
+        endif
+
+      ~set up the tag expression for paragon paths and epic destinies
+      var classpart as string
+      var racepart as string
+      classpart = replace(hero.tagids[Class.?, " | "], "Class.", "ReqClass.", 0)
+      classpart = splice(classpart, replace(hero.tagids[Multiclass.?, " | "], "Multiclass.", "ReqClass.", 0), " | ")
+      if (empty(classpart) <> 0) then
+        classpart = "TRUE"
+      else
+        classpart = "(" & classpart & " | !ReqClass.?)"
+        endif
+      racepart = replace(hero.tagids[Race.?, " | "], "Race.", "ReqRace.", 0)
+      if (empty(racepart) <> 0) then
+        racepart = "TRUE"
+      else
+        racepart = "(" & racepart & " | !ReqRace.?)"
+        endif
+      field[acPathExp].text = classpart & " & " & racepart
+      field[acDestExp].text = field[acPathExp].text
+      ]]></eval>
+
+    <eval index="7" phase="Validate" priority="10000" name="pwColumn final"><![CDATA[
+      ~we need to loop through all our class and multiclass powers (not paragon
+      ~multiclass powers, since those are added special), in order of level, to
+      ~make sure we obey the level limits everywhere.
+      var powerlevel as number
+      var i as number
+      var lastcolumn as number
+      var findmech as string
+      var memmech as string
+      foreach pick in hero from Power where "(Helper.PwrClass | Helper.PwrMulti | User.PwrAsClass)" sortas PowerLevel
+        powerlevel = eachpick.tagvalue[ReqLevel.?]
+
+        ~find the appropriate power limit matrix for this power type
+        findmech = ""
+        memmech = ""
+        if (eachpick.tagis[PowerType.AtWill] <> 0) then
+          findmech = "PwrAtWill"
+        elseif (eachpick.tagis[PowerType.Encounter] <> 0) then
+          findmech = "PwrEncount"
+          memmech = "MemEncount"
+        elseif (eachpick.tagis[PowerType.Utility] <> 0) then
+          findmech = "PwrUtility"
+          memmech = "MemUtility"
+        elseif (eachpick.tagis[PowerType.Daily] <> 0) then
+          findmech = "PwrDaily"
+          memmech = "MemDaily"
+        else
+          debug "Unknown power type found! Could not validate power limits."
+          endif
+
+        ~find the earliest open index in our array of power slots
+        call FindMech
+        doneif (state.isfocus = 0)
+        lastcolumn = 0
+        call PwrGetCol
+
+        ~if we found an open index, set it into this power's column field,
+        ~and set the index to the level of that power.
+        if (lastcolumn >= 0) then
+          eachpick.field[pwColumn].value = lastcolumn
+          focus.field[ClPwrTable].matrixvalue[0,lastcolumn] = powerlevel
+          endif
+
+        ~if we're a memorized power, find the earliest open index in our array
+        ~of memorized power slots
+        if (eachpick.tagis[Helper.PowerCheck] + eachpick.field[usrIsCheck].value + !empty(memmech) = 3) then
+          findmech = memmech
+          call FindMech
+          doneif (state.isfocus = 0)
+          lastcolumn = 0
+          call PwrGetCol
+
+          ~if we found an open index, set it into this power's column field,
+          ~and set the index to the level of that power.
+          if (lastcolumn >= 0) then
+            eachpick.field[pwColMem].value = lastcolumn
+            focus.field[ClPwrTable].matrixvalue[0,lastcolumn] = powerlevel
+            endif
+          endif
+        nexteach
+      ]]></eval>
+
+    <eval index="8" phase="Initialize" priority="0"><![CDATA[
+      ~if we have a background bonus skill selected, add to it
+      if (compare(field[acBGExpr].text, "FALSE") = 0) then
+        perform field[acBGSkill].chosen.setfocus
+        if (state.isfocus <> 0) then
+
+          ~for skills, pick between a +2 bonus and training 
+          if (focus.tagis[component.Skill] <> 0) then
+            if (field[actBGSkCls].value = 0) then
+              perform focus.field[trtBonus].modify[+,2,"Background"]
+            else
+              perform focus.assign[Helper.Trained]
+              endif
+
+          ~languages are no longer hidden
+          elseif (focus.tagis[component.Language] <> 0) then
+            perform focus.assign[Helper.ChosenLang]
+            endif
+          endif
+        endif
+
+      if (field[acType].value = 1) then
+        perform hero.assign[Hero.Monster]
+
+        ~we're a monster - hide appropriate tabs
+        perform hero.assign[HideTab.class]
+        perform hero.assign[HideTab.race]
+        perform hero.assign[HideTab.feats]
+        perform hero.assign[HideTab.journal]
+        perform hero.assign[HideTab.paragon]
+        perform hero.assign[HideTab.epicdest]
+        perform hero.assign[HideTab.rpga]
+
+        ~ignore checking on all appropriate resources
+        foreach pick in hero from Resource where "User.ResNoMonst"
+          perform eachpick.delete[User.ResChk?]
+          nexteach
+
+        ~we are proficient with all weapons
+        foreach thing in WepCat
+          perform eachthing.pulltags[WpCatRqMel.?]
+          perform eachthing.pulltags[WpCatRqRng.?]
+          nexteach
+        perform hero.pushtags[WpCatRqMel.?]
+        perform hero.pushtags[WpCatRqRng.?]
+
+        ~and all armor
+        foreach thing in ArmorProf
+          perform eachthing.pulltags[ArmorProf.?]
+          nexteach
+        perform hero.pushtags[ArmorProf.?]
+        endif
+      ]]></eval>
+
+    <!-- Outputs debugging information about current / maximum powers that can be taken.
+          Uncomment the eval script to activate.
+    <eval index="9" phase="Validate" priority="999999">
+      <![CDATA[
+      ~set up parameters for our 'PowerCount' procedure
+      var levelsep as string
+      var whenzero as string
+      var rawlevels as number
+      var current as number
+      var powerinfo as string
+      var findmech as string
+      levelsep = " "
+      whenzero = "-"
+      rawlevels = 1
+
+      debug "At-will:"
+      findmech = "PwrAtWill"
+      call FindMech
+      doneif (state.isfocus = 0)
+      powerinfo = ""
+      current = 0
+      call PowerCount
+      debug powerinfo
+      powerinfo = ""
+      current = 1
+      call PowerCount
+      debug powerinfo
+
+      debug "Encounter:"
+      findmech = "PwrEncount"
+      call FindMech
+      doneif (state.isfocus = 0)
+      powerinfo = ""
+      current = 0
+      call PowerCount
+      debug powerinfo
+      powerinfo = ""
+      current = 1
+      call PowerCount
+      debug powerinfo
+
+      debug "Utility:"
+      findmech = "PwrUtility"
+      call FindMech
+      doneif (state.isfocus = 0)
+      powerinfo = ""
+      current = 0
+      call PowerCount
+      debug powerinfo
+      powerinfo = ""
+      current = 1
+      call PowerCount
+      debug powerinfo
+
+      debug "Daily:"
+      findmech = "PwrDaily"
+      call FindMech
+      doneif (state.isfocus = 0)
+      powerinfo = ""
+      current = 0
+      call PowerCount
+      debug powerinfo
+      powerinfo = ""
+      current = 1
+      call PowerCount
+      debug powerinfo
+
+      debug "Utility Memorized:"
+      findmech = "MemUtility"
+      call FindMech
+      doneif (state.isfocus = 0)
+      powerinfo = ""
+      current = 0
+      call PowerCount
+      debug powerinfo
+      powerinfo = ""
+      current = 1
+      call PowerCount
+      debug powerinfo
+
+      debug "Daily Memorized:"
+      findmech = "MemDaily"
+      call FindMech
+      doneif (state.isfocus = 0)
+      powerinfo = ""
+      current = 0
+      call PowerCount
+      debug powerinfo
+      powerinfo = ""
+      current = 1
+      call PowerCount
+      debug powerinfo
+      ]]></eval> -->
+
+    </component>
+
+
+  <!-- Personal component
+        Encapsulates all of the personal details tracked on the Personal tab
+  -->
+  <component
+    id="Personal"
+    name="Personal Info">
+
+    <!-- Age of the actor -->
+    <field
+      id="perAge"
+      name="Age"
+      type="user"
+      defvalue="25">
+      <!-- Bound the age to within the limits specified for the actor -->
+      <bound phase="Render" priority="10000"><![CDATA[
+        @minimum = field[perAgeMin].value
+        @maximum = field[perAgeMax].value
+        ]]></bound>
+      </field>
+
+    <!-- Minimum age of the actor -->
+    <field
+      id="perAgeMin"
+      name="Minimum Age"
+      type="derived"
+      defvalue="1">
+      </field>
+
+    <!-- Maximum age of the actor -->
+    <field
+      id="perAgeMax"
+      name="Maximum Age"
+      type="derived"
+      defvalue="9999">
+      </field>
+
+    <!-- Height of the actor (in inches) -->
+    <field
+      id="perHeight"
+      name="Height"
+      type="user"
+      maxfinal="20"
+      minvalue="0"
+      defvalue="68">
+      <!-- Final value for display is converted from inches to feet and inches -->
+      <finalize><![CDATA[
+        call FmtHeight
+        ]]></finalize>
+      </field>
+
+    <!-- Minimum height of the actor -->
+    <field
+      id="perHtMin"
+      name="Minimum Height"
+      type="derived"
+      defvalue="36"
+      maxfinal="20">
+      <finalize><![CDATA[
+        call FmtHeight
+        ]]></finalize>
+      </field>
+
+    <!-- Maximum height of the actor -->
+    <field
+      id="perHtMax"
+      name="Maximum Height"
+      type="derived"
+      defvalue="96"
+      maxfinal="20">
+      <finalize><![CDATA[
+        call FmtHeight
+        ]]></finalize>
+      </field>
+
+    <!-- Weight of the actor (in pounds) -->
+    <field
+      id="perWeight"
+      name="Weight"
+      type="user"
+      maxfinal="20"
+      minvalue="0"
+      defvalue="160">
+      <!-- Final value for display includes the "lb." suffix in a different font size -->
+      <finalize><![CDATA[
+        @text = @text & "{size 40}lb."
+        ]]></finalize>
+      </field>
+
+    <!-- Minimum weight of the actor -->
+    <field
+      id="perWtMin"
+      name="Minimum Weight"
+      type="derived"
+      defvalue="30">
+      </field>
+
+    <!-- Maximum weight of the actor -->
+    <field
+      id="perWtMax"
+      name="Maximum Weight"
+      type="derived"
+      defvalue="500">
+      </field>
+
+   <!-- Gender of the actor (0=male, 1=female, 2=specify) -->
+    <field
+      id="perGender"
+      name="Gender"
+      type="user"
+      minvalue="0"
+      maxvalue="2"
+      maxfinal="100"
+      nevercache="yes">
+      <finalize><![CDATA[
+        if (@value = 0) then
+          @text = "Male"
+        elseif (@value = 1) then
+          @text = "Female"
+        elseif (field[perGenUser].isempty = 0) then
+          @text = field[perGenUser].text
+        else
+          @text = "No Gender"
+          endif
+        ]]></finalize>
+      </field>
+    <field
+      id="perGenUser"
+      name="Gender"
+      type="user"
+      maxlength="100">
+      </field>
+
+    <!-- Hair color -->
+    <field
+      id="perHair"
+      name="Hair Color"
+      maxlength="25"
+      type="user">
+      </field>
+
+    <!-- Eye color -->
+    <field
+      id="perEyes"
+      name="Eye Color"
+      maxlength="25"
+      type="user">
+      </field>
+
+    <!-- Skin color -->
+    <field
+      id="perSkin"
+      name="Skin Color"
+      maxlength="25"
+      type="user">
+      </field>
+
+    <!-- Background description of the actor -->
+    <field
+      id="perInfo"
+      name="Background Text"
+      type="user"
+      maxlength="10000">
+      </field>
+
+    <eval index="1" phase="Setup" priority="1000"><![CDATA[
+      ~ Assign a tag if the user hasn't specified any background text
+      if (field[perInfo].isempty <> 0) then
+        perform assign[Helper.NoPersText]
+        endif
+
+      if (field[perGender].value = 0) then
+        perform hero.assign[Gender.Male]
+      else
+        perform hero.assign[Gender.Female]
+        endif
+      ]]></eval>
+
+    </component>
+
+
+  <!-- Define various component sets associated with the components defined above.
+  -->
+
+  <!-- The "Personal" compset is auto-defined for the component -->
+
+  <!-- Actor - all the collective one-shot details for the actor -->
+  <compset
+    id="Actor">
+    <compref component="Actor"/>
+    </compset>
+
+
+  </document>

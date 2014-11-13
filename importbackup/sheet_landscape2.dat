@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the definition of the second page of the standard character
+      sheet for output. The second page is handled as a spillover sheet that will
+      output any details that didn't fit on the first page. This is a technique that
+      you will likely use for whatever game system you choose to support.
+
+      The first page of the character sheet will be found in "sheet_standard1.dat".
+
+      The portals used to output the equipment below are the same ones used on the
+      first page of the character sheet. As such, those portals will be found in
+      the file that defines the first page.
+-->
+
+<document signature="Hero Lab Data">
+
+
+  <!-- oLand2Col1 layout
+        This layout contains the power list for the hero.
+  -->
+  <layout
+    id="oLand2Col1">
+    <portalref portal="oAtWill"/>
+    <portalref portal="oEncounter"/>
+    <portalref portal="oDaily"/>
+    <portalref portal="oUtility"/>
+    <position><![CDATA[
+      perform portal[oAtWill].autoplace
+      perform portal[oEncounter].autoplace
+      perform portal[oDaily].autoplace
+      perform portal[oUtility].autoplace
+
+      ~the height of the layout is the bottommost extent of the elements within
+      height = autotop
+      ]]></position>
+    </layout>
+
+
+  <!-- oLand2Col2 layout
+        This layout contains the magic item list for the hero.
+  -->
+  <layout
+    id="oLand2Col2">
+    <portalref portal="oMagicItem"/>
+    <portalref portal="oItemPower"/>
+    <templateref template="oMagicUse" thing="actor"/>
+    <position><![CDATA[
+      perform portal[oMagicItem].autoplace
+      perform template[oMagicUse].autoplace
+      perform portal[oItemPower].autoplace
+
+      ~the height of the layout is the bottommost extent of the elements within
+      height = autotop
+      ]]></position>
+    </layout>
+
+
+  <!-- oLand2Col3 layout
+        This layout contains the gear and rituals for the hero.
+  -->
+  <layout
+    id="oLand2Col3">
+    <portalref portal="oGear"/>
+    <portalref portal="oRitual"/>
+    <position><![CDATA[
+      perform portal[oGear].autoplace
+      perform portal[oRitual].autoplace
+
+      ~the height of the layout is the bottommost extent of the elements within
+      height = autotop
+      ]]></position>
+    </layout>
+
+
+  <!-- oLand2Col4 layout
+        This layout contains the portrait and background details for the hero.
+  -->
+  <layout
+    id="oLand2Col4">
+    <portalref portal="oPersonal"/>
+    <templateref template="oPortrait" thing="actor"/>
+    <position><![CDATA[
+      perform portal[oPersonal].autoplace
+      perform template[oPortrait].autoplace
+
+      ~the height of the layout is the bottommost extent of the elements within
+      height = autotop
+      ]]></position>
+    </layout>
+
+
+  <!-- landscape2 sheet
+        This is the second and subsequent page of the landscape character sheet.
+  -->
+  <sheet
+    id="landscape2"
+    name="Landscape character sheet, page #2">
+    <layoutref layout="oLand2Col1"/>
+    <layoutref layout="oLand2Col2"/>
+    <layoutref layout="oLand2Col3"/>
+    <layoutref layout="oLand2Col4"/>
+    <layoutref layout="oSpillover" reference="spill1"/>
+    <layoutref layout="oSpillover" reference="spill2"/>
+    <layoutref layout="oSpillover" reference="spill3"/>
+    <layoutref layout="oSpillover" reference="spill4"/>
+    <layoutref layout="oValidate"/>
+    <position><![CDATA[
+      ~setup the gap to be used between the various sections of the character sheet
+      autogap = 20
+      scenevalue[sectiongap] = autogap
+
+      ~calculate the width of the 3 columns of the character sheet, leaving
+      ~suitable gaps between them
+      var colwidth as number
+      colwidth = (width - 60) / 4
+
+      ~if the user wants to omit the validation report, the hide it and allow the
+      ~rest of the sheet to fill that space; otherwise, output the layout and the
+      ~top of the validation report establishes the bottom for all other output
+      var extent as number
+      if (hero.tagis[source.Validation] = 0) then
+        layout[oValidate].visible = 0
+        extent = height
+      else
+        layout[oValidate].width = width
+        perform layout[oValidate].render
+        layout[oValidate].top = height - layout[oValidate].height
+        extent = layout[oValidate].top - autogap
+        endif
+
+      ~put our left layout on the right
+      layout[oLand2Col1].width = colwidth
+      layout[oLand2Col1].height = extent
+      perform layout[oLand2Col1].render
+
+      ~put our second column up
+      layout[oLand2Col2].width = colwidth
+      layout[oLand2Col2].left = colwidth + 15
+      layout[oLand2Col2].height = extent
+      perform layout[oLand2Col2].render
+
+      ~put our third column up
+      layout[oLand2Col3].width = colwidth
+      layout[oLand2Col3].left = layout[oLand2Col2].left * 2
+      layout[oLand2Col3].height = extent
+      perform layout[oLand2Col3].render
+
+      ~put our right layout... on the right
+      layout[oLand2Col4].width = colwidth
+      layout[oLand2Col4].left = width - layout[oLand2Col4].width
+      layout[oLand2Col4].height = extent
+      perform layout[oLand2Col4].render
+
+      ~now put spillover layouts under our main layouts, just in case there's
+      ~anything else that still needs to be output
+      layout[spill1].top = layout[oLand2Col1].bottom + autogap
+      layout[spill1].width = colwidth
+      layout[spill1].height = extent - layout[spill1].top
+      perform layout[spill1].render
+
+      layout[spill2].top = layout[oLand2Col2].bottom + autogap
+      layout[spill2].width = colwidth
+      layout[spill2].left = layout[oLand2Col2].left
+      layout[spill2].height = extent - layout[spill2].top
+      perform layout[spill2].render
+
+      layout[spill3].top = layout[oLand2Col3].bottom + autogap
+      layout[spill3].width = colwidth
+      layout[spill3].left = layout[oLand2Col3].left
+      layout[spill3].height = extent - layout[spill3].top
+      perform layout[spill3].render
+
+      layout[spill4].top = layout[oLand2Col4].bottom + autogap
+      layout[spill4].width = colwidth
+      layout[spill4].left = layout[oLand2Col4].left
+      layout[spill4].height = extent - layout[spill4].top
+      perform layout[spill4].render
+      ]]></position>
+    </sheet>
+
+
+  </document>

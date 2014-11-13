@@ -1,0 +1,1502 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<document signature="Hero Lab Data">
+
+  <thing
+    id="fEpcArmSup"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Armor effects final"/>
+      <before name="Derived trtFinal"/>
+      <after name="arMagic copy"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform hero.findchild[Armor,"ArmorCat.Heavy & Equipped.Equipped"].setfocus
+      doneif (state.isfocus = 0)
+      #traitmodify[defAC,trtBonus,2,""]
+      focus.field[arCheck].value = 0
+      focus.field[arSpeed].value = 0
+      ]]></eval>
+    </thing>
+  <thing
+    id="fEpcUnbSki"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <after name="Calc attrBonus"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform hero.findchild[Armor,"ArmorCat.Heavy & Equipped.Equipped"].setfocus
+      doneif (state.isfocus = 0)
+      var bonus as number
+      bonus = #attrbonus[attrCon]
+      #traitmodify[rsAll,rsTotal,bonus,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcSwoVen"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+  <thing
+    id="fEpcSpePer"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Power &amp; PowerClass.clsSwordma &amp; PowerType.Encounter"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="spcUsed bounded"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.setfocus
+      doneif (state.isfocus = 0)
+      perform focus.delete[PowerType.Encounter]
+      perform focus.assign[PowerType.AtWill]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcArcKno"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[attrInt,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+  <thing
+    id="fEpcLicRes"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <after name="Calc attrBonus"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      var bonus as number
+      bonus = 5 + #halflevel[]
+      #traitmodify[rsNecrotic,rsTotal,bonus,""]
+      #traitmodify[rsPoison,rsTotal,bonus,""]
+      ]]></eval>
+    </thing>
+  <thing
+    id="fEpcMasove"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fEpcSpeRec"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Power &amp; PowerClass.clsWizard &amp; PowerType.Daily"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="spcUsed bounded"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.setfocus
+      doneif (state.isfocus = 0)
+      focus.field[spcMax].value += 1
+      ]]></eval>
+    </thing>
+  <thing
+    id="fEpcArcSpi"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+  <thing
+    id="fEpcArchsp"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Power &amp; PowerClass.clsWizard &amp; PowerType.Daily"/>
+    <eval index="1" phase="Setup" priority="400">
+      <before name="PowerUse tag added"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.setfocus
+      doneif (state.isfocus = 0)
+      perform focus.delete[PowerType.Daily]
+      perform focus.assign[PowerType.Encounter]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcSigSpe"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Power &amp; PowerSrc.Arcane &amp; PowerType.Daily"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="spcUsed bounded"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.setfocus
+      doneif (state.isfocus = 0)
+      perform focus.field[pwAtkMod].modify[+,2,""]
+      ]]></eval>
+    </thing>
+  <thing
+    id="fEpcRetSpe"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+  <thing
+    id="fEpcLivSpe"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="spcUsed bounded"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform hero.child[fEpcSigSpe].field[usrChosen1].chosen.setfocus
+      doneif (state.isfocus = 0)
+      perform focus.delete[PowerType.Daily]
+      perform focus.assign[PowerType.Encounter]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcDivSpa"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Attribute"/>
+    <fieldval field="usrCandid2" value="component.Attribute"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.field[trtBonus].modify[+,2,""]
+      perform field[usrChosen2].chosen.field[trtBonus].modify[+,2,""]
+      ]]></eval>
+    </thing>
+  <thing
+    id="fEpcDivRec"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fEpcSlyFor"
+    name=""
+    compset="">
+    <fieldval field="spcMax" value="3"/>
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+  <thing
+    id="fEpcTriDis"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fEpcFeyCha"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[attrCha,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+  <thing
+    id="fEpcEteKin"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fEpcSpiEne"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fEpcPorMas"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fEpcBalSum"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fEpcOnewit"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[attrWis,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+  <thing
+    id="fEpcSusby"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fEpcMagKna"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Attribute"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.field[trtBonus].modify[+,2,""]
+      ]]></eval>
+    </thing>
+  <thing
+    id="fEpcRetMag"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+  <thing
+    id="fEpcMagMas"
+    name=""
+    compset="">
+    <fieldval field="spcMax" value="2"/>
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fEpcUneStr"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[attrStr,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+  <thing
+    id="fEpcGodSta"
+    name=""
+    compset="">
+    <eval index="1" phase="Setup" priority="10000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform hero.assign[Hero.Oversized]
+      ]]></eval>
+    </thing>
+  <thing
+    id="fEpcGrePow"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fEpcLifIll"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fEpcPeePre"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+  <thing
+    id="fEpcBlaRec"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fEpcSpeHar"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fEpcGreCap"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+  <thing
+    id="fEpcThiNot"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+  <thing
+    id="fEpcSwoKin"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Power &amp; PowerAcc.Weapon &amp; PowerType.Encounter"/>
+    </thing>
+
+  <thing
+    id="fEpcPieWea"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+
+  <thing
+    id="fEpcParLea"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[skArcana,trtBonus,6,""]
+      #traitmodify[skDungeone,trtBonus,6,""]
+      #traitmodify[skHistory,trtBonus,6,""]
+      #traitmodify[skNature,trtBonus,6,""]
+      #traitmodify[skReligion,trtBonus,6,""]
+      ]]></eval>
+    </thing>
+  <thing
+    id="fEpcRevTim"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fEpcStarbo"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <after name="Calc attrBonus"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      var bonus as number
+      bonus = 10 + hero.tagvalue[Level.?]
+      #traitmodify[rsRadiant,rsTotal,bonus,""]
+      #traitmodify[rsFire,rsTotal,bonus,""]
+      ]]></eval>
+    </thing>
+  <thing
+    id="fEpcStarbu"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+  <thing
+    id="fEpcStaRif"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fEpcDeeSon"
+    name=""
+    compset="">
+    <fieldval field="spcMax" value="3"/>
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fEpcBurRed"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fEpcProBle"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Attribute &amp; User.AttrPhys"/>
+    <fieldval field="usrCandid2" value="component.Attribute &amp; User.AttrMental"/>
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.field[trtBonus].modify[+,2,""]
+      perform field[usrChosen2].chosen.field[trtBonus].modify[+,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcDriby"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fEpcCyrVen"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+
+  <thing
+    id="fEpcChoFla"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Power &amp; (DamageType.Fire | DamageType.Radiant) &amp; PowerType.Daily"/>
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fEpcArgVes"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fEpcBleAwa"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Attribute &amp; (thingid.attrStr | thingid.attrWis | thingid.attrCha)"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.field[trtBonus].modify[+,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcPlaReb"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fEpcPerFor"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform hero.child[attrDex].field[trtBonus].modify[+,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcFurStr"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Attribute &amp; (thingid.attrStr | thingid.attrWis)"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.field[trtBonus].modify[+,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcSpiPro"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+
+  <thing
+    id="fEpcForDes"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Attribute"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.field[trtBonus].modify[+,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcPasSpi"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Race"/>
+    <tag group="ChooseSrc1" tag="Thing"/>
+    </thing>
+  <thing
+    id="fEpcEpiVit"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Attribute"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.field[trtBonus].modify[+,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="edSoverBea"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+
+  <thing
+    id="fEpcBooWor"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fEpcSorrow"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[attrCon,trtBonus,2,""]
+      #traitmodify[attrDex,trtBonus,2,""]
+      #traitmodify[trSpeed,trtBonus,2,""]
+      perform hero.assign[Vision.Darkvision]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcDraInc"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[attrStr,trtBonus,2,""]
+      #traitmodify[attrCha,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcDivDis"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fEpcDivMir"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+
+  <thing
+    id="fEpcDraSpi"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[attrCon,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcDraBlo"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+
+  <thing
+    id="fEpcDraSou"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[trSurgeVal,trtBonus,10,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcInvCha"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[attrStr,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcForWar"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fEpcLegPre"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[attrCha,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcFavWar"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[attrCon,trtBonus,2,""]
+      #traitmodify[skAcrobati,trtBonus,2,""]
+      #traitmodify[skAthletic,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcDiaBod"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform hero.child[attrDex].field[trtBonus].modify[+,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcMovPer"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[trSpeed,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcLayBar"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+
+  <thing
+    id="fEpcWelMen"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      hero.child[trkPower].field[trkMax].value += 4
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcBatSov"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[trInit,trtBonus,10,""]
+      foreach pick in hero from WeaponBase
+        perform eachpick.field[wpBonus].modify[+,2,""]
+        nexteach
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcRelHun"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform hero.child[attrWis].field[trtBonus].modify[+,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcFauTra"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform hero.assign[Vision.Darkvision]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcDeaHun"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fEpcRunMig"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform hero.child[attrStr].field[trtBonus].modify[+,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcUnmTac"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[trInit,trtBonus,5,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcCerDes"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Attribute"/>
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.field[trtBonus].modify[+,2,""]
+      perform hero.child[attrWis].field[trtBonus].modify[+,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcBodDre"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fEpcStrby"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform hero.child[attrInt].field[trtBonus].modify[+,2,""]
+      perform hero.child[attrWis].field[trtBonus].modify[+,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcGuaMin"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Attribute"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.field[trtBonus].modify[+,2,""]
+      #traitmodify[trSpeed,trtBonus,1,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcBorto"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform hero.child[attrInt].field[trtBonus].modify[+,2,""]
+      perform hero.child[attrCha].field[trtBonus].modify[+,2,""]
+
+      #traitmodify[skDiplomac,trtBonus,2,""]
+      #traitmodify[skInsight,trtBonus,2,""]
+      #traitmodify[skIntimida,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcPerMin"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Attribute &amp; (thingid.attrInt | thingid.attrWis | thingid.attrCha)"/>
+    <fieldval field="usrCandid2" value="component.Attribute &amp; (thingid.attrInt | thingid.attrWis | thingid.attrCha)"/>
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.field[trtBonus].modify[+,2,""]
+      perform field[usrChosen2].chosen.field[trtBonus].modify[+,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcAvaTra"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform hero.assign[Vision.Lowlight]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcAncRes"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Attribute &amp; (thingid.attrInt | thingid.attrCha)"/>
+    <fieldval field="usrCandid2" value="component.Attribute"/>
+    <tag group="Hide" tag="Special"/>
+    <bootstrap thing="lanDraconi"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.field[trtBonus].modify[+,2,""]
+      perform field[usrChosen2].chosen.field[trtBonus].modify[+,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcSpiDra"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fEpcSkiDra"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <after name="Calc attrBonus"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform hero.assign[Vision.Lowlight]
+      #traitmodify[skIntimida,trtBonus,2,""]
+      #traitmodify[trHealth,trtBonus,5,""]
+
+      var bonus as number
+      bonus = #attrbonus[attrCon]
+      #traitmodify[trSurgeVal,trtBonus,bonus,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcDraTra"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Attribute &amp; (thingid.attrInt | thingid.attrStr | thingid.attrCon)"/>
+    <fieldval field="usrCandid2" value="component.Attribute &amp; (thingid.attrInt | thingid.attrStr | thingid.attrCon)"/>
+    <tag group="Hide" tag="Special"/>
+    <bootstrap thing="lanDraconi"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.field[trtBonus].modify[+,2,""]
+      perform field[usrChosen2].chosen.field[trtBonus].modify[+,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcDraTer"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+
+  <thing
+    id="fEpcBleSib"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Attribute"/>
+    <fieldval field="usrCandid2" value="component.Attribute"/>
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.field[trtBonus].modify[+,2,""]
+      perform field[usrChosen2].chosen.field[trtBonus].modify[+,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcLifSib"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fEpcHorCha"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Attribute"/>
+    <fieldval field="usrCandid2" value="component.Attribute"/>
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.field[trtBonus].modify[+,2,""]
+      perform field[usrChosen2].chosen.field[trtBonus].modify[+,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcHorAtt"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+
+  <thing
+    id="fEpcEpiHer"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Attribute"/>
+    <fieldval field="usrCandid2" value="component.Attribute"/>
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.field[trtBonus].modify[+,2,""]
+      perform field[usrChosen2].chosen.field[trtBonus].modify[+,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcEpiRes"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <after name="Calc attrBonus"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[defFort,trtBonus,1,""]
+      #traitmodify[defRef,trtBonus,1,""]
+      #traitmodify[defWill,trtBonus,1,""]
+      #traitmodify[trHealth,trtBonus,20,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcMinLor"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="10000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[rsPsychic,rsTotal,15,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcOrdEnl"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform hero.child[attrInt].field[trtBonus].modify[+,2,""]
+      perform hero.child[attrWis].field[trtBonus].modify[+,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcStrin"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Attribute &amp; (thingid.attrInt | thingid.attrWis | thingid.attrCha)"/>
+    <fieldval field="usrCandid2" value="component.Attribute &amp; (thingid.attrInt | thingid.attrWis | thingid.attrCha)"/>
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.field[trtBonus].modify[+,2,""]
+      perform field[usrChosen2].chosen.field[trtBonus].modify[+,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcResSpi"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fEpcUncPro"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Attribute"/>
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.field[trtBonus].modify[+,2,""]
+      #traitmodify[attrDex,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcStaGua"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Attribute"/>
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.field[trtBonus].modify[+,2,""]
+      #traitmodify[attrCon,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcCosExp"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[trInit,trtBonus,5,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcBecOne"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Attribute"/>
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.field[trtBonus].modify[+,2,""]
+      #traitmodify[attrCha,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcDeiSel"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[trSave,trtBonus,5,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcEnlBle"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[attrDex,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcBouPre"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fEpcBouto"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Attribute &amp; (thingid.attrCon | thingid.attrCha)"/>
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.field[trtBonus].modify[+,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcEpiCom"
+    name=""
+    compset="">
+    <eval phase="Traits" priority="10000"><![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[trSave,trtBonus,2,""]
+
+      ~+1 to attack with all powers
+      foreach pick in hero from Power
+        perform eachpick.field[pwAtkMod].modify[+,1,""]
+        nexteach
+      ]]>
+      <before name="Derived trtFinal"/>
+      <after name="Calc attrBonus"/>
+      </eval>
+    </thing>
+
+  <thing
+    id="fParVilReb"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fParSnaMas"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[skBluff,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcStormb"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <after name="Calc attrBonus"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[attrCon,trtBonus,2,""]
+
+      var bonus as number
+      bonus = 15 + #halflevel[]
+      #traitmodify[rsLightn,rsTotal,bonus,""]
+      #traitmodify[rsThunder,rsTotal,bonus,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcByDiv"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[rsPsychic,rsTotal,10,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcDivIns"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Attribute &amp; (thingid.attrWis | thingid.attrCha)"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.field[trtBonus].modify[+,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcSacrif"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fEpcRavGua"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Attribute"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.field[trtBonus].modify[+,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcSouDes"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    </thing>
+
+  <thing
+    id="fEpcGuaDea"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fEpcEnlReb"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Attribute"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.field[trtBonus].modify[+,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcLifOve"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fEpcLorWhe"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    </thing>
+
+  <thing
+    id="fEpcSwoto"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Attribute"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.field[trtBonus].modify[+,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcDefLif"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fEpcClaSor"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    </thing>
+
+  <thing
+    id="fEpcEpiIns"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Attribute"/>
+    <bootstrap thing="lanPrimord"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.field[trtBonus].modify[+,2,""]
+      perform hero.child[attrWis].field[trtBonus].modify[+,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcTwiIns"
+    name=""
+    compset="">
+    <bootstrap thing="lanPrimord"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform hero.child[attrWis].field[trtBonus].modify[+,2,""]
+      perform hero.assign[Vision.Darkvision]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcTriAut"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    </thing>
+
+  <thing
+    id="fEpcExpin"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Attribute &amp; (thingid.attrWis | thingid.attrInt)"/>
+    <fieldval field="usrCandid2" value="component.Skill &amp; (thingid.skArcana | thingid.skDungeone | thingid.skHistory | thingid.skNature | thingid.skReligion)"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.field[trtBonus].modify[+,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fEpcSecPil"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+
+  <thing
+    id="fEpcLegAct"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+
+  </document>

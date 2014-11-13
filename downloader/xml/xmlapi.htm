@@ -1,0 +1,2253 @@
+<HTML>
+<BODY BGCOLOR=#000070 LINK=#00D0D0 VLINK=#00D0D0 ALINK=#00D0D0>
+<FONT COLOR=#E0E0E0 SIZE=+2><B>Table of Contents:<BR></B></FONT>
+<Font COLOR=#E0E0E0 Size=+1><UL>
+<LI><A HREF="#XML_Create_Child">XML_Create_Child</A>
+<LI><A HREF="#XML_Create_Document">XML_Create_Document</A>
+<LI><A HREF="#XML_Delete_Named_Children">XML_Delete_Named_Children</A>
+<LI><A HREF="#XML_Delete_Named_Children_With_Attr">XML_Delete_Named_Children_With_Attr</A>
+<LI><A HREF="#XML_Delete_Node">XML_Delete_Node</A>
+<LI><A HREF="#XML_Destroy_Document">XML_Destroy_Document</A>
+<LI><A HREF="#XML_Extract_Attribute_Value">XML_Extract_Attribute_Value</A>
+<LI><A HREF="#XML_Extract_Document">XML_Extract_Document</A>
+<LI><A HREF="#XML_Get_Attribute">XML_Get_Attribute</A>
+<LI><A HREF="#XML_Get_Attribute_Pointer">XML_Get_Attribute_Pointer</A>
+<LI><A HREF="#XML_Get_Attribute_Size">XML_Get_Attribute_Size</A>
+<LI><A HREF="#XML_Get_Character_Encoding">XML_Get_Character_Encoding</A>
+<LI><A HREF="#XML_Get_Child_Count">XML_Get_Child_Count</A>
+<LI><A HREF="#XML_Get_Document_Node">XML_Get_Document_Node</A>
+<LI><A HREF="#XML_Get_Error">XML_Get_Error</A>
+<LI><A HREF="#XML_Get_First_Attribute">XML_Get_First_Attribute</A>
+<LI><A HREF="#XML_Get_First_Child">XML_Get_First_Child</A>
+<LI><A HREF="#XML_Get_First_Named_Child">XML_Get_First_Named_Child</A>
+<LI><A HREF="#XML_Get_First_Named_Child_With_Attr">XML_Get_First_Named_Child_With_Attr</A>
+<LI><A HREF="#XML_Get_Line">XML_Get_Line</A>
+<LI><A HREF="#XML_Get_Line">XML_Get_Line</A>
+<LI><A HREF="#XML_Get_Name">XML_Get_Name</A>
+<LI><A HREF="#XML_Get_Named_Child_Count">XML_Get_Named_Child_Count</A>
+<LI><A HREF="#XML_Get_Named_Child_With_Attr_Count">XML_Get_Named_Child_With_Attr_Count</A>
+<LI><A HREF="#XML_Get_Next_Attribute">XML_Get_Next_Attribute</A>
+<LI><A HREF="#XML_Get_Next_Child">XML_Get_Next_Child</A>
+<LI><A HREF="#XML_Get_Next_Named_Child">XML_Get_Next_Named_Child</A>
+<LI><A HREF="#XML_Get_Next_Named_Child_With_Attr">XML_Get_Next_Named_Child_With_Attr</A>
+<LI><A HREF="#XML_Get_PCDATA">XML_Get_PCDATA</A>
+<LI><A HREF="#XML_Get_PCDATA_Pointer">XML_Get_PCDATA_Pointer</A>
+<LI><A HREF="#XML_Get_PCDATA_Size">XML_Get_PCDATA_Size</A>
+<LI><A HREF="#XML_Handle_Unknowns">XML_Handle_Unknowns</A>
+<LI><A HREF="#XML_Is_PCDATA">XML_Is_PCDATA</A>
+<LI><A HREF="#XML_Normalize">XML_Normalize</A>
+<LI><A HREF="#XML_Read_Boolean_Attribute">XML_Read_Boolean_Attribute</A>
+<LI><A HREF="#XML_Read_Document">XML_Read_Document</A>
+<LI><A HREF="#XML_Read_Float_Attribute">XML_Read_Float_Attribute</A>
+<LI><A HREF="#XML_Read_Integer_Attribute">XML_Read_Integer_Attribute</A>
+<LI><A HREF="#XML_Read_Text_Attribute">XML_Read_Text_Attribute</A>
+<LI><A HREF="#XML_Set_Attribute">XML_Set_Attribute</A>
+<LI><A HREF="#XML_Set_Character_Encoding">XML_Set_Character_Encoding</A>
+<LI><A HREF="#XML_Set_Default_Character_Encoding">XML_Set_Default_Character_Encoding</A>
+<LI><A HREF="#XML_Set_Error">XML_Set_Error</A>
+<LI><A HREF="#XML_Set_Error_Buffer">XML_Set_Error_Buffer</A>
+<LI><A HREF="#XML_Set_PCDATA">XML_Set_PCDATA</A>
+<LI><A HREF="#XML_Validate">XML_Validate</A>
+<LI><A HREF="#XML_Validate_Node">XML_Validate_Node</A>
+<LI><A HREF="#XML_Write_Boolean_Attribute">XML_Write_Boolean_Attribute</A>
+<LI><A HREF="#XML_Write_Document">XML_Write_Document</A>
+<LI><A HREF="#XML_Write_DTD">XML_Write_DTD</A>
+<LI><A HREF="#XML_Write_Float_Attribute">XML_Write_Float_Attribute</A>
+<LI><A HREF="#XML_Write_Integer_Attribute">XML_Write_Integer_Attribute</A>
+<LI><A HREF="#XML_Write_Text_Attribute">XML_Write_Text_Attribute</A>
+</UL>
+</Font>
+<HR>
+<BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Create_Child">XML_Create_Child</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Create_Child&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node node,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>const T_Glyph * name,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node * child</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Create a new node within the document hierarchy. The new node is created as a child of the node specified, being an instance of the name indicated. A handle the newly created node is returned in the parameter provided. The new node will be enforced to comply with all of the structure rules established for nodes with the given name. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>node</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>node to create a new child for </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>name</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>name of the child node to create </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>child</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>newly created child node </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether the operation was successful (0 = Success) </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Create_Document">XML_Create_Document</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Create_Document&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Document * document,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Element * root,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>bool is_dynamic</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Create an empty XML document object that corresponds to the XML hierarchy definition provided. The hierarchy is given as its root node, which is assumed to describe the entire underlying tree of child nodes. The document object will be enforced to comply with the structure stipulated by the hierarchy definition. A document handle is created and returned that can be used in subsequent calls to this API. When the document handle is no longer needed, you should call the function XML_Destroy_Document. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>document</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>created XML document object that is empty </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>root</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>pointer to root node of the XML hierarchy definition </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>is_dynamic</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether to dynamically allocated all nodes </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether the document was created successfully (0 = Success) </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Delete_Named_Children">XML_Delete_Named_Children</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Delete_Named_Children&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node node,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>const T_Glyph * name</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Deletes all children of a node that have a specified name. Note that if there are no children present with the name, or no children present at all, this function will still return 0 for success. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>node</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>node to look at </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>name</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>name of child nodes to delete </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether the operation was successful (0 = Success) </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Delete_Named_Children_With_Attr">XML_Delete_Named_Children_With_Attr</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Delete_Named_Children_With_Attr&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node node,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>const T_Glyph * name,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>const T_Glyph * attr_name,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>const T_Glyph * attr_value</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Deletes all children of a node that have a specified name and an attribute with the specified name and value. Note that if there are no children present with the name, or no children present at all, this function will still return 0 for success. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>node</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>node to look at </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>name</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>name of child nodes to delete if attribute present </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>attr_name</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>name of the attribute to look for </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>attr_value</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>value of the attribute required for deletion </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether the operation was successful (0 = Success) </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Delete_Node">XML_Delete_Node</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Delete_Node&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node node</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Delete a node within the document hierarchy. The node is removed from the XML document and all memory for it is deallocated. (This means that all pointers to it, to its children and to its attributes will be invalidated.) <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>node</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>node to delete </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether the operation was successful (0 = Success) </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Destroy_Document">XML_Destroy_Document</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>void</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Destroy_Document&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Document document</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Destroy the specified XML document object, releasing all resources that are held in memory. Once closed, any future attempts to access this document or any of its child nodes will likely result in a program crash. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>document</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>XML document object to discard </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether the document was discarded successfully (0 = Success) </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Extract_Attribute_Value">XML_Extract_Attribute_Value</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Extract_Attribute_Value&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_Glyph * dest,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>const T_Glyph * src</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Copies the source buffer into the destination, converting special codes as it goes (e.g., &lt; is translated into the < symbol). <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>dest</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>Destination buffer to copy into </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>src</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>Source buffer to extract from </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>0 if successful, non-zero otherwise (if a code couldn't be translated, for example). </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Extract_Document">XML_Extract_Document</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Extract_Document&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Document * document,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Element * root,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>const T_Glyph * buffer,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>bool is_dynamic,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>bool is_warnings</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Treat the buffer provided as source data and extract an XML document that matches the XML hierarchy definition provided. The hierarchy is given as its root node, which is assumed to describe the entire underlying tree of child nodes. If the contents correctly match the hierarchy definition, a document handle is created and returned that can be used in subsequent calls to this API. When the document handle is no longer needed, you should call the function XML_Destroy_Document. <BR><BR>Note! The buffer is no utilized after this function returns, so it may be freely discarded by the caller. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>document</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>created XML document object containing extracted contents </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>root</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>pointer to root node of the XML hierarchy definition </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>buffer</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>buffer containing the XML contents to parse </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>is_dynamic</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether to allocate nodes dynamically or use a pool </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>is_warnings</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether warnings should be allowed, or treated as errors </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether the document was read successfully (0 = Success, < 0 = failure, > 0 created with warning) </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Get_Attribute">XML_Get_Attribute</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Get_Attribute&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node node,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>const T_Glyph * name,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_Glyph * value</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Retrieve the information stored for the named attribute within the node, copying it into the buffer provided. The buffer is assumed to be large enough to hold the data retrieved. You can determine how large the attribute's contents are by calling the function XML_Get_Attribute_Size. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>node</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>node to retrieve the attribute contents for </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>name</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>name of the attribute to retrieve the contents for </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>value</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>buffer into which the attribute contents are placed </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether the operation was successful (0 = Success) </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Get_Attribute_Pointer">XML_Get_Attribute_Pointer</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>const T_Glyph *</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Get_Attribute_Pointer&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node node,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>const T_Glyph * name</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Retrieve the value of the named attribute within the node, returning a direct pointer to the data stored internally. This data must be treated as read-only, but it avoids the need to copy the data. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>node</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>node to retrieve the attribute contents for </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>name</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>name of the attribute to retrieve the contents for </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>contents of the attribute within the node </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Get_Attribute_Size">XML_Get_Attribute_Size</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Get_Attribute_Size&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node node,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>const T_Glyph * name</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Retrieve the size of the information stored for the named attribute within the node. The size returned DOES include storage for the null-terminator. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>node</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>node to retrieve the attribute size for </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>name</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>name of the attribute to retrieve the size for </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>length in characters of the attribute contents </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Get_Character_Encoding">XML_Get_Character_Encoding</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>const T_Glyph *</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Get_Character_Encoding&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Document document</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Retrieves the encoding used by an XML file into the provided buffer. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>document</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>XML document to get encoding from </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>encoding method in use </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Get_Child_Count">XML_Get_Child_Count</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Get_Child_Count&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node node</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Retrieve the total number of all child nodes for the specified node. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>node</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>node to retrieve the child count for </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>number of children possessed by the node </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Get_Document_Node">XML_Get_Document_Node</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Get_Document_Node&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Document document,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node * node</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Retrieve the XML contents node that corresponds to the root node of the specified XML document. All navigational functions in this API utilize nodes, and this function retrieves the root node for the document (i.e. the starting point for all processing). <BR><BR>Note! Unlike documents, node handles do NOT allocate any resources, and therefore may be ignored once they are no longer needed. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>document</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>XML document object to retrieve the root node for </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether the node was retrieved successfully (0 = Success) </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Get_Error">XML_Get_Error</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>const T_Glyph *</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Get_Error&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>void</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Retrieve the last error message that was reported by the XML engine. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>latest error message </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Get_First_Attribute">XML_Get_First_Attribute</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Get_First_Attribute&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node node,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_Glyph * name</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Retrieve the name of the first attribute of the specified node. If the node has any attributes, the name of the first attribute will be returned in the provided parameter. To retrieve subsequent attributes of the node, use XML_Get_Next_Attribute to continue iterating through the list. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>node</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>node to retrieve the first attribute of </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>name</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>name of the first attribute of the given node </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether the operation was successful (0 = Success) </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Get_First_Child">XML_Get_First_Child</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Get_First_Child&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node node,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node * child</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Retrieve the first child node of the specified node. If the node has any children, the first node will be returned in the provided parameter. To retrieve subsequent children of the node, use XML_Get_Next_Child to continue iterating through the list. <BR><BR>Note! Each node maintains a single "next" indicator. Any time that one of the "Get_First" functions is invoked, that "next" indicator is reset based on the function called and all subsequent calls will utilize the updated "next" position. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>node</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>node to retrieve the first child of </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>child</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>first child node of the given parent </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether the operation was successful (0 = Success) </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Get_First_Named_Child">XML_Get_First_Named_Child</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Get_First_Named_Child&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node node,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>const T_Glyph * name,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node * child</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>This function works the same as XML_Get_First_Child, except that the set of children retrieved is restricted to those possessing the specified name. Once this function is called, the given name is cached internally, so it does not need to be provided in subsequent calls to the function XML_Get_Next_Named_Child. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>node</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>node to retrieve the first child of </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>name</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>name to restrict the search to </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>child</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>first child node of the given parent with the given name </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether the operation was successful (0 = Success) </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Get_First_Named_Child_With_Attr">XML_Get_First_Named_Child_With_Attr</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Get_First_Named_Child_With_Attr&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node node,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>const T_Glyph * name,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>const T_Glyph * attr_name,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>const T_Glyph * attr_value,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node * child</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>This function works the same as XML_Get_First_Named_Child, except that the set of children retrieved is restricted to those possessing a named attribute with the specified value. Once this function is called, the given attribute and value are cached internally, so it does not need to be provided in subsequent calls to the function XML_Get_Next_Named_Child_With_Attr. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>node</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>node to retrieve the first child of </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>name</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>name of element to restrict the search to </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>attr_name</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>name of attribute to restrict the search to </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>attr_value</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>value of attribute to restrict the search to </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>child</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>first child node of the given parent with the given name </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether the operation was successful (0 = Success) </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Get_Line">XML_Get_Line</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Get_Line&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>void</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Retrieve the line number on which the last reported error occurred. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>line number on which latest error occurred </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Get_Line">XML_Get_Line</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Get_Line&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node node</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Retrieve the line number on which the specified node begins within the source data. This is helpful for reporting meta-errors where the XML is technically valid but the contents don't comply with meta-rules for the data. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>node</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>node to get the line number for </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>line number on which the node begins </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Get_Name">XML_Get_Name</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Get_Name&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node node,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_Glyph * name</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Retrieve the name of the specified node, placing it in the buffer provided. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>node</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>node to retrieve the name for </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>name</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>name of the node </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether the operation was successful (0 = Success) </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Get_Named_Child_Count">XML_Get_Named_Child_Count</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Get_Named_Child_Count&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node node,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>const T_Glyph * name</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Retrieve the total number of all child nodes for the specified node that possess the indicated name. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>node</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>node to retrieve the child count for </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>name</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>name to restrict the search to </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>number of children possessed by the node with the given name </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Get_Named_Child_With_Attr_Count">XML_Get_Named_Child_With_Attr_Count</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Get_Named_Child_With_Attr_Count&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node node,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>const T_Glyph * name,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>const T_Glyph * attr_name,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>const T_Glyph * attr_value</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Retrieve the total number of all child nodes for the specified node that possess the indicated name and an indicated attribute with the indicated value. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>node</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>node to retrieve the child count for </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>name</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>name to restrict the search to </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>attr_name</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>name of attribute to restrict the search to </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>attr_value</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>value of attribute to restrict the search to </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>number of children possessed by the node with the given name </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Get_Next_Attribute">XML_Get_Next_Attribute</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Get_Next_Attribute&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node node,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_Glyph * name</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Retrieve the name of the next attribute of the specified node. This function should be called repeatedly until it returns a non-zero result, which indicates that all of the node's attributes have been enumerated. Prior to calling this function, call XML_Get_First_Attribute to initialize the search to the first attribute. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>node</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>node to retrieve the next attribute of </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>name</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>name of the next attribute of the given node </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether the operation was successful (0 = Success) </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Get_Next_Child">XML_Get_Next_Child</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Get_Next_Child&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node node,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node * child</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Retrieve the next child node of the specified node. This function should be called repeatedly until it returns a non-zero result, which indicates that all of the node's children have been exhausted. Prior to calling this function, call XML_Get_First_Child to initialize the search to the first child node. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>node</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>node to retrieve the next child of </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>child</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>next child node of the given parent </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether the operation was successful (0 = Success) </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Get_Next_Named_Child">XML_Get_Next_Named_Child</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Get_Next_Named_Child&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node node,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node * child</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>This function works the same as XML_Get_Next_Child, except that the set of children retrieved is restricted to those possessing the specified name. It is assumed that XML_Get_First_Named_Child is called first, as the name given to that function call is cached and re-used by calls to this function. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>node</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>node to retrieve the next child of </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>child</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>next child node of the given parent with the established name </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether the operation was successful (0 = Success) </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Get_Next_Named_Child_With_Attr">XML_Get_Next_Named_Child_With_Attr</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Get_Next_Named_Child_With_Attr&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node node,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node * child</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>This function works the same as XML_Get_Next_Named_Child, except that the set of children retrieved is restricted to those possessing a named attribute with the specified value. It is assumed that XML_Get_First_Named_Child_With_Attr is called first, as the name given to that function call is cached and re-used by calls to this function. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>node</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>node to retrieve the next child of </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>child</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>next child node of the given parent with the established name </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether the operation was successful (0 = Success) </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Get_PCDATA">XML_Get_PCDATA</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Get_PCDATA&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node node,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_Glyph * pcdata</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Retrieve the PCDATA information stored within the node, copying it into the buffer provided. The buffer is assumed to be large enough to hold the data retrieved. You can determine how large the PCDATA is by calling the function XML_Get_PCDATA_Size. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>node</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>node to retrieve the PCDATA information from </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>pcdata</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>buffer into which the PCDATA information is placed </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether the operation was successful (0 = Success) </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Get_PCDATA_Pointer">XML_Get_PCDATA_Pointer</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>const T_Glyph *</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Get_PCDATA_Pointer&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node node</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Retrieve the PCDATA information stored within the node, returning a direct pointer to the data stored internally. This data must be treated as read-only, but it avoids the need to copy the data. If the node has no PCDATA, then an empty string is returned. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>node</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>node to retrieve the PCDATA information from </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>contents of PCDATA within the node </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Get_PCDATA_Size">XML_Get_PCDATA_Size</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Get_PCDATA_Size&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node node</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Retrieve the size of the PCDATA information stored within the node. The size returned DOES include storage for the null-terminator. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>node</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>node to retrieve the PCDATA size for </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>length in characters of the PCDATA information </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Handle_Unknowns">XML_Handle_Unknowns</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>void</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Handle_Unknowns&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>bool is_ignore</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Specify whether the XML parser will ignore tags and attributes that it doesn't recognize. If not, then all unrecognized tags/attributes will result in a failed parse. <BR><BR>One of the hallmarks of XML is that any XML document must be well-formed. As such, it must always contain exactly the set of information that is specified by the DTD. Unfortunately, in the world of evolving software, this is not always a good thing. If code is written that assumes a particular DTD and then a new version of the DTD is released that contains augmented data, the old code will fail to recognize the new contents and require being revised. To work around this problem, the XML parser can be told to simply "ignore" any new tags and/or attributes that it doesn't recognize. This means that a new XML file that only ADDS new information (i.e. no existing contents are changed or removed) can continue to be read successfully. It is recommended that this feature be always enabled when you are writing code that parses XML files that could be evolving over time. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>is_ignore</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether parser should ignore unrecognized tags and attributes </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Is_PCDATA">XML_Is_PCDATA</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>bool</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Is_PCDATA&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node node</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Determine whether the node has PCDATA. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>node</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>node to check for PCDATA </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether the node possesses any PCDATA </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Normalize">XML_Normalize</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Normalize&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Document document</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Perform normalization on the document object, recursing through all children during the process. Normalization results in all child tags being sorted into compliance with the sequence specified by the hierarchy definition used when the document was created. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>document</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>XML document object to normalize </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether the operation was successful (0 = Success) </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Read_Boolean_Attribute">XML_Read_Boolean_Attribute</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>bool</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Read_Boolean_Attribute&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node xml,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_Glyph * name</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Retrieve the contents of the named attribute from the given node, treating it as a boolean value of either "yes" or "no", and converting it to a true/false return value. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>xml</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>node to extract the attribute from </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>name</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>name of the attribute </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether attribute is yes/true or no/false </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Read_Document">XML_Read_Document</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Read_Document&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Document * document,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Element * root,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>const T_Glyph * filename,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>bool is_dynamic,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>bool is_warnings</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Open the file specified and attempt to read its contents in as an XML representation that matches the XML hierarchy definition provided. The hierarchy is given as its root node, which is assumed to describe the entire underlying tree of child nodes. If the contents correctly match the hierarchy definition, a document handle is created and returned that can be used in subsequent calls to this API. When the document handle is no longer needed, you should call the function XML_Destroy_Document. <BR><BR>Note! The file is opened and closed by this function. No open files are maintained, as the entire contents are parsed into memory by this function. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>document</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>created XML document object containing file contents </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>root</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>pointer to root node of the XML hierarchy definition </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>filename</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>filename to open and read the XML contents from </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>is_dynamic</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether to allocate nodes dynamically or use a pool </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>is_warnings</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether warnings should be allowed, or treated as errors </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether the document was read successfully (0 = Success, < 0 = failure, > 0 created with warning) </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Read_Float_Attribute">XML_Read_Float_Attribute</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>double</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Read_Float_Attribute&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node xml,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_Glyph * name</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Retrieve the contents of the named attribute from the given node, treating it as a floating point value, and converting it to a floating point return value. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>xml</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>node to extract the attribute from </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>name</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>name of the attribute </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>converted floating point value of attribute </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Read_Integer_Attribute">XML_Read_Integer_Attribute</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Read_Integer_Attribute&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node xml,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_Glyph * name</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Retrieve the contents of the named attribute from the given node, treating it as an integer value, and converting it to an integer return value. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>xml</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>node to extract the attribute from </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>name</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>name of the attribute </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>converted integer value of attribute </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Read_Text_Attribute">XML_Read_Text_Attribute</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>T_Glyph *</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Read_Text_Attribute&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node xml,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_Glyph * name,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_Glyph * buffer</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Retrieve the contents of the named attribute from the given node, placing the results in the buffer and returning a pointer to that buffer. The caller must ensure that the buffer is large enough to contain the attribute value. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>xml</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>node to extract the attribute from </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>name</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>name of the attribute </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>buffer</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>buffer into which the attribute contents are written </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>pointer to buffer containing attribute contents </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Set_Attribute">XML_Set_Attribute</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Set_Attribute&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node node,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>const T_Glyph * name,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>const T_Glyph * value,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>bool use_pool</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Set the information for the named attribute of the node to be the string value specified. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>node</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>node to set the attribute information for </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>name</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>name of the attribute to set the contents for </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>value</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>new information to store as the attribute contents </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>use_pool</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether to allocate new storage from pool or save the pointer </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether the operation was successful (0 = Success) </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Set_Character_Encoding">XML_Set_Character_Encoding</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Set_Character_Encoding&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Document document,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_Glyph * encoding</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Sets the encoding method used in the XML file. If one is not specified, the default is used (this can be found at the top of xml.h). <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>document</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>XML document to set encoding for </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>encoding</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>new encoding method to use </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Set_Default_Character_Encoding">XML_Set_Default_Character_Encoding</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Set_Default_Character_Encoding&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_Glyph * encoding</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Sets the encoding method assumed by the XML layer when none is specified by the xml document. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>encoding</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>new encoding method to use </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether the operation was successful (0 = Success) </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Set_Error">XML_Set_Error</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>void</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Set_Error&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_Glyph * msg</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Set the error message to be the string specified. If an error has already been posted, the old error is retained and the new one ignored. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>msg</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>error message to be posted </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Set_Error_Buffer">XML_Set_Error_Buffer</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>void</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Set_Error_Buffer&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_Glyph * buffer</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Configure the XML engine to use the specified buffer as the buffer in which all error messages are written. The caller must ensure that the buffer is large enough. If NULL is specified, an internal buffer is used instead. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>buffer</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>buffer to write all error messages into </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Set_PCDATA">XML_Set_PCDATA</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Set_PCDATA&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node node,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>const T_Glyph * pcdata,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>bool use_pool</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Set the PCDATA information for the node to be the string value specified. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>node</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>node to set the PCDATA information for </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>pcdata</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>new information to store as the PCDATA for the node </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>use_pool</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether to allocate new storage from pool or save the pointer </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether the operation was successful (0 = Success) </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Validate">XML_Validate</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Validate&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Document document</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Perform validation on the document object, recursing through all children during the process. Validation checks to ensure that all tags occur with the correct frequency specified by the hierarchy definition used when the document was created. In addition, all required attributes are verified to be specified within the document, and attributes that are governed by a set of valid values are confirmed to be one of those values. <BR><BR>Note! Before validation is performed, the document is automatically normalized. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>document</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>XML document object to validate </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether the operation was successful (0 = Success) </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Validate_Node">XML_Validate_Node</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Validate_Node&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node node</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>As XML_Validate, above, but the specified node and all children are validated, rather than the entire document. <BR><BR>Note! Before validation is performed, the node is automatically normalized. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>node</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>XML node to validate </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether the operation was successful (0 = Success) </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Write_Boolean_Attribute">XML_Write_Boolean_Attribute</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>void</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Write_Boolean_Attribute&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node xml,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_Glyph * name,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>bool is_true</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Write the new boolean value out for the named attribute of the given node, converting the true/false state to the corresponding "yes" or "no" value. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>xml</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>node to write the attribute to </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>name</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>name of the attribute </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>is_true</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>new value for the attribute </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Write_Document">XML_Write_Document</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Write_Document&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Document document,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>const T_Glyph * filename,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>bool is_detailed</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Write the entire contents of the specified XML document object out to the filename indicated. Prior to writing the file, the document object is first normalized (see XML_Normalize) and then validated (see XML_Validate), which ensures that document object is complete and fully compliant with respect to the hierarchy definition specified when the document was created. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>document</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>XML document object to be written out to the file </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>filename</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>filename to create and write the XML contents out to </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>is_detailed</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether to output attributes that match the default value </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether the document was written successfully (0 = Success) </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Write_DTD">XML_Write_DTD</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>long</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Write_DTD&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_Glyph * filename,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Element * root</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Given an XML element to use as the root of a structure, renders the structure into DTD format. (The style of the output is 'depth first' - that is, the first node is displayed, then the first child of the first node, then the first child of that node, and so on.) <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>filename</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>name of file to render DTD into </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>root</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>XML element to use as the root of the DTD </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>return</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0><==</Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>whether the operation was successful (0 = Success) </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Write_Float_Attribute">XML_Write_Float_Attribute</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>void</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Write_Float_Attribute&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node xml,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_Glyph * name,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>double value</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Write the new floating point value out for the named attribute of the given node, converting the floating point value to text. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>xml</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>node to write the attribute to </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>name</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>name of the attribute </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>value</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>new value for the attribute </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Write_Integer_Attribute">XML_Write_Integer_Attribute</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>void</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Write_Integer_Attribute&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node xml,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_Glyph * name,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>long value</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Write the new integer value out for the named attribute of the given node, converting the integer value to text. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>xml</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>node to write the attribute to </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>name</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>name of the attribute </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>value</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>new value for the attribute </Font> </TD>
+</Table>
+<BR><HR><BR>
+<FONT COLOR=#E0E0E0 SIZE=+2><B><A name="XML_Write_Text_Attribute">XML_Write_Text_Attribute</A>
+</B></FONT>
+<BR><BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0 Size=+1>void</Font> </TD>
+<TD Align="Left" Width="80%"> <Font COLOR=#E0E0E0 Size=+1>XML_Write_Text_Attribute&nbsp(</Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_XML_Node xml,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_Glyph * name,</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>T_Glyph * value</Font> </TD>
+<TR>
+<TD Align="Left" Width="25%"> <Font COLOR=#E0E0E0 Size=+1></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0 Size=+1>);</Font> </TD>
+</Table>
+<BR><Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="95%"> <Font COLOR=#E0E0E0>Write the new text value out for the named attribute of the given node. <BR><BR></Font> </TD>
+</Table>
+<Table Border=0 Width="100%" cellspacing="0" cellpadding="0">
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>xml</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>node to write the attribute to </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>name</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>name of the attribute </Font> </TD>
+<TR>
+<TD Align="Left" Width="5%"> <Font COLOR=#E0E0E0></Font> </TD>
+<TD Align="Left" Width="15%"> <Font COLOR=#E0E0E0>value</Font> </TD>
+<TD Align="Center" Width="5%"> <Font COLOR=#E0E0E0>==></Font> </TD>
+<TD Align="Left" Width="75%"> <Font COLOR=#E0E0E0>new value for the attribute </Font> </TD>
+</Table>
+<BR><HR><BR>
+</BODY>
+</HTML>

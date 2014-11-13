@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the definition of the "Skills" summary panel. This panel
+      contains the list of skills for the character.
+
+      Since all of the tables shown within this summary panel should fit within the
+      available vertical space, no scroller is required, so we turn off the scroller
+      for each table so that Hero Lab doesn't leave space for one.
+-->
+
+<document signature="Hero Lab Data">
+
+
+  <!-- smSkill portal
+        Table of skills, using the "smTrait" template defined in "summ_basics.dat".
+  -->
+  <portal
+    id="smSkill"
+    style="tblInvisSm">
+    <table_fixed
+      component="Skill"
+      showtemplate="smTrait"
+      scrollable="no">
+      </table_fixed>
+    </portal>
+
+
+  <!-- smSkill layout
+        This layout contains the table of skills for an actor.
+  -->
+  <layout
+    id="smSkill">
+    <portalref portal="smSkill"/>
+
+    <position><![CDATA[
+      ~set the width of all tables to the available width
+      portal[smSkill].width = width
+
+      ~center all tables horizontally
+      portal[smSkill].left = (width - portal[smSkill].width) / 2
+
+      ~set the heights of the tables to use all the space they need
+      portal[smSkill].height = height
+
+      ~position the tables vertically
+      portal[smSkill].top = 0
+      ]]></position>
+
+    </layout>
+
+
+  <!-- smSkill panel
+        This panel is designated as a summary panel and given an order that positions
+        it properly amongst the other defined summary panels. We setup a small margin
+        to indent the layout from the edges of the panel.
+
+        The panel is assigned a "live" tagexpr so that its visibility can be
+        controlled for different types of characters. While not really useful in the
+        sample data files, this approach can be quite useful when the data files
+        expand to govern creation of widely varying characters, such as vampires vs.
+        ghosts vs. mortals in the World of Darkness game system.
+  -->
+  <panel
+    id="smSkill"
+    name="Skills"
+    order="10030"
+    marginhorz="2"
+    marginvert="2"
+    issummary="yes">
+    <live>!HideTab.smSkill</live>
+    <layoutref layout="smSkill"/>
+
+    <position><![CDATA[
+      ]]></position>
+
+    </panel>
+
+
+  </document>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the assortment of feats for the game system.
+      Feats confer their effects through scripts that apply the necessary changes
+      to the appropriate traits.
+
+      Feats influence traits, so all adjustments must be applied prior to when the
+      final trait value is calculated. The script timing used below (PreTraits/5000)
+      ensures that we satisfy this requirement. Unless the feat specifies otherwise,
+      all feats should be designated as "unique" so that they can only be selected a
+      single time by the user.
+-->
+
+<document signature="Hero Lab Data">
+
+  <!-- Sample Feat -->
+  <thing id="ftSample" name="Sample Feat" description="A sample feat." compset="Feat">
+    <arrayval field="usrArray" index="0" value="Choice 1"/>
+    <arrayval field="usrArray" index="1" value="Choice 2"/>
+    <arrayval field="usrArray" index="2" value="Choice 3"/>
+    <usesource source="Sample"/>
+    <tag group="Tier" tag="Heroic"/>
+    <tag group="ReqClass" tag="clsSample"/>
+    </thing>
+
+  <!-- Customizable Feat -->
+  <thing
+    id="ftCustom"
+    name=" &#150; Custom Feat &#150;"
+    compset="Feat"
+    isprivate="yes"
+    description="This feat can be customized to represent whatever you want."
+    summary="Custom Feat.">
+    <fieldval field="UserName" value="(Enter Feat Name)"/>
+    <tag group="Helper" tag="CustomItem"/>
+    <tag group="Tier" tag="Heroic"/>
+    </thing>
+
+  <!-- Section Headers -->
+  <thing
+    id="ftTtlHero"
+    name=" &#150; Heroic Tier Feats &#150;"
+    compset="Feat"
+    isprivate="yes"
+    isshowonly="yes"
+    description="Heroic feats can be chosen by characters of any level.">
+    <tag group="Tier" tag="Heroic"/>
+    </thing>
+  <thing
+    id="ftTtlPara"
+    name=" &#150; Paragon Tier Feats &#150;"
+    compset="Feat"
+    isprivate="yes"
+    isshowonly="yes"
+    description="Paragon feats can be chosen by characters of level 11+.">
+    <tag group="Tier" tag="Paragon"/>
+    </thing>
+  <thing
+    id="ftTtlEpic"
+    name=" &#150; Epic Tier Feats &#150;"
+    compset="Feat"
+    isprivate="yes"
+    isshowonly="yes"
+    description="Epic feats can be chosen by characters of level 21+.">
+    <tag group="Tier" tag="Epic"/>
+    </thing>
+
+  </document>

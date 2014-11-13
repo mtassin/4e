@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the definition of the output sheet used for power card output.
+      The sheet is a spillover sheet, allowing it to be rendered repeatedly until
+      all of the powercards entries have been output properly.
+-->
+
+<document signature="Hero Lab Data">
+
+  <!-- Table of power entries
+        Make sure that we designate the table as having items of varying height.
+        We specify 2 columns, and the template makes sure that you can fit 4
+        rows on a page.
+  -->
+  <portal
+    id="oPowCrdTbl"
+    style="outNormal">
+    <output_table
+      component="PowerCard"
+      showtemplate="oPowCrPick"
+      columns="2"
+      showsortset="SpecialTab"
+      showgapx="25"
+      showgapy="25">
+      <list><![CDATA[
+        (fieldval:spcPrint <> 0 & !Hide.Special) |
+        (component.MagicItem & !Print.NoPowerCrd)
+        ]]></list>
+      </output_table>
+    </portal>
+
+  <!-- Table of power entries, landscape
+        As above, but Landscape format.
+  -->
+  <portal
+    id="oPowLndTbl"
+    style="outNormal">
+    <output_table
+      component="PowerCard"
+      showtemplate="oPowCrPick"
+      columns="4"
+      showsortset="SpecialTab"
+      showgapx="25"
+      showgapy="25">
+      <list><![CDATA[
+        (fieldval:spcPrint <> 0 & !Hide.Special) |
+        (component.MagicItem & !Print.NoPowerCrd)
+        ]]></list>
+      </output_table>
+    </portal>
+
+
+  <!-- oPowCrPick template
+        This template presents the content of each individual powercards entry.
+  -->
+  <template
+    id="oPowCrPick"
+    name="Output Powercards Pick"
+    compset="Power">
+
+    <portal
+      id="border"
+      style="outCharImg">
+      <output_label
+        text=" ">
+        </output_label>
+      </portal>
+
+    <portal
+      id="imgmelee"
+      style="outImage">
+      <output_image
+        image="powerrange_melee.bmp"
+        istransparent="yes">
+        </output_image>
+      </portal>
+    <portal
+      id="imgranged"
+      style="outImage">
+      <output_image
+        image="powerrange_ranged.bmp"
+        istransparent="yes">
+        </output_image>
+      </portal>
+    <portal
+      id="imgclose"
+      style="outImage">
+      <output_image
+        image="powerrange_close.bmp"
+        istransparent="yes">
+        </output_image>
+      </portal>
+    <portal
+      id="imgarea"
+      style="outImage">
+      <output_image
+        image="powerrange_area.bmp"
+        istransparent="yes">
+        </output_image>
+      </portal>
+    <portal
+      id="imgpers"
+      style="outImage">
+      <output_image
+        image="powerrange_personal.bmp"
+        istransparent="yes">
+        </output_image>
+      </portal>
+
+    <portal
+      id="letter"
+      style="outTitle">
+      <output_label>
+        <labeltext><![CDATA[
+          ~magic items just show "Magic Item"
+          if (tagis[component.MagicItem] <> 0) then
+            @text = "M"
+            done
+            endif
+
+          ~display a letter that indicates our power usage
+          @text = "{text b0b0b0}" & uppercase(left(tagnames[PowerUse.?, "???"], 1))
+          ]]></labeltext>
+        </output_label>
+      </portal>
+
+    <portal
+      id="name"
+      style="outTitle">
+      <output_label
+        field="name">
+        </output_label>
+      </portal>
+
+    <portal
+      id="keywords"
+      style="outKeyword">
+      <output_label>
+        <labeltext><![CDATA[
+          ~magic items just show "Magic Item"
+          if (tagis[component.MagicItem] <> 0) then
+            @text = "Magic Item"
+            done
+            endif
+
+          ~start with our usage
+          @text &= tagabbrevs[PowerUse.?, "???"]
+
+          ~append the class & level if we have one
+          if (tagis[PowerClass.?] + tagis[PowerPath.?] + tagis[PowerTheme.?] <> 0) then
+            @text &= " (" & tagnames[PowerClass.?, "???"] & tagnames[PowerPath.?, "???"] & tagnames[PowerTheme.?, "???"]
+            if (tagis[ReqLevel.?] <> 0) then
+              @text &= " " & tagvalue[ReqLevel.?]
+              endif
+            @text &= ") - "
+            endif
+
+          ~append a 'uses' counter if necessary
+          if (tagis[PowerUse.Encounter] + tagis[PowerUse.Daily?] <> 0) then
+            if (field[spcMax].value > 1) then
+              @text &= field[spcMax].value & " uses" & " - "
+              endif
+            endif
+
+          var keywords as string
+          call Keywords
+          @text &= keywords
+          ]]></labeltext>
+        </output_label>
+      </portal>
+
+    <portal
+      id="titlebrd"
+      style="outCharImg">
+      <output_label
+        text=" ">
+        </output_label>
+      </portal>
+
+    <portal
+      id="info"
+      style="outSmall">
+      <output_label>
+        <labeltext><![CDATA[
+          var descript as string
+          var noflavor as number
+          var nokeyusage as number
+          noflavor = 1
+          nokeyusage = 1
+          call Descript
+          @text = "{align left}" & descript
+          ]]></labeltext>
+        </output_label>
+      </portal>
+
+    <portal
+      id="atkbox"
+      style="outAtkBox">
+      <output_label
+        text=" ">
+        </output_label>
+      </portal>
+
+    <portal
+      id="attack"
+      style="outDamTtl">
+      <output_label>
+        <labeltext><![CDATA[
+          ~magic items show nothing here
+          doneif (tagis[component.MagicItem] <> 0)
+
+          ~simple powers just show our full attack details here
+          if (tagis[component.Power] = 0) then
+            @text = "{/b}" & field[puAttack].text
+            done
+            endif
+
+          ~start with our 'X vs Y' text in a small font
+          @text = "{/b}" & left(tagnames[Attack.?, "???"], 3)
+          if (field[pwAtkMod].value <> 0) then
+            @text &= " " & signed(field[pwAtkMod].value)
+            endif
+          @text &= " vs. " & tagabbrevs[AttackVs.?, "???"]
+
+          ~now output our normal bonus in a big font
+          @text &= "{size 60}{b}{br}{vert 20}" & signed(field[pwAtkTotal].value)
+          ]]></labeltext>
+        </output_label>
+      </portal>
+
+    <portal
+      id="damagesml"
+      style="outDamTtl">
+      <output_label>
+        <labeltext><![CDATA[
+          ~simple powers don't use this label
+          doneif (tagis[component.Power] = 0)
+
+          @text = field[pwDamBase].text
+          ]]></labeltext>
+        </output_label>
+      </portal>
+
+    <portal
+      id="damagebig"
+      style="outPowDam">
+      <output_label>
+        <labeltext><![CDATA[
+          ~simple powers don't use this label
+          doneif (tagis[component.Power] = 0)
+
+          @text = field[pwDamage].text
+          ]]></labeltext>
+        </output_label>
+      </portal>
+
+    <position><![CDATA[
+      ~our height is set up in the panel script
+      height = scenevalue[cardheight] - parent.gapy
+      doneif (issizing <> 0)
+
+      ~place our border around the whole template
+      portal[border].width = width
+      portal[border].height = height
+
+      ~position the letter (A/E/D/F) at the top-left of the template, just
+      ~inside the border.
+      portal[letter].left = 2
+      portal[letter].top = 2
+      portal[letter].width *= 1.5
+
+      ~if our 'color output' is disabled, do nothing special.
+      if (hero.tagis[source.PowCardBW] <> 0) then
+        ~do nothing
+
+      ~otherwise, if this is an encounter or at-will power, change the style
+      ~appropriately.
+      elseif (tagis[PowerUse.Encounter] <> 0) then
+        perform portal[letter].setstyle[outTitleEn]
+        perform portal[name].setstyle[outTitleEn]
+        perform portal[keywords].setstyle[outKeyEn]
+      elseif (tagis[PowerUse.AtWill] <> 0) then
+        perform portal[letter].setstyle[outTitleAt]
+        perform portal[name].setstyle[outTitleAt]
+        perform portal[keywords].setstyle[outKeyAt]
+        endif
+
+      ~our name should always be a single line of text, positioned just inside
+      ~the border
+      portal[name].top = portal[letter].top
+      portal[name].lineheight = 1
+
+      ~set our name width to less than the total width, then shrink the font
+      ~until it fits - this makes sure we have a small margin on either side
+      ~of the name.
+      portal[name].left = portal[letter].right
+      portal[name].width = width - 50 - portal[name].left
+      perform portal[name].sizetofit[30]
+      portal[name].width = width - 2 - portal[name].left
+
+      var nexttop as number
+      nexttop = portal[name].bottom
+
+      ~if our keywords are 0-width (i.e. no text), hide them - otherwise,
+      ~position them just under the name
+      if (portal[keywords].width = 0) then
+        portal[keywords].visible = 0
+      else
+        portal[keywords].width = width - 50
+        perform portal[keywords].sizetofit[24]
+        portal[keywords].width = portal[name].width
+        portal[keywords].left = portal[name].left
+        portal[keywords].top = portal[name].bottom
+        nexttop = portal[keywords].bottom
+
+        ~extend our letter portal downward to cover the extra space
+        portal[letter].height = portal[keywords].bottom - portal[letter].top + 1
+        endif
+
+      ~put a border around our title - give it a couple of extra pixels of
+      ~height to make sure the color doesn't overwrite it
+      portal[titlebrd].width = width
+      portal[titlebrd].height = nexttop + 5 - portal[titlebrd].top
+
+      ~set our attack info up on the right or bottom, as appropriate
+      var maxright as number
+      var maxbottom as number
+      var imagespace as number
+      imagespace = 15
+      maxright = width
+      maxbottom = height
+      if (scenevalue[attack] <> 0) then
+        portal[atkbox].width = width / 5
+        portal[atkbox].left = width - portal[atkbox].width
+        portal[atkbox].top = portal[titlebrd].bottom - 1
+        portal[atkbox].height = height - portal[atkbox].top
+        maxright = portal[atkbox].left - imagespace
+
+        portal[attack].width = width / 5 - 30
+        perform portal[attack].autoheight
+        portal[attack].left = portal[atkbox].left + (portal[atkbox].width - portal[attack].width) / 2
+        portal[attack].top = portal[titlebrd].bottom + 15
+
+        portal[damagesml].width = portal[attack].width
+        if (portal[damagesml].textwidth > portal[damagebig].width) then
+          perform portal[damagesml].sizetofit[24]
+          endif
+        perform portal[damagesml].autoheight
+        portal[damagesml].left = portal[atkbox].left + (portal[atkbox].width - portal[damagesml].width) / 2
+
+        portal[damagebig].width = portal[attack].width
+        if (portal[damagebig].textwidth > portal[damagebig].width) then
+          perform portal[damagebig].sizetofit[36]
+          endif
+        perform portal[damagebig].autoheight
+        portal[damagebig].left = portal[damagesml].left
+
+        portal[damagesml].top = portal[attack].bottom + 25
+        portal[damagebig].top = portal[damagesml].bottom + 40
+      else
+        portal[atkbox].left = 0
+        portal[atkbox].width = width
+        portal[atkbox].height = portal[imgmelee].height + imagespace
+        portal[atkbox].top = height - portal[atkbox].height
+        maxbottom = portal[atkbox].top
+
+        portal[attack].left = 15
+        portal[attack].width = width / 3
+        perform portal[attack].autoheight
+        perform portal[attack].alignedge[bottom,-15]
+
+        perform portal[damagesml].alignrel[ttot,attack,0]
+        perform portal[damagesml].centerhorz
+
+        perform portal[damagebig].alignrel[ttob,damagesml,26]
+        perform portal[damagebig].centerhorz
+        endif
+
+      ~position the info beneath the title, extending the rest of the way down
+      ~the card
+      portal[info].top = nexttop + 10
+      portal[info].height = maxbottom - portal[info].top
+      portal[info].left = 10
+
+      ~if we don't have attack info, hide the portal and make our normal info
+      ~extend the whole way
+      if (tagis[Attack.?] = 0) then
+        portal[attack].visible = 0
+        portal[atkbox].visible = 0
+        portal[info].width = width - 20
+
+      ~otherwise, set our info up in the remaining space
+      else
+        portal[info].width = maxright - 20
+        endif
+
+      ~if the info doesn't fit, shrink text until it does
+      if (portal[info].textheight > portal[info].height) then
+        perform portal[info].sizetofit[24]
+        endif
+
+      ~center our range images at the bottom-right, within the attack info
+      ~region (note that this may not always be visible, but it's nice to
+      ~have them in the same place).
+      var margin as number
+      margin = -1 * imagespace / 2
+      perform portal[imgmelee].alignedge[right,margin]
+      perform portal[imgmelee].alignedge[bottom,margin]
+      perform portal[imgranged].alignedge[right,margin]
+      perform portal[imgranged].alignedge[bottom,margin]
+      perform portal[imgclose].alignedge[right,margin]
+      perform portal[imgclose].alignedge[bottom,margin]
+      perform portal[imgarea].alignedge[right,margin]
+      perform portal[imgarea].alignedge[bottom,margin]
+      perform portal[imgpers].alignedge[right,margin]
+      perform portal[imgpers].alignedge[bottom,margin]
+
+      ~show the relevant range image
+      portal[imgmelee].visible = tagis[AttackType.Melee?]
+      portal[imgranged].visible = tagis[AttackType.Range?]
+      portal[imgclose].visible = tagis[AttackType.Close?]
+      portal[imgarea].visible = tagis[AttackType.Area?]
+      portal[imgpers].visible = !(portal[imgmelee].visible + portal[imgranged].visible + portal[imgclose].visible + portal[imgarea].visible)
+      ]]></position>
+    </template>
+
+
+  <!-- oPowerCard layout
+        This layout contains only the table of power cards.
+  -->
+  <layout
+    id="oPowerCard">
+    <portalref portal="oPowCrdTbl"/>
+    <position><![CDATA[
+      ~position and size the table to span the full layout
+      var rows as number
+      rows = 4
+      scenevalue[cardheight] = height / rows
+      perform portal[oPowCrdTbl].autoplace
+      ]]></position>
+    </layout>
+
+  <!-- oPowerLand layout
+        Landscape power card layout.
+  -->
+  <layout
+    id="oPowerLand">
+    <portalref portal="oPowLndTbl"/>
+    <position><![CDATA[
+      ~position and size the table to span the full layout
+      var rows as number
+      rows = 2
+      scenevalue[cardheight] = height / rows
+      perform portal[oPowLndTbl].autoplace
+      ]]></position>
+    </layout>
+
+
+  <!-- powercards sheet
+        This sheet is a spillover sheet, so it will continue to be printed as long
+        as there remain powercards entries that have not yet been printed. The sheet
+        consists of the single layout that renders the table of power cards.
+  -->
+  <sheet
+    id="powercards"
+    name="Power Cards"
+    spillover="yes">
+    <layoutref layout="oPowerCard"/>
+    <position><![CDATA[
+      scenevalue[attack] = 1
+      ]]></position>
+    </sheet>
+
+  <!-- powerlands sheet
+        Landscape power cards sheet.
+  -->
+  <sheet
+    id="powerlands"
+    name="Power Cards (Landscape)"
+    landscape="yes"
+    spillover="yes">
+    <layoutref layout="oPowerLand"/>
+    <position><![CDATA[
+      scenevalue[attack] = 0
+      ]]></position>
+    </sheet>
+
+
+  </document>

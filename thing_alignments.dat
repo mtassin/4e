@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the list of alignment types.
+-->
+
+<document signature="Hero Lab Data">
+
+  <thing
+    id="LawGood"
+    name="Lawful Good"
+    compset="Alignment"
+    isunique="yes">
+    <tag group="explicit" tag="10"/>
+    <tag group="Alignment" tag="Lawful"/>
+    <tag group="Alignment" tag="Good"/>
+    </thing>
+
+  <thing
+    id="Good"
+    name="Good"
+    compset="Alignment"
+    isunique="yes">
+    <tag group="explicit" tag="20"/>
+    <tag group="Alignment" tag="Good"/>
+    </thing>
+
+  <thing
+    id="Unaligned"
+    name="Unaligned"
+    compset="Alignment"
+    isunique="yes">
+    <tag group="explicit" tag="30"/>
+    </thing>
+
+  <thing
+    id="Evil"
+    name="Evil"
+    compset="Alignment"
+    isunique="yes">
+    <tag group="explicit" tag="40"/>
+    <tag group="Alignment" tag="Evil"/>
+    <containerreq phase="Initialize" priority="100"><![CDATA[
+      !source.RPGA
+      ]]></containerreq>
+    </thing>
+
+  <thing
+    id="ChaotEvil"
+    name="Chaotic Evil"
+    compset="Alignment"
+    isunique="yes">
+    <tag group="explicit" tag="50"/>
+    <tag group="Alignment" tag="Chaotic"/>
+    <tag group="Alignment" tag="Evil"/>
+    <containerreq phase="Initialize" priority="100"><![CDATA[
+      !source.RPGA
+      ]]></containerreq>
+    </thing>
+
+  </document>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the assortment of backgrounds (for example, FR backgrounds)
+      for the game system. Backgrounds confer their effects through scripts that apply the
+      necessary changes to the appropriate traits.
+-->
+
+<document signature="Hero Lab Data">
+
+  <thing id="bgSample" name="Sample Background" compset="Background">
+    <usesource source="Sample"/>
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+
+  </document>

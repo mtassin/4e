@@ -1,0 +1,859 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the definition of the "Armory" tab panel. This tab is where
+      the user selects weapons and armor for the character.
+
+      All public visual elements used with this tab panel start with the prefix "ar"
+      to associate them with the tab.
+-->
+
+<document signature="Hero Lab Data">
+
+
+  <!-- arMelee portal
+        Presents a dynamic table where the user can add melee weapons for the
+        character.
+
+        We use separate templates for selecting weapons and showing the weapons
+        that have been chosen. Each of these appears further below.
+
+        We use an "additem" script to simply prompt the user to add weapons. We also
+        add some extra vertical spacing above and below the "add" item.
+
+        The "buytemplate" and "selltemplate" attributes automatically hook in the
+        logic appropriate for buying and selling items for cash. When a "buytemplate"
+        is specified, adding an item automatically shows the template in the lower
+        right corner (beneath the description), allowing the user to control the
+        purchase price. When a "selltemplate" is specified, the template is shown
+        when the user clicks on the delete button, allowing the user to control the
+        selling price and quantity for the item.
+
+        We use a "candidate" tag expression to limit the choices the user can make.
+        We don't want to include natural attacks as purchasable, so we omit them.
+
+        We could specify a component of "WeapMelee" and achieve the same result,
+        with one exception. For consistency and to eliminate any need for code
+        duplication, all of the transaction logic for buying and selling gear is
+        defined for the "Gear" component. HL invokes the buy/sell logic associated
+        with the component specified, with none being invoked if the component does
+        not specify the logic. Consequently, we have to specify the "Gear" component
+        in order to ensure that all the buy/sell logic is invoked properly. This
+        forces us to filter on the "WeapMelee" component in both the "list" and the
+        "candidate" tag expressions.
+
+        We use a "description" script to generate the appropriate information for
+        display to the user as a description when choosing special abilities. We
+        call a general procedure for the game system for this purpose.
+
+        We use a "headertitle" script to place a suitable title above the table.
+  -->
+  <portal
+    id="arMelee"
+    style="tblNormal">
+    <table_dynamic
+      component="Gear"
+      showtemplate="arWpnPick"
+      choosetemplate="arWpnThing"
+      buytemplate="BuySizCash"
+      selltemplate="SellCash">
+      <list><![CDATA[
+        component.WeapMelee & !Hide.Weapon
+        ]]></list>
+      <candidate inheritlist="yes"><![CDATA[
+        !Equipment.Natural & !component.MagicStaff & !User.HexbladeWp
+        ]]></candidate>
+      <description/>
+      <headertitle><![CDATA[
+        @text = "Melee Weapons"
+        ]]></headertitle>
+      <additem><![CDATA[
+        @text = "Add New Melee Weapons"
+        ]]></additem>
+      </table_dynamic>
+    </portal>
+
+
+  <!-- arRange portal
+        Presents a dynamic table where the user can add ranged weapons for the
+        character. This portal is identical to "arMelee" above, except that it
+        manages ranged weapons instead of melee weapons, resulting in a few minor
+        but important differences from the melee weapons table.
+  -->
+  <portal
+    id="arRange"
+    style="tblNormal">
+    <table_dynamic
+      component="Gear"
+      showtemplate="arWpnPick"
+      choosetemplate="arWpnThing"
+      buytemplate="BuySizCash"
+      selltemplate="SellCash">
+      <list><![CDATA[
+        component.WeapRange & !Hide.Weapon
+        ]]></list>
+      <candidate inheritlist="yes"><![CDATA[
+        !Equipment.Natural
+        ]]></candidate>
+      <description/>
+      <headertitle><![CDATA[
+        @text = "Ranged Weapons"
+        ]]></headertitle>
+      <additem><![CDATA[
+        @text = "Add New Ranged Weapons"
+        ]]></additem>
+      </table_dynamic>
+    </portal>
+
+
+  <!-- arArmor portal
+        Presents a dynamic table where the user can add armor and shields for the
+        character. This portal is identical to "arMelee" above, except that it
+        manages defensive gear instead of melee weapons, resulting in a few minor
+        but important differences from the melee weapons table.
+
+        Since we show both armor AND shields in the same table, we use the "Armory"
+        sortset to sort all of the armor first and then the shields below.
+  -->
+  <portal
+    id="arArmor"
+    style="tblNormal">
+    <table_dynamic
+      component="Gear"
+      showtemplate="arDefPick"
+      choosetemplate="arDefThing"
+      showsortset="Armory"
+      buytemplate="BuyCash"
+      selltemplate="SellCash">
+      <list>component.ArmorBase</list>
+      <candidate inheritlist="yes"><![CDATA[
+        !Equipment.Natural & fieldval:arMinBonus = 0
+        ]]></candidate>
+      <description/>
+      <headertitle><![CDATA[
+        @text = "Armor & Shields"
+        ]]></headertitle>
+      <additem><![CDATA[
+        @text = "Add New Armor and Shields"
+        ]]></additem>
+      </table_dynamic>
+    </portal>
+
+
+  <!-- arWpnThing template
+        Derived from the SimpleItem template, this template includes the weapon
+        damage and purchase cost. It is specifically for showing things for the
+        user to select.
+
+        It would be reasonable to assume that we could designate the range as a
+        simple field-based label portal, but that won't work. If the weapon is a
+        melee weapon, it won't have the range field, so you'll get run-time errors
+        when Hero Lab tries to access the field associated with the portal. The
+        solution is to use a script-based label that properly checks whether the
+        weapon is ranged. If so, then the field can be safely accessed. If not,
+        then the text is left as empty.
+  -->
+  <template
+    id="arWpnThing"
+    name="Weapon Thing"
+    compset="Weapon"
+    marginhorz="3"
+    marginvert="2">
+
+    <portal
+      id="name"
+      style="lblNormal">
+      <label
+        field="name">
+        </label>
+      </portal>
+
+    <portal
+      id="prof"
+      style="lblNormal">
+      <label
+        field="wpProf">
+        </label>
+      </portal>
+
+    <portal
+      id="damage"
+      style="lblNormal">
+      <label
+        field="wpDamage">
+        </label>
+      </portal>
+
+    <portal
+      id="range"
+      style="lblDisable">
+      <label>
+        <labeltext><![CDATA[
+          if (tagis[component.WeapRange] <> 0) then
+            @text = field[wpRange].text
+          else
+            @text = ""
+            endif
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <portal
+      id="cost"
+      style="lblNormal">
+      <label>
+        <labeltext><![CDATA[
+          @text = field[grCost].text
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <position><![CDATA[
+      ~set up our dimensions, with a width that we dictate; our width can vary
+      ~between weapon types, since ranged weapons require extra space for the range
+      height = portal[name].height
+      if (tagis[component.WeapRange] <> 0) then
+        width = 410
+      else
+        width = 350
+        endif
+
+      ~if we're in our 'magic weapons' table, we don't want to show the weapon
+      ~cost, because weapons on magic weapons are free. Reduce the width
+      ~appropriately and hide the portal.
+      if (container.ishero = 0) then
+        width -= 60
+        portal[cost].visible = 0
+        endif
+
+      ~if this is a "sizing" calculation, we're done
+      doneif (issizing <> 0)
+
+      ~position the cost portal on the far right
+      perform portal[cost].alignedge[right,0]
+
+      ~determine the center point position for our proficiency column
+      var center as number
+      center = 175
+
+      ~position the damage portal to the left of the cost; we want the damage to
+      ~be centered in its own column relative to a centerpoint position
+      portal[prof].left = center - portal[prof].width / 2
+      if (portal[prof].value = 0) then
+        portal[prof].visible = 0
+        endif
+
+      ~determine the center point position for our damage column
+      center = 250
+
+      ~position the damage portal to the left of the cost; we want the damage to
+      ~be centered in its own column relative to a centerpoint position
+      portal[damage].left = center - portal[damage].width / 2
+
+      ~determine the center point position for our range column
+      center = 320
+
+      ~position the range portal to be centered in its own column relative to a
+      ~centerpoint position
+      portal[range].left = center - portal[range].width / 2
+
+      ~position the name on the left and let it use all available space
+      portal[name].left = 0
+      portal[name].width = minimum(portal[name].width,center - 20)
+      ]]></position>
+
+    </template>
+
+
+  <!-- arWpnPick template
+        Derived from the SimpleItem template, this includes the weapon damage and
+        the gear button to move equipment between various containers. We also show
+        the range for ranged weapons. This template is specifically for showing the
+        weapons that the user has already purchased.
+
+        For more details, please see the "arWpnThing" template above.
+  -->
+  <template
+    id="arWpnPick"
+    name="Weapon Pick"
+    compset="Weapon"
+    marginhorz="3"
+    marginvert="3">
+
+    <portal
+      id="name"
+      style="lblNormal"
+      showinvalid="yes">
+      <label
+        field="name">
+        </label>
+      </portal>
+
+    <portal
+      id="heldby"
+      style="imgNormal">
+      <image_literal
+        image="gearinfo.bmp"
+        isbuiltin="yes"
+        istransparent="yes">
+        </image_literal>
+      <mouseinfo><![CDATA[
+        call InfoHeld
+        ]]></mouseinfo>
+      </portal>
+
+    <portal
+      id="attack"
+      style="lblLarge">
+      <label
+        field="wpNetAtk">
+        </label>
+      <mouseinfo mousepos="middle+above"><![CDATA[
+        @text = ""
+        if (tagis[Helper.Proficient] <> 0) then
+          if (field[wpProf].value <> 0) then
+            @text &= " Proficiency bonus (" & signed(field[wpProf].value) & ")"
+            endif
+          endif
+        if (empty(field[wpBonus].history) = 0) then
+          @text = splice(@text, field[wpBonus].history, ", ")
+          endif
+        if (empty(@text) <> 0) then
+          @text = "- no changes to default values -"
+        else
+          @text = field[wpNetAtk].value & " =" & @text
+          endif
+        ]]></mouseinfo>
+      </portal>
+
+    <portal
+      id="damage"
+      style="lblLarge">
+      <label
+        field="wpDamage">
+        </label>
+      <mouseinfo mousepos="middle+above"><![CDATA[
+        @text = ""
+        if (empty(field[wpDamage].history) = 0) then
+          @text &= field[wpDamage].history
+          endif
+        if (empty(field[wpDamDice].history) = 0) then
+          if (empty(@text) = 0) then
+            @text &= "{br}{br}"
+            endif
+          @text &= "Damage Dice: " & field[wpDamDice].history
+          endif
+        if (empty(@text) <> 0) then
+          @text = "- no changes to default values -"
+          endif
+        ]]></mouseinfo>
+      </portal>
+
+    <portal
+      id="range"
+      style="lblDisable">
+      <label>
+        <labeltext><![CDATA[
+          if (tagis[component.WeapRange] <> 0) then
+            @text = field[wpRange].text
+          else
+            @text = ""
+            endif
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <portal
+      id="summary"
+      style="lblSecond">
+      <label
+        field="wpSummary">
+        </label>
+      </portal>
+
+    <portal
+      id="edit"
+      style="actEdit"
+      tiptext="Edit this Weapon">
+      <action
+        action="edit"
+        buttontext="">
+        </action>
+      </portal>
+
+    <portal
+      id="gearmanage"
+      style="actGear"
+      tiptext="Click here to choose which container to place this equipment within.">
+      <action
+        action="gear">
+        </action>
+      </portal>
+
+    <portal
+      id="info"
+      style="actInfo">
+      <action
+        action="info">
+        </action>
+      <mouseinfo/>
+      </portal>
+
+    <portal
+      id="delete"
+      style="actDelete"
+      tiptext="Click to delete this equipment">
+      <action
+        action="delete">
+        </action>
+      </portal>
+
+    <position><![CDATA[
+      ~set up our height
+      height = portal[name].height + portal[summary].height + 1
+
+      ~if this is a "sizing" calculation, we're done
+      doneif (issizing <> 0)
+
+      ~center the buttons vertically
+      perform portal[info].centervert
+      perform portal[gearmanage].centervert
+      perform portal[delete].centervert
+      perform portal[edit].centervert
+
+      ~position the delete portal on the far right
+      perform portal[delete].alignedge[right,0]
+
+      ~position the info portal to the left of the delete button
+      perform portal[info].alignrel[rtol,delete,-8]
+
+      ~position the gear portal to the left of the info button
+      perform portal[gearmanage].alignrel[rtol,info,-8]
+
+      ~position the edit portal to the left of the gear button
+      perform portal[edit].alignrel[rtol,gearmanage,-8]
+
+      ~determine the center point position for our range column
+      var center as number
+      center = 340
+
+      ~position the range portal to the left of the delete button; we want the
+      ~damage to be centered in its own column relative to a centerpoint position
+      portal[range].left = center - portal[range].width / 2
+
+      ~determine the center point position for our damage column
+      if (tagis[component.WeapRange] = 0) then
+        center = 310
+      else
+        center = 280
+        endif
+
+      ~position the damage portal to the left of the range column; we want the
+      ~damage to be centered in its own column relative to a centerpoint position
+      portal[damage].left = center - portal[damage].width / 2
+
+      ~determine the center point position for our attack column
+      center = 220
+
+      ~position the attack portal to the left of damage column; we want the
+      ~attack to be centered in its own column relative to a centerpoint position
+      portal[attack].left = center - portal[attack].width / 2
+
+      ~check whether our 'strength requirement failed' or 'held by' portals
+      ~need to be visible
+      portal[heldby].visible = isgearheld
+
+      ~position the name on the left and let it use all available space,
+      ~depending on whether the 'strength requirement failed' or 'held by'
+      ~portals are visible
+      var limit as number
+      limit = center - 20
+      if (portal[heldby].visible <> 0) then
+        limit -= portal[heldby].width - 5
+        endif
+      portal[name].left = 0
+      portal[name].width = minimum(portal[name].width,limit)
+
+      ~position the summary under the name
+      portal[summary].left = 10
+      portal[summary].top = portal[name].bottom + 4
+      portal[summary].width = portal[edit].left - portal[summary].left - 5
+
+      ~show the 'held by' icon to the right of the name
+      perform portal[heldby].alignrel[ltor,name,2]
+
+      ~if this is not a ranged weapon, hide the range portal
+      if (tagis[component.WeapRange] = 0) then
+        portal[range].visible = 0
+        endif
+
+      ~if there's a size error, grey out the weapon name
+      if (tagis[Helper.SizeError] <> 0) then
+        perform portal[name].setstyle[lblDisable]
+        endif
+      ]]></position>
+
+    </template>
+
+
+  <!-- arDefThing template
+        Derived from the SimpleItem template, this includes the defense rating and
+        purchase cost. This template is specifically for showing things that the
+        user can select.
+  -->
+  <template
+    id="arDefThing"
+    name="Armor Thing"
+    compset="ArmorBase"
+    marginhorz="3"
+    marginvert="2">
+
+    <portal
+      id="name"
+      style="lblNormal">
+      <label
+        field="name">
+        </label>
+      </portal>
+
+    <portal
+      id="defense"
+      style="lblNormal">
+      <label
+        field="arAC">
+        </label>
+      </portal>
+
+    <portal
+      id="cost"
+      style="lblNormal">
+      <label>
+        <labeltext><![CDATA[
+          @text = field[grCost].text
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <position><![CDATA[
+      ~set up our dimensions, with a width that we dictate
+      height = portal[name].height
+      width = 300
+
+      ~if we're in our 'magic armor' table, we don't want to show the armor
+      ~cost, because armor on magic items is free. Reduce the width
+      ~appropriately and hide the cost portal.
+      if (container.ishero = 0) then
+        width -= 50
+        portal[cost].visible = 0
+        endif
+
+      ~if this is a "sizing" calculation, we're done
+      doneif (issizing <> 0)
+
+      ~position the cost portal on the far right
+      perform portal[cost].alignedge[right,0]
+
+      ~determine the center point position for our defense column
+      var center as number
+      center = 230
+
+      ~position the defense portal to the left of the cost; we want the defense
+      ~to be centered in its own column relative to a centerpoint position
+      portal[defense].left = center - portal[defense].width / 2
+
+      ~position the name on the left and let it use all available space
+      portal[name].left = 0
+      portal[name].width = minimum(portal[name].width,center - 20)
+      ]]></position>
+
+    </template>
+
+
+  <!-- arDefPick template
+        Derived from the SimpleItem template, this includes the defense rating and
+        the gear button to move equipment between various containers. This template
+        is specifically for showing picks that the user has already purchased.
+  -->
+  <template
+    id="arDefPick"
+    name="Defense Pick"
+    compset="ArmorBase"
+    marginhorz="3"
+    marginvert="3">
+
+    <portal
+      id="name"
+      style="chkNormal"
+      showinvalid="yes"
+      tiptext="Click to equip this item">
+      <checkbox
+        field="grIsEquip"
+        dynamicfield="grStkName">
+        </checkbox>
+      </portal>
+
+    <portal
+      id="heldby"
+      style="imgNormal">
+      <image_literal
+        image="gearinfo.bmp"
+        isbuiltin="yes"
+        istransparent="yes">
+        </image_literal>
+      <mouseinfo><![CDATA[
+        call InfoHeld
+        ]]></mouseinfo>
+      </portal>
+
+    <portal
+      id="defense"
+      style="lblLarge">
+      <label
+        field="arAC">
+        </label>
+      </portal>
+
+    <portal
+      id="check"
+      style="lblDisable">
+      <label
+        field="arCheck">
+        </label>
+      </portal>
+
+    <portal
+      id="speed"
+      style="lblDisable">
+      <label
+        field="arSpeed">
+        </label>
+      </portal>
+
+    <portal
+      id="edit"
+      style="actEdit"
+      tiptext="Edit this Armor">
+      <action
+        action="edit"
+        buttontext="">
+        </action>
+      </portal>
+
+    <portal
+      id="gearmanage"
+      style="actGear"
+      tiptext="Click here to choose which container to place this equipment within.">
+      <action
+        action="gear">
+        </action>
+      </portal>
+
+    <portal
+      id="info"
+      style="actInfo">
+      <action
+        action="info">
+        </action>
+      <mouseinfo/>
+      </portal>
+
+    <portal
+      id="delete"
+      style="actDelete"
+      tiptext="Click to delete this equipment">
+      <action
+        action="delete">
+        </action>
+      </portal>
+
+    <position><![CDATA[
+      ~set up our height based on our tallest portal
+      height = portal[info].height
+
+      ~if this is a "sizing" calculation, we're done
+      doneif (issizing <> 0)
+
+      ~center the portals vertically
+      perform portal[info].centervert
+      perform portal[name].centervert
+      perform portal[defense].centervert
+      perform portal[check].centervert
+      perform portal[speed].centervert
+      perform portal[gearmanage].centervert
+      perform portal[delete].centervert
+      perform portal[heldby].centervert
+      perform portal[edit].centervert
+
+      ~position the delete portal on the far right
+      perform portal[delete].alignedge[right,0]
+
+      ~position the info portal to the left of the delete button
+      perform portal[info].alignrel[rtol,delete,-8]
+
+      ~position the gear portal to the left of the info button
+      perform portal[gearmanage].alignrel[rtol,info,-8]
+
+      ~position the edit portal to the left of the gear button
+      perform portal[edit].alignrel[rtol,gearmanage,-8]
+
+      ~determine the center point position for our defense column
+      var center as number
+      center = 260
+
+      ~position the defense portal to the left of the delete button; we want the
+      ~defense to be centered in its own column relative to a centerpoint position
+      portal[defense].left = center - portal[defense].width / 2
+
+      ~shrink our armor name if it's too long
+      if (portal[name].right > portal[defense].left) then
+        perform portal[name].setstyle[chkSmall]
+        portal[name].width = portal[name].textwidth + 20
+        endif
+
+      ~determine the center point position for our check column and position it
+      var center as number
+      center = 300
+      portal[check].left = center - portal[check].width / 2
+
+      ~determine the center point position for our speed column and position it
+      var center as number
+      center = 340
+      portal[speed].left = center - portal[speed].width / 2
+
+      ~position the name on the left and let it use all available space
+      var limit as number
+      limit = center - 20 - portal[heldby].width - 5
+      portal[name].left = 0
+      portal[name].width = minimum(portal[name].width,limit)
+
+      ~show the 'held by' icon to the right of the name
+      perform portal[heldby].alignrel[ltor,name,2]
+      portal[heldby].visible = isgearheld
+      ]]></position>
+
+    </template>
+
+
+  <!-- armory layout
+        This layout orchestrates the display of the visual elements that comprise
+        the Armory tab. This amounts to three pairs of title and table so the user
+        can add melee weapons, ranged weapons, and armor/shields.
+
+        The interesting facet of this layout is that it contains three separate
+        tables that can vary in height, depending on what the user chooses to add
+        to the character. These tables need to adapt their sizes to make efficient
+        use of the available space. The "position" script accomplishes this goal.
+
+        The exact steps being taken are clearly commented within the script, but
+        the basic strategy is pretty simple. First the portals at the top are
+        position, then the armor/shields table is positioned at the bottom with
+        only two items visible. The remaining space is calculated and shared
+        between the two weapon tables. Once the weapons have been given as much
+        space as they need, the armor/shields table is enlarged to take up any
+        additional space that is leftover.
+  -->
+  <layout
+    id="armory">
+    <portalref portal="arMelee" taborder="10"/>
+    <portalref portal="arRange" taborder="20"/>
+    <portalref portal="arArmor" taborder="30"/>
+
+    <!-- This script sizes and positions the layout and its child visual elements. -->
+    <position><![CDATA[
+      ~determine the gap to use between tables
+      var gap as number
+      gap = 13
+
+      ~set the width of all tables to the full width of the layout
+      portal[arMelee].width = width
+      portal[arRange].width = width
+      portal[arArmor].width = width
+
+      ~position the armor/shield table at the bottom, allowing for at most two rows
+      portal[arArmor].maxrows = 2
+      portal[arArmor].top = height - portal[arArmor].height
+
+      ~position the melee table at the top
+      portal[arMelee].top = 0
+
+      ~set the heights of the two weapon tables to use all the space available
+      portal[arMelee].height = height
+      portal[arRange].height = height
+
+      ~determine how much space we have left for the two tables; be sure to exclude
+      ~the extra title and the extra spacing we'll use inbetween
+      ~NOTE! If a value of 10 is added to the bottom coordinate of a portal, the
+      ~net value will yield an actual GAP of one less. For example, if the bottom
+      ~is at pixel 15, that pixel is part of the physical height of the portal. If
+      ~you add 10 to that position for the next portal, it starts on pixel 25, so
+      ~pixel 25 is part of the next portal. That means that pixels 16 through 24
+      ~represent the dead space inbetween, which is a span of 9 pixels. We have to
+      ~factor this detail in when adjusting the space remaining by our gaps.
+      var remain as number
+      remain = portal[arArmor].top - portal[arMelee].top
+      remain -= (gap - 1) * 2
+
+      ~if the height of both tables exceeds what we have left, we need to divvy up
+      ~that space between the two tables
+      if (portal[arMelee].height + portal[arRange].height > remain) then
+
+        ~if the melee table is less than half the space, limit the ranged table
+        ~to whatever space is leftover
+        if (portal[arMelee].height < remain / 2) then
+          portal[arRange].height = remain - portal[arMelee].height
+
+        ~if the ranged table is less than half the space, limit the melee table
+        ~to whatever space is leftover
+        elseif (portal[arRange].height < remain / 2) then
+          portal[arMelee].height = remain - portal[arRange].height
+
+        ~otherwise, both tables are larger than half the space, so we need to limit
+        ~the height of both of them
+        ~NOTE! If we just divide the remaining amount by two and set both tables to
+        ~that height, we could end up with both tables being truncated by more than
+        ~a half item, with the combined height being a full item short of taking up
+        ~the full space. So we have to set the height of one table to half the
+        ~remaining space, then subtract that table's final height from our remaining
+        ~space, and finally set that as the height for the second table.
+        else
+          portal[arRange].height = remain / 2
+          portal[arMelee].height = remain - portal[arRange].height
+          endif
+        endif
+
+      ~position the ranged weapons table beneath the melee table
+      portal[arRange].top = portal[arMelee].bottom + gap
+
+      ~position the armor/shields table beneath the ranged weapons table
+      ~NOTE! we already positioned this table, but the above logic could result in
+      ~a gap between the tables, so we close that gap by repositioning again
+      portal[arArmor].top = portal[arRange].bottom + gap
+
+      ~set the height of the armor/shields table to the whatever height is left;
+      ~if the armor list is long and the weapon lists are short, this will show as
+      ~much armor as there is remaining room to accommodate
+      portal[arArmor].height = height - portal[arArmor].top
+      ]]></position>
+
+    </layout>
+
+
+  <!-- armory panel
+        This is the "Armory" panel shown within Hero Lab. Since we want this panel
+        to appear first within the second grouping (equipment), we assign it an
+        "order" of 210.
+
+        The logic for this panel is similar to the logic for the preceeding panels,
+        so please refer to those panels for more details.
+  -->
+  <panel
+    id="armory"
+    name="Armory"
+    marginhorz="5"
+    marginvert="5"
+    order="210">
+    <live>!HideTab.armory</live>
+    <layoutref layout="armory"/>
+    <position><![CDATA[
+      ]]></position>
+    </panel>
+  </document>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the assortment of special abilities for the game system.
+      Abilities confer their effects through scripts that apply the necessary changes
+      to the appropriate traits.
+
+      Abilities influence traits, so all adjustments must be applied prior to when the
+      final trait value is calculated. The script timing used below (PreTraits/5000)
+      ensures that we satisfy this requirement. All abilities should be designated as
+      "unique" so that they can only be selected a single time by the user.
+-->
+
+<document signature="Hero Lab Data">
+
+  <thing id="pwSample" name="Sample Power" description="A sample power." compset="Power">
+    <fieldval field="pwFlavor" value="A sample power."/>
+    <fieldval field="pwTarget" value="One creature"/>
+    <fieldval field="pwAtkMod" value="2"/>
+    <usesource source="Sample"/>
+    <tag group="ActionType" tag="Standard"/>
+    <tag group="ReqLevel" tag="1"/>
+    <tag group="PowerClass" tag="clsSample"/>
+    <tag group="PowerSrc" tag="Martial"/>
+    <tag group="DamageType" tag="Force"/>
+    <tag group="EffectType" tag="Fear"/>
+    <tag group="AttackType" tag="MeleeWep"/>
+    <tag group="Attack" tag="attrStr"/>
+    <tag group="AttackVs" tag="defAC"/>
+    <tag group="PowerAcc" tag="Weapon"/>
+    <tag group="PowerType" tag="AtWill"/>
+    <tag group="EffectType" tag="Poison"/>
+    </thing>
+
+  <thing id="pwBasicMel" name="Basic Melee" description="A basic melee attack." compset="Power">
+    <fieldval field="pwTarget" value="One creature"/>
+    <tag group="Helper" tag="Bootstrap"/>
+    <tag group="ActionType" tag="Standard"/>
+    <tag group="ReqLevel" tag="1"/>
+    <tag group="AttackType" tag="MeleeWep"/>
+    <tag group="Attack" tag="attrStr"/>
+    <tag group="DamageAttr" tag="attrStr"/>
+    <tag group="AttackVs" tag="defAC"/>
+    <tag group="PowerAcc" tag="Weapon"/>
+    <tag group="PowerType" tag="AtWill"/>
+    <tag group="Damage" tag="Weapon1"/>
+    <containerreq phase="Initialize" priority="0">
+      !source.HideBasic
+      </containerreq>
+    <eval phase="Traits" priority="10000"><![CDATA[
+if (#level[] >= 21) then
+  perform delete[Damage.Weapon1]
+  perform assign[Damage.Weapon2]
+  endif
+]]></eval>
+    </thing>
+
+  <thing id="pwBasicRng" name="Basic Ranged" description="A basic ranged attack." compset="Power">
+    <fieldval field="pwTarget" value="One creature"/>
+    <tag group="Helper" tag="Bootstrap"/>
+    <tag group="ActionType" tag="Standard"/>
+    <tag group="ReqLevel" tag="1"/>
+    <tag group="AttackType" tag="RangeWep"/>
+    <tag group="Attack" tag="attrDex"/>
+    <tag group="DamageAttr" tag="attrDex"/>
+    <tag group="AttackVs" tag="defAC"/>
+    <tag group="PowerAcc" tag="Weapon"/>
+    <tag group="PowerType" tag="AtWill"/>
+    <tag group="Damage" tag="Weapon1"/>
+    <containerreq phase="Initialize" priority="0">
+      !source.HideBasic
+      </containerreq>
+    <eval phase="Traits" priority="10000"><![CDATA[
+if (#level[] >= 21) then
+  perform delete[Damage.Weapon1]
+  perform assign[Damage.Weapon2]
+  endif
+]]></eval>
+    </thing>
+
+  </document>

@@ -1,0 +1,992 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains various important mappings used by the D&DI downloader.
+    When new classes or sources are added, you can add them to the mapping lists
+    here to make the downloader process them correctly. -->
+<document signature="DDI Downloader Mapping">
+
+  <!-- Names to skip because they're broken in some way -->
+  <map name="skip">
+
+    <!-- This is bugged and gives a server error -->
+    <tuple a="Lenses of the Luminary"/>
+
+    <!-- These aren't needed -->
+    <tuple a="Arrow"/>
+    <tuple a="Crossbow Bolt"/>
+    </map>
+
+  <!-- class unique ids to class abbreviations -->
+  <map name="classabbr">
+    <tuple a="clsArtific" b="Art"/>
+    <tuple a="clsCleric" b="Clr"/>
+    <tuple a="clsFighter" b="Ftr"/>
+    <tuple a="clsPaladin" b="Pal"/>
+    <tuple a="clsRanger" b="Rgr"/>
+    <tuple a="clsRogue" b="Rog"/>
+    <tuple a="clsSwordma" b="Smg"/>
+    <tuple a="clsWarlock" b="Wlk"/>
+    <tuple a="clsWarlord" b="Wrl"/>
+    <tuple a="clsWizard" b="Wiz"/>
+    <tuple a="clsBarbari" b="Bbn"/>
+    <tuple a="clsBard" b="Brd"/>
+    <tuple a="clsDruid" b="Drd"/>
+    <tuple a="clsInvoker" b="Inv"/>
+    <tuple a="clsSorcere" b="Sor"/>
+    <tuple a="clsWarden" b="Wrd"/>
+    <tuple a="clsAvenger" b="Ave"/>
+    <tuple a="clsShaman" b="Shm"/>
+    <tuple a="clsMonk" b="Mnk"/>
+    <tuple a="clsPsion" b="Psi"/>
+    <tuple a="clsAssassi" b="Asn"/>
+    <tuple a="clsSeeker" b="Sek"/>
+    <tuple a="clsArdent" b="Ard"/>
+    <tuple a="clsBattlem" b="Bmn"/>
+    <tuple a="clsRunepri" b="Rnp"/>
+
+    <!-- Essentials classes -->
+    <tuple a="clsCavalie" b="Cav"/>
+    <tuple a="clsHexblad" b="Hex"/>
+    <tuple a="clsHunter" b="Hun"/>
+    <tuple a="clsKnight" b="Kng"/>
+    <tuple a="clsMage" b="Mag"/>
+    <tuple a="clsScout" b="Sct"/>
+    <tuple a="clsSentine" b="Sen"/>
+    <tuple a="clsSlayer" b="Sly"/>
+    <tuple a="clsThief" b="Thf"/>
+    <tuple a="clsWarprie" b="Wpr"/>
+
+    <!-- Hybrids -->
+    <tuple a="clsArtifHy" b="ArtH"/>
+    <tuple a="clsCleriHy" b="ClrH"/>
+    <tuple a="clsFightHy" b="FtrH"/>
+    <tuple a="clsPaladHy" b="PalH"/>
+    <tuple a="clsRangeHy" b="RgrH"/>
+    <tuple a="clsRogueHy" b="RogH"/>
+    <tuple a="clsSwordHy" b="SmgH"/>
+    <tuple a="clsWrlckHy" b="WlkH"/>
+    <tuple a="clsWrlrdHy" b="WrlH"/>
+    <tuple a="clsWizarHy" b="WizH"/>
+    <tuple a="clsBarbaHy" b="BbnH"/>
+    <tuple a="clsBardHy" b="BrdH"/>
+    <tuple a="clsDruidHy" b="DrdH"/>
+    <tuple a="clsInvokHy" b="InvH"/>
+    <tuple a="clsSorceHy" b="SorH"/>
+    <tuple a="clsWardeHy" b="WrdH"/>
+    <tuple a="clsAvengHy" b="AveH"/>
+    <tuple a="clsShamaHy" b="ShmH"/>
+    <tuple a="clsArdenHy" b="ArdH"/>
+    <tuple a="clsAssasHy" b="AsnH"/>
+    <tuple a="clsBattlHy" b="BmnH"/>
+    <tuple a="clsMonkHy" b="MnkH"/>
+    <tuple a="clsPsionHy" b="PsiH"/>
+    <tuple a="clsRunepHy" b="RnpH"/>
+    <tuple a="clsSeekeHy" b="SekH"/>
+    </map>
+
+  <!-- Essentials class equivalence, e.g. slayer -> weaponmaster -->
+  <map name="essclasses">
+    <tuple a="Hunter" b="Ranger"/>
+    <tuple a="Mage" b="Arcanist"/>
+    <tuple a="Cavalier" b="Paladin"/>
+    <tuple a="Knight" b="Weaponmaster"/>
+    <tuple a="Sentinel" b="Druid"/>
+    <tuple a="Warpriest" b="Templar"/>
+    <tuple a="Hexblade" b="Warlock"/>
+    <tuple a="Scout" b="Ranger"/>
+    <tuple a="Slayer" b="Weaponmaster"/>
+    <tuple a="Thief" b="Scoundrel"/>
+    </map>
+
+  <!-- Essentials class base class equivalence, e.g. slayer -> fighter -->
+  <map name="essbase">
+    <tuple a="Hunter" b="Ranger"/>
+    <tuple a="Mage" b="Wizard"/>
+    <tuple a="Cavalier" b="Paladin"/>
+    <tuple a="Knight" b="Fighter"/>
+    <tuple a="Sentinel" b="Druid"/>
+    <tuple a="Warpriest" b="Cleric"/>
+    <tuple a="Hexblade" b="Warlock"/>
+    <tuple a="Scout" b="Ranger"/>
+    <tuple a="Slayer" b="Fighter"/>
+    <tuple a="Thief" b="Rogue"/>
+    </map>
+
+  <!-- source names to unique ids -->
+  <map name="source">
+    <tuple a="Forgotten Realms Player's Guide" b="FRPG"/>
+    <tuple a="Forgotten Realms Players Guide" b="FRPG" c="Forgotten Realms Player's Guide"/>
+    <tuple a="Forgotten Realms Campaign Setting" b="FRCG"/>
+    <tuple a="Forgotten Realms Campaign Guide" b="FRCG"/>
+    <tuple a="Eberron Player's Guide" b="EbPG"/>
+    <tuple a="Eberron Players Guide" b="EbPG" c="Eberron Player's Guide"/>
+    <tuple a="Eberron Campaign Setting" b="EbCG"/>
+    <tuple a="Martial Power" b="Martial"/>
+    <tuple a="Martial Power 2" b="Martial2"/>
+    <tuple a="Arcane Power" b="Arcane"/>
+    <tuple a="Divine Power" b="Divine"/>
+    <tuple a="Primal Power" b="Primal"/>
+    <tuple a="Adventurer's Vault" b="AdvenVault"/>
+    <tuple a="Adventurers Vault" b="AdvenVault" c="Adventurer's Vault"/>
+    <tuple a="Adventurer's Vault 2" b="AdvenVaul2"/>
+    <tuple a="Draconomicon: Chromatic Dragons" b="Draconomic" c="Draconomicon"/>
+    <tuple a="Draconomicon: Metallic Dragons" b="Draconomic" c="Draconomicon"/>
+    <tuple a="Manual of the Planes" b="ManPlanes"/>
+    <tuple a="Open Grave" b="OpenGrave"/>
+    <tuple a="Open Grave: Secrets of the Undead" b="OpenGrave"/>
+    <tuple a="Dungeon Delve" b="DungeDelve"/>
+    <tuple a="Player's Handbook 2" b="PHB2"/>
+    <tuple a="Players Handbook 2" b="PHB2" c="Player's Handbook 2"/>
+    <tuple a="PH Heroes: Series" b="PHHeroes" c="Player's Handbook Heroes"/> <!-- matches any issue -->
+    <tuple a="Player's Handbook 3" b="PHB3"/>
+    <tuple a="Players Handbook 3" b="PHB3" c="Player's Handbook 3"/>
+    <tuple a="Monster Manual 2" b="MM2" c="Monster Manual 2"/>
+    <tuple a="Dungeon Master's Guide 2" b="DMG2"/>
+    <tuple a="Dungeon Masters Guide 2" b="DMG2" c="Dungeon Master's Guide 2"/>
+    <tuple a="D&amp;D Insider" b="DnDInsider"/>
+    <tuple a="The Plane Below: Secrets of the Elemental Chaos" b="ElemChaos"/>
+    <tuple a="The Plane Below" b="ElemChaos" c="The Plane Below: Secrets of the Elemental Chaos"/>
+    <tuple a="Player's Handbook Races: Dragonborn" b="PHRcDragon"/>
+    <tuple a="Player's Handbook Races: Tiefling" b="PHRcTief"/>
+    <tuple a="Underdark" b="Underdark"/>
+    <tuple a="The Plane Above: Secrets of the Astral Sea" b="AstralSea"/>
+    <tuple a="Dark Sun Campaign Setting" b="DarkSun"/>
+    <tuple a="Player Essentials: Heroes of the Fallen Lands" b="PlEsHeroFa" c="Heroes of the Fallen Lands"/>
+    <tuple a="Heroes of the Fallen Lands" b="PlEsHeroFa"/>
+    <tuple a="Player Essentials: Heroes of the Forgotten Kingdom" b="PlEsForKin" c="Heroes of the Forgotten Kingdoms"/>
+    <tuple a="Player Essentials: Heroes of the Forgotten Kingdoms" b="PlEsForKin" c="Heroes of the Forgotten Kingdoms"/>
+    <tuple a="Heroes of the Forgotten Kingdoms" b="PlEsForKin"/>
+    <tuple a="Heroes of Shadow" b="PlEsShadow"/>
+    <tuple a="Demonomicon" b="Demonomic"/>
+    <tuple a="Psionic Power" b="Psionic"/>
+    <tuple a="Dungeon Master's Kit" b="DunMastKit"/>
+    <tuple a="Red Box Starter Set" b="RedBox"/>
+    <tuple a="The Shadowfell" b="Shadowfell"/>
+    <tuple a="Class Compendium" b="ClassComp"/>
+    <tuple a="Neverwinter Campaign Setting" b="NeverCamp"/>
+    <tuple a="Mordenkainen's Magnificent Emporium" b="MordensEmp"/>
+    <tuple a="The Book of Vile Darkness" b="BookVileDa"/>
+    <tuple a="Heroes of the Elemental Chaos" b="HeroElemCh"/>
+    <tuple a="Heroes of the Feywild" b="HeroFeywil"/>
+    <tuple a="Into the Unknown: The Dungeon Survival Handbook" b="IntoUnknow"/>
+    </map>
+
+  <!-- adventures are kinda like sources, but less important -->
+  <map name="adventure">
+    <tuple a="Dragon Magazine" b="Dragon"/> <!-- matches any issue -->
+    <tuple a="Dungeon Magazine" b="Dungeon"/> <!-- matches any issue -->
+
+    <tuple a="Revenge of the Giants" b="RevGiants"/>
+    <tuple a="Seekers of the Ashen Crown" b="SeekACrown"/>
+
+    <tuple a="Treasure of Talon Pass" b="TreasTalon" c="RPGA Treasure of Talon Pass"/>
+    <tuple a="RPGA Treasure of Talon Pass" b="TreasTalon"/>
+    <tuple a="RPGA Khyber&apos;s Harvest" b="KhyberHarv"/>
+    <tuple a="RPGA Village of Hommlet" b="VilHommlet"/>
+
+    <tuple a="P1 King of the Trollhaunt Warrens" b="KingTroll"/>
+    <tuple a="King of the Trollhaunt Warrens" b="KingTroll" c="P1 King of the Trollhaunt Warrens"/>
+    <tuple a="P2 Demon Queen Enclave" b="DemonQueen"/>
+    <tuple a="Demon Queen Enclave" b="DemonQueen" c="P2 Demon Queen Enclave"/>
+    <tuple a="P3 Assault on Nightwyrm Fortress" b="NightwyrmF"/>
+
+    <tuple a="H1 Keep on the Shadowfell" b="KeepShadow"/>
+    <tuple a="Pyramid of Shadows" b="PyrShadows" c="H3 Pyramid of Shadows"/>
+    <tuple a="H3 Pyramid of Shadows" b="PyrShadows"/>
+    <tuple a="H2 Thunderspire Labyrinth" b="ThundrLaby"/>
+
+    <tuple a="E1 Death's Reach" b="DeathsRch"/>
+    <tuple a="E1 Deaths Reach" b="DeathsRch" c="E1 Death's Reach"/>
+    <tuple a="E2 Kingdom of the Ghouls" b="KingGhouls"/>
+    <tuple a="E3 Prince of Undeath" b="PrinceUnd"/>
+
+    <tuple a="FR1 Scepter Tower of Spellgard" b="ScepTowSpl"/>
+    <tuple a="Hammerfast" b="Hammerfast"/>
+
+    <tuple a="HS1 The Slaying Stone" b="SlayStone"/>
+
+    <tuple a="Vor Rukoth: An Ancient Ruins Adventure Site" b="VorRukoth" c="Vor Rukoth"/>
+    <tuple a="Vor Rukoth" b="VorRukoth"/>
+    <tuple a="Tomb of Horrors" b="TombHorror"/>
+    <tuple a="Marauders of the Dune Sea" b="MarDuneSea"/>
+    <tuple a="Madness at Gardmore Abbey" b="MadGardAb"/>
+    <tuple a="Beyond the Crystal Cave" b="BeyCrysCav"/>
+    <tuple a="Halls of Undermountain" b="HallsUnder"/>
+    <tuple a="Web of the Spider Queen" b="WebSpiderQ"/>
+    </map>
+
+  <!-- unique id fixups for things -->
+  <map name="fixthing">
+
+    <!-- translate new essentials classes to old class ids -->
+    <tuple a="Weaponmaster" b="Fighter"/>
+    <tuple a="Marshal" b="Warlord"/>
+    <tuple a="Templar" b="Cleric"/>
+    <tuple a="Scoundrel" b="Rogue"/>
+    <tuple a="Arcanist" b="Wizard"/>
+
+    <!-- class features -->
+    <tuple a="Insightful Presence" b="IsgtPr"/>
+    <tuple a="Combat Challenge" b="ComCha"/>
+    <tuple a="Scoundrel Weapon Talent" b="RogWea"/>
+
+    <!-- races -->
+    <tuple a="Longtooth Shifter" b="ShifteLon"/>
+    <tuple a="Razorclaw Shifter" b="ShifteRaz"/>
+
+    <!-- feats -->
+    <tuple a="Armor Proficiency: Chainmail" b="ArPrCha"/>
+    <tuple a="Armor Proficiency: Leather" b="ArPrLea"/>
+    <tuple a="Armor Proficiency: Hide" b="ArPrHid"/>
+    <tuple a="Armor Proficiency: Plate" b="ArPrPla"/>
+    <tuple a="Armor Proficiency: Scale" b="ArPrSca"/>
+    <tuple a="Armor Proficiency: Banded Mail" b="ArPrBan"/>
+    <tuple a="Armor Proficiency: Full Plate" b="ArPrFPl"/>
+    <tuple a="Armor Proficiency: Ring Mail" b="ArPrRin"/>
+    <tuple a="Armor Proficiency: Spiked Plate" b="ArPrSpk"/>
+    <tuple a="Armor Proficiency: Splint Mail" b="ArPrSpl"/>
+    <tuple a="Armor Proficiency: Studded Leather" b="ArPrStu"/>
+    <tuple a="Armor Proficiency: Barbed Shield" b="ArPrBrb"/>
+
+    <tuple a="Armor Specialization (Chainmail)" b="ArSpCha"/>
+    <tuple a="Armor Specialization (Hide)" b="ArSpHid"/>
+    <tuple a="Armor Specialization (Plate)" b="ArSpPla"/>
+    <tuple a="Armor Specialization (Scale)" b="ArSpSca"/>
+
+    <tuple a="Student of Sword Magic" b="StudeSMg"/>
+    <tuple a="Draconic Spellcaster" b="DracoSpc"/>
+    <tuple a="Improved Swordmage Warding" b="ImproSmW"/>
+    <tuple a="Shared Healing" b="ShrHealn"/>
+    <tuple a="Aggressive Familiar" b="AgresFam"/>
+    <tuple a="Earthstrength Resilience" b="EarthRsl"/>
+    <tuple a="Primal Resilience" b="PrimaRsl"/>
+    <tuple a="Improved Insight" b="ImproIsg"/>
+    <tuple a="Insightful Preparation" b="InsgtPrp"/>
+    <tuple a="Spirit Breaker" b="SprBrkr"/>
+    <tuple a="Steel Vanguard Captain" b="SteelCap"/>
+    <tuple a="White Lotus Master Hindrance" b="WhLtMH"/>
+    <tuple a="White Lotus Riposte" b="WhLtRip"/>
+    <tuple a="Disciple of the Wild" b="DscotWild"/>
+    <tuple a="Feywild Propulsion" b="FeyPropu"/>
+    <tuple a="Heavy Blade Expertise" b="HvBlExp"/>
+    <tuple a="Light Blade Expertise" b="LgBlExp"/>
+    <tuple a="Master at Arms" b="MasteArm"/>
+    <tuple a="Spirit&apos;s Step" b="SpirStep"/>
+    <tuple a="War Wizard&apos;s Staff" b="WarWizSt"/>
+
+    <!-- equipment -->
+    <tuple a="Orb Implement" b="Orb"/>
+    <tuple a="Rod Implement" b="Rod"/>
+    <tuple a="Staff Implement" b="Staff"/>
+    <tuple a="Wand Implement" b="Wand"/>
+    <tuple a="Tome Implement" b="Tome"/>
+    <tuple a="Monk Unarmed Strike" b="MonkUnar"/>
+    <tuple a="Pitcher of Ale" b="AlePit"/>
+    <tuple a="Belt Pouch" b="PouchBel"/>
+    <tuple a="Bottle of Wine" b="WineBot"/>
+    <tuple a="Common Meal" b="MealCom"/>
+    <tuple a="Feast (one meal)" b="MealFea"/>
+    <tuple a="Hempen Rope (50 ft.)" b="Ropehem"/>
+    <tuple a="Silk Rope (50 ft.)" b="RopeSil"/>
+    <tuple a="Standard Identification Papers" b="IdentPap"/>
+    <tuple a="Identification Papers with Portrait" b="Identwit"/>
+    <tuple a="Trail Rations" b="RatioTra"/>
+    <tuple a="Journeybreads" b="Journeyb"/>
+    <tuple a="Sling Bullets" b="SlingBul"/>
+    <tuple a="Accurate ki focus" b="AccurKi"/>
+    <tuple a="Fluid ki focus" b="FluidKi"/>
+    <tuple a="Inexorable ki focus" b="InexoKi"/>
+    <tuple a="Iron ki focus" b="IronKi"/>
+    <tuple a="Mighty ki focus" b="MightKi"/>
+    <tuple a="Mountain ki focus" b="MountKi"/>
+    <tuple a="Serene ki focus" b="SerenKi"/>
+    <tuple a="Transcendent ki focus" b="TransKi"/>
+
+    <!-- mounts -->
+    <tuple a="Sea Horse" b="HorseSea"/>
+    <tuple a="Skeletal Horse" b="HorseSke"/>
+    <tuple a="Warhorse" b="HorseWar"/>
+
+    <!-- weapons -->
+    <tuple a="Any Ranged" b="ImproRan"/>
+    <tuple a="Any Small Melee" b="ImproSma"/>
+    <tuple a="Blade of annihilation" b="BladeAnn"/>
+    <tuple a="Blade of winter&apos;s mourning" b="BladeWin"/>
+    <tuple a="Cutting wheel" b="CuttiWhe"/>
+    <tuple a="Double scimitar" b="DoublSci"/>
+    <tuple a="Dragon paw" b="DragoPaw"/>
+    <tuple a="Drow long knife" b="DrowLon"/>
+    <tuple a="Gauntlet axe" b="GauntAxe"/>
+    <tuple a="Hand crossbow" b="HandCro"/>
+    <tuple a="Improvised large melee" b="ImproLar"/>
+    <tuple a="Scourge of exquisite agony" b="ScourExq"/>
+    <tuple a="Singing stick" b="SingiSti"/>
+    <tuple a="Starshadow blade" b="StarsBla"/>
+    <tuple a="Sword of the white well" b="SwordWhi"/>
+    <tuple a="Talenta boomerang" b="TalenBoo"/>
+    <tuple a="Talenta sharrash" b="TalenSha"/>
+    <tuple a="Talenta tangat" b="TalenTan"/>
+    <tuple a="Tortoise blade" b="TortoBla"/>
+    <tuple a="Widow&apos;s knife" b="WidowKni"/>
+    <tuple a="Wrist razors" b="WristRaz"/>
+    <tuple a="Xen&apos;drik boomerang" b="XendrBoo"/>
+
+    <!-- armor -->
+    <tuple a="Drakeplate Armor" b="Drakeplt"/>
+
+    <!-- hybrid classes -->
+    <tuple a="Hybrid Artificer" b="ArtifHy"/>
+    <tuple a="Hybrid Cleric" b="CleriHy"/>
+    <tuple a="Hybrid Fighter" b="FightHy"/>
+    <tuple a="Hybrid Paladin" b="PaladHy"/>
+    <tuple a="Hybrid Ranger" b="RangeHy"/>
+    <tuple a="Hybrid Rogue" b="RogueHy"/>
+    <tuple a="Hybrid Swordmage" b="SwordHy"/>
+    <tuple a="Hybrid Warlock" b="WrlckHy"/>
+    <tuple a="Hybrid Warlord" b="WrlrdHy"/>
+    <tuple a="Hybrid Wizard" b="WizarHy"/>
+    <tuple a="Hybrid Barbarian" b="BarbaHy"/>
+    <tuple a="Hybrid Bard" b="BardHy"/>
+    <tuple a="Hybrid Druid" b="DruidHy"/>
+    <tuple a="Hybrid Invoker" b="InvokHy"/>
+    <tuple a="Hybrid Sorcerer" b="SorceHy"/>
+    <tuple a="Hybrid Warden" b="WardeHy"/>
+    <tuple a="Hybrid Avenger" b="AvengHy"/>
+    <tuple a="Hybrid Shaman" b="ShamaHy"/>
+    <tuple a="Hybrid Ardent" b="ArdenHy"/>
+    <tuple a="Hybrid Assassin" b="AssasHy"/>
+    <tuple a="Hybrid Battlemind" b="BattlHy"/>
+    <tuple a="Hybrid Monk" b="MonkHy"/>
+    <tuple a="Hybrid Psion" b="PsionHy"/>
+    <tuple a="Hybrid Runepriest" b="RunepHy"/>
+    <tuple a="Hybrid Seeker" b="SeekeHy"/>
+
+    <!-- magic items -->
+    <tuple a="Battle Staff" b="BtlStaf"/>
+    <tuple a="Battlecrazed Weapon" b="Btlcrzd"/>
+    <tuple a="Battlemaster's Weapon" b="Btlmstr"/>
+    <tuple a="Blacksmelt Weapon" b="Blksmlt"/>
+    <tuple a="Bloodfire Armor" b="Bldfire"/>
+    <tuple a="Bloodiron Armor" b="BldirAr"/>
+    <tuple a="Bloodiron Rod" b="BldirRd"/>
+    <tuple a="Bloodiron Weapon" b="BldirWp"/>
+    <tuple a="Bloodsoaked Shield" b="BldskSh"/>
+    <tuple a="Bloodtheft Armor" b="Bldthft"/>
+    <tuple a="Bloodthirsty Weapon" b="Bldthrs"/>
+    <tuple a="Bloodthread Armor" b="Bldthrd"/>
+    <tuple a="Cloak of Distortion" b="ClkDist"/>
+    <tuple a="Darkleaf Armor" b="Drkleaf"/>
+    <tuple a="Deathstalker Weapon" b="Dthstal"/>
+    <tuple a="Deathburst Armor" b="Dthbrst"/>
+    <tuple a="Demonslayer Weapon" b="Dmnslay"/>
+    <tuple a="Dragonrider Armor" b="Drgridr"/>
+    <tuple a="Earthshaker Staff" b="Erthshk"/>
+    <tuple a="Elderscale Armor" b="Eldersc"/>
+    <tuple a="Flaming Weapon" b="Flaming"/>
+    <tuple a="Forceful Weapon" b="Forcefl"/>
+    <tuple a="Fortified Armor" b="FortifA"/>
+    <tuple a="Lifebane Weapon" b="Lifeban"/>
+    <tuple a="Mask of Terrors" b="MskTers"/>
+    <tuple a="Mind-Rending Weapon" b="MndRend"/>
+    <tuple a="Orb of Inexplicable Contention" b="InxCont"/>
+    <tuple a="Rod of the Dragonborn" b="RdDrgnb"/>
+    <tuple a="Rod of the Feywild" b="RdFeywl"/>
+    <tuple a="Rod of Star&apos;s Descent" b="RodDes"/>
+    <tuple a="Soulwarding Armor" b="Soulwrd"/>
+    <tuple a="Stonemeld Armor" b="Stoneml"/>
+    <tuple a="Stoneskin Armor" b="Stonesk"/>
+    <tuple a="Symbol of Divinity" b="SymDivn"/>
+    <tuple a="Symbol of Lifebonding" b="SymLfbn"/>
+    <tuple a="Symbol of Vengeance" b="SymVeng"/>
+    <tuple a="Thunderburst Weapon" b="Thnburs"/>
+    <tuple a="Thundergod Weapon" b="Thndgod"/>
+    <tuple a="Thundering Weapon" b="Thndern"/>
+    <tuple a="Transporting Weapon" b="Transpo"/>
+    <tuple a="Weapon of Summer" b="LongSum"/>
+    <tuple a="Lifegiving Armor" b="Lfgivi"/>
+    <tuple a="Lifefont Armor" b="Lffont"/>
+    <tuple a="Serpentine Armor" b="Srpntn"/>
+    <tuple a="Shadowdance Armor" b="Shaddan"/>
+    <tuple a="Peacemaker&apos;s Periapt" b="PacePer"/>
+    <tuple a="Weapon of Healing" b="MaceHea"/>
+    <tuple a="Winged Weapon" b="WingDag"/>
+    <tuple a="Rod of Divine Retribution" b="RdDivRt"/>
+    <tuple a="Blood Maul" b="BldMaul"/>
+    <tuple a="Mindcrusher Weapon" b="MindCrs"/>
+    <tuple a="Thoughtspike Weapon" b="ThgtSpk"/>
+    <tuple a="Orb of Mental Constitution" b="OrbCon"/>
+    <tuple a="rb of Mental Constitution" b="OrbCon"/> <!-- ... -->
+    <tuple a="Necroshard Weapon" b="NcShWea"/>
+    <tuple a="Shadow-Shroud Armor" b="ShShArm"/>
+
+    <tuple a="Dragonbreath Warrior" b="DrgbrWr"/>
+    <tuple a="Tactical Inspiration" b="TactIns"/>
+    <tuple a="Battle Standard of the Stalwart" b="BSStalw"/>
+    <tuple a="Bloodshored Shield" b="Bldshor"/>
+    <tuple a="Bloodthirst Bracers" b="Bldthrs"/>
+    <tuple a="Dragonscale Shield" b="Drgscal"/>
+    <tuple a="Dreamstone Weapon" b="Drmston"/>
+    <tuple a="Potion of Lifeshield" b="PtLfshl"/>
+    <tuple a="Quickstride Boots" b="Qckstrd"/>
+    <tuple a="Ring of Invisibility" b="RnInvis"/>
+    <tuple a="Ring of the Protector" b="RnPrtcr"/>
+    <tuple a="Salve Slipperiness" b="SalSlip"/>
+    <tuple a="Dimensional Warding" b="DmWardn"/>
+    <tuple a="Blood Frenzy" b="BldFren"/>
+    <tuple a="Reaving Strike" b="ReavStr"/>
+    <tuple a="Redirected Death" b="RdDeath"/>
+    <tuple a="Earthsurge" b="Eartsrg"/>
+    <tuple a="Spymaster's Edge" b="SpyEdge"/>
+    <tuple a="For Cormyr!" b="ForCorm"/>
+
+    <!-- paragon paths -->
+    <tuple a="Radiant Serpent" b="RadiSerp"/>
+    <tuple a="Battle Champion" b="BatChamp"/>
+    <tuple a="Warpriest Paragon Path" b="Warpries"/>
+
+    <!-- paragon path features -->
+    <tuple a="Deathly Action" b="DthlyA"/>
+    <tuple a="Impetuous Stride" b="ImptSd"/>
+    <tuple a="Earthsense" b="Erthse"/>
+    <tuple a="Draconic Resilience Action" b="DrRsAc"/>
+    <tuple a="Blight Action" b="BlgtAc"/>
+    <tuple a="Winter&apos;s Winds" b="WinWns"/>
+    <tuple a="Draconic Resistance" b="DrcRst"/>
+    <tuple a="Spell Commander&apos;s Action" b="SpCmAc"/>
+    <tuple a="Blinding Assailant" b="BlndAs"/>
+    <tuple a="Preparing Action" b="PrepAc"/>
+    <tuple a="Conclusive Action" b="CnclAc"/>
+    <tuple a="Shifter&apos;s Action" b="ShftAc"/>
+    <tuple a="Breaching Action" b="BrchAc"/>
+    <tuple a="Elemental Action" b="ElemAc"/>
+    <tuple a="Huntmaster&apos;s Action" b="HnmsAc"/>
+    <tuple a="Intrepid Hunter" b="IntrHu"/>
+    <tuple a="Venomous Action" b="VenmAc"/>
+    <tuple a="Warlord&apos;s Chains" b="WrlrCh"/>
+    <tuple a="Predator Action" b="PrdAct"/>
+    <tuple a="Two-Fold Defense" b="TTwDef"/>
+    <tuple a="Disappearing Action" b="DspAct"/>
+    <tuple a="Level 11 Improved Backstab" b="ImpBck"/>
+    <tuple a="Level 11 Improved Power Strike" b="ImpPwS"/>
+    <tuple a="Level 11 Improved Disruptive Shot" b="ImpDsS"/>
+    <tuple a="Level 11 Improved Combined Attack" b="ImpCmA"/>
+    <tuple a="Rainbringer Action" b="RnbAct"/>
+    <tuple a="Devout Action" b="DvtAct"/>
+    <tuple a="Chaotic Action" b="ChaoAc"/>
+    <tuple a="Stone-Shatter Strike" b="StShSt"/>
+    <tuple a="Eroding Action" b="ErodAc"/>
+    <tuple a="Driven Action" b="DrvnAc"/>
+    <tuple a="Soul Scourge" b="SlScou"/>
+    <tuple a="Deceitful Action" b="DctAct"/>
+    <tuple a="Stalwart Action" b="StwAct"/>
+    <tuple a="Battleweave" b="Btlwea"/>
+
+    <!-- epic destiny features -->
+    <tuple a="Spellsword Recall" b="SswRec"/>
+
+    <!-- powers -->
+    <tuple a="Torturous Strike" b="TrtStr"/>
+    <tuple a="Healing Spirit" b="HlSpir"/>
+    <tuple a="Land Stride" b="LndStk"/>
+    <tuple a="Bloody Harvest" b="BdyHar"/>
+    <tuple a="Shards of Strength" b="ShrStr"/>
+    <tuple a="Pernicious Poison" b="PrnPoi"/>
+    <tuple a="Bloodied Triumph" b="BlddTriu"/>
+    <tuple a="Deflected Strike" b="DflStr"/>
+    <tuple a="Call Discordant Spirit" b="CalDiS"/>
+    <tuple a="Bloodwrath Strike" b="BldwSt"/>
+    <tuple a="Interrupting Strike" b="IntrSt"/>
+    <tuple a="Thunderclap" b="Thndcl"/>
+    <tuple a="Thunderlance" b="Thndln"/>
+    <tuple a="Orb of Mental Constitution" b="OrMnCn"/>
+
+    <!-- deities -->
+    <tuple a="Berronar Truesilver" b="Berrona"/>
+
+    <!-- class abilities -->
+    <tuple a="Telepathy Focus" b="TptFoc"/>
+    <tuple a="Level 5 Death Domain Feature" b="DeaFt5"/>
+    <tuple a="Level 5 Earth Domain Feature" b="EarFt5"/>
+    <tuple a="Level 5 Storm Domain Feature" b="StoFt5"/>
+    <tuple a="Level 5 Sun Domain Feature" b="SunFt5"/>
+    <tuple a="Level 5 Corellon Domain Feature" b="CorFt5"/>
+    <tuple a="Level 5 Oghma Domain Feature" b="OghFt5"/>
+    <tuple a="Level 5 Selune Domain Feature" b="SelFt5"/>
+    <tuple a="Level 5 Torm Domain Feature" b="TorFt5"/>
+    <tuple a="Level 10 Death Domain Feature" b="DeaF10"/>
+    <tuple a="Level 10 Earth Domain Feature" b="EarF10"/>
+    <tuple a="Level 10 Storm Domain Feature" b="StoF10"/>
+    <tuple a="Level 10 Sun Domain Feature" b="SunF10"/>
+    <tuple a="Level 10 Corellon Domain Feature" b="CorF10"/>
+    <tuple a="Level 10 Oghma Domain Feature" b="OghF10"/>
+    <tuple a="Level 10 Selune Domain Feature" b="SelF10"/>
+    <tuple a="Level 10 Torm Domain Feature" b="TorF10"/>
+    <tuple a="Arcanist Ritual Casting" b="RitCas"/>
+    </map>
+
+  <!-- unique id fixups for tags -->
+  <map name="fixtag">
+    <tuple a="Brutal 1" b="Brutal1"/>
+    <tuple a="Brutal 2" b="Brutal2"/>
+    <tuple a="Brutal 3" b="Brutal3"/>
+    <tuple a="Brutal 4" b="Brutal4"/>
+    <tuple a="Brutal 5" b="Brutal5"/>
+    </map>
+
+  <!-- attribute names to unique ids -->
+  <map name="attr">
+    <tuple a="Strength" b="attrStr"/>
+    <tuple a="Dexterity" b="attrDex"/>
+    <tuple a="Constitution" b="attrCon"/>
+    <tuple a="Intelligence" b="attrInt"/>
+    <tuple a="Wisdom" b="attrWis"/>
+    <tuple a="Charisma" b="attrCha"/>
+
+    <tuple a="Intelligenev" b="attrInt"/> <!-- bug in DDI data! -->
+    </map>
+  <map name="attrabbr">
+    <tuple a="Str" b="attrStr"/>
+    <tuple a="Dex" b="attrDex"/>
+    <tuple a="Con" b="attrCon"/>
+    <tuple a="Int" b="attrInt"/>
+    <tuple a="Wis" b="attrWis"/>
+    <tuple a="Cha" b="attrCha"/>
+    </map>
+
+  <!-- defenses -->
+  <map name="defense">
+    <tuple a="AC" b="defAC"/>
+    <tuple a="Fortitude" b="defFort"/>
+    <tuple a="Reflex" b="defRef"/>
+    <tuple a="Will" b="defWill"/>
+
+    <tuple a="Relfex" b="defRef"/> <!-- bug in DDI data! -->
+    </map>
+
+  <!-- armor proficiency names to unique ids -->
+  <map name="armorprof">
+    <tuple a="Cloth" b="apCloth"/>
+    <tuple a="Leather" b="apLeather"/>
+    <tuple a="Hide" b="apHide"/>
+    <tuple a="Chainmail" b="apChain"/>
+    <tuple a="Scale" b="apScale"/>
+    <tuple a="Plate" b="apPlate"/>
+    <tuple a="Light Shields" b="apShieldLg"/>
+    <tuple a="Heavy Shields" b="apShieldHv"/>
+    </map>
+
+  <!-- valid tiers for feats etc -->
+  <map name="tier">
+    <tuple a="Heroic Tier" b="Heroic"/>
+    <tuple a="Paragon Tier" b="Paragon"/>
+    <tuple a="Epic Tier" b="Epic"/>
+    <tuple a="Heroic"/>
+    <tuple a="Paragon"/>
+    <tuple a="Epic"/>
+    </map>
+
+  <!-- damage dice -->
+  <map name="damage">
+    <tuple a="1d4"/>
+    <tuple a="1d6"/>
+    <tuple a="1d8"/>
+    <tuple a="1d10"/>
+    <tuple a="1d12"/>
+    <tuple a="2d4"/>
+    <tuple a="2d6"/>
+    <tuple a="2d8"/>
+    <tuple a="2d10"/>
+    </map>
+
+  <!-- standard weapon properties -->
+  <map name="wepprop">
+    <tuple a="Heavy Thrown" b="HeavyThrow"/>
+    <tuple a="High Crit" b="HighCrit"/>
+    <tuple a="Light Thrown" b="LightThrow"/>
+    <tuple a="Load Free" b="LoadFree"/>
+    <tuple a="Load Minor" b="LoadMinor"/>
+    <tuple a="Off-Hand" b="OffHand"/>
+    <tuple a="Reach"/>
+    <tuple a="Small"/>
+    <tuple a="Versatile"/>
+    <tuple a="Defensive"/>
+    <tuple a="Accurate"/>
+    <tuple a="Unerring"/>
+    <tuple a="Unstoppable" b="Unstoppabl"/>
+    <tuple a="Undeniable"/>
+    <tuple a="Deadly"/>
+    </map>
+
+  <!-- superior implement properties -->
+  <map name="superprop">
+    <tuple a="Accurate"/>
+    <tuple a="Energized"/>
+    <tuple a="Forceful"/>
+    <tuple a="Empowered Crit"/>
+    <tuple a="Unerring"/>
+    <tuple a="Unstoppable"/>
+    <tuple a="Undeniable"/>
+    <tuple a="Deadly"/>
+    </map>
+
+  <!-- light armor types -->
+  <map name="lightarmor">
+    <tuple a="Cloth Armor"/>
+    <tuple a="Leather Armor"/>
+    <tuple a="Hide Armor"/>
+    <tuple a="Light Barding"/>
+    </map>
+
+  <!-- heavy armor types -->
+  <map name="heavyarmor">
+    <tuple a="Chainmail"/>
+    <tuple a="Scale Armor"/>
+    <tuple a="Plate Armor"/>
+    <tuple a="Heavy Barding"/>
+    </map>
+
+  <!-- item slots -->
+  <map name="itemslot">
+    <tuple a="Arms" b="isArms"/>
+    <tuple a="Feet" b="isFeet"/>
+    <tuple a="Hands" b="isHands"/>
+    <tuple a="Head" b="isHead"/>
+    <tuple a="Neck" b="isNeck"/>
+    <tuple a="Ring" b="isRing"/>
+    <tuple a="Waist" b="isWaist"/>
+    <tuple a="Wondrous" b="isWondrous"/>
+    <tuple a="Potion" b="isPotion"/>
+    <tuple a="Alchemical" b="isAlchemic"/>
+    <tuple a="Alchemical Item" b="isAlchemic"/>
+    <tuple a="Ammunition" b="isAmmo"/>
+    </map>
+
+  <!-- resistances -->
+  <map name="resist">
+    <tuple a="Acid" b="rsAcid"/>
+    <tuple a="Cold" b="rsCold"/>
+    <tuple a="Fire" b="rsFire"/>
+    <tuple a="Force" b="rsForce"/>
+    <tuple a="Lightning" b="rsLightn"/>
+    <tuple a="Necrotic" b="rsNecrotic"/>
+    <tuple a="Poison" b="rsPoison"/>
+    <tuple a="Psychic" b="rsPsychic"/>
+    <tuple a="Radiant" b="rsRadiant"/>
+    <tuple a="Thunder" b="rsThunder"/>
+    <tuple a="All" b="rsAll"/>
+    <tuple a="to all damage" b="rsAll"/>
+    </map>
+
+  <!-- equipment type -->
+  <map name="equiptype">
+    <tuple a="Gear"/>
+    <tuple a="Component"/>
+    <tuple a="Food"/>
+    <tuple a="Drink"/>
+    <tuple a="Ammunition"/>
+    <tuple a="Superior"/>
+    <tuple a="Transportation" b="Transport"/>
+    </map>
+
+  <!-- action types -->
+  <map name="action">
+    <tuple a="Standard Action" b="Standard"/>
+    <tuple a="Move Action" b="Move"/>
+    <tuple a="Immediate Interrupt" b="ImmedInt"/>
+    <tuple a="Immediate Reaction" b="ImmedReact"/>
+    <tuple a="Minor Action" b="Minor"/>
+    <tuple a="Free Action" b="Free"/>
+    <tuple a="Free Action (Special)" b="Free"/>
+    <tuple a="None"/>
+    <tuple a="No Action" b="None"/>
+    <tuple a="Opportunity Action" b="Opportun"/>
+
+    <tuple a="Standard"/>
+    <tuple a="Move"/>
+    <tuple a="Immediate Interrupt" b="ImmedInt"/>
+    <tuple a="Immediate Reaction" b="ImmedReact"/>
+    <tuple a="Minor"/>
+    <tuple a="Free"/>
+    </map>
+
+  <!-- fake classes b=used for powers -->
+  <map name="fakeclass">
+    <tuple a="Race" b="Race" c="Rac"/>
+    <tuple a="Feat" b="Feat" c="Ft"/>
+    <tuple a="Magic Item" b="MagicItem" c="MI"/>
+    <tuple a="Multiclass" b="Multiclass" c="Mc"/>
+    <tuple a="Spellscarred" b="clsSplscar" c="Ssc"/>
+    <tuple a="Skill Power" b="SkillPower" c="Skl"/>
+
+    <!-- Old classes renamed for Essentials -->
+    <tuple a="Fighter" b="clsFighter" c="Ftr"/>
+    <tuple a="Warlord" b="clsWarlord" c="Wrl"/>
+    <tuple a="Cleric" b="clsCleric" c="Clr"/>
+    <tuple a="Rogue" b="clsRogue" c="Rog"/>
+    <tuple a="Wizard" b="clsWizard" c="Wiz"/>
+    </map>
+
+  <!-- power uses -->
+  <map name="poweruse">
+    <tuple a="dailypower" b="Daily"/>
+    <tuple a="dailysurge" b="DailySurge"/>
+    <tuple a="encounterpower" b="Encounter"/>
+    <tuple a="atwillpower" b="AtWill"/>
+    <tuple a="consumable" b="Consumable"/>
+    </map>
+
+  <!-- accessories for powers -->
+  <map name="accessory">
+    <tuple a="Implement"/>
+    <tuple a="Weapon"/>
+    </map>
+
+  <!-- damage type -->
+  <map name="damagetype">
+    <tuple a="Acid"/>
+    <tuple a="Cold"/>
+    <tuple a="Fire"/>
+    <tuple a="Force"/>
+    <tuple a="Lightning"/>
+    <tuple a="Necrotic"/>
+    <tuple a="Poison"/>
+    <tuple a="Psychic"/>
+    <tuple a="Radiant"/>
+    <tuple a="Thunder"/>
+    </map>
+
+  <!-- effect type -->
+  <map name="effecttype">
+    <tuple a="Artifice"/>
+    <tuple a="Charm"/>
+    <tuple a="Conjuration" b="Conjur"/>
+    <tuple a="Fear"/>
+    <tuple a="Healing"/>
+    <tuple a="Illusion"/>
+    <tuple a="Poison"/>
+    <tuple a="Polymorph"/>
+    <tuple a="Reliable"/>
+    <tuple a="Sleep"/>
+    <tuple a="Stance"/>
+    <tuple a="Teleportation" b="Teleport"/>
+    <tuple a="Zone"/>
+    <tuple a="Rage"/>
+    <tuple a="Beast"/>
+    <tuple a="Beast Form" b="Beast"/>
+    <tuple a="Rattling"/>
+    <tuple a="Invigorating" b="Invigorat"/>
+    <tuple a="Teleport"/>
+    <tuple a="Paralysis"/>
+    <tuple a="Beast Form" b="BeastForm"/>
+    <tuple a="Shadow"/>
+    <tuple a="Special"/>
+    <tuple a="Summoning"/>
+    <tuple a="Psionic"/>
+    <tuple a="Full Discipline" b="FullDisc"/>
+    <tuple a="Augmentable" b="Augment"/>
+    </map>
+
+  <!-- power range -->
+  <map name="powerrange">
+    <tuple a="Melee Weapon" b="MeleeWep"/>
+    <tuple a="Melee Touch" b="MeleeTouch"/>
+    <tuple a="Ranged Weapon" b="RangeWep"/>
+    <tuple a="Ranged Sight" b="RangeSight"/>
+    <tuple a="Personal"/>
+    </map>
+
+  <!-- power limits -->
+  <map name="powerlimit">
+    <tuple a="Channel Divinity" b="ChanDiv1"/>
+    <tuple a="Magic Item Daily" b="ItemDailyX"/>
+    </map>
+
+  <!-- power sources -->
+  <map name="powersrc">
+    <tuple a="Arcane"/>
+    <tuple a="Divine"/>
+    <tuple a="Martial"/>
+    <tuple a="Primal"/>
+    <tuple a="Psionic"/>
+    <tuple a="Shadow"/>
+    </map>
+
+  <!-- attribute fields for races -->
+  <map name="raceattr">
+    <tuple a="Strength" b="racStr"/>
+    <tuple a="Dexterity" b="racDex"/>
+    <tuple a="Constitution" b="racCon"/>
+    <tuple a="Intelligence" b="racInt"/>
+    <tuple a="Wisdom" b="racWis"/>
+    <tuple a="Charisma" b="racCha"/>
+    </map>
+
+  <!-- sizes -->
+  <map name="size">
+    <tuple a="Tiny"/>
+    <tuple a="Small"/>
+    <tuple a="Medium"/>
+    <tuple a="Large"/>
+    <tuple a="Huge"/>
+    <tuple a="Gargantuan"/>
+    </map>
+
+  <!-- vision types -->
+  <map name="vision">
+    <tuple a="Low-light" b="Lowlight"/>
+    <tuple a="Darkvision"/>
+    <tuple a="Blindsight"/>
+    </map>
+
+  <!-- ritual categories -->
+  <map name="ritualcat">
+    <tuple a="Exploration" b="Explor"/>
+    <tuple a="Restoration" b="Restor"/>
+    </map>
+
+  <!-- roles -->
+  <map name="role">
+    <tuple a="Leader"/>
+    <tuple a="Striker"/>
+    <tuple a="Defender"/>
+    <tuple a="Controller"/>
+    </map>
+
+  <!-- implement type -->
+  <map name="impltype">
+    <tuple a="Orb" b="itOrb"/>
+    <tuple a="Rod" b="itRod"/>
+    <tuple a="Staff" b="itStaff"/>
+    <tuple a="Wand" b="itWand"/>
+    <tuple a="Holy Symbol" b="itHolySym"/>
+    <tuple a="Totem" b="itTotem"/>
+    <tuple a="Tome" b="itTome"/>
+    <tuple a="Ki Focus" b="itKiFocus"/>
+
+    <!-- Sometimes plurals get used... -->
+    <tuple a="Orbs" b="itOrb" c="Orb"/>
+    <tuple a="Rods" b="itRod" c="Rod"/>
+    <tuple a="Staffs" b="itStaff" c="Staff"/>
+    <tuple a="Wands" b="itWand" c="Wand"/>
+    <tuple a="Holy Symbols" b="itHolySym"/>
+    <tuple a="Totems" b="itTotem"/>
+    <tuple a="Tomes" b="itTome"/>
+    <tuple a="Ki Focuses" b="itKiFocus"/>
+    <tuple a="Ki Foci" b="itKiFocus"/>
+    </map>
+
+  <!-- weapon categories - c = 'group required' group id -->
+  <map name="wepcat">
+    <tuple a="Military" b="wcMilitary" c="WpGrpRqMil"/>
+    <tuple a="Simple" b="wcSimple" c="WpGrpRqSim"/>
+    <tuple a="Superior" b="wcSuperior" c="WpGrpRqSup"/>
+    <tuple a="Improvised" b="wcImprov" c="WpGrpRqImp"/>
+    </map>
+
+  <!-- weapon group -->
+  <map name="wepgroup">
+    <tuple a="Axe" b="wgAxe"/>
+    <tuple a="Bow" b="wgBow"/>
+    <tuple a="Crossbow" b="wgCrossbow"/>
+    <tuple a="Flail" b="wgFlail"/>
+    <tuple a="Hammer" b="wgHammer"/>
+    <tuple a="Heavy Blade" b="wgHeavyBl"/>
+    <tuple a="Light Blade" b="wgLightBl"/>
+    <tuple a="Mace" b="wgMace"/>
+    <tuple a="Pick" b="wgPick"/>
+    <tuple a="Polearm" b="wgPolearm"/>
+    <tuple a="Sling" b="wgSling"/>
+    <tuple a="Spear" b="wgSpear"/>
+    <tuple a="Staff" b="wgStaff"/>
+    <tuple a="Unarmed" b="wgUnarmed"/>
+    </map>
+
+  <!-- attribute requirement fields -->
+  <map name="reqattr">
+    <tuple a="Str" b="reqStr"/>
+    <tuple a="Dex" b="reqDex"/>
+    <tuple a="Con" b="reqCon"/>
+    <tuple a="Int" b="reqInt"/>
+    <tuple a="Wis" b="reqWis"/>
+    <tuple a="Cha" b="reqCha"/>
+    </map>
+  <map name="reqattrnam">
+    <tuple a="Strength" b="reqStr"/>
+    <tuple a="Dexterity" b="reqDex"/>
+    <tuple a="Constitution" b="reqCon"/>
+    <tuple a="Intelligence" b="reqInt"/>
+    <tuple a="Wisdom" b="reqWis"/>
+    <tuple a="Charisma" b="reqCha"/>
+    </map>
+
+  <!-- alignment -->
+  <map name="alignment">
+    <tuple a="Lawful"/>
+    <tuple a="Good"/>
+    <tuple a="Evil"/>
+    <tuple a="Chaotic"/>
+    </map>
+
+  <!-- gender -->
+  <map name="gender">
+    <tuple a="male" b="Male"/>
+    <tuple a="female" b="Female"/>
+    </map>
+
+  <!-- feat descriptors -->
+  <map name="ftdescript">
+    <tuple a="Multiclass Daily" b="MultiDaily"/>
+    <tuple a="Multiclass Utility" b="MultiUtil"/>
+    <tuple a="Multiclass Encounter" b="MultiEnc"/>
+    </map>
+
+  <!-- defenses on armor -->
+  <map name="defarmspec">
+    <tuple a="Fortitude" b="arFort"/>
+    <tuple a="Reflex" b="arRef"/>
+    <tuple a="Will" b="arWill"/>
+    <tuple a="All" b="arResAll"/>
+    </map>
+
+  <!-- class at-will equivalences
+      b value must be the name to be parsed out of the "level 7 extra knight stance"
+          ability name from the compendium, c value is the plural -->
+  <map name="atwilleqv">
+    <tuple a="Knight" b="Knight Stance" c="Knight Stances"/>
+    <tuple a="Hunter" b="Aspect of the Wild" c="Aspects of the Wild"/>
+    <tuple a="Scout" b="Aspect of the Wild" c="Aspects of the Wild"/>
+    <tuple a="Slayer" b="Slayer Stance" c="Slayer Stances"/>
+    <tuple a="Thief" b="Rogue&apos;s Trick" c="Rogue&apos;s Tricks"/>
+
+    <!-- These ones are a useful way to kick the classes back to regular
+        at-will power behavior -->
+    <tuple a="Mage" b="At-Will Power" c="At-Will Powers"/>
+    <tuple a="Sentinel" b="At-Will Power" c="At-Will Powers"/>
+    </map>
+
+  <!-- language names to skip on backgrounds -->
+  <map name="bglangskip">
+    <tuple a="A language the imitated race speaks"/>
+    <tuple a="Dwarven or Giant"/>
+    <tuple a="Any language other than Abyssal or Supernal"/>
+    <tuple a="Any one other than Abyssal or Supernal"/>
+    <tuple a="The language commonly spoken by your enemy"/>
+    <tuple a="Secret Language"/>
+    <tuple a="A language spoken by your adoptive parent"/>
+    <tuple a="The language of the mind"/>
+    <tuple a="Any one except Abyssal or Supernal"/>
+    <tuple a="except for Infernal and Supernal"/>
+    </map>
+
+  <!-- races based on other races -->
+  <map name="racecopies">
+    <tuple a="Gold Dwarf" b="Dwarf"/>
+    <tuple a="Moon Elf (Eladrin)" b="Eladrin"/>
+    <tuple a="Shield Dwarf" b="Dwarf"/>
+    <tuple a="Sun Elf (Eladrin)" b="Eladrin"/>
+    <tuple a="Wild Elf" b="Elf"/>
+    <tuple a="Wood Elf" b="Elf"/>
+    <tuple a="Llewyrr Elf" b="Elf"/>
+    </map>
+
+  </document>

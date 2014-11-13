@@ -1,0 +1,113 @@
+#   Copyright (c) 1997-2012 by Lone Wolf Development (www.wolflair.com)
+#
+#   This code is free software; you can redistribute it and/or modify it under
+#   the terms of the GNU General Public License as published by the Free
+#   Software Foundation; either version 2 of the License, or (at your option)
+#   any later version.
+#
+#   This program is distributed in the hope that it will be useful, but WITHOUT
+#   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+#   FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+#   more details.
+#
+#   You should have received a copy of the GNU General Public License along with
+#   this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+#   Place, Suite 330, Boston, MA 02111-1307 USA
+#
+#   You can find more information about this project here:
+#
+#   http://code.google.com/p/ddidownloader/
+#
+#   This makefile builds the D&DI Downloader for Windows, using Visual Studio
+#   2010.
+#
+#   HOW TO BUILD ON THE MAC
+#
+#   To build under XCode 4.2 on the mac, create a new project and add the files
+#   from the ddidownloader folder to it, including the "xml" subfolder. You
+#   should add all .cpp, .h and .mm files, EXCEPT for files with names ending
+#   _windows.cpp (those are windows versions of files, and they won't work on
+#   OS X).
+#
+#   You'll need to define the symbol _OSX to make everything work properly, and
+#   the flags -Wno-deprecated-declarations, -Wno-unused-value and -Wno-write-strings
+#   to skip a bunch of irrelevant warnings.
+#
+#   The project should build on XCode 4.2 using the OS X 10.7 SDK, targetting
+#   OS X 10.5 as the minimum version. Make sure the language dialect is set to
+#   C++0x, as this project uses the available C++0x features for that platform.
+#   The only framework you need to link with is Cocoa.
+
+# Make a subdirectory for our objects if it doesn't already exist
+!if [if not exist objs\$(null) mkdir objs]
+!endif
+
+all:    ddidownloader.exe
+
+# Link with all the libraries we might need
+system_libs = kernel32.lib user32.lib gdi32.lib advapi32.lib shell32.lib \
+            winspool.lib comdlg32.lib comsupp.lib \
+            shell32.lib ole32.lib oleaut32.lib uuid.lib \
+            odbc32.lib odbccp32.lib wininet.lib shlwapi.lib \
+
+# Build a list of all the objects we care about
+objects =  ddicrawler.obj text.obj uniqueid.obj encode.obj \
+            parse_powers.obj output_powers.obj \
+            parse_classes.obj output_classes.obj \
+            parse_skills.obj output_skills.obj \
+            parse_races.obj output_races.obj \
+            parse_feats.obj output_feats.obj \
+            parse_paragons.obj output_paragons.obj \
+            parse_epics.obj output_epics.obj \
+            parse_rituals.obj output_rituals.obj \
+            parse_items.obj output_items.obj \
+            parse_monsters.obj output_monsters.obj \
+            parse_backgrounds.obj output_backgrounds.obj \
+            parse_deities.obj output_deities.obj \
+            helper.obj helper_windows.obj file.obj file_windows.obj \
+            www_windows.obj regexp_windows.obj
+
+# And a list of objects from the XML helper components
+xmlobjs = xml\napkin.obj xml\pool.obj xml\strout.obj xml\xmlcont.obj xml\xmlelem.obj \
+            xml\xmlhelp.obj xml\xmlparse.obj xml\xmlwrap.obj xml\strings.obj
+
+# convert the list of object files to specify the appropriate object file
+# sub-directory; the process is as follows:
+#
+# 1. make sure the list is prefixed with a space, which requires a marker also
+# 2. convert all double spaces to single spaces
+# 3. do #2 again just in case there were blocks of odd-numbered spaces
+# 4. convert all spaces to a space followed by the object sub-directory
+# 5. strip off the prefix we added in #1
+linkobjs = $(objects) $(xmlobjs:xml\=)
+linkobjs = ~~~~ $(linkobjs)
+linkobjs = $(linkobjs:  = )
+linkobjs = $(linkobjs:  = )
+linkobjs = $(linkobjs: = objs\)
+linkobjs = $(linkobjs:~~~~ =)
+
+# set up appropriate flags for building in debug or release mode - to build in
+# debug mode, call "nmake debug=1" instead of just "nmake"
+!ifdef  debug
+cflags = /Zi /MTd
+lflags = /debug
+!else
+cflags = /ZI /MT
+lflags =
+!endif
+
+ddidownloader.exe:  $(objects) $(xmlobjs)
+    link /OUT:ddidownloader.exe /nologo /subsystem:console $(lflags) $(linkobjs) $(system_libs)
+
+# Our helper file depends on the DTD definitions
+helper.cpp: dtds.h
+
+# All other files depend on private.h, crawler.h, ddi_dtds.h, the tools.h file,
+# and this makefile
+$(objects): private.h crawler.h output.h ddi_dtds.h xml\tools.h xml\pubxml.h MAKEFILE
+
+# Our XML files just depend on their headers and this file
+$(xmlobjs): xml\tools.h xml\pubxml.h xml\private.h MAKEFILE
+
+.cpp.obj:
+    cl /nologo /c /Zp8 /EHsc /W3 /Gm /I. -D_CRT_SECURE_NO_DEPRECATE /Foobjs\ $(cflags) $<

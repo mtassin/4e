@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<document signature="Hero Lab Data">
+
+  <thing
+    id="maDawnWar4"
+    name=""
+    compset="">
+    <eval index="2" phase="Traits" priority="1000"><![CDATA[
+doneif (parent.tagis[Equipped.Equipped] = 0)
+#traitmodify[rsCold,rsTotal,10,""]
+#traitmodify[rsFire,rsTotal,10,""]
+#traitmodify[rsLightn,rsTotal,10,""]
+]]>
+      <before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+
+  <thing
+    id="maDawnWar5"
+    name=""
+    compset="">
+    <eval index="2" phase="Traits" priority="1000"><![CDATA[
+doneif (parent.tagis[Equipped.Equipped] = 0)
+#traitmodify[rsCold,rsTotal,10,""]
+#traitmodify[rsFire,rsTotal,10,""]
+#traitmodify[rsLightn,rsTotal,10,""]
+]]>
+      <before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+
+  <thing
+    id="maDawnWar6"
+    name=""
+    compset="">
+    <eval index="2" phase="Traits" priority="1000"><![CDATA[
+doneif (parent.tagis[Equipped.Equipped] = 0)
+#traitmodify[rsCold,rsTotal,10,""]
+#traitmodify[rsFire,rsTotal,10,""]
+#traitmodify[rsLightn,rsTotal,10,""]
+]]>
+      <before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+
+  <thing
+    id="maCoatEye1"
+    name=""
+    compset="">
+    <tag group="ReqArmor" tag="arHideArm"/>
+    <eval index="2" phase="Traits" priority="1000"><![CDATA[
+doneif (parent.tagis[Equipped.Equipped] = 0)
+#traitmodify[skPercepti,trtItem,1,""]
+#traitmodify[skInsight,trtBonus,-1,""]
+]]>
+      <before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+
+  </document>

@@ -1,0 +1,3293 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<document signature="Hero Lab Data">
+
+  <thing
+    id="fParArcUnd"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[skArcana,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+  <thing
+    id="fParFunMas"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      ~+3 to arcane power damage (+5 at 25)
+      var damage as number
+      if (#level[] < 25) then
+        damage = 3
+      else
+        damage = 5
+        endif
+      foreach pick in hero from Power where "PowerSrc.Arcane & PowerType.AtWill"
+        perform eachpick.field[pwDamBonus].modify[+,damage,""]
+        nexteach
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParAstVib"
+    name=""
+    compset="">
+    <arrayval field="usrArray" index="0" value="Lightning"/>
+    <arrayval field="usrArray" index="1" value="Radiant"/>
+    <arrayval field="usrArray" index="2" value="Thunder"/>
+    </thing>
+  <thing
+    id="fParWeaTra"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.WeaponBase &amp; WepGroup.wgHeavyBl"/>
+    <tag group="ChooseSrc1" tag="Thing"/>
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Weapon proficiencies final"/>
+      <![CDATA[
+      doneif (field[usrChosen1].ischosen = 0)
+      doneif (activated = 0)
+
+      var text as string
+      text = "WeaponProf." & field[usrChosen1].chosen.idstring
+      perform hero.assignstr[text]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParChoPre"
+    name=""
+    compset="">
+    <arrayval field="usrArray" index="0" value="Beast"/>
+    <arrayval field="usrArray" index="1" value="Magical Beast"/>
+    </thing>
+
+  <thing
+    id="fParSavApo"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[trSpeed,trtBonus,1,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParBlaLeg"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      foreach pick in hero from WeaponBase where "thingid.wpLongswor"
+        perform eachpick.field[wpDamage].modify[+,1,""]
+        nexteach
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParCroSav"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      foreach pick in hero from WeaponBase where "WepGroup.wgCrossbow"
+        eachpick.field[wpShort].value += 5
+        eachpick.field[wpLong].value += 5
+        if (eachpick.tagis[thingid.wpHandCro] <> 0) then
+          perform eachpick.assign[WepProp.OffHand]
+          endif
+        if (eachpick.tagis[WepProp.LoadMinor] <> 0) then
+          perform eachpick.delete[WepProp.LoadMinor]
+          perform eachpick.assign[WepProp.LoadFree]
+          endif
+        nexteach
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParTouNai"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <after name="Calc attrBonus"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[trSurges,trtBonus,1,""]
+      var bonus as number
+      bonus = #attrbonus[attrCon]
+      #traitmodify[trSurgeVal,trtBonus,bonus,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParExtMan"
+    name=""
+    compset="">
+    <bootstrap thing="ftExtraMan"/>
+    </thing>
+
+  <thing
+    id="fParConRes"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[rsFire,rsTotal,5,""]
+      #traitmodify[rsCold,rsTotal,5,""]
+      #traitmodify[rsLightn,rsTotal,5,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParImpSwo"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      ~if we're wielding a light blade or heavy blade, and our off-hand is free,
+      ~we get a +1 to AC
+      var isblade as number
+      var isoffempty as number
+      isblade = 0
+      isoffempty = 1
+      foreach pick in hero from WeapMelee where "!Hide.Weapon"
+        if (eachpick.tagis[WepGroup.wgHeavyBl] + eachpick.tagis[WepGroup.wgLightBl] <> 0) then
+          if (eachpick.tagis[Equipped.Equipped] <> 0) then
+            isblade = 1
+            endif
+          endif
+        if (eachpick.tagis[Helper.EqpOff] + eachpick.tagis[Helper.EqpBoth] <> 0) then
+          isoffempty = 0
+          endif
+        nexteach
+      if (isblade <> 0) then
+        if (isoffempty <> 0) then
+          #traitmodify[defAC,trtBonus,1,""]
+          endif
+        endif
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParUnfRes"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[trHealth,trtBonus,10,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParDuaMan"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="User.GenasiMan"/>
+    <eval phase="Setup" name="Build option activated">
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.assign[Helper.ChosenOpt]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParTemLor"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[rsFire,rsExtraPre,5,""]
+      #traitmodify[rsCold,rsExtraPre,5,""]
+      #traitmodify[rsLightn,rsExtraPre,5,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParUltQui"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <after name="Calc attrBonus"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      var bonus as number
+      bonus = #attrbonus[attrCha]
+      #traitmodify[trInit,trtBonus,bonus,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParShaSig"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform hero.assign[Vision.Darkvision]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParAstInf"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <after name="Calc attrBonus"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      var bonus as number
+      bonus = #attrbonus[attrWis]
+      #traitmodify[trSurgeVal,trtBonus,bonus,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParKenFoc"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.WeaponBase &amp; !component.MagicItem"/>
+    <tag group="ChooseSrc1" tag="Thing"/>
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Weapon proficiencies final"/>
+      <![CDATA[
+      doneif (field[usrChosen1].ischosen = 0)
+      doneif (activated = 0)
+
+      var expr as string
+      expr = "thingid." & field[usrChosen1].chosen.idstring
+      foreach pick in hero from WeaponBase where expr
+        perform eachpick.field[wpDamage].modify[+,1,""]
+        nexteach
+      ]]></eval>
+    </thing>
+  <thing
+    id="fParKenMas"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Weapon proficiencies final"/>
+      <![CDATA[
+      doneif (hero.child[fParKenFoc].field[usrChosen1].ischosen = 0)
+      doneif (activated = 0)
+
+      var expr as string
+      expr = "thingid." & hero.child[fParKenFoc].field[usrChosen1].chosen.idstring
+      foreach pick in hero from WeaponBase where expr
+        perform eachpick.field[wpDamage].modify[+,4,""]
+        nexteach
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParAccThr"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Weapon proficiencies final"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      foreach pick in hero from WeaponBase where "WepGroup.wgSpear"
+        perform eachpick.field[wpBonus].modify[+,1,""]
+        nexteach
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParLucBla"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.WeaponBase &amp; WepGroup.wgHeavyBl"/>
+    <tag group="ChooseSrc1" tag="Thing"/>
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Weapon proficiencies final"/>
+      <![CDATA[
+      doneif (field[usrChosen1].ischosen = 0)
+      doneif (activated = 0)
+
+      var text as string
+      text = "WeaponProf." & field[usrChosen1].chosen.idstring
+      perform hero.assignstr[text]
+      text = "ImplemType." & field[usrChosen1].chosen.idstring
+      perform hero.assignstr[text]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParDevTra"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Skill"/>
+    <eval phase="Setup" name="Build option activated">
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.assign[Helper.TrainedAut]
+      ]]></eval>
+    </thing>
+  <thing
+    id="fParPriBla"
+    name=""
+    compset="">
+    <arrayval field="usrArray" index="0" value="Cold"/>
+    <arrayval field="usrArray" index="1" value="Fire"/>
+    <arrayval field="usrArray" index="2" value="Thunder"/>
+    <arrayval field="usrArray" index="3" value="Lightning"/>
+    </thing>
+
+  <thing
+    id="fParSkiInf"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Skill"/>
+    <eval phase="Traits" priority="1000"><![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[skAcrobati,trtBonus,2,""]
+      #traitmodify[skAthletic,trtBonus,2,""]
+      #traitmodify[skStealth,trtBonus,2,""]
+      ]]><before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+
+  <thing
+    id="fParBattle"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[trSurges,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParArmOpt"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <after name="Equip Armor"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      if (hero.tagis[Armor.?] <> 0) then
+        #traitmodify[defAC,trtBonus,1,""]
+        endif
+      ]]></eval>
+    </thing>
+  <thing
+    id="fParDirFig"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <after name="Calc attrBonus"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      foreach pick in hero from WeaponBase where "!Equipment.Natural"
+        perform eachpick.field[wpDamage].modify[+,#attrbonus[attrWis],""]
+        nexteach
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParPlaSca"
+    name=""
+    compset="">
+    <bootstrap thing="ftArPrSca">
+      <autotag group="thing" tag="skipprereq"/>
+      </bootstrap>
+    </thing>
+
+  <thing
+    id="fParDeaRit"
+    name=""
+    compset="">
+    <bootstrap thing="ftRituaCas">
+      <autotag group="thing" tag="skipprereq"/>
+      </bootstrap>
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Calc sklTrained"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform hero.child[skReligion].assign[Helper.TrainedAut]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParShaRec"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[skPercepti,trtBonus,2,""]
+      #traitmodify[skInsight,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParShiSta"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <after name="arMagic copy"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      foreach pick in hero from Shield where "Equipped.Equipped"
+        #traitmodify[defFort,trtBonus,eachpick.field[arAC].value,""]
+        done
+        nexteach
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParDeaSol"
+    name=""
+    compset="">
+    <eval index="1" phase="Final" priority="10000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      foreach pick in hero from WeaponBase where "WepProp.OffHand"
+        perform eachpick.field[wpDamDice].modify[+,1,""]
+        done
+        nexteach
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParSorVit"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[trSurges,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParSpeCom"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[trSurges,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParStoSpe"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fParSylSen"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[skPercepti,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParShaDef"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      var bonus as number
+      bonus = 5 + round(hero.tagvalue[Level.?] / 2, 0, -1)
+      #traitmodify[rsNecrotic,rsTotal,bonus,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParPeoHis"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <after name="Calc attrBonus"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      var bonus as number
+      bonus = #attrbonus[attrWis]
+      #traitmodify[skHistory,trtBonus,bonus,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParArcFun"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Power &amp; PowerClass.clsWizard &amp; (PowerType.AtWill | PowerType.Encounter)"/>
+    </thing>
+
+  <thing
+    id="fParSocSav"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      foreach pick in hero from Skill
+        if (eachpick.islinkage[attribute] <> 0) then
+          if (eachpick.linkage[attribute].tagis[thingid.attrWis] + eachpick.linkage[attribute].tagis[thingid.attrCha] <> 0) then
+            perform eachpick.field[trtBonus].modify[+,1,""]
+            endif
+          endif
+        nexteach
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParWarStr"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+  <thing
+    id="fParWarTra"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <after name="arMagic copy"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      foreach pick in hero from Armor where "ArmorCat.Heavy & Equipped.Equipped"
+        #traitmodify[defAC,trtBonus,1,""]
+        done
+        nexteach
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParCorImp"
+    name=""
+    compset="">
+    <arrayval field="usrArray" index="0" value="Orb of Imposition"/>
+    <arrayval field="usrArray" index="1" value="Staff of Defense"/>
+    <arrayval field="usrArray" index="2" value="Wand of Accuracy"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform hero.assign[ImplemType.wpLongswor]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParPhaFoc"
+    name=""
+    compset="">
+    <arrayval field="usrArray" index="0" value="Blazing Sun"/>
+    <arrayval field="usrArray" index="1" value="Distant Stars"/>
+    <arrayval field="usrArray" index="2" value="Watching Moon"/>
+    </thing>
+
+  <thing
+    id="fParGuaRes"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="thingid.rsAcid | thingid.rsCold | thingid.rsFire | thingid.rsLightn | thingid.rsPoison | thingid.rsThunder"/>
+    <eval index="1" phase="Traits" priority="10000"><![CDATA[
+      doneif (activated = 0)
+
+      var resist as number
+      if (hero.tagvalue[Level.?] <= 10) then
+        resist = 5
+      elseif (hero.tagvalue[Level.?] <= 20) then
+        resist = 10
+      else
+        resist = 15
+        endif
+
+      ~resist 5/10/15
+      perform field[usrChosen1].chosen.field[rsTotal].modify[+,resist,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParEssRes"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000"><![CDATA[
+      doneif (activated = 0)
+
+      var resist as number
+      if (hero.tagvalue[Level.?] <= 20) then
+        resist = 3
+      else
+        resist = 4
+        endif
+
+      foreach pick in hero from Resistance
+        perform eachpick.field[rsExtraPre].modify[+,resist,""]
+        nexteach
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParDirIne"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+
+  <thing
+    id="fParAttTar"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+
+  <thing
+    id="fParShaDis"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000"><![CDATA[
+      doneif (activated = 0)
+
+      ~warlock encounter attack spells gain Rattling
+      foreach pick in hero from Power where "PowerClass.clsWarlock & PowerType.Encounter"
+        perform eachpick.assign[EffectType.Rattling]
+        nexteach
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParWinEmb"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000"><![CDATA[
+      doneif (activated = 0)
+
+      var resist as number
+      if (hero.tagvalue[Level.?] <= 20) then
+        resist = 3
+      else
+        resist = 5
+        endif
+      perform hero.child[rsCold].field[rsExtraPre].modify[+,resist,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParZebBle"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <after name="Calc attrBonus"/><![CDATA[
+      doneif (activated = 0)
+
+      var resist as number
+      resist = round(hero.tagvalue[Level.?] / 2, 0, -1) + hero.child[attrCha].field[attrBonus].value
+      perform hero.child[rsLightn].field[rsTotal].modify[+,resist,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParPlaOdd"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+
+  <thing
+    id="fParFroFav"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Power &amp; PowerSrc.Arcane &amp; PowerType.Encounter"/>
+    <eval index="1" phase="Traits" priority="10000"><![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.assign[DamageType.Cold]
+      #traitmodify[rsCold,rsTotal,10,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParChaDiv"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+
+  <thing
+    id="fParAlcInn"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="10000"><![CDATA[
+      doneif (activated = 0)
+
+      var total as number
+      if (#level[] < 15) then
+        total = 2
+      elseif (#level[] < 21) then
+        total = 4
+      elseif (#level[] < 25) then
+        total = 6
+      else
+        total = 8
+        endif
+      hero.child[resRituals].field[resMax].value += total
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParIteAff"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="10000">
+      <after name="pwLinkUses final"/><![CDATA[
+      doneif (activated = 0)
+
+      ~each of our magic items can be used an extra time
+      foreach pick in hero from Power where "PowerLink.ItemDailyX"
+        eachpick.field[pwLinkUses].value += 1
+        nexteach
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParArcRec"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+
+  <thing
+    id="fParCerSig"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[defWill,trtBonus,1,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParParPow"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      hero.child[trkPower].field[trkMax].value += 2
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParShiSki"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Skill"/>
+    </thing>
+
+  <thing
+    id="fParRadRen"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[rsRadiant,rsExtra,10,""]
+      #traitmodify[rsPsychic,rsExtra,10,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParStoAde"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="10000">
+      <after name="Calc attrBonus"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      ~+1 to attack / +CON modifier to damage from lightning or thunder powers
+      var damage as number
+      damage = #attrbasebonus[attrCon]
+      foreach pick in hero from Power where "(DamageType.Thunder | DamageType.Lightning)"
+        perform eachpick.field[pwAtkMod].modify[+,1,""]
+        perform eachpick.field[pwDamBonus].modify[+,damage,""]
+        nexteach
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParFeaTou"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+
+  <thing
+    id="fParBliSig"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[trInit,trtBonus,2,""]
+      #traitmodify[skPercepti,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParSwiFoo"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[trSpeed,trtBonus,1,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParParPoi"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      hero.child[trkPower].field[trkMax].value += 2
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParConPer"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[trSave,trtBonus,2,""]
+      #traitmodify[skEnduranc,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParWatIns"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Skill"/>
+    <eval phase="Traits" priority="1000"><![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[skInsight,trtBonus,2,""]
+      #traitmodify[skPercepti,trtBonus,2,""]
+      #traitmodify[skStealth,trtBonus,2,""]
+      ]]><before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+
+  <thing
+    id="fParCapPre"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Skill"/>
+    <eval phase="Traits" priority="1000"><![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[skDiplomac,trtBonus,2,""]
+      #traitmodify[skInsight,trtBonus,2,""]
+      #traitmodify[skIntimida,trtBonus,2,""]
+      ]]><before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+
+  <thing
+    id="fParCanDef"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="5000">
+      <after name="Calc attrBonus"/><![CDATA[
+      doneif (activated = 0)
+
+      ~+2 to AC/Reflex if not wearing heavy armor or shield
+      perform hero.findchild[ArmorBase,"Equipped.Equipped & (ArmorCat.Heavy | Armory.Shield)"].setfocus
+      if (state.isfocus = 0) then
+        #traitmodify[defAC,trtBonus,2,""]
+        #traitmodify[defRef,trtBonus,2,""]
+        endif
+      #traitmodify[trInit,trtBonus,hero.child[attrWis].field[attrBonus].value,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParBlaTec"
+    name=""
+    compset="">
+    <eval index="1" phase="Setup" priority="1000"><![CDATA[
+      doneif (activated = 0)
+
+      ~check if we're wielding a rapier and light blade - if not, do nothing
+      doneif (hero.haschild[WeapMelee,"WeaponProf.wpRapier & Helper.EqpMain"] = 0)
+      doneif (hero.haschild[WeapMelee,"WepGroup.wgLightBl & Helper.EqpOff"] = 0)
+
+      ~if we are, our rapier gains High Crit and +1 attack / damage
+      foreach pick in hero from WeapMelee where "WeaponProf.wpRapier"
+        perform eachpick.field[wpBonus].modify[+,1,""]
+        perform eachpick.field[wpDamage].modify[+,1,""]
+        perform eachpick.assign[WepProp.HighCrit]
+        nexteach
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParAccArr"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Setup" priority="1000"><![CDATA[
+      doneif (activated = 0)
+
+      perform hero.child[pwBasicRng].field[pwAtkMod].modify[+,1,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParEyeNig"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000"><![CDATA[
+      doneif (activated = 0)
+
+      perform hero.assign[Vision.Darkvision]]]>
+      </eval>
+    </thing>
+
+  <thing
+    id="fParMasPoi"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+
+  <thing
+    id="fParPoiSou"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      var bonus as number
+      if (#level[] <= 20) then
+        bonus = 5
+      else
+        bonus = 10
+        endif
+      #traitmodify[rsPoison,rsTotal,bonus,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParEndEnd"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      var bonus as number
+      bonus = #attrbasebonus[attrCon] * 2
+      #traitmodify[trHealth,trtBonus,bonus,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParStrSpi"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      var bonus as number
+      bonus = #attrbasebonus[attrCha]
+      #traitmodify[trSurgeVal,trtBonus,bonus,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParRelPac"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="spcUsed bounded"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      hero.child[pBbnRagStr].field[spcMax].value += 1
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParGuaFla"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      var bonus as number
+      #traitmodify[rsFire,rsExtra,5,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParFriEmb"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      var bonus as number
+      bonus = 5 + #halflevel[]
+      #traitmodify[rsCold,rsTotal,bonus,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParRadGlo"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      var bonus as number
+      bonus = #halflevel[]
+      #traitmodify[rsRadiant,rsTotal,bonus,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParWatOme"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <after name="Calc attrBonus"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[trInit,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParStoTou"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[rsThunder,rsTotal,5,""]
+      #traitmodify[rsLightn,rsTotal,5,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParPieDar"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform hero.assign[Vision.Darkvision]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParFroRea"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[rsCold,rsTotal,10,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParDrcRst"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Resistance"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      var bonus as number
+      bonus = 5 + #halflevel[]
+      perform field[usrChosen1].chosen.field[rsTotal].modify[+,bonus,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParVoiPha"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[trSave,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParPapSec"
+    name=""
+    compset="">
+    <eval phase="Setup" priority="2"><![CDATA[
+      doneif (activated = 0)
+
+      hero.childfound[clsWizard].field[clsDailyMl].value += 1
+      ]]><before name="Daily powers multiplied"/>
+      </eval>
+    </thing>
+
+  <thing
+    id="fParArcWea"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Weapon proficiencies final"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform hero.assign[ImplemType.wgBow]
+      perform hero.assign[ImplemType.wgCrossbow]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParDraBla"
+    name=""
+    compset="">
+    <fieldval field="usrSelect" value="Fire"/>
+    <arrayval field="usrArray" index="0" value="Acid"/>
+    <arrayval field="usrArray" index="1" value="Cold"/>
+    <arrayval field="usrArray" index="2" value="Fire"/>
+    <arrayval field="usrArray" index="3" value="Lightning"/>
+    <arrayval field="usrArray" index="4" value="Poison"/>
+    </thing>
+
+  <thing
+    id="ppStormDra"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[rsThunder,rsTotal,10,""]
+      #traitmodify[rsLightn,rsTotal,10,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParSpeWin"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[trSpeed,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParMasMan"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Setup" priority="1000"><![CDATA[
+      doneif (activated = 0)
+
+      ~Multiclass Versatility - take as many multiclass feats as you like
+      herofield[acMaxMulti].value += 999
+
+      #resmax[resFeats] += 1
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParTraFic"
+    name=""
+    compset="">
+    <fieldval field="usrSelect" value="1"/>
+    <arrayval field="usrArray" index="0" value="1"/>
+    <arrayval field="usrArray" index="1" value="2"/>
+    <arrayval field="usrArray" index="2" value="3"/>
+    <arrayval field="usrArray" index="3" value="4"/>
+    <arrayval field="usrArray" index="4" value="5"/>
+    <arrayval field="usrArray" index="5" value="6"/>
+    <arrayval field="usrArray" index="6" value="7"/>
+    <arrayval field="usrArray" index="7" value="8"/>
+    <arrayval field="usrArray" index="8" value="9"/>
+    <arrayval field="usrArray" index="9" value="10"/>
+    <arrayval field="usrArray" index="10" value="11"/>
+    <arrayval field="usrArray" index="11" value="12"/>
+    </thing>
+
+  <!-- Duplicate feature names which aren't actually the same... sigh -->
+  <thing
+    id="ppGhallSan"
+    name=""
+    compset="">
+    <bootstrap thing="fParSwiAct" phase="***DELETE***"/>
+    </thing>
+  <thing
+    id="ppHonorBla"
+    name=""
+    compset="">
+    <bootstrap thing="fParDraBre" phase="***DELETE***"/>
+    </thing>
+  <thing
+    id="ppSylvaArc"
+    name=""
+    compset="">
+    <bootstrap thing="fParArcAct" phase="***DELETE***"/>
+    </thing>
+  <thing
+    id="ppWatchVen"
+    name=""
+    compset="">
+    <bootstrap thing="fParVenAct" phase="***DELETE***"/>
+    </thing>
+
+  <thing
+    id="fParArcBur"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Weapon proficiencies final"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform hero.assign[ImplemType.wpDagger]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParResBla"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <after name="Calc attrBonus"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[trSurges,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParCelRes"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      var bonus as number
+      bonus = #halflevel[]
+      #traitmodify[rsNecrotic,rsTotal,bonus,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParEleBre"
+    name=""
+    compset="">
+    <fieldval field="usrSelect" value="Fire"/>
+    <arrayval field="usrArray" index="0" value="Acid"/>
+    <arrayval field="usrArray" index="1" value="Cold"/>
+    <arrayval field="usrArray" index="2" value="Lightning"/>
+    <arrayval field="usrArray" index="3" value="Thunder"/>
+    </thing>
+
+  <thing
+    id="fParAddMis"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="spcUsed bounded"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      hero.childfound[pFtMantMis].field[spcMax].value += 1
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParSliMas"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      var damage as number
+      if (#level[] < 21) then
+        damage = 2
+      else
+        damage = 4
+        endif
+      foreach pick in hero from WeaponBase where "thingid.wpSling"
+        perform eachpick.field[wpDamage].modify[+,damage,""]
+        nexteach
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParForin"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      var bonus as number
+      bonus = #halflevel[]
+      #traitmodify[rsFire,rsExtra,bonus,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParBatAgi"
+    name=""
+    compset="">
+    <eval phase="Setup" priority="5"><![CDATA[
+      doneif (activated = 0)
+
+      foreach pick in hero from ArmorBase where "ArmorType.arChainmai | ArmorType.arScaleArm"
+        eachpick.field[arSpeed].value = 0
+        eachpick.field[arCheck].value = 0
+        nexteach
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParMyrAth"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[trSpeed,trtBonus,1,""]
+      #traitmodify[skAcrobati,trtBonus,2,""]
+      #traitmodify[skAthletic,trtBonus,2,""]
+      #traitmodify[skEnduranc,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParIroMas"
+    name=""
+    compset="">
+    <eval index="1" phase="Setup" priority="1000"><![CDATA[
+      doneif (activated = 0)
+
+      foreach pick in hero from WeapMelee where "WepGroup.wgMace | WepGroup.wgFlail"
+        perform eachpick.field[wpBonus].modify[+,1,""]
+        nexteach
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParDabble"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+      foreach pick in hero from Skill
+        perform eachpick.field[trtBonus].modify[+,2,""]
+        nexteach
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParGuaVig"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[skPercepti,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParClaFig"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      var damage as number
+      if (#level[] < 21) then
+        damage = 2
+      else
+        damage = 4
+        endif
+      foreach pick in hero from WeaponBase where "thingid.wpDagger | thingid.wpKatar | thingid.wpKukri"
+        perform eachpick.field[wpDamage].modify[+,damage,""]
+        nexteach
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParTunStr"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <after name="Calc attrBonus"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[rsCold,rsTotal,10,""]
+      #traitmodify[trSurges,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParGreWea"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      ~if we're wielding a two-handed heavy blade, +2 to AC
+      doneif (hero.haschild[WeapMelee,"WepGroup.wgHeavyBl & Equipped.Equipped & Equipment.TwoHand"] = 0)
+      #traitmodify[defAC,trtShield,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParDemRes"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+
+  <thing
+    id="fParIroDet"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <after name="arMagic copy"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      foreach pick in hero from Shield where "Equipped.Equipped"
+        #traitmodify[defWill,trtBonus,eachpick.field[arAC].value,""]
+        done
+        nexteach
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParSwiLuc"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+
+  <thing
+    id="fParVeiDar"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      var bonus as number
+      bonus = #attrbasebonus[attrCha]
+      #traitmodify[skStealth,trtBonus,bonus,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParStrDra"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[rsFire,rsExtra,5,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParConSwa"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="spcUsed bounded"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      hero.childfound[pRacShaSwa].field[spcMax].value += 1
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParThuTea"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="spcUsed bounded"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform hero.child[pRacDraBre].assign[DamageType.Thunder]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParInsNeg"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[skInsight,trtBonus,3,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParSpiPie"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.DamageType"/>
+    <tag group="ChooseSrc1" tag="Thing"/>
+    </thing>
+
+  <thing
+    id="fParArgBre"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="spcUsed bounded"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform hero.child[pRacDraBre].assign[DamageType.Cold]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParArgPro"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      var bonus as number
+      bonus = 10 + #halflevel[]
+      #traitmodify[rsCold,rsTotal,bonus,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParGliTon"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval phase="Traits" priority="1000"><![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[skDiplomac,trtBonus,3,""]
+      #traitmodify[skBluff,trtBonus,3,""]
+      ]]><before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+
+  <thing
+    id="fParWellRo"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Skill"/>
+    <fieldval field="usrCandid2" value="component.Skill"/>
+    <eval phase="Setup">
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.assign[Helper.TrainedAut]
+      perform field[usrChosen2].chosen.assign[Helper.TrainedAut]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParAncEne"
+    name=""
+    compset="">
+    <bootstrap thing="lanGiant"/>
+    <bootstrap thing="lanGoblin"/>
+    </thing>
+
+  <thing
+    id="fParQuiMov"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval phase="Traits" priority="1000"><![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[skStealth,trtBonus,3,""]
+      #traitmodify[trSpeed,trtBonus,1,""]
+      ]]><before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+
+  <thing
+    id="fParComwit"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fParTTwDef"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="5000">
+      <after name="Calc attrBonus"/><![CDATA[
+      doneif (activated = 0)
+
+      ~+1 to AC/Reflex if wielding 2 shields
+      var total as number
+      foreach pick in hero from ArmorBase where "Equipped.Equipped & Armory.Shield"
+        total += 1
+        nexteach
+      if (total >= 2) then
+        #traitmodify[defAC,trtBonus,1,""]
+        #traitmodify[defRef,trtBonus,1,""]
+        endif
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParStoRes"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[rsThunder,rsTotal,10,""]
+      #traitmodify[rsLightn,rsTotal,10,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParIncorr"
+    name=""
+    compset="">
+    <bootstrap thing="ftRituaCas">
+      <autotag group="thing" tag="skipprereq"/>
+      </bootstrap>
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Calc sklTrained"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform hero.child[skInsight].assign[Helper.TrainedAut]
+      perform hero.child[skStreetwi].assign[Helper.TrainedAut]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParWalin"
+    name=""
+    compset="">
+    <bootstrap thing="ftRituaCas">
+      <autotag group="thing" tag="skipprereq"/>
+      </bootstrap>
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Calc sklTrained"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform hero.child[skStealth].assign[Helper.TrainedAut]
+      perform hero.assign[Vision.Lowlight]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParPsyNet"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Skill &amp; (thingid.skArcana | thingid.skDungeone | thingid.skHistory | thingid.skNature | thingid.skReligion)"/>
+    <fieldval field="usrCandid2" value="component.Skill &amp; (thingid.skArcana | thingid.skDungeone | thingid.skHistory | thingid.skNature | thingid.skReligion)"/>
+    <eval phase="Setup">
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.assign[Helper.TrainedAut]
+      perform field[usrChosen2].chosen.assign[Helper.TrainedAut]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParWarbor"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[trHealth,trtBonus,10,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParManEye"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <after name="Calc attrBonus"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      ~ Get our highest bonus
+      var bonus as number
+      bonus = maximum(#attrbonus[attrCha],#attrbonus[attrWis])
+      bonus = maximum(bonus,#attrbonus[attrInt])
+
+      ~ Modify skills
+      var temp as number
+      temp = bonus - #attrbonus[attrWis]
+      if (temp > 0) then
+        #traitmodify[skInsight,trtBonus,temp,""]
+        #traitmodify[skPercepti,trtBonus,temp,""]
+        endif
+      temp = bonus - #attrbonus[attrCha]
+      if (temp > 0) then
+        #traitmodify[skIntimida,trtBonus,temp,""]
+        endif
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParShaPre"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <after name="Calc attrBonus"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      var bonus as number
+      bonus = maximum(#attrbonus[attrCha],#attrbonus[attrWis])
+      bonus = maximum(bonus,#attrbonus[attrInt])
+      bonus = round(bonus / 2, 0, -1)
+      #traitmodify[trInit,trtBonus,bonus,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParArmSwi"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Armor effects final"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform hero.assign[Hero.NoArmorSpd]
+      if (hero.haschild[Armor,"Equipped.Equipped & ArmorCat.Heavy"] <> 0) then
+        #traitmodify[defRef,trtBonus,1,""]
+        endif
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParIllCom"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+
+  <thing
+    id="fParMasPha"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fParSpiShi"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      var bonus as number
+      bonus = 5 + round(hero.tagvalue[Level.?] / 2, 0, -1)
+      #traitmodify[rsNecrotic,rsTotal,bonus,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParShaGra"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Calc sklTrained"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform hero.child[skDiplomac].assign[Helper.TrainedAut]
+      perform hero.child[skIntimida].assign[Helper.TrainedAut]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParFastTa"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+
+  <thing
+    id="fParTurTen"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <after name="Calc attrBonus"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[trSurges,trtBonus,1,""]
+      var bonus as number
+      bonus = maximum(#attrbonus[attrInt],#attrbonus[attrCha])
+      #traitmodify[trSurgeVal,trtBonus,bonus,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParGatWar"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+
+  <thing
+    id="fParBatWar"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+
+  <thing
+    id="fParRoadHa"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[trSpeed,trtBonus,1,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParWasWal"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[skNature,trtBonus,2,""]
+      #traitmodify[skEnduranc,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParPatIti"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[skEnduranc,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParFalMas"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <after name="Calc attrBonus"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[defAC,trtBonus,1,""]
+      #traitmodify[defRef,trtBonus,1,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParFeaMas"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      ~+2 to fear powers damage
+      foreach pick in hero from Power where "EffectType.Fear"
+        perform eachpick.field[pwDamBonus].modify[+,2,""]
+        nexteach
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParUndFea"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[skInsight,trtBonus,2,""]
+      #traitmodify[skIntimida,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParFreReq"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[skInsight,trtBonus,2,""]
+      #traitmodify[skPercepti,trtBonus,2,""]
+      #traitmodify[trInit,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParSinSha"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[skStealth,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParNatSte"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Daily"/>
+    </thing>
+
+  <thing
+    id="fParUrbSki"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[skStreetwi,trtBonus,2,""]
+      #traitmodify[skIntimida,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParDefAdd"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+
+  <thing
+    id="fParImpBck"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="spcUsed bounded"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      hero.child[pRogBackst].field[spcMax].value += 1
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParMasCun"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+
+  <thing
+    id="ppStalwKni"
+    name=""
+    compset="">
+
+    <!-- Remove these powers and add them back needing to be picked specifically -->
+    <!-- FIX - for some reason these two powers are no longer in the compendium...
+    <bootstrap thing="fParShiBla" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParBluCou" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pParBluCou">
+      <autotag group="User" tag="NeedChosen"/>
+      </bootstrap>
+    <bootstrap thing="pParShiBla">
+      <autotag group="User" tag="NeedChosen"/>
+      </bootstrap>
+    -->
+    </thing>
+
+  <thing
+    id="fParImpPwS"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="spcUsed bounded"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      hero.child[pFtrPowStr].field[spcMax].value += 1
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParLevSta"
+    name="Greater Weapon Specialization"
+    compset="">
+    <fieldval field="usrCandid1" value="component.Power &amp; (thingid.pParShiBla | thingid.pParBluCou)"/>
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Setup" priority="400">
+      <before name="Build option final"/>
+      <after name="Build option activated"/>
+      <![CDATA[
+      doneif (activated = 0)
+      doneif (field[usrChosen1].ischosen = 0)
+      perform field[usrChosen1].chosen.assign[Helper.ChosenOpt]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParGuaMin"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      var bonus as number
+      if (#level[] < 21) then
+        bonus = 10
+      else
+        bonus = 15
+        endif
+      #traitmodify[rsPsychic,rsExtra,bonus,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParSchAna"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+
+  <thing
+    id="fParAncWar"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[skInsight,trtBonus,2,""]
+      #traitmodify[skPercepti,trtBonus,2,""]
+      #traitmodify[trInit,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParFirebl"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[rsFire,rsExtra,5,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParDupNat"
+    name=""
+    compset="">
+    <bootstrap thing="ftAlchemis"/>
+    </thing>
+
+  <thing
+    id="fParAllMin"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[skInsight,trtBonus,2,""]
+      #traitmodify[skPercepti,trtBonus,2,""]
+      #traitmodify[defWill,trtBonus,1,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParAliPer"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[defWill,trtBonus,1,""]
+
+      var bonus as number
+      bonus = #halflevel[]
+      #traitmodify[rsPsychic,rsExtra,bonus,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParAdaExp"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Skill"/>
+    <eval phase="Setup">
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform field[usrChosen1].chosen.assign[Helper.TrainedAut]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParFeaNo"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      var bonus as number
+      bonus = #halflevel[]
+      #traitmodify[rsFire,rsExtra,bonus,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParUnnPer"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[skInsight,trtBonus,2,""]
+      #traitmodify[skPercepti,trtBonus,2,""]
+      #traitmodify[trInit,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParWarMin"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[defWill,trtBonus,1,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParPsyRes"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      var bonus as number
+      bonus = #halflevel[] + 5
+      #traitmodify[rsPsychic,rsExtra,bonus,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParPerRes"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+
+  <thing
+    id="fParSoaBla"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Skill"/>
+    <eval phase="Traits" priority="1000"><![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[skAcrobati,trtBonus,3,""]
+      ]]><before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+
+  <thing
+    id="fParSoaTra"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Weapon proficiencies final"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform hero.assign[WpGrpRqSim.wgHeavyBl]
+      perform hero.assign[WpGrpRqMil.wgHeavyBl]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParStoSci"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="10000">
+      <after name="Calc attrBonus"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      var bonus as number
+      bonus = #attrbonus[attrCon]
+      #traitmodify[rsLightn,rsExtra,bonus,""]
+      #traitmodify[rsThunder,rsExtra,bonus,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParRidCon"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Skill"/>
+    <eval phase="Traits" priority="1000"><![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[skBluff,trtBonus,2,""]
+      #traitmodify[skDiplomac,trtBonus,2,""]
+      #traitmodify[skInsight,trtBonus,2,""]
+      #traitmodify[skIntimida,trtBonus,2,""]
+      ]]><before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+
+  <thing
+    id="fParArmUns"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Weapon proficiencies final"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform hero.assign[WeaponProf.wpHandCro]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParScoMob"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Calc trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[trSpeed,trtBonus,1,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParImpDsS"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="spcUsed bounded"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      hero.child[pRgrDisSho].field[spcMax].value += 1
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParImpCmA"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="spcUsed bounded"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      hero.child[pDrdComAtt].field[spcMax].value += 1
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParEneDar"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Skill"/>
+    <eval phase="Traits" priority="1000"><![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[trInit,trtBonus,2,""]
+      #traitmodify[skPercepti,trtBonus,2,""]
+      ]]><before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+
+  <thing
+    id="fParJagMet"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+
+  <thing
+    id="fParFluFor"
+    name=""
+    compset="">
+    <fieldval field="usrCandid1" value="component.Power &amp; PowerType.AtWill"/>
+    </thing>
+
+
+  <thing
+    id="ppEnigmMag"
+    name=""
+    compset="">
+
+    <!-- No point showing these -->
+    <bootstrap thing="fParEniUti" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParEniDai" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParEniEnc" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParEniSpe" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParEniLor" phase="***DELETE***"></bootstrap>
+
+    <!-- Remove these powers and add them back with appropriate requirements -->
+    <bootstrap thing="pParKelWel" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pParKelFie" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pParNolPha" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pParOttSon" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pParKelRai" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pParKelFin" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pParNolSpe" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pParOttIne" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pParKelUnd" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pParKelDev" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pParNolSha" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pParOttTwi" phase="***DELETE***"></bootstrap>
+
+    <bootstrap thing="pParKelWel" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500">HasFeature.fMagEvoMas
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <bootstrap thing="pParKelFie" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500">HasFeature.fMagPyrMas
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <bootstrap thing="pParNolPha" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500">HasFeature.fMagIllMas
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <bootstrap thing="pParOttSon" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500">HasFeature.fMagEncMas
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <bootstrap thing="pParKelRai" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500">HasFeature.fMagEvoMas
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <bootstrap thing="pParKelFin" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500">HasFeature.fMagPyrMas
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <bootstrap thing="pParNolSpe" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500">HasFeature.fMagIllMas
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <bootstrap thing="pParOttIne" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500">HasFeature.fMagEncMas
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <bootstrap thing="pParKelUnd" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500">HasFeature.fMagEvoMas
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <bootstrap thing="pParKelDev" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500">HasFeature.fMagPyrMas
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <bootstrap thing="pParNolSha" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500">HasFeature.fMagIllMas
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <bootstrap thing="pParOttTwi" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500">HasFeature.fMagEncMas
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    </thing>
+
+
+  <thing
+    id="ppMythiSla"
+    name=""
+    compset="">
+
+    <bootstrap thing="fParReaAxe" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParSerBla" phase="***DELETE***"></bootstrap>
+
+    <!-- Remove these powers and add them back needing to be picked specifically -->
+    <bootstrap thing="pParReaAxe" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pParSerBla" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pParStaSta" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pParReaAxe">
+      <autotag group="User" tag="NeedChosen"/>
+      </bootstrap>
+    <bootstrap thing="pParSerBla">
+      <autotag group="User" tag="NeedChosen"/>
+      </bootstrap>
+    <bootstrap thing="pParStaSta">
+      <autotag group="User" tag="NeedChosen"/>
+      </bootstrap>
+    </thing>
+
+  <thing
+    id="fParLevMyt"
+    name="Greater Weapon Specialization"
+    compset="">
+    <fieldval field="usrCandid1" value="component.Power &amp; (thingid.pParReaAxe | thingid.pParSerBla | thingid.pParStaSta)"/>
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Setup" priority="400">
+      <before name="Build option final"/>
+      <after name="Build option activated"/>
+      <![CDATA[
+      doneif (activated = 0)
+      doneif (field[usrChosen1].ischosen = 0)
+      perform field[usrChosen1].chosen.assign[Helper.ChosenOpt]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="ppDevouWar"
+    name=""
+    compset="">
+
+    <bootstrap thing="lanSuperna"/>
+
+    <!-- Why is this even here? it's not right -->
+    <bootstrap thing="fParDivRes" phase="***DELETE***"></bootstrap>
+
+    <!-- No point showing these -->
+    <bootstrap thing="fParLev12" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParDvtAct" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParTraBle" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParLevEar" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParLev16" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParLev20" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParLevSto" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParLevSun" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParLevDai" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParLevPow" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParLvl20" phase="***DELETE***"></bootstrap>
+
+    <!-- Remove these powers and add them back with appropriate requirements -->
+    <bootstrap thing="pParBulSto" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pParWalRad" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pParWinVic" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pParEntSto" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pParSolFla" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pParStoFur" phase="***DELETE***"></bootstrap>
+
+    <bootstrap thing="pParBulSto" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500">HasFeature.fWprEarDom
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <bootstrap thing="pParWalRad" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500">HasFeature.fWprSunDom
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <bootstrap thing="pParWinVic" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500">HasFeature.fWprStoDom
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <bootstrap thing="pParEntSto" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500">HasFeature.fWprEarDom
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <bootstrap thing="pParSolFla" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500">HasFeature.fWprSunDom
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <bootstrap thing="pParStoFur" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500">HasFeature.fWprStoDom
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    </thing>
+
+  <thing id="fParDevAct"
+    name=""
+    compset="">
+    <tag group="ReqLevel" tag="11"/>
+    <eval index="1" phase="Setup" priority="400">
+      <before name="Build option final"/>
+      <after name="Build option activated"/>
+      <![CDATA[
+      ~we're active if our "earth domain" was chosen
+      if (hero.child[fWprEarDom].tagis[Helper.ChosenOpt] = 0) then
+        perform assign[Hide.Special]
+        perform assign[Hide.Paragon]
+        endif
+      ]]></eval>
+    </thing>
+  <thing id="fParDevSto"
+    name=""
+    compset="">
+    <tag group="ReqLevel" tag="11"/>
+    <eval index="1" phase="Setup" priority="400">
+      <before name="Build option final"/>
+      <after name="Build option activated"/>
+      <![CDATA[
+      ~we're active if our "storm domain" was chosen
+      if (hero.child[fWprStoDom].tagis[Helper.ChosenOpt] = 0) then
+        perform assign[Hide.Special]
+        perform assign[Hide.Paragon]
+        endif
+      ]]></eval>
+    </thing>
+  <thing id="fParDevSun"
+    name=""
+    compset="">
+    <tag group="ReqLevel" tag="11"/>
+    <eval index="1" phase="Setup" priority="400">
+      <before name="Build option final"/>
+      <after name="Build option activated"/>
+      <![CDATA[
+      ~we're active if our "sun domain" was chosen
+      if (hero.child[fWprSunDom].tagis[Helper.ChosenOpt] = 0) then
+        perform assign[Hide.Special]
+        perform assign[Hide.Paragon]
+        endif
+      ]]></eval>
+    </thing>
+  <thing id="fParTraEar"
+    name=""
+    compset="">
+    <tag group="ReqLevel" tag="11"/>
+    <eval index="1" phase="Setup" priority="400">
+      <before name="Build option final"/>
+      <after name="Build option activated"/>
+      <![CDATA[
+      ~we're active if our "earth domain" was chosen
+      if (hero.child[fWprEarDom].tagis[Helper.ChosenOpt] = 0) then
+        perform assign[Hide.Special]
+        perform assign[Hide.Paragon]
+        endif
+      ]]></eval>
+    </thing>
+  <thing id="fParTraSto"
+    name=""
+    compset="">
+    <tag group="ReqLevel" tag="11"/>
+    <eval index="1" phase="Setup" priority="400">
+      <before name="Build option final"/>
+      <after name="Build option activated"/>
+      <![CDATA[
+      ~we're active if our "storm domain" was chosen
+      if (hero.child[fWprStoDom].tagis[Helper.ChosenOpt] = 0) then
+        perform assign[Hide.Special]
+        perform assign[Hide.Paragon]
+        endif
+      ]]></eval>
+    </thing>
+  <thing id="fParTraSun"
+    name=""
+    compset="">
+    <tag group="ReqLevel" tag="11"/>
+    <eval index="1" phase="Setup" priority="400">
+      <before name="Build option final"/>
+      <after name="Build option activated"/>
+      <![CDATA[
+      ~we're active if our "sun domain" was chosen
+      if (hero.child[fWprSunDom].tagis[Helper.ChosenOpt] = 0) then
+        perform assign[Hide.Special]
+        perform assign[Hide.Paragon]
+        endif
+      ]]></eval>
+    </thing>
+  <thing id="fParLevDom"
+    name=""
+    compset="">
+    <tag group="ReqLevel" tag="16"/>
+    <eval index="1" phase="Setup" priority="400">
+      <before name="Build option final"/>
+      <after name="Build option activated"/>
+      <![CDATA[
+      ~we're active if our "earth domain" was chosen
+      if (hero.child[fWprEarDom].tagis[Helper.ChosenOpt] = 0) then
+        perform assign[Hide.Special]
+        perform assign[Hide.Paragon]
+        endif
+      ]]></eval>
+    </thing>
+  <thing id="fParLevFea"
+    name=""
+    compset="">
+    <tag group="ReqLevel" tag="16"/>
+    <eval index="1" phase="Setup" priority="400">
+      <before name="Build option final"/>
+      <after name="Build option activated"/>
+      <![CDATA[
+      ~we're active if our "storm domain" was chosen
+      if (hero.child[fWprStoDom].tagis[Helper.ChosenOpt] = 0) then
+        perform assign[Hide.Special]
+        perform assign[Hide.Paragon]
+        endif
+      ]]></eval>
+    </thing>
+  <thing id="fParLvl16"
+    name=""
+    compset="">
+    <tag group="ReqLevel" tag="16"/>
+    <eval index="1" phase="Setup" priority="400">
+      <before name="Build option final"/>
+      <after name="Build option activated"/>
+      <![CDATA[
+      ~we're active if our "sun domain" was chosen
+      if (hero.child[fWprSunDom].tagis[Helper.ChosenOpt] = 0) then
+        perform assign[Hide.Special]
+        perform assign[Hide.Paragon]
+        endif
+      ]]></eval>
+    </thing>
+
+
+  <thing
+    id="ppValiaCav"
+    name=""
+    compset="">
+
+    <!-- No point showing these -->
+    <bootstrap thing="fParBeaSac" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParBeaVir" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParBanSac" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParBanVal" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParBeaVal" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParBurSac" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParBurVal" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParValCav" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParBanVir" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParVirBur" phase="***DELETE***"></bootstrap>
+
+    <!-- Remove these powers and add them back with appropriate requirements -->
+    <bootstrap thing="pParBeaSac" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pParBeaVal" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pParBanSac" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pParBanVal" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pParBurSac" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pParBurVal" phase="***DELETE***"></bootstrap>
+
+    <bootstrap thing="pParBeaSac" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500">HasFeature.fCavSpiSac
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <bootstrap thing="pParBanSac" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500">HasFeature.fCavSpiSac
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <bootstrap thing="pParBurSac" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500">HasFeature.fCavSpiSac
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <bootstrap thing="pParBeaVal" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500">HasFeature.fCavSpiVal
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <bootstrap thing="pParBanVal" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500">HasFeature.fCavSpiVal
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <bootstrap thing="pParBurVal" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500">HasFeature.fCavSpiVal
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    </thing>
+
+  <thing id="fParValAct"
+    name=""
+    compset="">
+    <eval index="1" phase="Setup" priority="400">
+      <before name="Build option final"/>
+      <after name="Build option activated"/>
+      <![CDATA[
+      ~we're active if our "sacrifice" virtue was chosen
+      if (hero.child[fCavSpiVal].tagis[Helper.ChosenOpt] = 0) then
+        perform assign[Hide.Special]
+        perform assign[Hide.Paragon]
+        endif
+      ]]></eval>
+    </thing>
+  <thing id="fParSacAct"
+    name=""
+    compset="">
+    <eval index="1" phase="Setup" priority="400">
+      <before name="Build option final"/>
+      <after name="Build option activated"/>
+      <![CDATA[
+      ~we're active if our "sacrifice" virtue was chosen
+      if (hero.child[fCavSpiSac].tagis[Helper.ChosenOpt] = 0) then
+        perform assign[Hide.Special]
+        perform assign[Hide.Paragon]
+        endif
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParVirHea"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[trSave,trtBonus,2,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParEndCha"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <after name="Calc attrBonus"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      var bonus as number
+      bonus = #attrbonus[attrCha]
+      #traitmodify[trSurgeVal,trtBonus,bonus,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="ppLegenHex"
+    name=""
+    compset="">
+
+    <!-- No point showing these -->
+    <bootstrap thing="fParHexAct" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParPacAsp" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParPacCur" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParFeyCur" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParFeyInv" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParFeyTra" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParInfCur" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParInfInv" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParInfTra" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParStaCur" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParStaInv" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParStaTra" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParPacTra" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParImpPac" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="fParPacInv" phase="***DELETE***"></bootstrap>
+
+    <!-- Remove these powers and add them back with appropriate requirements -->
+    <bootstrap thing="pParCurFor" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pParCurSha" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pParCurFie" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pParFeyTra" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pParInfTra" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pParStaTra" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pParInfInv" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pParFeyInv" phase="***DELETE***"></bootstrap>
+    <bootstrap thing="pParStaInv" phase="***DELETE***"></bootstrap>
+
+    <bootstrap thing="pParCurSha" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500">HasFeature.fHexFeyPac | HasFeature.fHexWhiPac
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <bootstrap thing="pParFeyInv" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500">HasFeature.fHexFeyPac | HasFeature.fHexWhiPac
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <bootstrap thing="pParFeyTra" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500">HasFeature.fHexFeyPac | HasFeature.fHexWhiPac
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+
+    <bootstrap thing="pParCurFie" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500">HasFeature.fHexInfPac
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <bootstrap thing="pParInfInv" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500">HasFeature.fHexInfPac
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <bootstrap thing="pParInfTra" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500">HasFeature.fHexInfPac
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+
+    <bootstrap thing="pParCurFor" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500">HasFeature.fHexStaPac
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <bootstrap thing="pParStaInv" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500">HasFeature.fHexStaPac
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <bootstrap thing="pParStaTra" phase="***NOPARTIAL***">
+      <containerreq phase="Setup" priority="500">HasFeature.fHexStaPac
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    </thing>
+
+  <thing id="fParHexFey"
+    name=""
+    compset="">
+    <tag group="ReqLevel" tag="11"/>
+    <eval index="1" phase="Setup" priority="400">
+      <before name="Build option final"/>
+      <after name="Build option activated"/>
+      <![CDATA[
+      ~we're active if our "fey pact" was chosen
+      if (hero.child[fHexFeyPac].tagis[Helper.ChosenOpt] + hero.child[fHexWhiPac].tagis[Helper.ChosenOpt] = 0) then
+        perform assign[Hide.Special]
+        perform assign[Hide.Paragon]
+        endif
+      ]]></eval>
+    </thing>
+  <thing id="fParHexInf"
+    name=""
+    compset="">
+    <tag group="ReqLevel" tag="11"/>
+    <eval index="1" phase="Setup" priority="400">
+      <before name="Build option final"/>
+      <after name="Build option activated"/>
+      <![CDATA[
+      ~we're active if our "infernal pact" was chosen
+      if (hero.child[fHexInfPac].tagis[Helper.ChosenOpt] = 0) then
+        perform assign[Hide.Special]
+        perform assign[Hide.Paragon]
+        endif
+      ]]></eval>
+    </thing>
+  <thing id="fParHexSta"
+    name=""
+    compset="">
+    <tag group="ReqLevel" tag="11"/>
+    <eval index="1" phase="Setup" priority="400">
+      <before name="Build option final"/>
+      <after name="Build option activated"/>
+      <![CDATA[
+      ~we're active if our "star pact" was chosen
+      if (hero.child[fHexStaPac].tagis[Helper.ChosenOpt] = 0) then
+        perform assign[Hide.Special]
+        perform assign[Hide.Paragon]
+        endif
+      ]]></eval>
+    </thing>
+  <thing id="fParFeyPac"
+    name=""
+    compset="">
+    <tag group="ReqLevel" tag="11"/>
+    <eval index="1" phase="Setup" priority="400">
+      <before name="Build option final"/>
+      <after name="Build option activated"/>
+      <![CDATA[
+      ~we're active if our "fey pact" was chosen
+      if (hero.child[fHexFeyPac].tagis[Helper.ChosenOpt] + hero.child[fHexWhiPac].tagis[Helper.ChosenOpt] = 0) then
+        perform assign[Hide.Special]
+        perform assign[Hide.Paragon]
+        endif
+      ]]></eval>
+    <eval index="2" phase="Traits" priority="1000"><![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[trSpeed,trtBonus,1,""]
+      #traitmodify[skBluff,trtBonus,2,""]
+      ]]><before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+  <thing id="fParInfPac"
+    name=""
+    compset="">
+    <tag group="ReqLevel" tag="11"/>
+    <eval index="1" phase="Setup" priority="400">
+      <before name="Build option final"/>
+      <after name="Build option activated"/>
+      <![CDATA[
+      ~we're active if our "infernal pact" was chosen
+      if (hero.child[fHexInfPac].tagis[Helper.ChosenOpt] = 0) then
+        perform assign[Hide.Special]
+        perform assign[Hide.Paragon]
+        endif
+      ]]></eval>
+    <eval index="2" phase="Traits" priority="1000"><![CDATA[
+      doneif (activated = 0)
+
+      var resist as number
+      if (hero.tagvalue[Level.?] <= 20) then
+        resist = 10
+      else
+        resist = 20
+        endif
+      #traitmodify[rsFire,rsTotal,resist,""]
+      #traitmodify[skIntimida,trtBonus,2,""]
+      ]]><before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+  <thing id="fParStaPac"
+    name=""
+    compset="">
+    <tag group="ReqLevel" tag="11"/>
+    <eval index="1" phase="Setup" priority="400">
+      <before name="Build option final"/>
+      <after name="Build option activated"/>
+      <![CDATA[
+      ~we're active if our "star pact" was chosen
+      if (hero.child[fHexStaPac].tagis[Helper.ChosenOpt] = 0) then
+        perform assign[Hide.Special]
+        perform assign[Hide.Paragon]
+        endif
+      ]]></eval>
+    <eval index="2" phase="Traits" priority="1000"><![CDATA[
+      doneif (activated = 0)
+
+      var resist as number
+      if (hero.tagvalue[Level.?] <= 20) then
+        resist = 10
+      else
+        resist = 20
+        endif
+      #traitmodify[rsPsychic,rsTotal,resist,""]
+      #traitmodify[skArcana,trtBonus,2,""]
+      ]]><before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+  <thing id="fParImpFey"
+    name=""
+    compset="">
+    <tag group="ReqLevel" tag="16"/>
+    <eval index="1" phase="Setup" priority="400">
+      <before name="Build option final"/>
+      <after name="Build option activated"/>
+      <![CDATA[
+      ~we're active if our "fey pact" was chosen
+      if (hero.child[fHexFeyPac].tagis[Helper.ChosenOpt] + hero.child[fHexWhiPac].tagis[Helper.ChosenOpt] = 0) then
+        perform assign[Hide.Special]
+        perform assign[Hide.Paragon]
+        endif
+      ]]></eval>
+    </thing>
+  <thing id="fParImpInf"
+    name=""
+    compset="">
+    <tag group="ReqLevel" tag="16"/>
+    <eval index="1" phase="Setup" priority="400">
+      <before name="Build option final"/>
+      <after name="Build option activated"/>
+      <![CDATA[
+      ~we're active if our "infernal pact" was chosen
+      if (hero.child[fHexInfPac].tagis[Helper.ChosenOpt] = 0) then
+        perform assign[Hide.Special]
+        perform assign[Hide.Paragon]
+        endif
+      ]]></eval>
+    </thing>
+  <thing id="fParImpSta"
+    name=""
+    compset="">
+    <tag group="ReqLevel" tag="16"/>
+    <eval index="1" phase="Setup" priority="400">
+      <before name="Build option final"/>
+      <after name="Build option activated"/>
+      <![CDATA[
+      ~we're active if our "star pact" was chosen
+      if (hero.child[fHexStaPac].tagis[Helper.ChosenOpt] = 0) then
+        perform assign[Hide.Special]
+        perform assign[Hide.Paragon]
+        endif
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParAthTot"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform hero.assign[ImplemType.itTotem]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="fParRedAng"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+
+  <thing
+    id="fParBlaSte"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+
+  <thing
+    id="fParRelReb"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+
+  <thing
+    id="fParWeaSto"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="10000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[rsLightn,rsTotal,10,""]
+      #traitmodify[rsThunder,rsTotal,10,""]
+      ]]></eval>
+    </thing>
+
+  </document>

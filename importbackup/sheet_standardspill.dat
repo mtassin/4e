@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the definition of the final page of the standard character
+      sheet for output. The final page is handled as a spillover sheet that will
+      output any details that didn't fit on the first or second pages. This is a
+      technique that you will likely use for whatever game system you choose to
+      support.
+
+      The first page of the character sheet will be found in "sheet_standard1.dat".
+-->
+
+<document signature="Hero Lab Data">
+
+
+  <!-- stdspill sheet
+        This is the final (and optional) page of the character sheet. It is a
+        spillover sheet, so it is only printed when necessary and will continue to
+        print as long as it remains necessary. The role of a spillover sheet is to
+        output material that doesn't fit on previous pages, continuing to print
+        until all items have been output. For this example, we allow the armor,
+        weapons, and gear to spillover. However, spillover sheets are ideal for any
+        data that can vary in length, such as spell lists, special abilities, etc.
+        This particular sheet uses the same layout twice, using it for the left and
+        right columns of output. You can have different layouts on this sheet, just
+        like a standard character sheet, positioning them as you choose.
+  -->
+  <sheet
+    id="stdspill"
+    name="Standard character sheet, spillover"
+    spillover="yes">
+    <layoutref layout="oSpillover" reference="left"/>
+    <layoutref layout="oSpillover" reference="middle"/>
+    <layoutref layout="oSpillover" reference="right"/>
+    <position><![CDATA[
+      ~setup the gap to be used between the various sections of the character sheet
+      autogap = 20
+      scenevalue[sectiongap] = autogap
+
+      ~calculate the width of the 3 columns of the character sheet, leaving
+      ~suitable gaps between them
+      var colwidth as number
+      colwidth = (width - 50) / 3
+
+      ~put our left layout on the right
+      layout[left].width = colwidth
+      layout[left].height = height
+      perform layout[left].render
+
+      ~put our middle layout in the middle
+      layout[middle].width = colwidth
+      layout[middle].left = (width - layout[middle].width) / 2
+      layout[middle].height = height
+      perform layout[middle].render
+
+      ~put our right layout... on the right
+      layout[right].width = colwidth
+      layout[right].left = width - layout[right].width
+      layout[right].height = height
+      perform layout[right].render
+      ]]></position>
+    </sheet>
+
+
+  </document>

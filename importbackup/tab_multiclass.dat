@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the definition of the "Multiclass" tab panel. This tab is where
+      the user selects the special abilities for the character.
+
+      All public visual elements used with this tab panel start with the prefix "ab"
+      to associate them with the tab.
+-->
+
+<document signature="Hero Lab Data">
+
+  <!-- mcFeatures portal
+        Presents a fixed table where the user can inspect and configure multiclass
+        features.
+  -->
+  <portal
+    id="mcFeatures"
+    style="tblNormal">
+    <table_fixed
+      component="UserSelect"
+      showtemplate="MenuSlPick"
+      columns="2"
+      alwaysupdate="yes">
+      <list><![CDATA[
+        Multiclass.? | Helper.MultiFeatr
+        ]]></list>
+      <headertitle><![CDATA[
+        @text = "Multiclass Feats & Features"
+        ]]></headertitle>
+      </table_fixed>
+    </portal>
+
+
+  <!-- mcChoose1 portal and mcChTitle1 portal
+        Allows the race to configure a custom tag expression that lets the user
+        pick something from this chooser. This is used for e.g. humans getting a
+        bonus at-will power, half-elves getting a bonus at-will power as an
+        encounter power, etc.
+   -->
+  <portal
+    id="mcChTitle1"
+    style="lblNormal">
+    <label>
+      <labeltext><![CDATA[
+        @text = hero.child[MultiCh1st].field[opcTitle].text
+        ]]></labeltext>
+      </label>
+    </portal>
+  <portal
+    id="mcChoose1"
+    style="chsNormal"
+    width="110">
+    <chooser_table
+      component="none"
+      choosetemplate="SimpleItem"
+      showupdate="yes"
+      descwidth="450"
+      candidatepick="MultiCh1st"
+      candidatefield="opcExpr">
+      <!-- NOTE - must be after "opcExpr must be final" script (Setup/300) -->
+      <secondary phase="Setup" priority="400">
+        OptChoose.MultiCh1st
+        </secondary>
+      <autotag group="OptChoose" tag="MultiCh1st"/>
+      <chosen><![CDATA[
+        if (@ispick = 0) then
+          @text = "{text ff0000}Select Option"
+        else
+          @text = field[name].text
+          endif
+        ]]></chosen>
+      <titlebar><![CDATA[
+        @text = "Choose an Option"
+        ]]></titlebar>
+      </chooser_table>
+    </portal>
+
+
+  <!-- mcChoose2 portal and mcChTitle2 portal
+   -->
+  <portal
+    id="mcChTitle2"
+    style="lblNormal">
+    <label>
+      <labeltext><![CDATA[
+        @text = hero.child[MultiCh2nd].field[opcTitle].text
+        ]]></labeltext>
+      </label>
+    </portal>
+  <portal
+    id="mcChoose2"
+    style="chsNormal"
+    width="110">
+    <chooser_table
+      component="none"
+      choosetemplate="SimpleItem"
+      showupdate="yes"
+      descwidth="450"
+      candidatepick="MultiCh2nd"
+      candidatefield="opcExpr">
+      <!-- NOTE - must be after "opcExpr must be final" script (Setup/300) -->
+      <secondary phase="Setup" priority="400">
+        OptChoose.MultiCh2nd
+        </secondary>
+      <autotag group="OptChoose" tag="MultiCh2nd"/>
+      <chosen><![CDATA[
+        if (@ispick = 0) then
+          @text = "{text ff0000}Select Option"
+        else
+          @text = field[name].text
+          endif
+        ]]></chosen>
+      <titlebar><![CDATA[
+        @text = "Choose an Option"
+        ]]></titlebar>
+      </chooser_table>
+    </portal>
+
+
+  <!-- mcChoose3 portal and mcChTitle3 portal
+   -->
+  <portal
+    id="mcChTitle3"
+    style="lblNormal">
+    <label>
+      <labeltext><![CDATA[
+        @text = hero.child[MultiCh3rd].field[opcTitle].text
+        ]]></labeltext>
+      </label>
+    </portal>
+  <portal
+    id="mcChoose3"
+    style="chsNormal"
+    width="110">
+    <chooser_table
+      component="none"
+      choosetemplate="SimpleItem"
+      showupdate="yes"
+      descwidth="450"
+      candidatepick="MultiCh3rd"
+      candidatefield="opcExpr">
+      <!-- NOTE - must be after "opcExpr must be final" script (Setup/300) -->
+      <secondary phase="Setup" priority="400">
+        OptChoose.MultiCh3rd
+        </secondary>
+      <autotag group="OptChoose" tag="MultiCh3rd"/>
+      <chosen><![CDATA[
+        if (@ispick = 0) then
+          @text = "{text ff0000}Select Option"
+        else
+          @text = field[name].text
+          endif
+        ]]></chosen>
+      <titlebar><![CDATA[
+        @text = "Choose an Option"
+        ]]></titlebar>
+      </chooser_table>
+    </portal>
+
+
+  <!-- mcfAtWill portal
+        Presents a dynamic table that you can add at-will powers with.
+  -->
+  <portal
+    id="mcfAtWill"
+    style="tblNormal">
+    <table_dynamic
+      component="Power"
+      showtemplate="PowerItem"
+      choosetemplate="PowerItem"
+      addpick="resMCAtW"
+      candidatepick="actor"
+      candidatefield="acMCAtWExp"
+      showsortset="PowerLevel"
+      choosesortset="PowerLevel"
+      descwidth="400">
+      <list>FALSE</list> <!-- Show only powers added from this table -->
+      <restriction>TRUE</restriction> <!-- We can't take the same power more than once -->
+      <!-- NOTE - must be after Setup/500 when the Multiclass tag is added -->
+      <secondary phase="Setup" priority="505">
+        Multiclass.?
+        </secondary> <!-- Remove the powers if we stop multiclassing -->
+      <autotag group="Helper" tag="PwrMulti"/>
+      <titlebar><![CDATA[
+        @text = "Add an At-Will Power - " & hero.child[resMCAtW].field[resSummary].text
+        ]]></titlebar>
+      <description/>
+      <headertitle><![CDATA[
+        @text = "At-Will Powers: " & hero.child[resMCAtW].field[resSummary].text
+        ]]></headertitle>
+      <additem><![CDATA[
+        ~set the color based on whether the proper number of slots are allocated
+        if (field[resLeft].value = 0) then
+          @text = "{text a0a0a0}"
+        elseif (field[resLeft].value < 0) then
+          @text = "{text ff0000}"
+          endif
+        @text &= "Add New At-Will Power"
+        ]]></additem>
+      </table_dynamic>
+    </portal>
+
+
+  <!-- mcfEncount portal
+        Presents a dynamic table that you can add encounter powers with.
+  -->
+  <portal
+    id="mcfEncount"
+    style="tblNormal">
+    <table_dynamic
+      component="Power"
+      showtemplate="PowerItem"
+      choosetemplate="PowerItem"
+      addpick="resMCEnc"
+      candidatepick="actor"
+      candidatefield="acMCEncExp"
+      showsortset="PowerLevel"
+      choosesortset="PowerLevel"
+      descwidth="400">
+      <list>FALSE</list> <!-- Show only powers added from this table -->
+      <restriction>TRUE</restriction> <!-- We can't take the same power more than once -->
+      <!-- NOTE - must be after Setup/500 when the Multiclass tag is added -->
+      <secondary phase="Setup" priority="505">
+        Multiclass.?
+        </secondary> <!-- Remove the powers if we stop multiclassing -->
+      <autotag group="Helper" tag="PwrMulti"/>
+      <titlebar><![CDATA[
+        @text = "Add an Encounter Power - " & hero.child[resMCEnc].field[resSummary].text
+        ]]></titlebar>
+      <description/>
+      <headertitle><![CDATA[
+        @text = "Encounter Powers: " & hero.child[resMCEnc].field[resSummary].text
+        ]]></headertitle>
+      <additem><![CDATA[
+        ~set the color based on whether the proper number of slots are allocated
+        if (field[resLeft].value = 0) then
+          @text = "{text a0a0a0}"
+        elseif (field[resLeft].value < 0) then
+          @text = "{text ff0000}"
+          endif
+        @text &= "Add New Encounter Power"
+        ]]></additem>
+      </table_dynamic>
+    </portal>
+
+
+  <!-- mcfDaily portal
+        Presents a dynamic table that you can add daily powers with.
+  -->
+  <portal
+    id="mcfDaily"
+    style="tblNormal">
+    <table_dynamic
+      component="Power"
+      showtemplate="PowerItem"
+      choosetemplate="PowerItem"
+      addpick="resMCDai"
+      candidatepick="actor"
+      candidatefield="acMCDaiExp"
+      showsortset="PowerLevel"
+      choosesortset="PowerLevel"
+      descwidth="400">
+      <list>FALSE</list> <!-- Show only powers added from this table -->
+      <restriction>TRUE</restriction> <!-- We can't take the same power more than once -->
+      <!-- NOTE - must be after Setup/500 when the Multiclass tag is added -->
+      <secondary phase="Setup" priority="505">
+        Multiclass.?
+        </secondary> <!-- Remove the powers if we stop multiclassing -->
+      <autotag group="Helper" tag="PwrMulti"/>
+      <titlebar><![CDATA[
+        @text = "Add an Daily Power - " & hero.child[resMCDai].field[resSummary].text
+        ]]></titlebar>
+      <description/>
+      <headertitle><![CDATA[
+        @text = "Daily Powers: " & hero.child[resMCDai].field[resSummary].text
+        ]]></headertitle>
+      <additem><![CDATA[
+        ~set the color based on whether the proper number of slots are allocated
+        if (field[resLeft].value = 0) then
+          @text = "{text a0a0a0}"
+        elseif (field[resLeft].value < 0) then
+          @text = "{text ff0000}"
+          endif
+        @text &= "Add New Daily Power"
+        ]]></additem>
+      </table_dynamic>
+    </portal>
+
+
+  <!-- mcfUtility portal
+        Presents a dynamic table that you can add utility powers with.
+  -->
+  <portal
+    id="mcfUtility"
+    style="tblNormal">
+    <table_dynamic
+      component="Power"
+      showtemplate="PowerItem"
+      choosetemplate="PowerItem"
+      addpick="resMCUtil"
+      candidatepick="actor"
+      candidatefield="acMCUtiExp"
+      showsortset="PowerLevel"
+      choosesortset="PowerLevel"
+      descwidth="400">
+      <list>FALSE</list> <!-- Show only powers added from this table -->
+      <restriction>TRUE</restriction> <!-- We can't take the same power more than once -->
+      <!-- NOTE - must be after Setup/500 when the Multiclass tag is added -->
+      <secondary phase="Setup" priority="505">
+        Multiclass.?
+        </secondary> <!-- Remove the powers if we stop multiclassing -->
+      <autotag group="Helper" tag="PwrMulti"/>
+      <titlebar><![CDATA[
+        @text = "Add an Utility Power - " & hero.child[resMCUtil].field[resSummary].text
+        ]]></titlebar>
+      <description/>
+      <headertitle><![CDATA[
+        @text = "Utility Powers: " & hero.child[resMCUtil].field[resSummary].text
+        ]]></headertitle>
+      <additem><![CDATA[
+        ~set the color based on whether the proper number of slots are allocated
+        if (field[resLeft].value = 0) then
+          @text = "{text a0a0a0}"
+        elseif (field[resLeft].value < 0) then
+          @text = "{text ff0000}"
+          endif
+        @text &= "Add New Utility Power"
+        ]]></additem>
+      </table_dynamic>
+    </portal>
+
+
+  <!-- multiclass layout
+        This layout orchestrates the display of the visual elements that comprise
+        the Class tab. This amounts to a title at the top and a dynamic table
+        below where the user can add the special abilities he wants.
+
+        The logic for this layout is similar to (albeit much simpler than) the
+        logic for the Basics tab. So please refer to the Basics tab for more details.
+  -->
+  <layout
+    id="multiclass">
+    <portalref portal="mcFeatures" taborder="10"/>
+    <portalref portal="mcChTitle1"/>
+    <portalref portal="mcChoose1" taborder="15"/>
+    <portalref portal="mcChTitle2"/>
+    <portalref portal="mcChoose2" taborder="16"/>
+    <portalref portal="mcChTitle3"/>
+    <portalref portal="mcChoose3" taborder="17"/>
+    <portalref portal="mcfAtWill" taborder="20"/>
+    <portalref portal="mcfEncount" taborder="30"/>
+    <portalref portal="mcfUtility" taborder="40"/>
+    <portalref portal="mcfDaily" taborder="50"/>
+    <portalref portal="clPwrCount"/>
+
+    <!-- This script sizes and positions the layout and its child visual elements. -->
+    <position><![CDATA[
+      ~position the multiclass features table at the top
+      portal[mcFeatures].left = 0
+      portal[mcFeatures].width = width
+      portal[mcFeatures].maxrows = 5
+
+      var nexttop as number
+      nexttop = portal[mcFeatures].bottom + 10
+
+      ~the special multiclass chooser appears under the features table
+      portal[mcChoose1].top = nexttop
+      perform portal[mcChoose2].alignrel[ttob,mcChoose1,10]
+      perform portal[mcChoose3].alignrel[ttob,mcChoose2,10]
+
+      ~position the labels as well
+      portal[mcChTitle1].left = portal[mcFeatures].left + 5
+      perform portal[mcChTitle1].centeron[vert,mcChoose1]
+      portal[mcChTitle2].left = portal[mcFeatures].left + 5
+      perform portal[mcChTitle2].centeron[vert,mcChoose2]
+      portal[mcChTitle3].left = portal[mcFeatures].left + 5
+      perform portal[mcChTitle3].centeron[vert,mcChoose3]
+
+      ~now position the chooser to the right of the label
+      portal[mcChoose1].left = portal[mcChTitle1].right + 10
+      portal[mcChoose1].width = (portal[mcFeatures].right - portal[mcChoose1].left) / 3
+      portal[mcChoose2].left = portal[mcChTitle2].right + 10
+      portal[mcChoose2].width = portal[mcChoose1].width
+      portal[mcChoose3].left = portal[mcChTitle3].right + 10
+      portal[mcChoose3].width = portal[mcChoose1].width
+
+      ~hide our choosers and titles if there's nothing for them to select.
+      portal[mcChoose1].visible = hero.tagis[OptChoose.MultiCh1st]
+      portal[mcChTitle1].visible = portal[mcChoose1].visible
+      portal[mcChoose2].visible = hero.tagis[OptChoose.MultiCh2nd]
+      portal[mcChTitle2].visible = portal[mcChoose2].visible
+      portal[mcChoose3].visible = hero.tagis[OptChoose.MultiCh3rd]
+      portal[mcChTitle3].visible = portal[mcChoose3].visible
+      if (portal[mcChoose3].visible <> 0) then
+        nexttop = portal[mcChoose3].bottom + 10
+      elseif (portal[mcChoose2].visible <> 0) then
+        nexttop = portal[mcChoose2].bottom + 10
+      elseif (portal[mcChoose1].visible <> 0) then
+        nexttop = portal[mcChoose1].bottom + 10
+        endif
+
+      ~our at-will table gets positioned under the features
+      portal[mcfAtWill].top = nexttop
+      portal[mcfAtWill].width = (width - 10) / 2
+      portal[mcfAtWill].height = height - portal[mcfAtWill].top
+
+      ~our encounter powers get positioned at the same place as the at-will
+      ~powers, but on the right
+      portal[mcfEncount].top = portal[mcfAtWill].top
+      portal[mcfEncount].width = portal[mcfAtWill].width
+      portal[mcfEncount].left = portal[mcfAtWill].right + 10
+      portal[mcfEncount].height = height - portal[mcfAtWill].top
+
+      ~utility powers go right under at-will powers
+      var lowest as number
+      lowest = maximum(portal[mcfAtWill].bottom, portal[mcfEncount].bottom) + 10
+      portal[mcfUtility].top = lowest
+      portal[mcfUtility].width = portal[mcfAtWill].width
+      portal[mcfUtility].height = height - portal[mcfUtility].top
+
+      ~daily powers go right under encounter powers
+      portal[mcfDaily].top = portal[mcfUtility].top
+      portal[mcfDaily].width = portal[mcfAtWill].width
+      portal[mcfDaily].left = portal[mcfEncount].left
+      portal[mcfDaily].height = height - portal[mcfUtility].top
+
+      ~the power count is positioned under our tables, centered
+      lowest = maximum(portal[mcfUtility].bottom, portal[mcfDaily].bottom) + 10
+      portal[clPwrCount].width = width
+      portal[clPwrCount].height = portal[clPwrCount].textheight
+      portal[clPwrCount].top = lowest
+      perform portal[clPwrCount].centerhorz
+      ]]></position>
+
+    </layout>
+
+
+  <!-- multiclass panel
+        This is the "Multiclass" panel shown within Hero Lab. Since we want this
+        panel to appear after Feats and within the traits grouping, we assign it
+        an "order" of 205.
+
+        The logic for this panel is similar to the logic for the Basics panel, so
+        please refer to the Basics panel for more details.
+
+        Note: We don't want the multiclass panel to appear if the only
+            multiclass tag is the "WepMastery" tag, since weapon mastery stuff
+            is handled entirely as feats.
+  -->
+  <panel
+    id="multiclass"
+    name="Multiclass"
+    marginhorz="5"
+    marginvert="5"
+    order="205">
+    <live><![CDATA[
+      !HideTab.multiclass & Multiclass.? &
+        ((count:Multiclass.? > 1) | !Multiclass.WepMastery)
+      ]]></live>
+    <layoutref layout="multiclass"/>
+    <position><![CDATA[
+      ]]></position>
+    </panel>
+  </document>

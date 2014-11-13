@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains a sample theme and associated powers -->
+
+<document signature="Hero Lab Data">
+  <thing id="thSampleT" name="Sample Theme" description="A sample theme" compset="Theme" uniqueness="unique">
+    <usesource source="Sample"/>
+    <tag group="ReqBackgr" tag="bgSample"/>
+    <bootstrap thing="fThmSamp1"></bootstrap>
+    <bootstrap thing="fThmSamp5"></bootstrap>
+    <bootstrap thing="fThmSamp10"></bootstrap>
+    </thing>
+
+ <thing id="fThmSamp1" name="Sample Theme Starting Feature" description="Sample theme starting feature." compset="ThemeFeat" uniqueness="unique">
+    <usesource source="Sample"/>
+    <tag group="ReqLevel" tag="1"/>
+    <bootstrap thing="pwSampT1"></bootstrap>
+    </thing>
+ <thing id="fThmSamp5" name="Sample Theme Level 5 Feature" description="Sample theme level 5 feature." compset="ThemeFeat" uniqueness="unique">
+    <usesource source="Sample"/>
+    <tag group="ReqLevel" tag="5"/>
+    </thing>
+ <thing id="fThmSamp10" name="Sample Theme Level 10 Feature" description="Sample theme level 10 feature." compset="ThemeFeat" uniqueness="unique">
+    <usesource source="Sample"/>
+    <tag group="ReqLevel" tag="5"/>
+    </thing>
+
+  <thing id="pwSampT1" name="Sample Theme Starting Power" description="This is the starting power for Sample Theme. It would do something." compset="Power">
+    <usesource source="Sample"/>
+    <tag group="PowerUse" tag="AtWill"/>
+    <tag group="PowerType" tag="AtWill"/>
+    <tag group="PowerTheme" tag="thSample"/>
+    </thing>
+
+  <thing id="pwSampT2" name="Sample Theme Level 2 Utility Power" description="Sample Theme Level 2 Utilitiy Power." compset="Power">
+    <usesource source="Sample"/>
+    <tag group="ReqLevel" tag="2"/>
+    <tag group="PowerUse" tag="Encounter"/>
+    <tag group="PowerType" tag="Utility"/>
+    <tag group="PowerTheme" tag="thSample"/>
+    </thing>
+
+  <thing id="pwSampT6" name="Sample Theme Level 6 Utility Power" description="Sample Theme Level 6 Utilitiy Power." compset="Power">
+    <usesource source="Sample"/>
+    <tag group="ReqLevel" tag="6"/>
+    <tag group="PowerUse" tag="Encounter"/>
+    <tag group="PowerType" tag="Utility"/>
+    <tag group="PowerTheme" tag="thSample"/>
+    </thing>
+
+  <thing id="pwSampT10" name="Sample Theme Level 10 Utility Power" description="Sample Theme Level 10 Utilitiy Power." compset="Power">
+    <usesource source="Sample"/>
+    <tag group="ReqLevel" tag="10"/>
+    <tag group="PowerUse" tag="Encounter"/>
+    <tag group="PowerType" tag="Utility"/>
+    <tag group="PowerTheme" tag="thSample"/>
+    </thing>
+  </document>

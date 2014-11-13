@@ -1,0 +1,3184 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the definitions of assorted procedures that are used
+      throughout the data files. Since procedures are typically called from multiple
+      places, it usually makes sense to put them all in one central location where
+      you can always find them instead of having them littered throughout the data
+      files and hard to locate when you need to refer to them.
+  -->
+
+<document signature="Hero Lab Data">
+
+
+<!-- ##################
+      The following procedures are used in conjuction with description and mouse-info scripts
+     ##################
+-->
+
+
+  <!-- Procedure Prereqs
+        Generate a list of all failed pre-requisites for the pick/thing that is the
+        current script context, with one failed prereq to a line. We do this for use
+        within all "info" scripts, so we cannot use any special symbols. Instead, we
+        put the results into the "prereqs" text variable that the caller must also
+        declare, allowing the caller to extract the results synthesized below. The
+        caller can also specify that we always check our prereqs against the hero
+        instead of the pick/thing's container, which is done by setting the
+        "use_hero" variable to a non-zero value.
+
+        Outbound parameter: prereqs
+        Inbound parameter:  use_hero
+  -->
+  <procedure id="Prereqs" context="info"><![CDATA[
+    ~declare variables that are used to communicate with our caller
+    var prereqs as string
+    var use_hero as number
+
+    ~declare variables that are used internally
+    var v_req_text as string
+    var v_reqnum as number
+    var v_req as string
+    var v_i as number
+    var v_is_first as number
+    var v_result as number
+
+    ~get the number of prereqs for the pick/thing and reset the text to empty
+    v_reqnum = prereqnum - 1
+    prereqs = ""
+
+    ~iterate through all of our prereqs and append any that aren't satisfied
+    v_is_first = 1
+    for v_i = 0 to v_reqnum
+
+      ~get the message for the next prereq
+      if (use_hero <> 0) then
+        v_req = prereqmsg[v_i,hero]
+      else
+        v_req = prereqmsg[v_i]
+        endif
+
+      ~if the message is non-empty, it's been failed, so append it
+      v_result = empty(v_req)
+      if (v_result = 0) then
+        if (v_is_first = 0) then
+          prereqs &= "{br}"
+          endif
+        prereqs &= v_req
+        v_is_first = 0
+        endif
+      next
+
+    ~if we have any failed prerequisites, wrap them in red to highlight them
+    if (v_is_first = 0) then
+      prereqs = "{text ff0000}" & prereqs & "{text 010101}{br}{br}"
+      endif
+    ]]></procedure>
+
+
+  <!-- Procedure MouseInfo
+        Generate full details for the pick/thing that is the current script context.
+        The details include the name and are intended for use within a mouseinfo
+        script. As with the "Prereqs" script above, we want this procedure to work
+        from any "info" script, so we cannot use special symbols. The results are
+        synthesized into a variable named "mouseinfo" that the caller must also
+        declare, allowing the caller to access the results upon return. The caller
+        can suppress the inclusion of failed prereqs in the details by setting the
+        "noprereq" variable to non-zero. Failed prereqs are typically only included
+        for things but can be included for picks.
+
+        Outbound parameter: mouseinfo
+        Inbound parameter:  noprereq
+  -->
+  <procedure id="MouseInfo" context="info"><![CDATA[
+    ~declare variables that are used to communicate with our caller
+    var mouseinfo as string
+
+    ~declare variables that are used internally
+    var v_name as string
+
+    ~get the item name; if this is a pick, amend the name with our gear quantity
+    v_name = field[name].text
+    if (ispick <> 0) then
+      ~if this is gear with a quantity of more than one, append it to the name
+      if (isgear <> 0) then
+        if (stackable <> 0) then
+          if (field[stackQty].value > 1) then
+            v_name &= " (x" & field[stackQty].value & ")"
+            endif
+          endif
+        endif
+      endif
+
+    ~start our info text with the centered name and switch to left-justified text
+    mouseinfo = "{b}" & v_name & "{/b}{br}{br}{align left}"
+
+    ~get the rest of the details for the item using the normal description procedure;
+    ~we call another procedure, so we must declare the variables it uses to pass in
+    ~our state and return the synthesized text, then pull the results out of the
+    ~variable for our use
+    var descript as string
+    call Descript
+    mouseinfo &= descript
+    ]]></procedure>
+
+
+  <!-- Procedure Descript
+        Generate full details for the pick/thing that is the current script context.
+        The details exclude the name and are intended for use within a description
+        script. As with the "Prereqs" script above, we want this procedure to work
+        from any "info" script, so we cannot use special symbols. The results are
+        synthesized into a variable named "descript" that the caller must also
+        declare, allowing the caller to access the results upon return. The caller
+        can suppress the inclusion of failed prereqs in the details by setting the
+        "noprereq" variable to non-zero. Failed prereqs are typically only included
+        for things but can be included for picks.
+
+        Outbound parameter: descript
+        Inbound parameter:  noprereq, nodescript
+  -->
+  <procedure id="Descript" context="info"><![CDATA[
+    ~declare variables that are used to communicate with our caller
+    var descript as string
+    var noprereq as number
+    var nodescript as number
+
+    ~declare variables that are used by called procedures
+    var iteminfo as string
+
+    ~we start our details text with nothing
+    descript = ""
+
+    ~if this is a show-only thing, just output any description text and we're done
+    if (tagis[thing.showonly] <> 0) then
+      descript = field[descript].text
+      done
+      endif
+
+    ~if requested or renderend for a thing, append any failed prereq details
+    if (!noprereq + !ispick <> 0) then
+      var prereqs as string
+      call Prereqs
+      descript &= prereqs
+      endif
+
+    ~if we're a member of the "Requires" component and have pre-requisite text,
+    ~display it
+    if (tagis[component.Requires] <> 0) then
+      if (field[reqText].isempty = 0) then
+        descript &= "{b}Prerequisites:{/b} " & field[reqText].text & "{br}{br}"
+        endif
+      endif
+
+    ~based on the nature of the item, synthesize the appropriate details that are
+    ~specific to the particular item type
+    iteminfo = ""
+    if (tagis[component.WeapRange] + tagis[component.WeapMelee] <> 0) then
+      call InfoWeapon
+    elseif (tagis[component.ArmorBase] <> 0) then
+      call InfoArmor
+    elseif (tagis[component.Power] <> 0) then
+      call InfoPower
+    elseif (tagis[component.PowerUser] <> 0) then
+      call InfoPowUs
+    elseif (tagis[component.Class] <> 0) then
+      call InfoClass
+    elseif (tagis[component.Paragon] <> 0) then
+      call InfoParag
+    elseif (tagis[component.EpicDest] <> 0) then
+      call InfoEpicDs
+    elseif (tagis[component.Race] <> 0) then
+      call InfoRace
+    elseif (tagis[component.Skill] <> 0) then
+      call InfoSkill
+    elseif (tagis[component.Feat] <> 0) then
+      call InfoFeat
+    elseif (tagis[component.Ritual] <> 0) then
+      call InfoRitual
+    elseif (tagis[component.Equipment] <> 0) then
+      call InfoEquip
+    elseif (tagis[component.MagicWep] <> 0) then
+      call InfoMagWep
+    elseif (tagis[component.MagicArmor] <> 0) then
+      call InfoMagArm
+    elseif (tagis[component.MagicItem] <> 0) then
+      call InfoMagItm
+    elseif (tagis[component.Resistance] <> 0) then
+      call InfoResist
+    elseif (tagis[component.Background] <> 0) then
+      call InfoBackgr
+    elseif (tagis[component.Theme] <> 0) then
+      call InfoTheme
+    elseif (tagis[component.Deity] <> 0) then
+      call InfoDeity
+    elseif (tagis[component.HybridTal] <> 0) then
+      call InfoHybTal
+      endif
+
+    ~if there is a gear cost, append it to the item-specific details
+    if (tagis[component.Gear] <> 0) then
+      iteminfo &= "Cost: "
+      if (field[grCost].value > 0) then
+        iteminfo &= field[grCost].text
+      else
+        iteminfo &= chr(150)
+        endif
+      iteminfo &= "{br}"
+      endif
+
+    ~if there is a gear weight, append it to the item-specific details
+    if (tagis[component.Gear] <> 0) then
+      iteminfo &= "Weight: "
+      if (ispick = 0) then
+        iteminfo &= field[gearWeight].text & " lbs"
+      elseif (field[gearNet].value > 0) then
+        iteminfo &= field[gearNet].text & " lbs"
+      else
+        iteminfo &= chr(150)
+        endif
+      iteminfo &= "{br}"
+      endif
+
+    ~append our item-specific info to the synthesized details text
+    descript &= iteminfo
+
+    ~append the description of the item
+    if (nodescript = 0) then
+      if (empty(iteminfo) = 0) then
+        descript &= "{br}"
+        endif
+      if (field[descript].isempty <> 0) then
+        descript &= chr(150) & " no description " & chr(150)
+      else
+        descript &= field[descript].text
+        endif
+      endif
+
+    ~if this is gear, output any container/containee details
+    if (isgear <> 0) then
+
+      ~if we're held somewhere, append our path
+      if (isgearheld <> 0) then
+        descript &= "{br}{br}{b}Container{/b}: " & gearpath["->"]
+        endif
+
+      ~if we're a gear holder, append our contents
+      if (isgearlist <> 0) then
+        iteminfo = gearlist[", ", TRUE]
+        if (empty(iteminfo) <> 0) then
+          iteminfo = "None"
+          endif
+        descript &= "{br}{br}{b}Carries{/b}: " & iteminfo
+        endif
+
+      endif
+
+    ~append the source of the item
+    var sources as string
+    sources = sourcerefs[", "]
+    if (empty(sources) = 0) then
+      descript &= "{br}{br}{b}Appears In{/b}: " & sources
+      endif
+    ]]></procedure>
+
+
+  <!-- Procedure InfoWeapon
+        Generate details specific to all weapons. The text is placed into the
+        "iteminfo" variable for subsequent use by our caller.
+
+        Outbound parameter: iteminfo
+  -->
+  <procedure id="InfoWeapon" context="info"><![CDATA[
+    ~declare variables that are used to communicate with our caller
+    var iteminfo as string
+
+    ~report the weapon summary
+    iteminfo &= field[wpSummary].text & "{br}"
+
+    ~report the weapon size, if different from the hero
+    if (field[wpSize].value <> #trait[trSize]) then
+      var sizenum as number
+      var sizetext as string
+      sizenum = field[wpSize].value
+      call SizeText
+      iteminfo &= "{b}Size{/b}: " & sizetext & "{br}"
+      endif
+
+    ~report the weapon bonus (omitting if there is none)
+    if (field[wpBonus].value <> 0) then
+      iteminfo &= "{b}Weapon Bonus/Penalty{/b}: "
+      iteminfo &= signed(field[wpBonus].value) & "{br}"
+      endif
+
+    ~report the damage rating of the weapon
+    iteminfo &= "{b}Damage{/b}: " & field[wpDamage].text & "{br}"
+
+    ~report the proficiency bonus of the weapon
+    iteminfo &= "{b}Proficiency Bonus{/b}: " & field[wpProf].text & "{br}"
+
+    ~add the range details for the weapon
+    if (field[wpRange].isempty = 0) then
+      iteminfo &= "{b}Range{/b}: " & field[wpRange].text & "{br}"
+      endif
+
+    ~if we're a magic weapon, append the weapon properties
+    if (tagis[Helper.ConstrItem] <> 0) then
+      iteminfo &= "{br}"
+      perform gizmo.findchild[MagicWep].setfocus
+      iteminfo &= focus.field[descript].text & "{br}{br}"
+      endif
+    ]]></procedure>
+
+
+  <!-- Procedure InfoArmor
+        Generate details specific to defensive gear, including armor and shields.
+        The text is placed into the "iteminfo" variable for subsequent use by our
+        caller.
+
+        Outbound parameter: iteminfo
+  -->
+  <procedure id="InfoArmor" context="info"><![CDATA[
+    ~declare variables that are used to communicate with our caller
+    var iteminfo as string
+
+    if (field[arMinBonus].value <> 0) then
+      iteminfo &= "{b}Minimum Enhancement Bonus{/b}: " & field[arMinBonus].text & "{br}"
+      endif
+
+    ~add the defense bonuses
+    iteminfo &= "{b}AC Bonus{/b}: " & field[arAC].text & "{br}"
+    if (field[arRef].value <> 0)  then
+      iteminfo &= "{b}Reflex Bonus{/b}: " & field[arRef].text & "{br}"
+      endif
+    if (field[arFort].value <> 0)  then
+      iteminfo &= "{b}Fortitude Bonus{/b}: " & field[arFort].text & "{br}"
+      endif
+    if (field[arWill].value <> 0)  then
+      iteminfo &= "{b}Will Bonus{/b}: " & field[arWill].text & "{br}"
+      endif
+    if (field[arResAll].value <> 0)  then
+      iteminfo &= "{b}Resist " & field[arResAll].value & " All{/b}{br}"
+      endif
+
+    ~add the check penalty if we have one
+    if (field[arCheck].value <> 0) then
+      iteminfo &= "{b}Check Penalty{/b}: " & field[arCheck].text & "{br}"
+      endif
+
+    ~add the speed penalty if we have one
+    if (field[arSpeed].value <> 0) then
+      iteminfo &= "{b}Speed Penalty{/b}: " & field[arSpeed].text & "{br}"
+      endif
+
+    ~add the armor type we have one - having a type means there will be 2 tags
+    ~(one normal, one identity for this piece of armor). Get the names of both,
+    ~then delete the name of the identity tag.
+    if (tagcount[ArmorType.?] = 2) then
+      var type as string
+      type = tagnames[ArmorType.?, ""]
+      type = replace(type, field[name].text, "", 0)
+      iteminfo &= "{b}Armor Type{/b}: " & type & "{br}"
+      endif
+
+    ~specify light/heavy armor
+    if (tagis[ArmorCat.?] <> 0) then
+      iteminfo &= tagnames[ArmorCat.?, "???"] & " Armor{br}"
+      endif
+
+    ~if we're magic armor, append the armor properties
+    if (tagis[Helper.ConstrItem] <> 0) then
+      iteminfo &= "{br}"
+      perform gizmo.findchild[MagicArmor].setfocus
+      iteminfo &= focus.field[descript].text & "{br}{br}"
+      endif
+    ]]></procedure>
+
+
+
+  <!-- Procedure Keywords
+        Generate a lsit of power keywords
+        The text is placed into the "keywords" variable for subsequent use by our
+        caller.
+
+        Outbound parameter: keywords
+  -->
+  <procedure id="Keywords" context="info"><![CDATA[
+    var keywords as string
+
+    ~show power source, effect & damage type, and accessories
+    keywords = tagnames[PowerSrc.?, ", "]
+    if (tagis[EffectType.?] <> 0) then
+      if (empty(keywords) = 0) then
+        keywords &= ", "
+        endif
+      keywords &= tagnames[EffectType.?, ", "]
+      endif
+    if (tagis[PowerAcc.?] <> 0) then
+      if (empty(keywords) = 0) then
+        keywords &= ", "
+        endif
+      keywords &= tagnames[PowerAcc.?, ", "]
+      endif
+    if (tagis[DamageType.?] <> 0) then
+      if (empty(keywords) = 0) then
+        keywords &= ", "
+        endif
+      keywords &= tagnames[DamageType.?, ", "]
+      endif
+    ]]></procedure>
+
+
+  <!-- Procedure InfoPower
+        Generate details specific to powers.
+        The text is placed into the "iteminfo" variable for subsequent use by our
+        caller.
+
+        Inbound parameter: noflavor, nokeyusage
+        Outbound parameter: iteminfo
+  -->
+  <procedure id="InfoPower" context="info"><![CDATA[
+    ~declare variables that are used to communicate with our caller
+    var iteminfo as string
+    var noflavor as number
+    var nokeyusage as number
+
+    ~add flavor text if we have it and if it's requested
+    if (field[pwFlavor].isempty + noflavor = 0) then
+      iteminfo &= "{i}" & field[pwFlavor].text & "{/i}{br}{br}"
+      endif
+
+    ~if we're recommended for this hero in selection mode, show it
+    if (ispick = 0) then
+      if (hero.intersect[Class,RecomClass] <> 0) then
+        iteminfo &= "{b}{text clrbright}This power is a recommended choice for your hero.{text 010101}{/b}{br}{br}"
+        endif
+      endif
+
+    ~display requirement if skill power
+    if (tagis[ReqSkill.?] <> 0) then
+      iteminfo &= "Skill Power - {b}" & tagnames[ReqSkill.?] & "{/b}{br}{br}"
+      endif
+
+    ~add the power usage - if we don't have a PowerUse tag, we must be a thing,
+    ~so use the PowerType tag instead
+    if (nokeyusage = 0) then
+      iteminfo &= "{b}"
+      if (tagis[PowerUse.?] <> 0) then
+        iteminfo &= tagabbrevs[PowerUse.?, "???"]
+      else
+        iteminfo &= tagabbrevs[PowerType.?, "???"]
+        endif
+
+      ~add a separator icon between the power usage and the keywords, if we have
+      ~any
+      var keywords as string
+      call Keywords
+      if (empty(keywords) = 0) then
+        iteminfo &= " {font Wingdings}w{font revert}{b} " & keywords & "{/b}"
+        endif
+      iteminfo &= "{/b}{br}"
+      endif
+
+    ~add the action type and range
+    if (tagis[ActionType.?] + tagis[AttackType.?] <> 0) then
+      iteminfo &= "{b}" & tagnames[ActionType.?, "???"] & " - " & tagnames[AttackType.?, " or "] & "{/b}"
+      if (field[pwRange1].isempty = 0) then
+        iteminfo &= " " & field[pwRange1].text
+        if (field[pwRange2].isempty = 0) then
+          iteminfo &= " Within " & field[pwRange2].text & " Squares"
+          endif
+        endif
+      iteminfo &= "{br}"
+      endif
+
+    ~if we have links to any other powers, describe them
+    if (tagis[PowerLink.?] <> 0) then
+      iteminfo &= "{b}" & tagnames[PowerLink.?, "???"] & "{/b}"
+      var uses as number
+      uses = field[pwLinkUses].value
+      if (uses > 0) then
+        iteminfo &= " (" & uses & " use"
+        if (uses > 1) then
+          iteminfo &= "s"
+          endif
+        iteminfo &= " total)"
+        endif
+      iteminfo &= "{br}"
+      endif
+
+    ~add special text if we have it
+    if (field[pwSpecial].isempty = 0) then
+      iteminfo &= "{b}Special:{/b} " & field[pwSpecial].text & "{br}"
+      endif
+
+    ~add requirements text if we have it
+    if (field[pwRequire].isempty = 0) then
+      iteminfo &= "{b}Requirements:{/b} " & field[pwRequire].text & "{br}"
+      endif
+
+    ~add target text if we have it
+    if (field[pwTarget].isempty = 0) then
+      iteminfo &= "{b}Target:{/b} " & field[pwTarget].text & "{br}"
+      endif
+
+    ~add the attack details, if we have them
+    if (tagis[Attack.?] <> 0) then
+      iteminfo &= "{b}Attack:{/b} "
+
+      ~start with any special notes - these calculate and summarise our attack
+      ~value
+      if (field[spcNotes].isempty = 0) then
+        iteminfo &= "{b}" & field[spcNotes].text & "{/b} ("
+        endif
+
+      ~finish with our normal attack tags etc
+      iteminfo &= tagnames[Attack.?, "???"]
+      if (field[pwAtkMod].value <> 0) then
+        iteminfo &= " " & signed(field[pwAtkMod].value)
+        endif
+      iteminfo &= " vs. " & tagabbrevs[AttackVs.?, "???"]
+      if (field[pwAtkExtra].isempty = 0) then
+        iteminfo &= field[pwAtkExtra].text
+        endif
+
+      ~if we had special notes, the normal attack stuff is in ()s, so close
+      ~the parentheses
+      if (field[spcNotes].isempty = 0) then
+        iteminfo &= ")"
+        endif
+
+      iteminfo &= "{br}"
+      endif
+
+    ~things don't have any history text
+    doneif (ispick = 0)
+
+    ~attack history
+    var temp as string
+    var isfirst as number
+    isfirst = 1
+    if (empty(field[pwAtkMod].history) = 0) then
+      if (isfirst <> 0) then
+        iteminfo &= "{br}"
+        isfirst = 0
+        endif
+      iteminfo &= "Attack breakdown: " & signed(field[pwAtkTotal].value) & " = "
+      iteminfo &= "Ability (" & signed(field[pwAtkAttr].value) & "), "
+      iteminfo &= field[pwAtkMod].history
+      iteminfo &= "{br}"
+      endif
+
+    ~damage history
+    if (empty(field[pwDamBonus].history) = 0) then
+      if (isfirst <> 0) then
+        iteminfo &= "{br}"
+        isfirst = 0
+        endif
+      iteminfo &= "Damage breakdown: " & signed(field[pwDamage].value) & " = "
+      iteminfo &= "Ability (" & signed(field[pwDamAttr].value) & "), "
+      iteminfo &= field[pwDamBonus].history
+      iteminfo &= "{br}"
+      endif
+    ]]></procedure>
+
+
+  <!-- Procedure InfoPowUs
+        Generate details specific to simple powers.
+        The text is placed into the "iteminfo" variable for subsequent use by our
+        caller.
+
+        Outbound parameter: iteminfo, nodescript
+  -->
+  <procedure id="InfoPowUs" context="info"><![CDATA[
+    ~declare variables that are used to communicate with our caller
+    var iteminfo as string
+    var nodescript as number
+
+    ~since our text is all user defined, we have no "real" description
+    nodescript = 1
+
+    ~add attack text if we have it and if it's requested
+    if (field[puAttack].isempty = 0) then
+      iteminfo &= "{b}Attack:{/b} " & field[puAttack].text & "{br}{br}"
+      endif
+
+    if (field[puDetails].isempty = 0) then
+      iteminfo &= field[puDetails].text
+      endif
+    ]]></procedure>
+
+
+  <!-- Procedure InfoClass
+        Generate details specific to classes.
+        The text is placed into the "iteminfo" variable for subsequent use by our
+        caller.
+
+        Outbound parameter: iteminfo
+  -->
+  <procedure id="InfoClass" context="info"><![CDATA[
+    ~declare variables that are used to communicate with our caller
+    var iteminfo as string
+
+    ~add the flavor text
+    if (field[clsFlavor].isempty = 0) then
+      iteminfo &= "{i}" & field[clsFlavor].text & "{/i}{br}{br}"
+      endif
+
+    ~add the role & role text
+    iteminfo &= "{b}Role:{/b} " & tagnames[ClassRole.?, "???"] & ". " & field[clsRoleTxt].text & "{br}"
+
+    ~add the power source and power source text
+    iteminfo &= "{b}Power Source:{/b} " & tagnames[PowerSrc.?, "???"] & ". " & field[clsSrcTxt].text & "{br}"
+
+    ~add the key abilities
+    iteminfo &= "{b}Key Abilities:{/b} " & tagnames[KeyAbility.?, ", "] & "{br}{br}"
+
+    ~add armor proficiencies
+    iteminfo &= "{b}Armor Proficiencies:{/b} " & tagnames[ArmorProf.?, ", "] & "{br}"
+
+    ~add weapon proficiencies - there are multiple different ways we can be
+    ~proficient with weapon categories / groups, and we need to display them
+    ~all
+    iteminfo &= "{b}Weapon Proficiencies:{/b} "
+    var profs as string
+    if (tagis[WpCatRqMel.?] <> 0) then
+      if (empty(profs) = 0) then
+        profs &= ", "
+        endif
+      profs &= tagnames[WpCatRqMel.?, " Melee, "] & " Melee"
+      endif
+    if (tagis[WpCatRqRng.?] <> 0) then
+      if (empty(profs) = 0) then
+        profs &= ", "
+        endif
+      profs &= tagnames[WpCatRqRng.?, " Ranged, "] & " Ranged"
+      endif
+    if (tagis[WpGrpRqSim.?] <> 0) then
+      if (empty(profs) = 0) then
+        profs &= ", "
+        endif
+      profs &= "Simple " & tagnames[WpGrpRqSim.?, ", Simple "]
+      endif
+    if (tagis[WpGrpRqMil.?] <> 0) then
+      if (empty(profs) = 0) then
+        profs &= ", "
+        endif
+      profs &= "Military " & tagnames[WpGrpRqMil.?, ", Military "]
+      endif
+    if (tagis[WpGrpRqSup.?] <> 0) then
+      if (empty(profs) = 0) then
+        profs &= ", "
+        endif
+      profs &= "Superior " & tagnames[WpGrpRqSup.?, ", Superior "]
+      endif
+    if (tagis[WpGrpRqImp.?] <> 0) then
+      if (empty(profs) = 0) then
+        profs &= ", "
+        endif
+      profs &= "Improvised " & tagnames[WpGrpRqImp.?, ", Improvised "]
+      endif
+    if (tagis[WeaponProf.?] <> 0) then
+      if (empty(profs) = 0) then
+        profs &= ", "
+        endif
+      profs &= tagnames[WeaponProf.?, ", "]
+      endif
+    iteminfo &= profs & "{br}"
+
+    ~add implement types
+    if (tagis[ImplemType.?] <> 0) then
+      iteminfo &= "{b}Implement:{/b} " & tagnames[ImplemType.?, ", "] & "{br}"
+      endif
+
+    ~add defense bonuses
+    var defbonus as string
+    if (field[clsFort].value <> 0) then
+      if (empty(defbonus) = 0) then
+        defbonus &= ", "
+        endif
+      defbonus &= signed(field[clsFort].value) & " Fortitude"
+      endif
+    if (field[clsRef].value <> 0) then
+      if (empty(defbonus) = 0) then
+        defbonus &= ", "
+        endif
+      defbonus &= signed(field[clsRef].value) & " Reflex"
+      endif
+    if (field[clsWill].value <> 0) then
+      if (empty(defbonus) = 0) then
+        defbonus &= ", "
+        endif
+      defbonus &= signed(field[clsWill].value) & " Will"
+      endif
+    if (field[clsAC].value <> 0) then
+      if (empty(defbonus) = 0) then
+        defbonus &= ", "
+        endif
+      defbonus &= signed(field[clsAC].value) & " AC"
+      endif
+    if (empty(defbonus) = 0) then
+      iteminfo &= "{b}Bonus to Defense:{/b} " & defbonus & "{br}{br}"
+      endif
+
+    ~add hit point details
+    iteminfo &= "{b}Hit Points at 1st Level:{/b} " & field[clsStartHP].value & " + Constitution Score{br}"
+    iteminfo &= "{b}Hit Points per Level Gained:{/b} " & field[clsHPLev].value & "{br}"
+    iteminfo &= "{b}Healing Surges per Day:{/b} " & field[clsSurges].value & " + Constitution Modifier{br}{br}"
+
+    ~add trained skills
+    iteminfo &= "{b}Trained Skills:{/b} "
+    if (tagis[TrainSkill.?] <> 0) then
+      iteminfo &= tagnames[TrainSkill.?, ", "] & ". "
+      endif
+    if (tagis[Skill1.?] <> 0) then
+      iteminfo &= tagnames[Skill1.?, " or "] & " (your choice). "
+      endif
+    if (tagis[Skill2.?] <> 0) then
+      iteminfo &= tagnames[Skill2.?, " or "] & " (your choice). "
+      endif
+    if (tagis[Skill3.?] <> 0) then
+      iteminfo &= tagnames[Skill3.?, " or "] & " (your choice). "
+      endif
+    iteminfo &= "From the class skills list below, choose " & field[clsSkills].value & " more trained skills at 1st level.{br}"
+
+    ~add class skills - we need to iterate through all our skills to get the
+    ~ability scores for each skill
+    iteminfo &= "{i}Class Skills:{/i} "
+    var skills as string
+    foreach pick in hero from Skill
+      if (eachpick.intersect[Skill,Skill] <> 0) then
+        if (empty(skills) = 0) then
+          skills &= ", "
+          endif
+        skills &= eachpick.field[name].text
+        if (eachpick.islinkage[attribute] <> 0) then
+          skills &= " (" & left(eachpick.linkage[attribute].field[name].text, 3) & ")"
+          endif
+        endif
+      nexteach
+    iteminfo &= skills & "{br}"
+    ]]></procedure>
+
+
+  <!-- Procedure InfoParag
+        Generate details specific to paragon paths.
+        The text is placed into the "iteminfo" variable for subsequent use by our
+        caller.
+
+        Outbound parameter: iteminfo
+  -->
+  <procedure id="InfoParag" context="info"><![CDATA[
+    ~declare variables that are used to communicate with our caller
+    var iteminfo as string
+
+    ~add the flavor text
+    if (field[pptFlavor].isempty = 0) then
+      iteminfo &= "{i}" & field[pptFlavor].text & "{/i}{br}{br}"
+      endif
+    ]]></procedure>
+
+
+  <!-- Procedure InfoEpicDs
+        Generate details specific to epic destinies.
+        The text is placed into the "iteminfo" variable for subsequent use by our
+        caller.
+
+        Outbound parameter: iteminfo
+  -->
+  <procedure id="InfoEpicDs" context="info"><![CDATA[
+    ~declare variables that are used to communicate with our caller
+    var iteminfo as string
+
+    ~add the flavor text
+    if (field[edsFlavor].isempty = 0) then
+      iteminfo &= "{i}" & field[edsFlavor].text & "{/i}{br}{br}"
+      endif
+    ]]></procedure>
+
+
+  <!-- Procedure InfoRace
+        Generate details specific to race.
+        The text is placed into the "iteminfo" variable for subsequent use by our
+        caller.
+
+        Outbound parameter: iteminfo
+  -->
+  <procedure id="InfoRace" context="info"><![CDATA[
+    ~declare variables that are used to communicate with our caller
+    var iteminfo as string
+
+    if (field[racFlavor].isempty = 0) then
+      iteminfo &= "{i}" & field[racFlavor].text & "{/i}{br}{br}"
+      endif
+
+    ~height and weight
+    var value as number
+    iteminfo &= "{b}Average Height:{/b} "
+    value = round(field[racHtMin].value / 12, 0, -1)
+    iteminfo &= value & "' "
+    value = field[racHtMin].value % 12
+    iteminfo &= value & "''"
+    value = round(field[racHtMax].value / 12, 0, -1)
+    iteminfo &= " - " & value & "' "
+    value = field[racHtMax].value % 12
+    iteminfo &= value & "''{br}"
+    iteminfo &= "{b}Average Weight:{/b} " & field[racWtMin].value & " - " & field[racWtMax].value & "{br}{br}"
+
+    ~ability scores
+    var temp as string
+    if (field[racStr].value <> 0) then
+      if (empty(temp) = 0) then
+        temp &= ", "
+        endif
+      temp &= signed(field[racStr].value) & " Strength"
+      endif
+    if (field[racCon].value <> 0) then
+      if (empty(temp) = 0) then
+        temp &= ", "
+        endif
+      temp &= signed(field[racCon].value) & " Constitution"
+      endif
+    if (field[racDex].value <> 0) then
+      if (empty(temp) = 0) then
+        temp &= ", "
+        endif
+      temp &= signed(field[racDex].value) & " Dexterity"
+      endif
+    if (field[racInt].value <> 0) then
+      if (empty(temp) = 0) then
+        temp &= ", "
+        endif
+      temp &= signed(field[racInt].value) & " Intelligence"
+      endif
+    if (field[racWis].value <> 0) then
+      if (empty(temp) = 0) then
+        temp &= ", "
+        endif
+      temp &= signed(field[racWis].value) & " Wisdom"
+      endif
+    if (field[racCha].value <> 0) then
+      if (empty(temp) = 0) then
+        temp &= ", "
+        endif
+      temp &= signed(field[racCha].value) & " Charisma"
+      endif
+    if (empty(temp) = 0) then
+      iteminfo &= "{b}Ability Scores:{/b} " & temp & "{br}"
+      endif
+
+    ~size, speed, vision
+    iteminfo &= "{b}Size:{/b} " & tagnames[Size.?, "???"] & "{br}"
+    iteminfo &= "{b}Speed:{/b} " & field[racSpeed].text & "{br}"
+    iteminfo &= "{b}Vision:{/b} "
+    if (tagis[Vision.?] = 0) then
+      iteminfo &= "Normal"
+    else
+      iteminfo &= tagnames[Vision.?, ", "]
+      endif
+    iteminfo &= "{br}"
+
+    ~initiative bonus
+    if (field[racInit].value <> 0) then
+      iteminfo &= "{b}Initiative Bonus:{/b} " & signed(field[racInit].value) & "{br}"
+      endif
+
+    ~languages, skills
+    iteminfo &= "{b}Languages:{/b} "
+    var isfirst as number
+    isfirst = 1
+    foreach bootstrap in this where "component.Language"
+      if (isfirst = 0) then
+        iteminfo &= ", "
+        endif
+      iteminfo &= eachthing.field[name].text
+      isfirst = 0
+      nexteach
+    iteminfo &= "{br}"
+    if (tagis[SkillBonus.?] <> 0) then
+      iteminfo &= "{b}Skill Bonuses:{/b} +2 " & tagnames[SkillBonus.?, ", +2 "] & "{br}"
+      endif
+    ]]></procedure>
+
+
+  <!-- Procedure InfoBackgr
+        Generate details specific to backgrounds. The text is placed into the
+        "iteminfo" variable for subsequent use by our caller.
+
+        Outbound parameter: iteminfo
+  -->
+  <procedure id="InfoBackgr" context="info"><![CDATA[
+    ~declare variables that are used to communicate with our caller
+    var iteminfo as string
+
+    if (tagis[BackType.?] <> 0) then
+      iteminfo &= "{b}Type:{/b} " & tagnames[BackType.?, ", "] & "{br}"
+      endif
+    if (tagis[BackCamp.?] <> 0) then
+      iteminfo &= "{b}Campaign:{/b} " & tagnames[BackCamp.?, ", "] & "{br}"
+      endif
+    if (field[bgInit].value <> 0) then
+      iteminfo &= "{b}Initiative Bonus:{/b} " & signed(field[bgInit].value) & "{br}"
+      endif
+    if (field[bgLang].value <> 0) then
+      iteminfo &= "{b}Bonus Languages:{/b} " & signed(field[bgLang].value) & "{br}"
+      endif
+    if (tagis[Skill.?] <> 0) then
+      iteminfo &= "{b}Class Skills:{/b} " & tagnames[Skill.?, ", "] & "{br}"
+      endif
+    var langs as string
+    var isfirst as number
+    isfirst = 1
+    foreach bootstrap in this where "component.Language"
+      if (isfirst = 0) then
+        langs &= ", "
+        endif
+      langs &= eachthing.field[name].text
+      isfirst = 0
+      nexteach
+    if (empty(langs) = 0) then
+      iteminfo &= "{b}Bonus Languages:{/b} " & langs & "{br}"
+      endif
+    ]]></procedure>
+
+
+  <!-- Procedure InfoTheme
+        Generate details specific to themes. The text is placed into the
+        "iteminfo" variable for subsequent use by our caller.
+
+        Outbound parameter: iteminfo
+  -->
+  <procedure id="InfoTheme" context="info"><![CDATA[
+    ~declare variables that are used to communicate with our caller
+    var iteminfo as string
+
+    if (tagis[BackCamp.?] <> 0) then
+      iteminfo &= "{b}Campaign:{/b} " & tagnames[BackCamp.?, ", "] & "{br}"
+      endif
+    ]]></procedure>
+
+
+  <!-- Procedure InfoDeity
+        Generate details specific to deities. The text is placed into the
+        "iteminfo" variable for subsequent use by our caller.
+
+        Outbound parameter: iteminfo
+  -->
+  <procedure id="InfoDeity" context="info"><![CDATA[
+    ~declare variables that are used to communicate with our caller
+    var iteminfo as string
+
+    if (field[dtyFlavor].isempty = 0) then
+      iteminfo &= "{b}" & field[dtyFlavor].text & "{/b}{br}{br}"
+      endif
+
+    var alignment as string
+    if (tagis[Alignment.?] = 0) then
+      alignment = "Unaligned"
+    else
+      alignment = tagnames[Alignment.?, " "]
+      endif
+    iteminfo &= "{b}Alignment: " & alignment & "{/b}{br}"
+    if (tagis[Gender.?] <> 0) then
+      iteminfo &= "{b}Gender: " & tagnames[Gender.?, "??"] & "{/b}{br}"
+      endif
+    if (field[dtySphere].isempty = 0) then
+      iteminfo &= "{b}Sphere: " & field[dtySphere].text & "{/b}{br}"
+      endif
+    if (field[dtyDomin].isempty = 0) then
+      iteminfo &= "{b}Dominion: " & field[dtyDomin].text & "{/b}{br}"
+      endif
+    if (field[dtyPriests].isempty = 0) then
+      iteminfo &= "{b}Priests: {/b}{i}" & field[dtyPriests].text & "{/i}{br}"
+      endif
+    if (field[dtyAdject].isempty = 0) then
+      iteminfo &= "{b}Adjective: {/b}{i}" & field[dtyAdject].text & "{/i}{br}"
+      endif
+    ]]></procedure>
+
+
+
+  <!-- Procedure InfoHybTal
+        Generate details specific to hybrid talents. The text is placed into
+        the "iteminfo" variable for subsequent use by our caller.
+
+        Outbound parameter: iteminfo
+  -->
+  <procedure id="InfoHybTal" context="info"><![CDATA[
+    ~declare variables that are used to communicate with our caller
+    var iteminfo as string
+
+    ~if we're disabled, say why
+    if (tagis[Helper.ChosenOpt] = 0) then
+      iteminfo &= "{b}Inactive{/b} - this talent can be activated by taking the Hybrid Talent feat.{br}"
+      endif
+    ]]></procedure>
+
+
+
+  <!-- Procedure InfoSkill
+        Generate details specific to skills. The text is placed into the
+        "iteminfo" variable for subsequent use by our caller.
+
+        Outbound parameter: iteminfo
+  -->
+  <procedure id="InfoSkill" context="info"><![CDATA[
+    ~declare variables that are used to communicate with our caller
+    var iteminfo as string
+
+    ~display our linked attribute
+    if (islinkage[attribute] <> 0) then
+      iteminfo &= "{b}Linked Attribute:{/b} " & linkage[attribute].field[name].text & "{br}"
+      endif
+    ]]></procedure>
+
+
+
+  <!-- Procedure InfoFeat
+        Generate details specific to feats. The text is placed into the
+        "iteminfo" variable for subsequent use by our caller.
+
+        Outbound parameter: iteminfo
+  -->
+  <procedure id="InfoFeat" context="info"><![CDATA[
+    ~declare variables that are used to communicate with our caller
+    var iteminfo as string
+
+    ~display our multiclass info
+    if (tagis[Multiclass.?] <> 0) then
+      iteminfo &= "{b}Multiclass " & tagnames[Multiclass.?, ", "] & "{/b}{br}"
+      endif
+
+    ~display any descriptors for the feat
+    if (tagis[ftDescript.?] <> 0) then
+      iteminfo &= "{i}" & tagnames[ftDescript.?, ", "] & "{/i}{br}{br}"
+      endif
+
+    ~display our tier
+    if (tagis[Tier.?] <> 0) then
+      iteminfo &= "{b}" & tagnames[Tier.?, "???"] & "{/b}{br}"
+      endif
+    ]]></procedure>
+
+
+  <!-- Procedure InfoRitual
+        Generate details specific to rituals. The text is placed into the
+        "iteminfo" variable for subsequent use by our caller.
+
+        Outbound parameter: iteminfo
+  -->
+  <procedure id="InfoRitual" context="info"><![CDATA[
+    ~declare variables that are used to communicate with our caller
+    var iteminfo as string
+
+    ~display our level reqirement
+    iteminfo &= "{b}Level:{/b} " & tagnames[ReqLevel.?, "???"]
+    if (field[ritLevText].isempty = 0) then
+      if (tagis[ReqLevel.?] <> 0) then
+        iteminfo &= " "
+        endif
+      iteminfo &= field[ritLevText].text
+      endif
+    iteminfo &= "{br}"
+
+    iteminfo &= "{b}Category:{/b} " & tagnames[RitualCat.?, "???"] & "{br}"
+
+    iteminfo &= "{b}Time:{/b} " & field[ritTime].text
+    if (tagis[Helper.RitScroll] <> 0) then
+      iteminfo &= " (halved for scrolls)"
+      endif
+    iteminfo &= "{br}"
+
+    if (field[ritLasts].isempty = 0) then
+      iteminfo &= "{b}Duration:{/b} " & field[ritLasts].text & "{br}"
+      endif
+
+    iteminfo &= "{b}Component Cost:{/b} " & field[ritCompCst].text & "{br}"
+
+    iteminfo &= "{b}Market Price:{/b} " & field[ritPrice].text & "{br}"
+
+    iteminfo &= "{b}Key Skill:{/b} " & tagnames[RitualSkl.?, ", "] & "{br}"
+    ]]></procedure>
+
+
+  <!-- Procedure InfoEquip
+        Generate details specific to equipment. The text is placed into the
+        "iteminfo" variable for subsequent use by our caller.
+
+        Outbound parameter: iteminfo
+  -->
+  <procedure id="InfoEquip" context="info"><![CDATA[
+    ~declare variables that are used to communicate with our caller
+    var iteminfo as string
+
+    ~some superior implements have weapon properties
+    if (tagis[WepProp.?] <> 0) then
+      iteminfo &= "{b}Properties{/b}: " & tagnames[WepProp.?, ", "] & "{br}"
+      endif
+
+    if (tagis[EquipType.?] <> 0) then
+      iteminfo &= "{b}Category{/b}: " & tagnames[EquipType.?] & "{br}"
+      endif
+    ]]></procedure>
+
+
+  <!-- Procedure InfoMagic
+        Generate details specific to magic items. The text is placed into the
+        "iteminfo" variable for subsequent use by our caller.
+
+        Outbound parameter: iteminfo
+  -->
+  <procedure id="InfoMagic" context="info"><![CDATA[
+    ~declare variables that are used to communicate with our caller
+    var iteminfo as string
+
+    if (field[mgFlavor].isempty = 0) then
+      iteminfo &= "{i}" & field[mgFlavor].text & "{/i}{br}{br}"
+      endif
+
+    if (tagis[Rarity.?] <> 0) then
+      iteminfo &= "{b}Rarity:{/b} " & tagnames[Rarity.?, "??"] & "{br}"
+      endif
+    iteminfo &= "{b}Level:{/b} " & field[mgLevel].text & "{br}"
+    iteminfo &= "{b}Price:{/b} " & field[mgCost].text & "{br}"
+
+    if (field[mgEnhance].isempty = 0) then
+      iteminfo &= "{b}Enhancement{/b}: " & field[mgEnhance].text & "{br}"
+    elseif (field[mgBonus].value <> 0) then
+      iteminfo &= "{b}Enhancement{/b}: " & signed(field[mgBonus].value) & "{br}"
+      endif
+
+    if (field[mgCrit].isempty = 0) then
+      iteminfo &= "{b}Critical{/b}: " & field[mgCrit].text & "{br}"
+      endif
+    ]]></procedure>
+
+
+  <!-- Procedure InfoMagWep
+        Generate details specific to magic weapons. The text is placed into the
+        "iteminfo" variable for subsequent use by our caller.
+
+        Outbound parameter: iteminfo
+  -->
+  <procedure id="InfoMagWep" context="info"><![CDATA[
+    ~declare variables that are used to communicate with our caller
+    var iteminfo as string
+
+    call InfoMagic
+
+    iteminfo &= "{b}Weapon{/b}: "
+    if (tagis[ReqWep.?] <> 0) then
+      iteminfo &= tagnames[ReqWep.?, ", "]
+    else
+      iteminfo &= "Any"
+      endif
+    iteminfo &= "{br}"
+    ]]></procedure>
+
+
+  <!-- Procedure InfoMagArm
+        Generate details specific to magic armor. The text is placed into the
+        "iteminfo" variable for subsequent use by our caller.
+
+        Outbound parameter: iteminfo
+  -->
+  <procedure id="InfoMagArm" context="info"><![CDATA[
+    ~declare variables that are used to communicate with our caller
+    var iteminfo as string
+
+    call InfoMagic
+
+    iteminfo &= "{b}Armor{/b}: "
+    if (tagis[ReqArmor.?] <> 0) then
+      iteminfo &= tagnames[ReqArmor.?, ", "]
+    else
+      iteminfo &= "Any"
+      endif
+    iteminfo &= "{br}"
+    ]]></procedure>
+
+
+  <!-- Procedure InfoMagItm
+        Generate details specific to magic items. The text is placed into the
+        "iteminfo" variable for subsequent use by our caller.
+
+        Outbound parameter: iteminfo
+  -->
+  <procedure id="InfoMagItm" context="info"><![CDATA[
+    ~declare variables that are used to communicate with our caller
+    var iteminfo as string
+
+    if (tagis[ItemSlot.?] + tagis[ImplemType.?] <> 0) then
+      iteminfo &= "{b}Item Slot{/b}: "
+      if (tagis[ImplemType.?] <> 0) then
+        iteminfo &= tagnames[ImplemType.?, " / "]
+      else
+        iteminfo &= tagnames[ItemSlot.?, " / "]
+        endif
+      iteminfo &= "{br}{br}"
+      endif
+
+    call InfoMagic
+    ]]></procedure>
+
+
+  <!-- Procedure InfoResist
+        Generate details specific to resistances. The text is placed into the
+        "iteminfo" variable for subsequent use by our caller.
+
+        Outbound parameter: iteminfo
+  -->
+  <procedure id="InfoResist" context="info"><![CDATA[
+    ~declare variables that are used to communicate with our caller
+    var iteminfo as string
+
+    var resist as string
+    if (empty(field[rsTotal].history) = 0) then
+      resist &= field[rsTotal].history & " (" & signed(field[rsTotal].value) & ")"
+      endif
+    if (empty(field[rsExtra].history) = 0) then
+      if (empty(resist) = 0) then
+        resist &= ", "
+        endif
+      resist &= field[rsExtra].history[", "]
+      endif
+    if (empty(field[rsExtraPre].history) = 0) then
+      if (empty(resist) = 0) then
+        resist &= ", "
+        endif
+      resist &= field[rsExtraPre].history[", "]
+      endif
+    iteminfo &= resist & "{br}"
+    ]]></procedure>
+
+
+  <!-- Procedure InfoHeld
+        Retrieve a summary of what container this gear is currently held within.
+        Used for mouse-info scripts with equipment, with the generated text being
+        assigned to the @text special symbol for the script.
+  -->
+  <procedure id="InfoHeld" scripttype="mouseinfo"><![CDATA[
+    @text = "Held by: " & gearholder.field[name].text
+    ]]></procedure>
+
+
+  <!-- Procedure InfoHolder
+        Retrieve a summary of what equipment is held within this gear container.
+        Used for mouse-info scripts with equipment, with the generated text being
+        assigned to the @text special symbol for the script.
+  -->
+  <procedure id="InfoHolder" scripttype="mouseinfo"><![CDATA[
+    var gear as string
+    gear = gearlist["; ", TRUE]
+    if (empty(gear) <> 0) then
+      gear = "Empty"
+      endif
+    @text = "{align left}This item is a container.{br}{br}Contents: " & gear
+    ]]></procedure>
+
+
+  <!-- Procedure AttrBonus
+        Given an attribute value, calculate the bonus for that attribute.
+  -->
+  <procedure id="AttrBonus" context="pick"><![CDATA[
+    var attr as number
+    var bonus as number
+
+    ~calculate the attribute bonus
+    if (attr <= 9) then
+      bonus = (10 - attr) / 2
+      bonus = -1 * round(bonus, 0, 1)
+    elseif (attr >= 12) then
+      bonus = (attr - 10) / 2
+      bonus = round(bonus, 0, -1)
+      endif
+
+    ~add +1 per two levels
+    var level as number
+    level = hero.tagvalue[Level.?]
+    bonus += round(level / 2, 0, -1)
+    ]]></procedure>
+
+
+  <!-- Procedure to extract the allowed power levels from a mechanics pick.
+
+      Inbound: powertype - power type description, for example "at-will".
+      Inbound: levelsep - separator used between power levels. Defaults to ", "
+      Inbound: whenzero - character output when no powers are found for a slot.
+                if empty, nothing is output at all.
+      Inbound: rawlevels - if nonzero, only the levels are returned, not the
+                pretty text. (powertype is not required in this case.)
+      Inbound: current - if nonzero, returns the current levels, not the total
+                allowed levels.
+      Inbound: nolevels - if nonzero, the levels for the power type are not
+                returned.
+
+      Outbound: powerinfo - string holding power contents.
+  -->
+  <procedure id="PowerCount" context="pick"><![CDATA[
+    var powertype as string
+    var powertypes as string
+    var levelsep as string
+    var whenzero as string
+    var rawlevels as number
+    var current as number
+    var powerinfo as string
+    if (empty(levelsep) <> 0) then
+      levelsep = ", "
+      endif
+
+    if (state.isfocus = 0) then
+      powerinfo = "no " & powertype & " count info found"
+      done
+      endif
+
+    var herolevel as number
+    if (current = 0) then
+      herolevel = hero.tagvalue[Level.?]
+    else
+      herolevel = 0
+      endif
+
+    var powerlevel as number
+    var temp as string
+    var i as number
+    var powercount as number
+    powercount = 0
+    temp = ""
+
+    ~go through the levels of powers we're allowed to take at this level
+    for i = 0 to focus.field[ClPwrTable].matrixcols - 1
+
+      ~get the level of this power from the table
+      powerlevel = focus.field[ClPwrTable].matrixvalue[herolevel,i]
+
+      ~if it's nonzero, we're allowed to take a power, so add the level to our
+      ~list and increment the power counter.
+      if (powerlevel <> 0) then
+        if (empty(temp) = 0) then
+          temp &= levelsep
+          endif
+        temp &= powerlevel
+        powercount += 1
+
+      ~otherwise, if we have a 'when zero' character, append that
+      elseif (empty(whenzero) = 0) then
+        if (empty(temp) = 0) then
+          temp &= levelsep
+          endif
+        temp &= whenzero
+        endif
+      next
+
+    ~if all we want is the raw levels, return that and we're done
+    if (rawlevels <> 0) then
+      powerinfo = temp
+      done
+      endif
+
+    ~if there's already data here, append a semicolon to separate
+    if (empty(powerinfo) = 0) then
+      powerinfo &= "; "
+      endif
+    powerinfo &= "{text f0f0f0}" & powercount & " "
+    if (powercount = 1) then
+      powerinfo &= powertype
+    else
+      powerinfo &= powertypes
+      endif
+    powerinfo &= "{text 010101}"
+    if (powercount > 0) then
+      powerinfo &= " (level"
+      if (powercount > 1) then
+        powerinfo &= "s"
+        endif
+      powerinfo &= " " & temp & ")"
+      endif
+    ]]></procedure>
+
+
+  <!-- Procedure to turn a gold cost, like 0.2gp, into formatted text, like 2sp.
+
+      Inbound: ad, pp, gp, sp, cp - Cost in currency. Gold cost may be < 1.0,
+                representing sp and cp.
+
+      Outbound: text - formatted gold cost.
+  -->
+  <procedure id="MoneyText" context="pick"><![CDATA[
+    var ad as number
+    var pp as number
+    var gp as number
+    var sp as number
+    var cp as number
+    var text as string
+
+    text = ""
+~debug "Totals going in to MoneyText:"
+~debug ad & " " & pp & " " & gp & " " & sp & " " & cp
+
+    ~if we don't cost anything, there's nothing to do
+    doneif (ad + pp + gp + sp + cp = 0)
+
+    ~get our full AD cost and format it, if nonzero.
+    if (ad <> 0) then
+      if (empty(text) = 0) then
+        text &= " "
+        endif
+      if (ad > 0) then
+        text &= ad & " ad"
+      else
+        text &= "(" & ad & " ad refund)"
+        endif
+      endif
+
+    ~get our full PP cost and format it, if nonzero.
+    if (pp <> 0) then
+      if (empty(text) = 0) then
+        text &= " "
+        endif
+      if (pp > 0) then
+        text &= pp & " pp"
+      else
+        text &= "(" & pp & " pp refund)"
+        endif
+      endif
+
+    ~get our full GP cost and format it, if nonzero.
+    var fullgp as number
+    fullgp = round(gp, 0, -1)
+    if (fullgp <> 0) then
+      if (empty(text) = 0) then
+        text &= " "
+        endif
+      if (fullgp > 0) then
+        text &= fullgp & " gp"
+      else
+        text &= "(" & gp & " gp refund)"
+        endif
+      endif
+
+    ~get our fractional cost, and add tenths to our silver total, and
+    ~hundredths to our copper total
+    var fract as number
+    var silver as number
+    var copper as number
+    fract = (gp - fullgp) * 10
+    silver = round(fract, 0, -1)
+    fract -= silver
+    silver += sp
+    fract *= 10
+    copper = round(fract, 0, -1)
+    fract -= copper
+    copper += cp
+
+    ~get our full SP cost and format it, if nonzero.
+    if (silver <> 0) then
+      if (empty(text) = 0) then
+        text &= " "
+        endif
+      if (silver > 0) then
+        text &= silver & " sp"
+      elseif (silver < 0) then
+        text &= "(" & silver & " sp refund)"
+        endif
+      endif
+
+    ~get our full CP cost and format it, if nonzero.
+    if (copper <> 0) then
+      if (empty(text) = 0) then
+        text &= " "
+        endif
+      if (copper > 0) then
+        text &= copper & " cp"
+      elseif (copper < 0) then
+        text &= "(" & copper & " cp refund)"
+        endif
+      endif
+    ]]></procedure>
+
+
+  <!-- Procedure that takes a gold cost and compares it to the money the hero
+      has, then computes the optimal way to pay that much money.
+
+      Inbound: gp - Cost in GP. May be < 1.0, representing sp and cp.
+
+      Outbound: text - formatted cost.
+  -->
+  <procedure id="MoneyCompT" context="pick"><![CDATA[
+    var gp as number
+    var text as string
+
+    text = ""
+    var ad as number
+    var pp as number
+    var gp as number
+    var sp as number
+    var cp as number
+    var bad as number
+    call MoneyPayCl
+~debug ad & " " & pp & " " & gp & " " & sp & " " & cp
+    if (bad <> 0) then
+      text = "Insufficient cash to spend."
+    else
+~debug cp & " cp going into MoneyText"
+      call MoneyText
+      endif
+    ]]></procedure>
+
+
+  <!-- Procedure that takes a gold cost and, based on how much cash the hero
+      has, works out the optimal way to pay it. This is the knapsack problem
+      and is thus np-complete. :( I think this solution handles all the
+      situations we'll come up against...
+
+      Inbound: gp - Cost in GP. May be < 1.0, representing sp and cp.
+
+      Outbound: ad, pp, gp, sp, cp - amount of each currency that will be used
+                bad - set to nonzero if the hero doesn't have enough money to
+                    pay this cost
+  -->
+  <procedure id="MoneyPayCl" context="pick"><![CDATA[
+    var ad as number
+    var pp as number
+    var gp as number
+    var sp as number
+    var cp as number
+    var bad as number
+
+    ~ Make a copy of the total cost, then reset everything before we set
+    ~ any parameters
+    var cost as number
+    cost = gp
+    ad = 0
+    pp = 0
+    gp = 0
+    sp = 0
+    cp = 0
+    bad = 0
+
+~debug "Incoming GP: " & gp
+
+    ~ First, round the cost to 2 decimal places, so we don't get tripped
+    ~ up by something like 0.99999999 resolving to 0.99 instead of 1.
+    cost = round(cost, 2, 0)
+~debug "Rounded cost: " & cost
+
+    ~ First, check to see that the hero has enough money. If not, don't try
+    ~ to be clever - just set the GP, SP and CP fields and get out.
+    ~ NOTE: When we round things, make sure to add just a little to make sure
+    ~ the rounding works out. Otherwise we get stuff like 5 rounding down
+    ~ to 4, as you can see if you disable this and then add 25 candles.
+    if (herofield[acCashNet].value < cost) then
+      bad = 1
+      pp = 0
+      gp = round(cost + 0.0001, 0, -1)
+~debug "GP: " & gp
+      cost = cost - gp
+~debug "Remaining: " & cost
+      sp = round(cost * 10 + 0.0001, 0, -1)
+~debug "SP: " & sp
+      cost = cost - (sp / 10)
+~debug "Remaining: " & cost
+      cp = round(cost * 100 + 0.0001, 0, -1)
+~debug "CP: " & cp
+      done
+      endif
+
+    ~ NOTE - if we get past here, we can assume we have enough total money
+    ~ to pay for the goods somehow.
+
+    ~ We try to use as many coins as possible to pay for things, thus
+    ~ minimizing the weight of each. First, get the maximum number of CP
+    ~ we can possibly use.
+    cp = herofield[acCashCP].value
+
+    ~ If that's more than the item actually costs, limit it to the item
+    ~ cost and then get out, because we're done
+~debug "Total CP: " & cp
+~debug "cost: " & cost
+    if (cp >= cost * 100) then
+      cp = cost * 100
+~debug "final cp: " & cp
+      done
+      endif
+
+    ~ If we don't have enough copper to pay the copper part of the item
+    ~ cost, we must have less than 10 copper. Set our copper total to the
+    ~ cost, -10 (sending it negative), minus however much copper we actually
+    ~ have. This means that we'll get some 'change' back, and that we'll
+    ~ have to spend an extra silver piece to get the item.
+    var coppercost as number
+    var silvercost as number
+    coppercost = (cost * 100) % 10
+~debug "Copper cost: " & coppercost
+    if (cp < coppercost) then
+      cp = coppercost - 10
+
+    ~ Otherwise, replace the last digit with a 0, because we can't use a
+    ~ single-digit quantity of copper to pay for whatever we're buying.
+    else
+      cp = round(cp / 10, 0, -1) * 10
+
+      ~ Work out how much silver the item costs, without converting gold into
+      ~ silver.
+      silvercost = cost - round(cost, 0, -1) * 10
+      silvercost = round(silvercost, 0, -1)
+
+      ~ If we're buying something worth 1 gold, there's no point in using
+      ~ (for example) 30 copper to pay for it unless we also have 7 silver
+      ~ to make up the difference, so make sure we have enough silver. If
+      ~ we don't, then zero out the hundreds of our copper total.
+      if (hero.usagepool[TotalSP].value + (cp / 10) < silvercost) then
+        cp = round(cp / 100, 0, -1) * 100
+        endif
+
+      ~ Make sure we didn't reduce our copper cost below 0 doing the above.
+      cp = maximum(cp, 0)
+      endif
+
+    ~ We now know how much copper we can spend to buy this, so subtract
+    ~ that amount from the cost of the item.
+~debug "Cost before: " & cost
+~debug "CP: " & cp
+    cost = cost - (cp / 100)
+~debug "Cost after: " & cost
+
+    ~ Now try to use as much silver as we can to buy the item. If we can do
+    ~ it, that's great, so get out now.
+    sp = herofield[acCashSP].value
+~debug "Starting silver: " & sp
+    if (sp >= cost * 10) then
+      sp = cost * 10
+      done
+      endif
+
+    ~ If we don't have enough silver to pay what we need, we have < 10, so
+    ~ use gold instead and give us some silver as 'change'.
+    silvercost = (cost * 10) % 10
+    if (sp < silvercost) then
+      sp = silvercost - 10
+~debug "Silver cost: " & sp
+
+    ~ Work out how much silver the item costs, without converting gold into
+    ~ silver. (We have to recalculate this, since the cost might have changed
+    ~ since the last time.)
+    else
+      silvercost = round(silvercost, 0, -1)
+
+      ~ We need to make sure that when we pay for the item, we don't (for example)
+      ~ try to pay 55 silver toward something that costs 100, because that would
+      ~ mean 45 silver left over that we couldn't pay. So we need to limit the last
+      ~ digit of our silver count to the silvercost variable.
+      var lastsilver as number
+      lastsilver = sp - round(sp / 10, 0, -1) * 10
+      if (lastsilver > silvercost) then
+        sp = sp - (lastsilver - silvercost)
+~debug "Lastsilver bigger: " & sp
+      elseif (lastsilver < silvercost) then
+        sp = sp - 10 + (silvercost - lastsilver)
+~debug "Silvercost bigger: " & sp
+        endif
+
+      ~ Make sure we didn't reduce our silver cost below 0 doing the above.
+      sp = maximum(sp, 0)
+      endif
+
+    ~ Now we know how much silver we're spending, so subtract that amount from
+    ~ the total cost.
+~debug "Subtracting: " & sp
+    cost = cost - (sp / 10)
+
+    ~ Now try to use as much gold as we can to buy the item. If we can do
+    ~ it, that's great, so get out now.
+    gp = herofield[acCashGP].value
+    if (gp >= cost) then
+      gp = cost
+      done
+      endif
+
+    ~ If we don't have enough gold to pay what we need, we have < 100, so
+    ~ use platinum instead and give us some gold as 'change'.
+    var goldcost as number
+    goldcost = cost % 100
+    if (gp < goldcost) then
+      gp = goldcost - 100
+~debug "Gold cost: " & gp
+
+    ~ Otherwise, we'll need to use platinum. Use as much gold as we can,
+    ~ while leaving a multiple of 100 GP left that we can use platinum for.
+    else
+      var lastgold as number
+      lastgold = gp - round(gp / 100, 0, -1) * 100
+      if (lastgold > goldcost) then
+        gp = gp - (lastgold - goldcost)
+      elseif (lastgold < goldcost) then
+        gp = gp - 100 + (goldcost - lastgold)
+        endif
+      gp = maximum(gp, 0)
+      endif
+
+    ~ Now we know how much gold we're spending, so subtract that amount from
+    ~ the total cost and divide by 100 to get the cost in PP.
+    cost = (cost - gp) / 100
+
+    ~ Now try to use as much platinum as we can to buy the item. If we can do
+    ~ it, that's great, so get out now.
+    pp = herofield[acCashPP].value
+    if (pp >= cost) then
+      pp = cost
+      done
+      endif
+
+    ~ If we don't have enough gold to pay what we need, we have < 100, so
+    ~ use platinum instead and give us some gold as 'change'.
+    var platcost as number
+    platcost = cost % 100
+    if (pp < platcost) then
+      pp = platcost - 100
+~debug "Platinum cost: " & pp
+
+    ~ Otherwise, we'll need to use platinum. Use as much gold as we can,
+    ~ while leaving a multiple of 100 PP left that we can use platinum for.
+    else
+      var lastplat as number
+      lastplat = pp - round(pp / 100, 0, -1) * 100
+      if (lastplat > platcost) then
+        pp = pp - (lastplat - platcost)
+      elseif (lastplat < platcost) then
+        pp = pp - 100 + (platcost - lastplat)
+        endif
+      pp = maximum(pp, 0)
+      endif
+
+    ~ Now we know how much gold we're spending, so subtract that amount from
+    ~ the total cost.
+    cost = cost - pp
+
+    ~ Spend the rest in astral diamonds. Yay! We're done.
+    ad = cost / 100
+~debug "Final values: "
+~debug "AD: " & ad
+~debug "PP: " & pp
+~debug "GP: " & gp
+~debug "SP: " & sp
+~debug "CP: " & cp
+    ]]></procedure>
+
+
+  <!-- Procedure FieldHist
+        Helper procedure, used when stitching together a trait history.
+  -->
+  <procedure id="FieldHist" context="info"><![CDATA[
+    var traithist as string
+    var hist as string
+    var bonusval as number
+
+    ~if we have history text to append, do it
+    if (empty(hist) = 0) then
+      if (empty(traithist) = 0) then
+        traithist &= ", "
+        endif
+      traithist &= hist
+
+      ~if we have a non-zero value to append, append it
+      if (bonusval <> 0) then
+        traithist &= " (" & signed(bonusval) & ")"
+        endif
+      endif
+    ]]></procedure>
+
+
+  <!-- Procedure TraitHist
+        Generates the history text for a trait.
+  -->
+  <procedure id="TraitHist" context="info"><![CDATA[
+    var traithist as string
+    var traitonly as number
+
+    traithist = ""
+    if (field[trtUser].uservalue <> 0) then
+      if (empty(traithist) = 0) then
+        traithist &= ", "
+        endif
+      traithist &= "User Value (" & field[trtUser].uservalue & ")"
+      endif
+
+    var hist as string
+    var bonusval as number
+    hist = field[trtBonus].history[", ",start]
+    bonusval = 0
+    call FieldHist
+
+    ~if this is a skill, add skill-specific fields unless we're only showing
+    ~standard trait bonuses
+    if (!traitonly + tagis[component.Skill] = 2) then
+      if (field[sklTrained].value <> 0) then
+        if (empty(traithist) = 0) then
+          traithist &= ", "
+          endif
+        traithist &= "trained skill (" & signed(field[sklTrained].value) & ")"
+        endif
+      if (field[sklAttr].value <> 0) then
+        if (empty(traithist) = 0) then
+          traithist &= ", "
+          endif
+        traithist &= linkage[attribute].field[name].text & " (" & signed(field[sklAttr].value) & ")"
+        endif
+      if (field[sklArmor].value <> 0) then
+        if (empty(traithist) = 0) then
+          traithist &= ", "
+          endif
+        traithist &= field[sklArmor].history[", "]
+        endif
+      endif
+
+    hist = field[trtClass].history[", "]
+    bonusval = 0
+    call FieldHist
+
+    hist = field[trtArmor].history[", "]
+    bonusval = field[trtArmor].value
+    call FieldHist
+
+    hist = field[trtEnhance].history[", "]
+    bonusval = field[trtEnhance].value
+    call FieldHist
+
+    hist = field[trtFeat].history[", "]
+    bonusval = field[trtFeat].value
+    call FieldHist
+
+    hist = field[trtItem].history[", "]
+    bonusval = field[trtItem].value
+    call FieldHist
+
+    hist = field[trtPower].history[", "]
+    bonusval = field[trtPower].value
+    call FieldHist
+
+    hist = field[trtProf].history[", "]
+    bonusval = field[trtProf].value
+    call FieldHist
+
+    hist = field[trtRacial].history[", "]
+    bonusval = field[trtRacial].value
+    call FieldHist
+
+    hist = field[trtShield].history[", "]
+    bonusval = field[trtShield].value
+    call FieldHist
+
+    if (field[trtInPlay].value <> 0) then
+      if (empty(traithist) = 0) then
+        traithist &= ", "
+        endif
+      traithist &= signed(field[trtInPlay].value) & " in-play bonus"
+      endif
+
+    if (empty(traithist) = 0) then
+      if (!traitonly + tagis[component.Skill] = 2) then
+        traithist = field[sklRoll].value & " = " & traithist
+      else
+        traithist = field[trtFinal].value & " = " & traithist
+        endif
+    else
+      traithist = "- no changes to default value -"
+      endif
+    ]]></procedure>
+
+
+<!-- ##################
+      The folowing procedures are used with transactions for buying and selling items
+     ##################
+-->
+
+
+  <!-- Procedure XactSetup
+        Perform setup of the transaction fields when the user is purchasing an item.
+  -->
+  <procedure id="XactSetup" scripttype="xactsetup"><![CDATA[
+    ~for normal gear, get our gear cost
+    var cost as number
+    if (tagis[component.MagicItem] = 0) then
+
+      ~assume our unit cost is the cost of one item
+      ~Note: If this is the purchase of a thing and we have a non-zero lot cost, we
+      ~     need to calculate the unit cost appropriately.
+      var cost as number
+      if (@isbuy = 0) then
+        cost = field[grCost].value
+      elseif (field[grLotCost].value <> 0) then
+        cost = field[grLotCost].value / field[lotsize].value
+      else
+        cost = field[grCost].value
+        endif
+
+    ~for magic items, our cost is based on our level
+    else
+      var level as number
+      level = field[mgLevel].value
+      call MagicCost
+      endif
+
+    ~if our special symbol is set appropriately, set our 'magic item form'
+    ~field.
+    if (@special = 10) then
+      hero.transact.field[xactIsMgcF].value = 1
+    else
+      hero.transact.field[xactIsMgcF].value = 0
+      endif
+
+    ~if we're buying, reset the size to the size of the hero (minimum medium),
+    ~plus any oversized tags - if we're oversized, we might as well buy big
+    ~weapons by default
+    if (@isbuy <> 0) then
+      if (hero.tagis[Size.Gargantuan] <> 0) then
+        hero.transact.field[xactSize].value = 3
+      elseif (hero.tagis[Size.Huge] <> 0) then
+        hero.transact.field[xactSize].value = 2
+      elseif (hero.tagis[Size.Large] <> 0) then
+        hero.transact.field[xactSize].value = 1
+      else
+        hero.transact.field[xactSize].value = 0
+        endif
+      hero.transact.field[xactSize].value += hero.tagcount[Hero.Oversized]
+      endif
+
+    ~setup the unit cost for the item
+    hero.transact.field[xactEach].value = cost
+
+    ~zero out the cash amounts to be paid (implying use of the standard cost)
+    hero.transact.field[xactAD].value = 0
+    hero.transact.field[xactPP].value = 0
+    hero.transact.field[xactGP].value = 0
+    hero.transact.field[xactSP].value = 0
+    hero.transact.field[xactCP].value = 0
+
+    ~if the item is gear, setup whether the item holds other gear
+    if (isgear <> 0) then
+      hero.transact.field[xactHolder].value = gearcount
+      endif
+    ]]></procedure>
+
+
+  <!-- Procedure XactBuy
+        Purchase an item for cash from the character's resources.
+  -->
+  <procedure id="XactBuy" scripttype="xactbuy"><![CDATA[
+    ~if we're buying for free, no cash should be touched, so get out
+    doneif (hero.transact.field[xactIsFree].value <> 0)
+
+    ~get the cash amount specified by the user
+    var gp as number
+    gp = hero.transact.field[xactGP].value
+
+    ~if no cash amount was given, get the standard total cost for the purchase.
+    if (gp = 0) then
+      gp = hero.transact.field[xactTotal].value
+      endif
+
+    ~if we don't have enough cash to make the purchase, reject the transaction
+    if (gp > herofield[acCashNet].value) then
+      @reject = "You lack sufficient cash to purchase the item."
+      done
+      endif
+
+    ~subtract the amount from the current pool of cash
+    var ad as number
+    var pp as number
+    var sp as number
+    var cp as number
+    call MoneyPayCl
+    perform hero.usagepool[TotalAD].adjust[-ad]
+    perform hero.usagepool[TotalPP].adjust[-pp]
+    perform hero.usagepool[TotalGP].adjust[-gp]
+    perform hero.usagepool[TotalSP].adjust[-sp]
+    perform hero.usagepool[TotalCP].adjust[-cp]
+    ]]></procedure>
+
+
+  <!-- Procedure XactSell
+        Sell an item for cash that gets added to the character's resources.
+  -->
+  <procedure id="XactSell" scripttype="xactsell"><![CDATA[
+    ~add the amounts to the current pools of cash
+    perform hero.usagepool[TotalAD].adjust[hero.transact.field[xactAD].value]
+    perform hero.usagepool[TotalPP].adjust[hero.transact.field[xactPP].value]
+    perform hero.usagepool[TotalGP].adjust[hero.transact.field[xactGP].value]
+    perform hero.usagepool[TotalSP].adjust[hero.transact.field[xactSP].value]
+    perform hero.usagepool[TotalCP].adjust[hero.transact.field[xactCP].value]
+    ]]></procedure>
+
+
+<!-- ##################
+      The following procedures are used by the Dashboard and Tactical Console panels
+     ##################
+-->
+
+
+  <!-- Procedure DshName
+        Synthesize the actor name for display in the Dashboard/TacCon. As this is
+        specified as a "label" script, the script can access special symbols for the
+        script type and we can avoid using a variable to return the results. Instead,
+        we can write the name directly into the "@text" special symbol for the
+        script. The caller can disable the automatic color highlighting of the name
+        by setting the "isnocolor" variable. By default, the actor name is colored
+        based on whether it is the active actor.
+
+        Inbound parameter:  isnocolor
+  -->
+  <procedure id="DshName" scripttype="label"><![CDATA[
+    var isnocolor as number
+
+    ~unless disabled, if this hero is active or a minion, change the color
+    if (isnocolor = 0) then
+      if (hero.isactive <> 0) then
+        @text &= "{text ffff80}"
+      elseif (hero.isminion <> 0) then
+        @text &= "{text 99efed}"
+        endif
+      endif
+
+    ~start with the hero name
+    if (empty(hero.actorname) <> 0) then
+      if (hero.isminion <> 0) then
+        @text &= "Unnamed"
+      else
+        @text &= "Unnamed Character"
+        endif
+    else
+      @text &= hero.actorname
+      endif
+
+    ~if this is a minion, append the master's name
+    if (hero.isminion <> 0) then
+      var mastername as string
+      if (empty(hero.master.actorname) <> 0) then
+        if (hero.master.isminion <> 0) then
+          mastername = "Unnamed"
+        else
+          mastername = "Unnamed Character"
+          endif
+      else
+        mastername = hero.master.actorname
+        endif
+      @text &= " (" & mastername & ")"
+      endif
+
+    ~if we have minion text, show it after the name unless it's the same as the hero name
+    if (hero.isminion <> 0) then
+      var result as number
+      result = compare(hero.actorname,hero.miniontext)
+      if (result <> 0) then
+        @text &= " {text 808080}(" & hero.miniontext & "){text 010101}"
+        endif
+      endif
+    ]]></procedure>
+
+
+  <!-- Procedure DshGear
+        Synthesize the actor's full gear info for display in the Dashboard/TacCon.
+        The generated text is placed directly into the "@text" special symbol for
+        the "mouseinfo" script, so all the caller needs to do is invoke the script
+        and be done.
+  -->
+  <procedure id="DshGear" scripttype="mouseinfo"><![CDATA[
+    @text = "{align left}Click to transfer gear from this character to the active character.{br}{br}"
+    var gear as string
+    gear = hero.geartree[!Helper.NoMove]
+    if (empty(gear) <> 0) then
+      @text &= "Gear: No transferable gear possessed"
+    else
+      @text &= "Gear List:{br}" & gear
+      endif
+    ]]></procedure>
+
+
+  <!-- Procedure DshSpecial
+        Synthesize a report of the actor's various special abilities for display in
+        the Dashboard/TacCon. The generated text is placed directly into the "@text"
+        special symbol for the "mouseinfo" script, so all the caller needs to do is
+        invoke the script and be done.
+  -->
+  <procedure id="DshSpecial" scripttype="mouseinfo"><![CDATA[
+    var final as string
+    var name as string
+    var source as string
+
+    ~output all items designated for inclusion
+    foreach pick in hero where "DashTacCon.Special & !Hide.Special & !Separator.Yes" sortas SpecialTab
+      if (eachpick.tagis[Helper.Exceeded] <> 0) then
+        final &= "{text ff0000}"
+      elseif (eachpick.tagis[Helper.Exhausted] <> 0) then
+        final &= "{text 808080}"
+        endif
+      if (eachpick.field[spcName].isempty = 0) then
+        name = eachpick.field[spcName].text
+      else
+        name = eachpick.field[name].text
+        endif
+      source = eachpick.tagnames[SpecialTab.?,","]
+      if (length(source) = 0) then
+        source = "????"
+        endif
+      final &= source & ": {b}" & name & "{/b}"
+      if (eachpick.field[spcNotes].isempty = 0) then
+        final &= "   " & eachpick.field[spcNotes].text
+        endif
+      if (eachpick.tagis[Helper.Exceeded] + eachpick.tagis[Helper.Exhausted] <> 0) then
+        final &= "{text 010101}"
+        endif
+      final &= "{br}"
+      nexteach
+
+    ~if we have no special abilities, output something appropriate
+    if (empty(final) <> 0) then
+      final = "- No Special Abilities -"
+      endif
+
+    @text = "{align left}" & final
+    ]]></procedure>
+
+
+  <!-- Procedure DshRolls
+        Synthesize a report of the pertinent rolls for display in the Dashboard/TacCon.
+        The generated text is placed directly into the "@text" special symbol for the
+        "mouseinfo" script, so all the caller needs to do is invoke the script and be
+        done.
+  -->
+  <procedure id="DshRolls" scripttype="mouseinfo"><![CDATA[
+    var final as string
+    var roll as string
+    foreach pick in hero where "DashTacCon.Rolls"
+      if (eachpick.tagis[component.Skill] <> 0) then
+        roll = signed(eachpick.field[sklRoll].value)
+        if (eachpick.tagis[Helper.Trained] <> 0) then
+          roll &= " - Trained"
+          endif
+      else
+        roll = "????"
+        endif
+      final &= eachpick.field[name].text & " {b}" & roll & "{/b}{br}"
+      nexteach
+    @text = "{align left}" & final
+    ]]></procedure>
+
+
+  <!-- Procedure DshCombat
+        Synthesize a report of the various combat details (e.g. weapons and armor)
+        for display in the Dashboard/TacCon. The generated text is placed directly
+        into the "@text" special symbol for the "mouseinfo" script, so all the
+        caller needs to do is invoke the script and be done.
+  -->
+  <procedure id="DshCombat" scripttype="mouseinfo"><![CDATA[
+    var ismore as number
+    var final as string
+    var info as string
+
+    ~output defenses information
+    ismore = 0
+    foreach pick in hero from Defense sortas explicit
+      if (ismore <> 0) then
+        final &= "{br}"
+        endif
+      final &= eachpick.field[name].text & " {b}" & eachpick.field[trtText].text & "{/b}"
+      ismore += 1
+      nexteach
+    final &= "{br}{br}"
+
+    ~output basic combat information
+    ismore = 0
+    foreach pick in hero where "DashTacCon.Combat" sortas explicit
+      if (ismore <> 0) then
+        final &= ", "
+        endif
+      final &= eachpick.field[name].text & " {b}" & eachpick.field[trtText].text & "{/b}"
+      ismore += 1
+      nexteach
+    final &= "{br}{br}"
+
+    ~output equipped armor and shield
+    info = ""
+    foreach pick in hero from ArmorBase where "component.Armor | component.Shield"
+      if (eachpick.field[grIsEquip].value <> 0) then
+        info &= eachpick.field[name].text & " {b}" & eachpick.field[arAC].text & "{/b}{br}"
+        endif
+      nexteach
+    if (empty(info) <> 0) then
+      info = "-No Armor Equipped-{br}"
+      endif
+    final &= info & "{br}"
+
+    ~output all weapons, with equipped ones first
+    info = ""
+    foreach pick in hero from WeaponBase sortas Armory
+      info &= eachpick.field[name].text & " {b}" & eachpick.field[wpNetAtk].text & " {/b}{text 555555}@{text 010101}" & eachpick.field[wpDamage].text & "{br}"
+      nexteach
+    if (empty(info) <> 0) then
+      info = "-No Weapons-{br}"
+      endif
+    final &= info
+
+    @text = "{align left}" & final
+    ]]></procedure>
+
+
+  <!-- Procedure DshBasics
+        Synthesize a report of the various character basic details for display in
+        the Dashboard/TacCon. The generated text is placed directly into the "@text"
+        special symbol for the "mouseinfo" script, so all the caller needs to do is
+        invoke the script and be done.
+  -->
+  <procedure id="DshBasics" scripttype="mouseinfo"><![CDATA[
+    var final as string
+    var info as string
+
+    ~output our race
+    info = hero.findchild[Race].field[name].text
+    if (empty(info) <> 0) then
+      info = "-none-"
+      endif
+    final = "Race: {b}" & info & "{/b}{br}{br}"
+
+    ~output attributes
+    foreach pick in hero from Attribute sortas explicit
+      final &= eachpick.field[name].text & ": {b}" & eachpick.field[trtFinal].value & "{/b}{br}"
+      nexteach
+
+    ~output any permanent adjustments
+    info = ""
+    foreach pick in hero where "InPlay.Permanent"
+      info &= eachpick.field[adjName].text & "{br}"
+      nexteach
+    if (empty(info) = 0) then
+      info = "{br}{b}Permanent Adjustments:{/b}{br}" & info
+      endif
+    final &= info
+
+    ~return the final text
+    @text = "{align left}" & final
+    ]]></procedure>
+
+
+  <!-- Procedure DshActive
+        Synthesize a report of the character's activated abilities for display in
+        the Dashboard/TacCon. The generated text is placed directly into the "@text"
+        special symbol for the "mouseinfo" script, so all the caller needs to do is
+        invoke the script and be done.
+  -->
+  <procedure id="DshActive" scripttype="mouseinfo"><![CDATA[
+    ~if there are no activated abilities for the character, report that fact
+    if (hero.tagis[Activated.?] = 0) then
+      if (herofield[tactNotes].isempty <> 0) then
+        @text = "No abilities are active."
+        done
+        endif
+      endif
+
+    ~output all activated abilities and conditions for the character (if any)
+    var final as string
+    if (hero.tagis[Activated.?] <> 0) then
+      final = "{b}Activated Abilities:{/b}"
+      foreach pick in hero where "(Adjustment.? | Helper.Activated) & !InPlay.Permanent"
+        final &= "{br}"
+        if (eachpick.tagis[component.Adjustment] <> 0) then
+          final &= eachpick.field[adjName].text
+        else
+          final &= eachpick.field[name].text
+          endif
+        nexteach
+      endif
+
+    ~append any tactical console notes at the end
+    if (herofield[tactNotes].isempty = 0) then
+      if (empty(final) = 0) then
+        final &= "{br}{br}"
+        endif
+      final &= "{b}Tactical Notes:{/b}{br}" & herofield[tactNotes].text
+      endif
+
+    @text = "{align left}" & final
+    ]]></procedure>
+
+
+<!-- ##################
+      The following procedures are used in conjunction with printed output
+     ##################
+-->
+
+
+  <!-- Procedure JrnInfo
+        Synthesize a journal entry for detailed output. The generated text is
+        placed in the "infotext" variable. If special spacing needs to be inserted
+        between sections of the output, the caller can dictate that via the
+        "spacing" variable.
+
+        Inbound parameter:  spacing
+        Outbound parameter: infotext
+  -->
+  <procedure id="JrnInfo" context="info"><![CDATA[
+    ~declare variables that are used to communicate with our caller
+    var spacing as string
+    var infotext as string
+
+    ~start with left-aligned text and append the date and award details
+    infotext = "{align left}"
+    if (field[jrnGame].value <> 0) then
+      infotext = infotext & "{b}Date (game world){/b}: " & field[jrnGame].datetime[gamedate,"/"] & "{br}"
+      endif
+    infotext = infotext & "{b}Date (real world){/b}: " & field[jrnReal].datetime[realdate,"/"] & "{br}" & spacing
+    infotext = infotext & "{b}XP Awarded{/b}: " & usagepool[JrnlXP].value & "{br}"
+    infotext = infotext & "{b}Cash Awarded{/b}: "
+    var cashtext as string
+    if (usagepool[JrnlAD].value <> 0) then
+      if (empty(cashtext) = 0) then
+        cashtext &= "; "
+        endif
+      cashtext &= usagepool[JrnlAD].value & " AD"
+      endif
+    if (usagepool[JrnlPP].value <> 0) then
+      if (empty(cashtext) = 0) then
+        cashtext &= "; "
+        endif
+      cashtext &= usagepool[JrnlPP].value & " PP"
+      endif
+    if (usagepool[JrnlGP].value <> 0) then
+      if (empty(cashtext) = 0) then
+        cashtext &= "; "
+        endif
+      cashtext &= usagepool[JrnlGP].value & " GP"
+      endif
+    if (usagepool[JrnlSP].value <> 0) then
+      if (empty(cashtext) = 0) then
+        cashtext &= "; "
+        endif
+      cashtext &= usagepool[JrnlSP].value & " SP"
+      endif
+    if (usagepool[JrnlCP].value <> 0) then
+      if (empty(cashtext) = 0) then
+        cashtext &= "; "
+        endif
+      cashtext &= usagepool[JrnlCP].value & " CP"
+      endif
+    if (empty(cashtext) <> 0) then
+      cashtext = "-"
+      endif
+    infotext &= cashtext & "{br}" & spacing
+    ]]></procedure>
+
+
+<!-- ##################
+      The folowing procedures are general helper procdures
+     ##################
+-->
+
+
+  <!-- Procedure to get the gold cost for a magic item based on its level
+
+      Inbound: level - level of magic item.
+
+      Outbound: cost - gold cost of magic item.
+  -->
+  <procedure id="MagicCost" context="pick"><![CDATA[
+    var level as number
+    var cost as number
+
+    ~ Get the appropriate cost table - potions and other consumables use a
+    ~ different table from other items
+    var findmech as string
+    if (tagexpr[ItemSlot.isAlchemic | ItemSlot.isPotion | ItemSlot.isAmmo] <> 0) then
+      findmech = "ConsumCost"
+    else
+      findmech = "ItemCost"
+      endif
+
+    perform state.clearfocus
+    call FindMech
+    if (state.isfocus = 0) then
+      cost = 0
+      done
+      endif
+
+    ~ anything with a level > 50 is probably a mistake, so just set the cost to
+    ~ 0; otherwise bound the level to what we know the prices for
+    if (level < 1) then
+      cost = focus.field[ItemCost].arrayvalue[1]
+    elseif (level > 50) then
+      cost = 0
+    elseif (level > 30) then
+      cost = focus.field[ItemCost].arrayvalue[30]
+    else
+      cost = focus.field[ItemCost].arrayvalue[level]
+      endif
+    ]]></procedure>
+
+
+  <!-- Helper script to look up a dice index in the focussed pick, and return
+      that index.
+
+      Inbound: dice - dice text
+
+      Outbound: index - index into array
+  -->
+  <procedure id="LookupDice" context="pick"><![CDATA[
+    var dice as string
+    var index as number
+    var i as number
+    for i = 0 to focus.field[DamageDice].arrayrows - 1
+      if (compare(focus.field[DamageDice].arraytext[i], dice) = 0) then
+        index = i
+        done
+        endif
+      next
+    index = -1
+    ]]></procedure>
+
+
+  <!-- Helper script to get the adjusted damage dice for a weapon
+
+      Inbound: dicemod - bonus/penalty to damage dice, dicemult - multiple of
+          dice to use; e.g. 2d4, multiple of 2 = 4d4.
+
+      Outbound: dicemain - main dice text, dicesec - secondary dice text
+  -->
+  <procedure id="DamageDice" context="pick"><![CDATA[
+    var dicemod as number
+    var dicemult as number
+    var dicemain as string
+    var dicesec as string
+
+    var dice as string
+    var index as number
+
+    ~if we have a focus, get useful information out of it - if not, just use
+    ~our initial context - before we blow away our focus
+    var istwohand as number
+    var damcount as number
+    var damtext as string
+    var seccount as number
+    var sectext as string
+    if (state.isfocus = 0) then
+      istwohand = tagis[Equipment.TwoHand]
+      damcount = tagcount[WepDamage.?]
+      damtext = tagnames[WepDamage.?, "???"]
+      seccount = tagcount[WepDamSec.?]
+      sectext = tagnames[WepDamSec.?, "???"]
+      if (tagis[User.Use1HTable] <> 0) then
+        istwohand = 0
+        endif
+    else
+      istwohand = focus.tagis[Equipment.TwoHand]
+      damcount = focus.tagcount[WepDamage.?]
+      damtext = focus.tagnames[WepDamage.?, "???"]
+      seccount = focus.tagcount[WepDamSec.?]
+      sectext = focus.tagnames[WepDamSec.?, "???"]
+      if (focus.tagis[User.Use1HTable] <> 0) then
+        istwohand = 0
+        endif
+      endif
+
+    ~set the focus to the appropriate mechanics pick for 1-handed or 2-handed
+    ~damage progression
+    var findmech as string
+    if (istwohand <> 0) then
+      findmech = "2HDamage"
+    else
+      findmech = "1HDamage"
+      endif
+    call FindMech
+    if (state.isfocus = 0) then
+      dicemain = "no mechanics found!"
+      done
+      endif
+
+    ~get the text for our main damage dice and look it up
+    if (damcount > 1) then
+      dicemain = "too many tags"
+    elseif (damcount = 0) then
+      dicemain = "-"
+    else
+      dice = damtext
+      call LookupDice
+
+      ~add our dice modifier to the damage and get the new entry out of the array
+      index += dicemod
+      if (index < 0) then
+        dicemain = "too small"
+      else
+        dicemain = focus.field[DamageDice].arraytext[index]
+        if (empty(dicemain) <> 0) then
+          dicemain = "too large"
+          endif
+        endif
+      endif
+
+    ~now do the same for our secondary damage dice
+    if (seccount > 1) then
+      dicesec = "too many tags"
+    elseif (seccount = 0) then
+      dicesec = ""
+    else
+      dice = sectext
+      call LookupDice
+      index += dicemod
+      if (index < 0) then
+        dicesec = "too small"
+      else
+        dicesec = focus.field[DamageDice].arraytext[index]
+        if (empty(dicesec) <> 0) then
+          dicesec = "too large"
+          endif
+        endif
+      endif
+
+    ~if we have no dice multiplier, we have no damage dice
+    if (dicemult <= 0) then
+      dicemain = ""
+      dicesec = ""
+
+    ~otherwise, apply our dice multiplier if we have one
+    elseif (dicemult > 1) then
+      var firstchar as string
+      var first as number
+      firstchar = left(dicemain, 1)
+      first = firstchar * dicemult
+      if (first > 0) then
+        dicemain = first & mid(dicemain, 1, 999)
+        endif
+      firstchar = left(dicesec, 1)
+      first = firstchar * dicemult
+      if (first > 0) then
+        dicesec = first & mid(dicesec, 1, 999)
+        endif
+      endif
+    ]]></procedure>
+
+
+  <!-- Script used to set up magic weapons
+  -->
+  <procedure id="MagicWep" context="pick"><![CDATA[
+    var wepname as string
+    var magicname as string
+    magicname = "(Magic)"
+    wepname = "(Weapon)"
+
+    ~get the selected weapon from the child and get its name
+    perform gizmo.findchild[WeaponBase].setfocus
+    if (state.isfocus <> 0) then
+      wepname = focus.field[name].text
+      endif
+
+    ~get the selected magic item from the child and copy up some important
+    ~fields
+    perform state.clearfocus
+    perform gizmo.findchild[MagicWep].setfocus
+    if (state.isfocus <> 0) then
+      magicname = focus.field[name].text
+      perform focus.forward[ReqWep.?]
+      perform focus.forward[ImplemType.?]
+
+      ~if we have " Weapon" at the end of the name, strip it off
+      if (compare(right(magicname, 7), " Weapon") = 0) then
+        magicname = left(magicname, length(magicname) - 7)
+        endif
+      endif
+    field[grCost].value = gizmo.child[MagicHelp].field[mghCost].value
+    perform field[wpBonus].modify[+,gizmo.child[MagicHelp].field[mghBonus].value,""]
+    perform field[wpDamMagic].modify[+,gizmo.child[MagicHelp].field[mghBonus].value,""]
+
+    ~generate a name from the weapon name + magic weapon name + bonus
+    field[livename].text = magicname & " " & wepname & " +" & gizmo.child[MagicHelp].field[mghBonus].value
+
+    ~set up our tag expression for selecting appropriate equipment
+    var expr as string
+    if (tagis[component.WeapMelee] <> 0) then
+      expr = "component.WeapMelee"
+    else
+      expr = "component.WeapRange"
+      endif
+    expr &= " & !thingid.wpMagic? & !Hide.Weapon"
+    expr &= " & !Equipment.Natural & !component.MagicStaff"
+    gizmo.child[MagicHelp].field[mghEqExpr].text = expr
+    ]]></procedure>
+
+
+  <!-- Script used to set up magic armor
+  -->
+  <procedure id="MagicArmor" context="pick"><![CDATA[
+    var armorname as string
+    var magicname as string
+    var namerev as number
+    magicname = "(Magic)"
+    armorname = "(Armor)"
+
+    ~get the selected weapon from the child and copy up some important fields
+    perform gizmo.findchild[ArmorBase].setfocus
+    if (state.isfocus <> 0) then
+      field[gearWeight].value += focus.field[gearWeight].value
+      field[arAC].value += focus.field[arAC].value
+      field[arRef].value += focus.field[arRef].value
+      field[arFort].value += focus.field[arFort].value
+      field[arWill].value += focus.field[arWill].value
+      field[arResAll].value += focus.field[arResAll].value
+      field[arCheck].value += focus.field[arCheck].value
+      field[arSpeed].value += focus.field[arSpeed].value
+      perform focus.forward[ArmorType.?]
+      armorname = focus.field[name].text
+      endif
+
+    ~get the selected magic item from the child and copy up some important
+    ~fields
+    perform state.clearfocus
+    perform gizmo.findchild[MagicArmor].setfocus
+    if (state.isfocus <> 0) then
+      magicname = focus.field[name].text
+      perform focus.forward[ReqArmor.?]
+
+      ~if we have " Armor" at the end of the name, strip it off
+      if (compare(right(magicname, 6), " Armor") = 0) then
+        magicname = left(magicname, length(magicname) - 6)
+
+      ~if we have " Vestments" at the end of the name, strip it off
+      elseif (compare(right(magicname, 10), " Vestments") = 0) then
+        magicname = left(magicname, length(magicname) - 10)
+
+      ~if we have " Robe" at the end of the name, strip it off
+      elseif (compare(right(magicname, 5), " Robe") = 0) then
+        magicname = left(magicname, length(magicname) - 5)
+
+      ~if we have "Armor " at the start of the name, strip it off and set
+      ~our 'name reverse' flag
+      elseif (compare(left(magicname, 6), "Armor ") = 0) then
+        magicname = right(magicname, length(magicname) - 6)
+        namerev = 1
+
+      ~if we have "Robe " at the start of the name, strip it off and set
+      ~our 'name reverse' flag
+      elseif (compare(left(magicname, 5), "Robe ") = 0) then
+        magicname = right(magicname, length(magicname) - 5)
+        namerev = 1
+
+      ~if we have " Shield" at the end of the name, strip it off
+      elseif (compare(right(magicname, 7), " Shield") = 0) then
+        magicname = left(magicname, length(magicname) - 7)
+
+      ~if we have "Shield " at the start of the name, strip it off and set
+      ~our 'name reverse' flag
+      elseif (compare(left(magicname, 7), "Shield ") = 0) then
+        magicname = right(magicname, length(magicname) - 7)
+        namerev = 1
+        endif
+      endif
+    field[grCost].value = gizmo.child[MagicHelp].field[mghCost].value
+    field[arAC].value += gizmo.child[MagicHelp].field[mghBonus].value
+
+    ~generate a name from the armor name + magic armor name (in an
+    ~appropriate order) + bonus
+    if (namerev = 0) then
+      field[livename].text = magicname & " " & armorname
+    else
+      field[livename].text = armorname & " " & magicname
+      endif
+    if (gizmo.child[MagicHelp].field[mghBonus].value <> 0) then
+      field[livename].text &= " +" & gizmo.child[MagicHelp].field[mghBonus].value
+      endif
+
+    ~set up our tag expression for selecting appropriate equipment
+    var expr as string
+    if (tagis[component.Armor] <> 0) then
+      expr = "component.Armor"
+    else
+      expr = "component.Shield"
+      endif
+    expr &= " & !thingid.arMagic? & !Hide.Armor & !Equipment.Natural"
+    gizmo.child[MagicHelp].field[mghEqExpr].text = expr
+
+    ~and an expression to get an appropriate magic item type - armor and shield
+    ~magical abilities are totally separate
+    if (tagis[component.Armor] <> 0) then
+      expr = "!ReqArmor.arHeavyShi & !ReqArmor.arLightShi"
+    else
+      expr = "ReqArmor.arHeavyShi | ReqArmor.arLightShi"
+      endif
+    gizmo.child[MagicHelp].field[mghMagExpr].text = expr
+    ]]></procedure>
+
+
+  <!-- Script that returns a size as text
+  -->
+  <procedure id="SizeText" context="pick"><![CDATA[
+    var sizenum as number
+    var sizetext as string
+
+    if (sizenum >= 3) then
+      sizetext = "Gargantuan"
+    elseif (sizenum = 2) then
+      sizetext = "Huge"
+    elseif (sizenum = 1) then
+      sizetext = "Large"
+    elseif (sizenum = 0) then
+      sizetext = "Medium"
+    elseif (sizenum = -1) then
+      sizetext = "Small"
+    else
+      sizetext = "Tiny"
+      endif
+    ]]></procedure>
+
+
+  <!-- Verifies whether a class feature is present on the hero by testing tags
+      (or by using an obsolete method of checking the focus).
+  -->
+  <procedure id="ReqFeature" scripttype="validate"><![CDATA[
+    var featureid as string
+
+    ~if we don't have a feature id string, use the old method of checking the
+    ~focus (which will be set to the feature if it exists)
+    if (empty(featureid) <> 0) then
+      doneif (state.isfocus = 0)
+
+      ~if present and chosen, or if present and not a build option, valid
+      validif (focus.tagis[Helper.ChosenOpt] + !focus.tagis[component.BuildOpt] <> 0)
+      done
+      endif
+
+    ~otherwise, check for an active feature tag on the hero with the thing id
+    validif (hero.tagsearch["HasFeature." & featureid] <> 0)
+  ]]></procedure>
+
+
+  <!-- Helper script that, once the focus is set to a power (using something
+    like "perform hero.childfound[x].setfocus", verifies whether that power is
+    present or not.
+  -->
+  <procedure id="ReqPower" scripttype="validate"><![CDATA[
+    doneif (state.isfocus = 0)
+
+    ~if present and chosen, or if present and not a build option, valid
+    validif (focus.tagis[Helper.ChosenOpt] + !focus.tagis[component.BuildOpt] <> 0)
+  ]]></procedure>
+
+
+  <!-- Helper script that handles optional class features disabling other
+    features
+  -->
+  <procedure id="FeatureDis" scripttype="evalrule"><![CDATA[
+    validif (state.isfocus = 0)
+
+    validif (field[usrIsCheck].value = 0)
+
+    perform focus.assign[Helper.Disable]
+
+    ~if the target is now disabled more than once, there's a problem
+    validif (focus.tagcount[Helper.Disable] <= 1)
+
+    @message = "This feature replaces another that is already replaced."
+    @summary = "Feature replaced more than once"
+  ]]></procedure>
+
+
+  <!-- Helper script that handles multiplying daily / utility powers for a class.
+  -->
+  <procedure id="PowerMult" context="pick"><![CDATA[
+    var multiply as number
+    var powertype as string
+
+    ~if we have normal daily powers, just do nothing
+    doneif (multiply = 1)
+
+    ~otherwise, add a 'checkbox required' tag to our dailies
+    foreach pick in hero from Power where "Helper.PwrClass & PowerType." & powertype
+      perform eachpick.assign[Helper.PowerCheck]
+      nexteach
+
+    ~since we have twice the number of daily powers in our spellbook, we have
+    ~to select twice as many. Go through our daily power array, doubling the
+    ~number of powers we can take from each level.
+    var findmech as string
+    findmech = "Pwr" & powertype
+    call FindMech
+    var i as number
+    var j as number
+    var p0 as number
+    var p1 as number
+    var p2 as number
+    var p3 as number
+    var p4 as number
+    var p5 as number
+    var p6 as number
+    var p7 as number
+    var p8 as number
+    var p9 as number
+    for i = 1 to focus.field[ClPwrTable].matrixrows - 1
+
+      ~extract the first five powers from this row - we only have 10 slots,
+      ~so it doesn't make sense to get any more
+      p0 = focus.field[ClPwrTable].matrixvalue[i,0]
+      p1 = focus.field[ClPwrTable].matrixvalue[i,1]
+      p2 = focus.field[ClPwrTable].matrixvalue[i,2]
+      p3 = focus.field[ClPwrTable].matrixvalue[i,3]
+      p4 = focus.field[ClPwrTable].matrixvalue[i,4]
+      p5 = focus.field[ClPwrTable].matrixvalue[i,5]
+      p6 = focus.field[ClPwrTable].matrixvalue[i,6]
+      p7 = focus.field[ClPwrTable].matrixvalue[i,7]
+      p8 = focus.field[ClPwrTable].matrixvalue[i,8]
+      p9 = focus.field[ClPwrTable].matrixvalue[i,9]
+
+      ~now double those up into the remaining slots (or triple them, if
+      ~required)
+      if (multiply = 2) then
+        focus.field[ClPwrTable].matrixvalue[i,0] = p0
+        focus.field[ClPwrTable].matrixvalue[i,1] = p0
+        focus.field[ClPwrTable].matrixvalue[i,2] = p1
+        focus.field[ClPwrTable].matrixvalue[i,3] = p1
+        focus.field[ClPwrTable].matrixvalue[i,4] = p2
+        focus.field[ClPwrTable].matrixvalue[i,5] = p2
+        focus.field[ClPwrTable].matrixvalue[i,6] = p3
+        focus.field[ClPwrTable].matrixvalue[i,7] = p3
+        focus.field[ClPwrTable].matrixvalue[i,8] = p4
+        focus.field[ClPwrTable].matrixvalue[i,9] = p4
+        focus.field[ClPwrTable].matrixvalue[i,10] = p5
+        focus.field[ClPwrTable].matrixvalue[i,11] = p5
+        focus.field[ClPwrTable].matrixvalue[i,12] = p6
+        focus.field[ClPwrTable].matrixvalue[i,13] = p6
+        focus.field[ClPwrTable].matrixvalue[i,14] = p7
+        focus.field[ClPwrTable].matrixvalue[i,15] = p7
+        focus.field[ClPwrTable].matrixvalue[i,16] = p8
+        focus.field[ClPwrTable].matrixvalue[i,17] = p8
+        focus.field[ClPwrTable].matrixvalue[i,18] = p9
+        focus.field[ClPwrTable].matrixvalue[i,19] = p9
+      else
+        focus.field[ClPwrTable].matrixvalue[i,0] = p0
+        focus.field[ClPwrTable].matrixvalue[i,1] = p0
+        focus.field[ClPwrTable].matrixvalue[i,2] = p0
+        focus.field[ClPwrTable].matrixvalue[i,3] = p1
+        focus.field[ClPwrTable].matrixvalue[i,4] = p1
+        focus.field[ClPwrTable].matrixvalue[i,5] = p1
+        focus.field[ClPwrTable].matrixvalue[i,6] = p2
+        focus.field[ClPwrTable].matrixvalue[i,7] = p2
+        focus.field[ClPwrTable].matrixvalue[i,8] = p2
+        focus.field[ClPwrTable].matrixvalue[i,9] = p3
+        focus.field[ClPwrTable].matrixvalue[i,10] = p3
+        focus.field[ClPwrTable].matrixvalue[i,11] = p3
+        focus.field[ClPwrTable].matrixvalue[i,12] = p4
+        focus.field[ClPwrTable].matrixvalue[i,13] = p4
+        focus.field[ClPwrTable].matrixvalue[i,14] = p4
+        focus.field[ClPwrTable].matrixvalue[i,15] = p5
+        focus.field[ClPwrTable].matrixvalue[i,16] = p5
+        focus.field[ClPwrTable].matrixvalue[i,17] = p5
+        focus.field[ClPwrTable].matrixvalue[i,18] = p6
+        focus.field[ClPwrTable].matrixvalue[i,19] = p6
+        endif
+      next
+    ]]></procedure>
+
+
+  <!-- Helper script that finds the earliest open index in our list of power
+        slots.
+  -->
+  <procedure id="PwrGetCol" context="pick"><![CDATA[
+    var lastcolumn as number
+
+    if (state.isfocus = 0) then
+      debug "No power limit matrix found! Could not validate power limits."
+      done
+      endif
+
+    ~find the earliest open index in row 0 of our power limit matrix
+    lastcolumn = -1
+    var i as number
+    for i = 0 to focus.field[ClPwrTable].matrixcols - 1
+      if (focus.field[ClPwrTable].matrixvalue[0,i] = 0) then
+        if (lastcolumn = -1) then
+          lastcolumn = i
+          endif
+        endif
+      next
+    ]]></procedure>
+
+
+  <!-- Helper script that counts the number of powers you have at a level.
+  -->
+  <procedure id="PwrLevCnt" context="pick"><![CDATA[
+    var findmech as string
+    var powercount as number
+    var level as number
+
+    ~find the earliest open index in our array of power slots
+    call FindMech
+    doneif (state.isfocus = 0)
+
+    var j as number
+    powercount = 0
+    for j = 0 to focus.field[ClPwrTable].matrixcols - 1
+      if (focus.field[ClPwrTable].matrixvalue[level,j] <> 0) then
+        powercount += 1
+        endif
+      next
+    ]]></procedure>
+
+
+  <!-- Helper script that counts the number of powers you have at a level.
+  -->
+  <procedure id="PwrAllSumm" context="pick"><![CDATA[
+    var findmech as string
+    var pwrallsumm as string
+    var level as number
+    var powercount as number
+
+    pwrallsumm = "Level " & level & ": "
+
+    var sep as string
+    sep = "{horz 2}{text 808080}/{text 010101}{horz 2}"
+
+    ~find the power breakdown for our power types
+    var powercount as number
+    findmech = "PwrAtWill"
+    call PwrLevCnt
+    pwrallsumm &= powercount & sep
+
+    findmech = "PwrEncount"
+    call PwrLevCnt
+    pwrallsumm &= powercount & sep
+
+    findmech = "PwrUtility"
+    call PwrLevCnt
+    pwrallsumm &= powercount & sep
+
+    findmech = "PwrDaily"
+    call PwrLevCnt
+    pwrallsumm &= powercount
+    ]]></procedure>
+
+
+  <!-- Helper script that counts how many powers you have left
+  -->
+  <procedure id="PowersLeft" context="pick"><![CDATA[
+    var powersleft as number
+
+    var slotok as number
+    var slottaken as number
+    var i as number
+    for i = 0 to focus.field[ClPwrTable].matrixcols - 1
+
+      ~work out whether this slot is allowed, and taken
+      slotok = 0
+      slottaken = 0
+      if (focus.field[ClPwrTable].matrixvalue[#level[],i] > 0) then
+        slotok = 1
+        endif
+      if (focus.field[ClPwrTable].matrixvalue[0,i] > 0) then
+        slottaken = 1
+        endif
+
+      ~if this slot is is in a valid state (i.e. taken and allowed, or not
+      ~taken and not allowed) our count doesn't change
+      if (slotok = slottaken) then
+        ~do nothing
+
+      ~otherwise, if it's allowed but not taken, we have one more power left.
+      ~otherwise it's taken but not allowed, so we subtract one from the count.
+      elseif (slotok <> 0) then
+        powersleft += 1
+      else
+        powersleft -= 1
+        endif
+      next
+    ]]></procedure>
+
+
+  <!-- Helper script to validate whether a power is an allowed level.
+  -->
+  <procedure id="ValPwrLvl" scripttype="evalrule"><![CDATA[
+    var column as number
+    var powersleft as number
+    var powertype as string
+    var taken as string
+
+    ~get our power and hero level for future use
+    var herolevel as number
+    var powerlevel as number
+    herolevel = hero.tagvalue[Level.?]
+    powerlevel = tagvalue[ReqLevel.?]
+
+    ~get the allowed power level from the appropriate row of the matrix - the
+    ~row for our current level
+    var allowlevel as number
+    allowlevel = focus.field[ClPwrTable].matrixvalue[herolevel,column]
+
+    ~if the allowed level is 0, we have too many powers and have run off the
+    ~end of the array.
+    if (allowlevel = 0) then
+      @message = "Too many " & powertype & " powers " & taken & "."
+      done
+      endif
+
+    ~if the allowed level is exactly equal to the power level, great!
+    if (allowlevel = powerlevel) then
+      @valid = 1
+      done
+      endif
+
+    ~at this point, we know we're either over, or under, the required power
+    ~level. However, sometimes we don't want to show this. For example -
+    ~consider if we are level 5, with a single level 5 daily power. Because
+    ~we're allowed a level 1 and a level 5 power, this power will occupy the
+    ~'level 1' slot, and will read as overlevelled. Once the user adds a
+    ~level 1 power like he's supposed to, everything works out fine. There's
+    ~no point displaying the error until we have to correct number of powers,
+    ~at which point we know it's a real error and not just a symptom of
+    ~missing powers.
+    ~(We could solve this by sorting through the powers in the actor script
+    ~in reverse order by level, but then we get the same problem, just every
+    ~power thinks it's too low level instead of too high level.)
+    ~Check how many of this type of power we're allowed. If we're over or
+    ~under that limit, we can consider this rule valid - once the user picks
+    ~the right number of powers, we'll worry about it.
+    if (powersleft <> 0) then
+      @valid = 1
+      done
+      endif
+
+    ~if the allowed level is under the power level, this power level is too
+    ~high.
+    if (allowlevel < powerlevel) then
+      @message = "Power too high level."
+      done
+      endif
+
+    ~if this class doesn't care about underlevel prepared powers, we're done
+    validif (hero.tagis[Hero.NoMemUnder] <> 0)
+
+    ~otherwise, we're kinda valid, but not quite. Add a tag to be checked in
+    ~a rule that only sets a validation warning and mark this rule as valid
+    perform assign[Helper.PwrUnderLv]
+    @valid = 1
+    ]]></procedure>
+
+
+  <!-- Script that retrieves the appropriate mechanics pick
+  -->
+  <procedure id="FindMech" context="pick"><![CDATA[
+    var findmech as string
+
+    perform state.clearfocus
+
+    ~first, try and find any mechanics pick that isn't the default for this
+    ~mechanic
+    perform hero.findchild[Mechanics,"Mechanics." & findmech & "  & !thingid." & findmech].setfocus
+
+    ~if that failed, try and find any pick that matches the criteria, even the
+    ~boring old default pick
+    if (state.isfocus = 0) then
+      perform hero.findchild[Mechanics,"Mechanics." & findmech].setfocus
+      endif
+    ]]></procedure>
+
+
+  <!-- Insert a power into a mechanics table
+  -->
+  <procedure id="PowerInsrt" context="pick"><![CDATA[
+    var findmech as string
+    var extrapwlev as number
+
+    call FindMech
+    if (state.isfocus = 0) then
+      notify "No Power Table mechanics found!"
+      done
+      endif
+
+    var level as number
+    level = #level[]
+    var i as number
+    var current as number
+    for i = 0 to focus.field[ClPwrTable].matrixcols - 1
+      current = focus.field[ClPwrTable].matrixvalue[level,i]
+
+      ~wait until we get to the good point to insert our new level, then
+      ~start shifting everything 1 to the right
+      if (current >= extrapwlev) then
+        focus.field[ClPwrTable].matrixvalue[level,i] = extrapwlev
+        extrapwlev = current
+
+      ~if we ran out of power levels, replace 0s with whatever is needed to
+      ~finish shifting everything right
+      elseif (current = 0) then
+        focus.field[ClPwrTable].matrixvalue[level,i] = extrapwlev
+        extrapwlev = current
+        endif
+      next
+    ]]></procedure>
+
+
+  <!-- Add a chooser to the Multiclass tab that lets the user pick something
+  -->
+  <procedure id="MultChoice" context="pick"><![CDATA[
+    var title as string
+    var expr as string
+
+    ~find the first multiclass helper that isn't already in use, i.e. that
+    ~doesn't already have an expression - this way we can have multiple
+    ~different classes that need you to select different things
+    var text as string
+    perform hero.child[MultiCh1st].setfocus
+    text = "1st"
+    if (compare("FALSE", focus.field[opcExpr].text) <> 0) then
+      perform hero.child[MultiCh2nd].setfocus
+      text = "2nd"
+      if (compare("FALSE", focus.field[opcExpr].text) <> 0) then
+        perform hero.child[MultiCh3rd].setfocus
+        text = "3rd"
+        doneif (compare("FALSE", focus.field[opcExpr].text) <> 0)
+        endif
+      endif
+
+    focus.field[opcTitle].text = title
+
+    ~set up a tag expression that lets us choose a swordmage aegis
+    focus.field[opcExpr].text = expr
+
+    ~set the focus to the chosen item, so the caller can meddle with it
+    perform state.clearfocus
+    perform hero.findchild[none,"OptChoose.MultiCh" & text & " & !thingid.MultiCh" & text].setfocus
+    ]]></procedure>
+
+
+  <!-- Split a GP amount into gold, silver and copper
+  -->
+  <procedure id="SplitGP" context="pick"><![CDATA[
+    var gp as number
+    var sp as number
+    var cp as number
+
+    ~strip off the decimals for our gold, and turn them into silver
+    var temp as number
+    temp = round(gp, 0, -1)
+    sp = (gp - temp) * 10
+    gp = temp
+
+    ~strip off the decimals for our silver, and turn them into copper
+    temp = round(sp, 0, -1)
+    cp = (sp - temp) * 10
+    sp = temp
+
+    ~round our copper off normally
+    cp = round(cp, 0, 0)
+    ]]></procedure>
+
+
+  <!-- Format a height as text for a finalize script
+  -->
+  <procedure id="FmtHeight" scripttype="finalize"><![CDATA[
+    ~calculate the height in terms of feet and inches
+    var feet as number
+    var inches as number
+    feet = @value / 12
+    feet = round(feet,0,-1)
+    inches = @value - (feet * 12)
+
+    ~synthesize appropriate text to display the height properly
+    @text = feet & "'"
+    if (inches <> 0) then
+      @text = @text & " " & inches & chr(34)
+      endif
+    ]]></procedure>
+
+  </document>

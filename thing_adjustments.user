@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document signature="Hero Lab Data">
+  <thing id="adjAttr" name="Attribute" description="Select this adjustment to change one of your attributes." compset="Adjustment">
+    <fieldval field="adjCandid" value="component.Attribute"/>
+    <tag group="AdjustShow" tag="Increment"/>
+    <tag group="AdjustShow" tag="Menu"/>
+    <tag group="InPlay" tag="PermOK"/>
+    <tag group="InPlay" tag="TempOK"/>
+    <eval phase="Setup" priority="8000"><![CDATA[
+      if (tagis[Helper.Activated] <> 0) then
+        field[adjChosen].chosen.field[trtInPlay].value += field[adjUser].value
+        endif]]>
+      <before name="Calc trtFinal"/>
+      </eval>
+    </thing>
+  <thing id="adjDef" name="Defense" description="Select this adjustment to change one of your defenses - Armor Class, Fortitude, Reflex or Will." compset="Adjustment">
+    <fieldval field="adjCandid" value="component.Defense"/>
+    <tag group="AdjustShow" tag="Increment"/>
+    <tag group="AdjustShow" tag="Menu"/>
+    <tag group="InPlay" tag="PermOK"/>
+    <tag group="InPlay" tag="TempOK"/>
+    <eval phase="Setup" priority="8000"><![CDATA[
+      if (tagis[Helper.Activated] <> 0) then
+        field[adjChosen].chosen.field[trtInPlay].value += field[adjUser].value
+        endif]]>
+      <before name="Calc trtFinal"/>
+      </eval>
+    </thing>
+  <thing id="adjSkill" name="Skill" description="Select this adjustment to change one of your skills." compset="Adjustment">
+    <fieldval field="adjCandid" value="component.Skill"/>
+    <tag group="AdjustShow" tag="Increment"/>
+    <tag group="AdjustShow" tag="Menu"/>
+    <tag group="InPlay" tag="PermOK"/>
+    <tag group="InPlay" tag="TempOK"/>
+    <eval phase="Setup" priority="8000"><![CDATA[
+      if (tagis[Helper.Activated] <> 0) then
+        field[adjChosen].chosen.field[trtInPlay].value += field[adjUser].value
+        endif]]>
+      <before name="Calc trtFinal"/>
+      </eval>
+    </thing>
+  <thing id="adjDerived" name="Derived Trait" description="Select this adjustment to change one of your derived traits." compset="Adjustment">
+    <fieldval field="adjCandid" value="component.Derived &amp; User.CanAdjust"/>
+    <tag group="AdjustShow" tag="Increment"/>
+    <tag group="AdjustShow" tag="Menu"/>
+    <tag group="InPlay" tag="PermOK"/>
+    <tag group="InPlay" tag="TempOK"/>
+    <eval phase="Setup" priority="8000"><![CDATA[
+      if (tagis[Helper.Activated] <> 0) then
+        field[adjChosen].chosen.field[trtInPlay].value += field[adjUser].value
+        endif]]>
+      <before name="Calc trtFinal"/>
+      </eval>
+    </thing>
+  <thing id="adjWeapon" name="Weapon" description="Select this adjustment to apply a bonus/penalty to the attack roll of a specific weapon." compset="Adjustment">
+    <fieldval field="adjCandid" value="component.WeaponBase"/>
+    <tag group="AdjustShow" tag="Increment"/>
+    <tag group="AdjustShow" tag="Menu"/>
+    <tag group="InPlay" tag="TempOK"/>
+    <tag group="InPlay" tag="PermOK"/>
+    <eval phase="Setup" priority="8000"><![CDATA[
+      if (tagis[Helper.Activated] <> 0) then
+        perform field[adjChosen].chosen.field[wpBonus].modify[+,field[adjUser].value,"Adjustment"]
+        endif]]>
+      <before name="Calc wpNetAtk"/>
+      </eval>
+    </thing>
+  <thing id="adjArmor" name="Armor" description="Select this adjustment to apply a bonus/penalty to the armor bonus of a piece of armor." compset="Adjustment">
+    <fieldval field="adjCandid" value="component.ArmorBase"/>
+    <tag group="AdjustShow" tag="Increment"/>
+    <tag group="AdjustShow" tag="Menu"/>
+    <tag group="InPlay" tag="TempOK"/>
+    <eval phase="Setup" priority="8000"><![CDATA[
+      if (tagis[Helper.Activated] <> 0) then
+        field[adjChosen].chosen.field[arAC].value += field[adjUser].value
+        endif]]>
+      <before name="Calc wpNetAtk"/>
+      </eval>
+    </thing>
+  <thing id="adjPower" name="Power" description="Select this adjustment to apply a bonus/penalty to the attack bonus of a power." compset="Adjustment">
+    <fieldval field="adjCandid" value="component.Power"/>
+    <tag group="AdjustShow" tag="Increment"/>
+    <tag group="AdjustShow" tag="Menu"/>
+    <tag group="InPlay" tag="TempOK"/>
+    <eval phase="Setup" priority="8000"><![CDATA[
+      if (tagis[Helper.Activated] <> 0) then
+        field[adjChosen].chosen.field[pwAtkMod].value += field[adjUser].value
+        endif]]>
+      <before name="Calc wpNetAtk"/>
+      </eval>
+    </thing>
+  <thing id="adjFeats" name="Bonus Feats" description="Select this adjustment to add to the number of bonus feats you can take." compset="Adjustment">
+    <tag group="AdjustShow" tag="Increment"/>
+    <eval phase="Setup" priority="8000"><![CDATA[
+      if (tagis[Helper.Activated] <> 0) then
+        hero.child[resFeats].field[resMax].value += field[adjUser].value
+        endif]]>
+      <before name="Calc resLeft"/>
+      </eval>
+    </thing>
+  <thing id="adjRituals" name="Bonus Rituals" description="Select this adjustment to add to the number of bonus rituals you can take." compset="Adjustment">
+    <tag group="AdjustShow" tag="Increment"/>
+    <eval phase="Setup" priority="8000"><![CDATA[
+      if (tagis[Helper.Activated] <> 0) then
+        hero.child[resRituals].field[resMax].value += field[adjUser].value
+        endif]]>
+      <before name="Calc resLeft"/>
+      </eval>
+    </thing>
+  <thing id="adjCounter" name="Counter" description="Select this adjustment to keep track of a value that can go up or down." compset="Adjustment">
+    <fieldval field="adjMinimum" value="-99"/>
+    <fieldval field="adjMaximum" value="99"/>
+    <tag group="AdjustShow" tag="Increment"/>
+    <tag group="InPlay" tag="TempOK"/>
+    </thing>
+  <thing id="adjOngoing" name="Ongoing Damage" description="Select this adjustment to keep track of ongoing damage." compset="Adjustment">
+    <fieldval field="adjMinimum" value="-99"/>
+    <fieldval field="adjMaximum" value="99"/>
+    <tag group="AdjustShow" tag="Increment"/>
+    <tag group="InPlay" tag="TempOK"/>
+    </thing>
+  <thing id="adjDamage" name="Damage" description="Select this adjustment to apply a bonus/penalty to the damage roll of a specific weapon." compset="Adjustment">
+    <fieldval field="adjCandid" value="component.WeaponBase"/>
+    <tag group="AdjustShow" tag="Increment"/>
+    <tag group="AdjustShow" tag="Menu"/>
+    <tag group="InPlay" tag="TempOK"/>
+    <eval phase="Setup" priority="8000"><![CDATA[
+if (tagis[Helper.Activated] <> 0) then
+perform field[adjChosen].chosen.field[wpDamage].modify[+,field[adjUser].value,"Adjustment"]
+endif]]>
+      <before name="Calc wpNetAtk"/>
+      </eval>
+    </thing>
+  <thing id="adjPDamage" name="Power Damage" description="Select this adjustment to apply a bonus/penalty to the damage roll of a specific power." compset="Adjustment">
+    <fieldval field="adjCandid" value="component.Power"/>
+    <tag group="AdjustShow" tag="Increment"/>
+    <tag group="AdjustShow" tag="Menu"/>
+    <tag group="InPlay" tag="TempOK"/>
+    <eval phase="Setup" priority="8000"><![CDATA[
+if (tagis[Helper.Activated] <> 0) then
+perform field[adjChosen].chosen.field[pwDamBonus].modify[+,field[adjUser].value,"Adjustment"]
+endif]]>
+      <before name="Calc wpNetAtk"/>
+      </eval>
+    </thing>
+  </document>

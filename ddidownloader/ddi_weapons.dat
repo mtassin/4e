@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<document signature="Hero Lab Data">
+
+  <thing
+    id="wpImproRan"
+    name="Improvised Ranged"
+    compset="Ranged">
+    </thing>
+  <thing
+    id="wpImproSma"
+    name="Improvised Small Melee"
+    compset="">
+    </thing>
+
+  <thing
+    id="wpShuriken"
+    name=""
+    compset="Ranged">
+    </thing>
+
+  <thing
+    id="wpBlowgun"
+    name=""
+    compset="Ranged">
+    <tag group="User" tag="Use1HTable"/>
+    </thing>
+
+  <thing
+    id="wpGarrote"
+    name=""
+    compset="">
+    <tag group="User" tag="Use1HTable"/>
+    </thing>
+
+  <thing
+    id="wpMonkUnar"
+    name=""
+    compset=""
+    holdable="no">
+    <tag group="Helper" tag="Proficient"/>
+    <containerreq phase="Initialize" priority="750">
+      <after name="Class tag final"/>hero#Class.clsMonk</containerreq>
+    </thing>
+
+  <thing
+    id="wpBladeAnn"
+    name=""
+    compset="">
+    <tag group="User" tag="HexbladeWp"/>
+    <eval index="1" phase="Setup" priority="400">
+      <after name="Build option activated"/>
+      <![CDATA[
+      ~hide us unless we're a Hexblade with the Infernal Pact
+      if (hero.child[fHexInfPac].tagis[Helper.ChosenOpt] = 0) then
+        perform assign[Hide.Weapon]
+        endif
+      ]]></eval>
+    </thing>
+  <thing
+    id="wpBladeWin"
+    name=""
+    compset="">
+    <tag group="User" tag="HexbladeWp"/>
+    <eval index="1" phase="Setup" priority="400">
+      <after name="Build option activated"/>
+      <![CDATA[
+      ~hide us unless we're a Hexblade with the Fey Pact
+      if (hero.child[fHexFeyPac].tagis[Helper.ChosenOpt] = 0) then
+        perform assign[Hide.Weapon]
+        endif
+      ]]></eval>
+    </thing>
+  <thing
+    id="wpStarsBla"
+    name=""
+    compset="">
+    <tag group="User" tag="HexbladeWp"/>
+    <eval index="1" phase="Setup" priority="400">
+      <after name="Build option activated"/>
+      <![CDATA[
+      ~hide us unless we're a Hexblade with the Star Pact
+      if (hero.child[fHexStaPac].tagis[Helper.ChosenOpt] = 0) then
+        perform assign[Hide.Weapon]
+        endif
+      ]]></eval>
+    </thing>
+  <thing
+    id="wpSwordWhi"
+    name=""
+    compset="">
+    <tag group="User" tag="HexbladeWp"/>
+    <eval index="1" phase="Setup" priority="400">
+      <after name="Build option activated"/>
+      <![CDATA[
+      ~hide us unless we're a Hexblade with the White Well Pact
+      if (hero.child[fHexWhiPac].tagis[Helper.ChosenOpt] = 0) then
+        perform assign[Hide.Weapon]
+        endif
+      ]]></eval>
+    </thing>
+  <thing
+    id="wpScourExq"
+    name=""
+    compset="">
+    <tag group="User" tag="HexbladeWp"/>
+    <eval index="1" phase="Setup" priority="400">
+      <after name="Build option activated"/>
+      <![CDATA[
+      ~hide us unless we're a Hexblade with the Gloom Pact
+      if (hero.child[fHexGloPac].tagis[Helper.ChosenOpt] = 0) then
+        perform assign[Hide.Weapon]
+        endif
+      ]]></eval>
+    </thing>
+
+  </document>

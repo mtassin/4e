@@ -1,0 +1,2215 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the definitions of how the Editor should handle all the
+      various publicly accessible objects (i.e. component sets) within the game
+      system. A separate "editthing" elemenet is defined for each component set,
+      along with the appropriate details for how to configure each facet via
+      "inputthing" elements.
+-->
+
+<document signature="Hero Lab Data">
+
+
+  <editthing
+    compset="Attribute"
+    name="Attribute"
+    prefix="attr"
+    description="Attributes are the core abilities of a character - strength, dexterity, etc."
+    summary="Defines an Attribute that each hero has.">
+    <inputthing
+      name="Starting Value"
+      helptext="Specify the starting value for the attribute. If not specified, defaults to 10.">
+      <it_field field="trtUser"/>
+      </inputthing>
+    <inputthing
+      name="Sort Order"
+      helptext="Specify the sort order of the attribute. Strength has a sort order of 5, Constitution 10, Dexterity 15, Intelligence 20, Wisdom 25, and Charisma 30.{br}{br}For example, if you set this value to &quot;{b}17{/b}&quot;, the new attribute would appear between Dexterity and Intelligence.">
+      <it_tagpick group="explicit" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Physical Attribute?"
+      helptext="Check whether this attribute is a physical attribute.">
+      <it_tagcheck group="User" tag="AttrPhys"/>
+      </inputthing>
+    <inputthing
+      name="Mental Attribute?"
+      helptext="Check whether this attribute is a mental attribute.">
+      <it_tagcheck group="User" tag="AttrMental"/>
+      </inputthing>
+    </editthing>
+
+
+  <editthing
+    compset="Alignment"
+    name="Alignment"
+    prefix="al"
+    description="A hero's alignment defines his approach to life."
+    summary="Create new alignments that can be chosen by the hero.">
+    <inputthing
+      name="Sort Order"
+      helptext="Specify the sort order of the alignment. Lawful Good has a sort order of 10, Good 20, Neutral 30, Evil 40, Chaotic Evil 50.{br}{br}For example, if you set this value to &quot;{b}17{/b}&quot;, the new alignment would appear between Lawful Good and Good.">
+      <it_tagpick group="explicit" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Alignment Tags"
+      helptext="Click here to choose tags for the alignment.">
+      <it_taglist group="Alignment" tag="?"/>
+      </inputthing>
+    </editthing>
+
+
+  <editthing
+    compset="Defense"
+    name="Defense"
+    prefix="def"
+    description="Defenses are the traits the hero uses to resist damage - Armor Class, Fortitude, Will, etc."
+    summary="Defines a Defense that each hero has.">
+    <inputthing
+      name="Defense Abbreviation"
+      helptext="Specify a short abbreviation for the defense. For example, &quot;Fort&quot; or &quot;Ref&quot;.">
+      <it_field field="trtAbbrev"/>
+      </inputthing>
+    <inputthing
+      name="Starting Value"
+      helptext="Specify the default value for the defense. If not specified, defaults to 0.">
+      <it_field field="trtBonus"/>
+      </inputthing>
+    <inputthing
+      name="Sort Order"
+      helptext="Specify the sort order of the defense. Armor Class has a sort order of 5, Fortitude 10, Reflex 15 and Will 20.{br}{br}For example, if you set this value to &quot;{b}17{/b}&quot;, the new defense would appear between Reflex and Will.">
+      <it_tagpick group="explicit" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="First Linked Attribute"
+      helptext="Select the first attribute linked to this defense. The best of these two attributes is added as a bonus to the defense.">
+      <it_linkage compset="Attribute" linkage="defAttr1"/>
+      </inputthing>
+    <inputthing
+      name="Second Linked Attribute"
+      helptext="Select the second attribute linked to this defense. The best of these two attributes is added as a bonus to the defense.">
+      <it_linkage compset="Attribute" linkage="defAttr2"/>
+      </inputthing>
+    <inputthing
+      name="No Attribute Bonus in Heavy Armor?"
+      helptext="Check if this defense receives no attribute bonus while wearing Heavy Armor (e.g. Armor Class).">
+      <it_tagcheck group="User" tag="NoAttHeavy"/>
+      </inputthing>
+    </editthing>
+
+
+  <editthing
+    compset="Trait"
+    name="Trait"
+    prefix="trt"
+    description="Traits appear in the Abilities summary panel and sometimes on the Abilities tab."
+    summary="Traits track quantities like initiative values, senses, size, etc.">
+    <inputthing
+      name="Trait Abbreviation"
+      helptext="Specify a short abbreviation for the trait. For example, &quot;Lvl&quot; or &quot;Init&quot;.">
+      <it_field field="trtAbbrev"/>
+      </inputthing>
+    <inputthing
+      name="Starting Value"
+      helptext="Specify the default value for the trait. If not specified, defaults to 0.">
+      <it_field field="trtBonus"/>
+      </inputthing>
+    <inputthing
+      name="Sort Order"
+      helptext="Specify the sort order of the trait within the Abilities tab and summary panel.">
+      <it_tagpick group="explicit" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Appears in Narrow Traits Table?"
+      helptext="Check if this trait appears in the narrow traits table (containing level, initiative and skills) on the Abilities tab.">
+      <it_tagcheck group="User" tag="BasicsNarr"/>
+      </inputthing>
+    <inputthing
+      name="Appears in Wide Traits Table?"
+      helptext="Check if this trait appears in the wide traits table (containing size, senses and hit points) on the Abilities tab.">
+      <it_tagcheck group="User" tag="BasicsWide"/>
+      </inputthing>
+    <inputthing
+      name="Appears in Tactical Con.?"
+      helptext="Specify if this trait appears on the Dashboard or Tactical Console.">
+      <it_tagpick group="DashTacCon" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Adjustments allowed?"
+      helptext="Check if this trait can be changed by adding an in-play adjustment on the In-Play tab.">
+      <it_tagcheck group="User" tag="CanAdjust"/>
+      </inputthing>
+    </editthing>
+
+
+  <editthing
+    compset="Resistance"
+    name="Resist"
+    prefix="rs"
+    description="Resistance to a type of attack, such as Fire or Radiant damage."
+    summary="Resistance to a type of attack, such as Fire or Radiant damage.">
+    </editthing>
+
+
+  <editthing
+    compset="Skill"
+    name="Skill"
+    prefix="sk"
+    description="Basic skills that can be used by the hero in skill checks."
+    summary="Defines a Skill which can be used by the hero.">
+    <inputthing
+      name="Linked Attribute"
+      helptext="Select the attribute that gives a bonus to this skill.">
+      <it_linkage compset="Attribute" linkage="attribute"/>
+      </inputthing>
+    <inputthing
+      name="Passive Sense?"
+      helptext="Check if this skill should be included on the Passive Senses table on the printout like Insight and Perception.">
+      <it_tagcheck group="User" tag="PassSense"/>
+      </inputthing>
+    </editthing>
+
+
+  <editthing
+    compset="Feat"
+    name="Feat"
+    prefix="ft"
+    description="Feats can assign a hero diverse special abilities."
+    summary="Defines a Feat which can be chosen from the Feats tab.">
+    <inputthing
+      name="Feat Use"
+      helptext="If this feat can be used like a power, specify how it can be used.">
+      <it_tagpick group="PowerUse" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Hide from Special Tab?"
+      helptext="Specify whether this feat is not displayed on the Special tab. Typically this is done with feats that assign a fixed bonus to your statistics, since their effects are already built in to your hero.">
+      <it_tagcheck group="Hide" tag="Special"/>
+      </inputthing>
+    <inputthing
+      name="Descriptors"
+      helptext="Click here to choose descriptors for this feat.">
+      <it_taglist group="ftDescript" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Multiclass Feat?"
+      helptext="If this feat is a multiclass feat, pick the character class it grants multiclassing into.">
+      <it_tagpick group="Multiclass" tag="?"/>
+      </inputthing>
+
+    <inputthing
+      name="Selection List 1"
+      helptext="Many feats require you to select from lists of things, which can be configured here. You can select from a fixed list, a list of things, or have a checkbox.">
+      <it_separator/>
+      </inputthing>
+    <inputthing
+      name="List of Text Items"
+      helptext="A list of items that can be chosen from by the feat. Enter one item per row.">
+      <it_field field="usrArray"/>
+      </inputthing>
+    <inputthing
+      name="Initial Item"
+      helptext="Select the initial item to be selected from the list. If left blank, the first item will be selected by default.">
+      <it_field field="usrSelect"/>
+      </inputthing>
+    <inputthing
+      name="Tag Expression"
+      helptext="To allow selection of a thing (for example, a skill, ability score or weapon) from a menu, enter a tag expression.">
+      <it_field field="usrCandid1"/>
+      </inputthing>
+    <inputthing
+      name="Select From..."
+      helptext="Choose which list to select items from. You can choose All Things (everything, even those not added to the hero); All Picks on Hero (the default) or All Picks on Container (which may be useful on gizmos sometimes).">
+      <it_tagpick group="ChooseSrc1" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Checkbox Text"
+      helptext="To show a checkbox that can be selected by the user, enter the label text for the checkbox here.">
+      <it_field field="usrChkText"/>
+      </inputthing>
+
+    <inputthing
+      name="Selection List 2"
+      helptext="Sometimes a second list is required, which can be selected here.">
+      <it_separator/>
+      </inputthing>
+    <inputthing
+      name="Tag Expression"
+      helptext="To allow selection of a thing (for example, a skill, ability score or weapon) from a menu, enter a tag expression.">
+      <it_field field="usrCandid2"/>
+      </inputthing>
+    <inputthing
+      name="Select From..."
+      helptext="Choose which list to select items from. You can choose All Things (everything, even those not added to the hero); All Picks on Hero (the default) or All Picks on Container (which may be useful on gizmos sometimes).">
+      <it_tagpick group="ChooseSrc2" tag="?"/>
+      </inputthing>
+
+    <inputthing
+      name="Requirements"
+      helptext="Lists any requirements that you must meet before the feat can be selected.">
+      <it_separator/>
+      </inputthing>
+    <inputthing
+      name="Tier"
+      helptext="Pick the tier this feat requires.">
+      <it_tagpick group="Tier" tag="?" deftag="Heroic" require="yes"/>
+      </inputthing>
+    <inputthing
+      name="Requirement Details"
+      helptext="Text that identifies exactly what the feat requires.">
+      <it_field field="reqText"/>
+      </inputthing>
+    <inputthing
+      name="Race Requirement"
+      helptext="Choose a race the feat requires, if any.">
+      <it_taglist group="ReqRace" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Class Requirement"
+      helptext="Choose a class the feat requires, if any.">
+      <it_taglist group="ReqClass" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Level Requirement"
+      helptext="Choose a level the feat requires, if any.">
+      <it_tagpick group="ReqLevel" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Strength Required"
+      helptext="The hero must meet this minimum ability score requirement to pick the feat.">
+      <it_field field="reqStr"/>
+      </inputthing>
+    <inputthing
+      name="Constitution Required"
+      helptext="The hero must meet this minimum ability score requirement to pick the feat.">
+      <it_field field="reqCon"/>
+      </inputthing>
+    <inputthing
+      name="Dexterity Required"
+      helptext="The hero must meet this minimum ability score requirement to pick the feat.">
+      <it_field field="reqDex"/>
+      </inputthing>
+    <inputthing
+      name="Intelligence Required"
+      helptext="The hero must meet this minimum ability score requirement to pick the feat.">
+      <it_field field="reqInt"/>
+      </inputthing>
+    <inputthing
+      name="Wisdom Required"
+      helptext="The hero must meet this minimum ability score requirement to pick the feat.">
+      <it_field field="reqWis"/>
+      </inputthing>
+    <inputthing
+      name="Charisma Required"
+      helptext="The hero must meet this minimum ability score requirement to pick the feat.">
+      <it_field field="reqCha"/>
+      </inputthing>
+    <inputthing
+      name="Trained Skill Requirement"
+      helptext="Choose a skill the hero must be trained in to take the feat.">
+      <it_tagpick group="ReqSkill" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Deity Requirement"
+      helptext="Choose which deity the feat requires, if any.">
+      <it_tagpick group="ReqDeity" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Weapon Proficiency Requirement"
+      helptext="Choose which weapon proficiencies the feat requires, if any.">
+      <it_tagpick group="ReqWepProf" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Role Requirement"
+      helptext="Choose a class role the hero must meet to take the feat.">
+      <it_tagpick group="ReqRole" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Power Source Requirement"
+      helptext="Choose a power source that must be available for the hero to take the feat.">
+      <it_tagpick group="ReqPwrSrc" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Channel Divinity required?"
+      helptext="Check whether the Channel Divinity power is required to take this feat.">
+      <it_tagcheck group="User" tag="ReqChanDiv"/>
+      </inputthing>
+    </editthing>
+
+
+  <editthing
+    compset="Race"
+    name="Race"
+    prefix="r"
+    description="Races can give bonuses to attributes, defenses and traits, as well as defining the physical characteristics of the hero."
+    summary="Defines a Race that can be selected by a character.">
+    <inputthing
+      name="Flavor Text"
+      helptext="Flavor text that describes the race.">
+      <it_field field="racFlavor"/>
+      </inputthing>
+
+    <inputthing
+      name="Ability Scores &amp; Defenses"
+      helptext="Changes to ability scores and defenses made by the race.">
+      <it_separator/>
+      </inputthing>
+    <inputthing
+      name="Strength Bonus"
+      helptext="A bonus to an ability score assigned by the race.">
+      <it_field field="racStr"/>
+      </inputthing>
+    <inputthing
+      name="Constitution Bonus"
+      helptext="A bonus to an ability score assigned by the race.">
+      <it_field field="racCon"/>
+      </inputthing>
+    <inputthing
+      name="Dexterity Bonus"
+      helptext="A bonus to an ability score assigned by the race.">
+      <it_field field="racDex"/>
+      </inputthing>
+    <inputthing
+      name="Intelligence Bonus"
+      helptext="A bonus to an ability score assigned by the race.">
+      <it_field field="racInt"/>
+      </inputthing>
+    <inputthing
+      name="Wisdom Bonus"
+      helptext="A bonus to an ability score assigned by the race.">
+      <it_field field="racWis"/>
+      </inputthing>
+    <inputthing
+      name="Charisma Bonus"
+      helptext="A bonus to an ability score assigned by the race.">
+      <it_field field="racCha"/>
+      </inputthing>
+    <inputthing
+      name="AC Bonus"
+      helptext="A bonus to defense assigned by the race.">
+      <it_field field="racAC"/>
+      </inputthing>
+    <inputthing
+      name="Fortitude Bonus"
+      helptext="A bonus to defense assigned by the race.">
+      <it_field field="racFort"/>
+      </inputthing>
+    <inputthing
+      name="Reflex Bonus"
+      helptext="A bonus to defense assigned by the race.">
+      <it_field field="racRef"/>
+      </inputthing>
+    <inputthing
+      name="Will Bonus"
+      helptext="A bonus to defense assigned by the race.">
+      <it_field field="racWill"/>
+      </inputthing>
+    <inputthing
+      name="Ability Bonus Choices"
+      helptext="Add one or more ability bonus choices that the characters of this race can pick.">
+      <it_bootcustom compset="RaceFeat">
+        <match>thingid.fRPlusAb</match>
+        <inputthing
+          name="Attributes"
+          helptext="Pick the attributes that can be chosen for this bonus.">
+          <it_taglist group="RaceBonus" tag="?" dynamic="no"/>
+          </inputthing>
+        </it_bootcustom>
+      </inputthing>
+    <inputthing
+      name="Other Traits"
+      helptext="Miscellaneous changes made by the race.">
+      <it_separator/>
+      </inputthing>
+    <inputthing
+      name="Size"
+      helptext="Pick the size of members of this race.">
+      <it_tagpick group="Size" tag="?" deftag="Medium" require="yes"/>
+      </inputthing>
+    <inputthing
+      name="Speed (squares)"
+      helptext="The races default speed. If empty, it is set to 6.">
+      <it_field field="racSpeed"/>
+      </inputthing>
+    <inputthing
+      name="Initiative Bonus"
+      helptext="A bonus to initiative assigned by the race.">
+      <it_field field="racInit"/>
+      </inputthing>
+    <inputthing
+      name="Skill Bonuses"
+      helptext="Pick skills to which this race assigns a +2 bonus.">
+      <it_taglist group="SkillBonus" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Bonus Trained Skills"
+      helptext="The number of extra trained skills the race allows you.">
+      <it_field field="racSkill"/>
+      </inputthing>
+    <inputthing
+      name="Weapon Proficiencies"
+      helptext="Pick free weapon proficiencies gained by this race.">
+      <it_taglist group="WeaponProf" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Counts As Races"
+      helptext="If this race counts as any others (for example, half-elves counting as Humans and Elves) select them here.">
+      <it_taglist group="Race" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Free Languages"
+      helptext="Select the free languages learned by the race here.">
+      <it_bootlist compset="Language"/>
+      </inputthing>
+    <inputthing
+      name="Bonus Languages"
+      helptext="The number of extra languages the race allows you, on top of the free languages it assigns.">
+      <it_field field="racLang"/>
+      </inputthing>
+    <inputthing
+      name="Standard Race?"
+      helptext="If checked, this race is disabled when the 'Hide Standard Races' setting is selected on the Configure Hero form.">
+      <it_tagcheck group="User" tag="StdRace" default="yes"/>
+      </inputthing>
+
+    <inputthing
+      name="Height &amp; Weight"
+      helptext="The minimum and maximum height and weight of the race.">
+      <it_separator/>
+      </inputthing>
+    <inputthing
+      name="Minimum Height"
+      helptext="Minimum height (in inches).">
+      <it_field field="racHtMin"/>
+      </inputthing>
+    <inputthing
+      name="Maximum Height"
+      helptext="Maximum height (in inches).">
+      <it_field field="racHtMax"/>
+      </inputthing>
+    <inputthing
+      name="Minimum Weight"
+      helptext="Minimum weight (in pounds).">
+      <it_field field="racWtMin"/>
+      </inputthing>
+    <inputthing
+      name="Maximum Weight"
+      helptext="Maximum weight (in pounds).">
+      <it_field field="racWtMax"/>
+      </inputthing>
+    </editthing>
+
+
+  <editthing
+    compset="RaceFeat"
+    name="Race Feature"
+    prefix="f"
+    description="Races can define multiple race features to allow them to select build options or other items."
+    summary="A race feature represents a special ability of a race.">
+    <inputthing
+      name="Hide from Special Tab?"
+      helptext="Specify whether this feature is not displayed on the Special tab. Typically this is done with features that assign a fixed bonus to your statistics, since their effects are already built in to your hero.">
+      <it_tagcheck group="Hide" tag="Special"/>
+      </inputthing>
+    <inputthing
+      name="Level Requirement"
+      helptext="If this feature has a level requirement, specify it here.">
+      <it_tagpick group="ReqLevel" tag="?" require="no"/>
+      </inputthing>
+
+    <inputthing
+      name="Selection List 1"
+      helptext="Many race features require you to select from lists of things, which can be configured here. You can select from a fixed list, a list of things, or have a checkbox.">
+      <it_separator/>
+      </inputthing>
+    <inputthing
+      name="List of Text Items"
+      helptext="A list of items that can be chosen from by the race feature. Enter one item per row.">
+      <it_field field="usrArray"/>
+      </inputthing>
+    <inputthing
+      name="Initial Item"
+      helptext="Select the initial item to be selected from the list. If left blank, the first item will be selected by default.">
+      <it_field field="usrSelect"/>
+      </inputthing>
+    <inputthing
+      name="Tag Expression"
+      helptext="To allow selection of a thing (for example, a skill, ability score or weapon) from a menu, enter a tag expression.">
+      <it_field field="usrCandid1"/>
+      </inputthing>
+    <inputthing
+      name="Select From..."
+      helptext="Choose which list to select items from. You can choose All Things (everything, even those not added to the hero); All Picks on Hero (the default) or All Picks on Container (which may be useful on gizmos sometimes).">
+      <it_tagpick group="ChooseSrc1" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Checkbox Text"
+      helptext="To show a checkbox that can be selected by the user, enter the label text for the checkbox here.">
+      <it_field field="usrChkText"/>
+      </inputthing>
+
+    <inputthing
+      name="Selection List 2"
+      helptext="Sometimes a second list is required, which can be selected here.">
+      <it_separator/>
+      </inputthing>
+    <inputthing
+      name="Tag Expression"
+      helptext="To allow selection of a thing (for example, a skill, ability score or weapon) from a menu, enter a tag expression.">
+      <it_field field="usrCandid2"/>
+      </inputthing>
+    <inputthing
+      name="Select From..."
+      helptext="Choose which list to select items from. You can choose All Things (everything, even those not added to the hero); All Picks on Hero (the default) or All Picks on Container (which may be useful on gizmos sometimes).">
+      <it_tagpick group="ChooseSrc2" tag="?"/>
+      </inputthing>
+    </editthing>
+
+  <editthing
+    compset="Theme"
+    name="Theme"
+    prefix="th"
+    description="Themes are &quot;perks&quot; for staring characters. Each hero can select one on the Background tab. The themes available might depend on your campaign setting."
+    summary="Your hero can select one Theme on the Background tab.">
+    <inputthing
+      name="Requirements"
+      helptext="Lists any requirements that you must meet before the theme can be selected.">
+      <it_separator/>
+      </inputthing>
+    <inputthing
+      name="Race Requirement"
+      helptext="Choose a race the theme requires, if any.">
+      <it_taglist group="ReqRace" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Class Requirement"
+      helptext="Choose a class the theme requires, if any.">
+      <it_taglist group="ReqClass" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Background Requirement"
+      helptext="Choose a class the theme requires, if any.">
+      <it_taglist group="ReqBackgr" tag="?"/>
+      </inputthing>
+    </editthing>
+
+
+  <editthing
+    compset="ThemeFeat"
+    name="Theme Feature"
+    prefix="f"
+    description="Themes can define multiple theme features to allow them to select build options or other items."
+    summary="A theme feature represents a special ability of a theme.">
+    <inputthing
+      name="Hide from Special Tab?"
+      helptext="Specify whether this feature is not displayed on the Special tab. Typically this is done with features that assign a fixed bonus to your statistics, since their effects are already built in to your hero.">
+      <it_tagcheck group="Hide" tag="Special"/>
+      </inputthing>
+    <inputthing
+      name="Level Requirement"
+      helptext="If this feature has a level requirement, specify it here.">
+      <it_tagpick group="ReqLevel" tag="?" require="no"/>
+      </inputthing>
+
+    <inputthing
+      name="Selection List 1"
+      helptext="Many theme features require you to select from lists of things, which can be configured here. You can select from a fixed list, a list of things, or have a checkbox.">
+      <it_separator/>
+      </inputthing>
+    <inputthing
+      name="List of Text Items"
+      helptext="A list of items that can be chosen from by the theme feature. Enter one item per row.">
+      <it_field field="usrArray"/>
+      </inputthing>
+    <inputthing
+      name="Initial Item"
+      helptext="Select the initial item to be selected from the list. If left blank, the first item will be selected by default.">
+      <it_field field="usrSelect"/>
+      </inputthing>
+    <inputthing
+      name="Tag Expression"
+      helptext="To allow selection of a thing (for example, a skill, ability score or weapon) from a menu, enter a tag expression.">
+      <it_field field="usrCandid1"/>
+      </inputthing>
+    <inputthing
+      name="Select From..."
+      helptext="Choose which list to select items from. You can choose All Things (everything, even those not added to the hero); All Picks on Hero (the default) or All Picks on Container (which may be useful on gizmos sometimes).">
+      <it_tagpick group="ChooseSrc1" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Checkbox Text"
+      helptext="To show a checkbox that can be selected by the user, enter the label text for the checkbox here.">
+      <it_field field="usrChkText"/>
+      </inputthing>
+
+    <inputthing
+      name="Selection List 2"
+      helptext="Sometimes a second list is required, which can be selected here.">
+      <it_separator/>
+      </inputthing>
+    <inputthing
+      name="Tag Expression"
+      helptext="To allow selection of a thing (for example, a skill, ability score or weapon) from a menu, enter a tag expression.">
+      <it_field field="usrCandid2"/>
+      </inputthing>
+    <inputthing
+      name="Select From..."
+      helptext="Choose which list to select items from. You can choose All Things (everything, even those not added to the hero); All Picks on Hero (the default) or All Picks on Container (which may be useful on gizmos sometimes).">
+      <it_tagpick group="ChooseSrc2" tag="?"/>
+      </inputthing>
+    </editthing>
+
+
+  <editthing
+    compset="Class"
+    name="Class"
+    prefix="cls"
+    description="A hero's character class defines who he is and how his abilities work."
+    summary="Defines a character class that can be selected by a character.">
+    <inputthing
+      name="Flavor Text"
+      helptext="Flavor text that describes the class.">
+      <it_field field="clsFlavor"/>
+      </inputthing>
+    <inputthing
+      name="Role Text"
+      helptext="Flavor text that describes the role of the class.">
+      <it_field field="clsRoleTxt"/>
+      </inputthing>
+    <inputthing
+      name="Power Source Text"
+      helptext="Flavor text that describes the power source of the class.">
+      <it_field field="clsSrcTxt"/>
+      </inputthing>
+    <inputthing
+      name="Key Abilities"
+      helptext="Pick key abilities that the class uses.">
+      <it_taglist group="KeyAbility" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Role"
+      helptext="Pick the role of the class.">
+      <it_tagpick group="ClassRole" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Power Source"
+      helptext="Pick the power source for the class.">
+      <it_tagpick group="PowerSrc" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Counts As"
+      helptext="Pick the classes that this class counts as.">
+      <it_taglist group="Class" tag="?"/>
+      </inputthing>
+
+    <inputthing
+      name="Defense Bonuses"
+      helptext="Changes to defenses and traits made by the class.">
+      <it_separator/>
+      </inputthing>
+    <inputthing
+      name="AC Bonus"
+      helptext="A bonus to defense assigned by the class.">
+      <it_field field="clsAC"/>
+      </inputthing>
+    <inputthing
+      name="Fortitude Bonus"
+      helptext="A bonus to defense assigned by the class.">
+      <it_field field="clsFort"/>
+      </inputthing>
+    <inputthing
+      name="Reflex Bonus"
+      helptext="A bonus to defense assigned by the class.">
+      <it_field field="clsRef"/>
+      </inputthing>
+    <inputthing
+      name="Will Bonus"
+      helptext="A bonus to defense assigned by the class.">
+      <it_field field="clsWill"/>
+      </inputthing>
+
+    <inputthing
+      name="Health"
+      helptext="Hit points and healing surges for the class.">
+      <it_separator/>
+      </inputthing>
+    <inputthing
+      name="Starting HP"
+      helptext="The starting HP total for the class.">
+      <it_field field="clsStartHP"/>
+      </inputthing>
+    <inputthing
+      name="HP gained / level"
+      helptext="The number of hit points gained by the class at every new level.">
+      <it_field field="clsHPLev"/>
+      </inputthing>
+    <inputthing
+      name="Healing Surges"
+      helptext="Number of healing surges available per day.">
+      <it_field field="clsSurges"/>
+      </inputthing>
+
+    <inputthing
+      name="Skills"
+      helptext="Skill-related fields.">
+      <it_separator/>
+      </inputthing>
+    <inputthing
+      name="Trained Skills"
+      helptext="The number of skills you can pick to train for the class.">
+      <it_field field="clsSkills"/>
+      </inputthing>
+    <inputthing
+      name="Class Skills"
+      helptext="Pick available class skills.">
+      <it_taglist group="Skill" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Free Skills"
+      helptext="Pick skills that are automatically trained by the class.">
+      <it_taglist group="TrainSkill" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Free Skill Choice 1"
+      helptext="If the class can choose one of several skills for free, specify those skills here.">
+      <it_taglist group="Skill1" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Free Skill Choice 2"
+      helptext="If the class can choose one of several skills for free, specify those skills here.">
+      <it_taglist group="Skill2" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Free Skill Choice 3"
+      helptext="If the class can choose one of several skills for free, specify those skills here.">
+      <it_taglist group="Skill3" tag="?"/>
+      </inputthing>
+
+    <inputthing
+      name="Armor &amp; Weapon Proficiencies"
+      helptext="All proficiency information for the class.">
+      <it_separator/>
+      </inputthing>
+    <inputthing
+      name="Armor Proficiencies"
+      helptext="Choose which types of armor the class can wear.">
+      <it_taglist group="ArmorProf" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Implements Used"
+      helptext="Choose which implements can be used by the class.">
+      <it_taglist group="ImplemType" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Melee Categories"
+      helptext="Choose which weapon categories the class can use melee weapons from.">
+      <it_taglist group="WpCatRqMel" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Ranged Categories"
+      helptext="Choose which weapon categories the class can use melee weapons from.">
+      <it_taglist group="WpCatRqRng" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Simple Groups"
+      helptext="Choose which weapon groups the class can use simple weapons from.">
+      <it_taglist group="WpGrpRqSim" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Military Groups"
+      helptext="Choose which weapon groups the class can use military weapons from.">
+      <it_taglist group="WpGrpRqMil" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Superior Groups"
+      helptext="Choose which weapon groups the class can use superior weapons from.">
+      <it_taglist group="WpGrpRqSup" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Weapon Proficiencies"
+      helptext="Choose which individual weapons the class can use.">
+      <it_taglist group="WeaponProf" tag="?"/>
+      </inputthing>
+
+    <inputthing
+      name="Other Details"
+      helptext="Miscellaneous info for the class.">
+      <it_separator/>
+      </inputthing>
+    <inputthing
+      name="Normal Power Points?"
+      helptext="Check if this class gets the normal power point count for a psionic class.">
+      <it_tagcheck group="User" tag="PPNormal"/>
+      </inputthing>
+    <inputthing
+      name="Hybrid Power Points?"
+      helptext="Check if this class gets the normal power point count for a hybrid psionic class.">
+      <it_tagcheck group="User" tag="PPHybrid"/>
+      </inputthing>
+    <inputthing
+      name="Bonus Rituals"
+      helptext="The number of user-selected rituals the class can take for free.">
+      <it_field field="clsRituals"/>
+      </inputthing>
+    <inputthing
+      name="Free Rituals"
+      helptext="Select the free rituals known by the class here.">
+      <it_bootlist compset="Ritual"/>
+      </inputthing>
+    <inputthing
+      name="Daily Power Multiplier"
+      helptext="If the class can take more than the normal amount of daily powers (like the wizard), but must then choose which of them to memorize, select the multiplier here. For example, the Wizard would choose &quot;{b}2{/b}&quot;. Allowed values are 1 (the default), 2 or 3.">
+      <it_field field="clsDailyMl"/>
+      </inputthing>
+    <inputthing
+      name="Uses Recommended Powers?"
+      helptext="Check whether this class uses recommended powers, like the new Essentials classes.">
+      <it_tagcheck group="User" tag="RecomPower"/>
+      </inputthing>
+    <inputthing
+      name="Has No Powers From"
+      helptext="Select the types of powers this class doesn't have. The tables for these powers will be hidden on the Class tab.">
+      <it_taglist group="Hero" tag="HidePwr?" dynamic="no"/>
+      </inputthing>
+    <inputthing
+      name="Ignore Underlevel Memorized Spells?"
+      helptext="Check whether this class doesn't check for underlevel memorized spells, like the Mage.">
+      <it_tagcheck group="Hero" tag="NoMemUnder"/>
+      </inputthing>
+    </editthing>
+
+
+  <editthing
+    compset="ClassFeat"
+    name="Class Feature"
+    prefix="f"
+    description="Classes can define multiple class features to allow them to select build options or other items."
+    summary="A class feature represents a special ability of a class.">
+    <inputthing
+      name="Hide from Special Tab?"
+      helptext="Specify whether this feature is not displayed on the Special tab. Typically this is done with features that assign a fixed bonus to your statistics, since their effects are already built in to your hero.">
+      <it_tagcheck group="Hide" tag="Special"/>
+      </inputthing>
+    <inputthing
+      name="Level Requirement"
+      helptext="If this feature has a level requirement, specify it here.">
+      <it_tagpick group="ReqLevel" tag="?" require="no"/>
+      </inputthing>
+
+    <inputthing
+      name="Selection List 1"
+      helptext="Many class features require you to select from lists of things, which can be configured here. You can select from a fixed list, a list of things, or have a checkbox.">
+      <it_separator/>
+      </inputthing>
+    <inputthing
+      name="List of Text Items"
+      helptext="A list of items that can be chosen from by the class feature. Enter one item per row.">
+      <it_field field="usrArray"/>
+      </inputthing>
+    <inputthing
+      name="Initial Item"
+      helptext="Select the initial item to be selected from the list. If left blank, the first item will be selected by default.">
+      <it_field field="usrSelect"/>
+      </inputthing>
+    <inputthing
+      name="Tag Expression"
+      helptext="To allow selection of a thing (for example, a skill, ability score or weapon) from a menu, enter a tag expression.">
+      <it_field field="usrCandid1"/>
+      </inputthing>
+    <inputthing
+      name="Select From..."
+      helptext="Choose which list to select items from. You can choose All Things (everything, even those not added to the hero); All Picks on Hero (the default) or All Picks on Container (which may be useful on gizmos sometimes).">
+      <it_tagpick group="ChooseSrc1" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Checkbox Text"
+      helptext="To show a checkbox that can be selected by the user, enter the label text for the checkbox here.">
+      <it_field field="usrChkText"/>
+      </inputthing>
+
+    <inputthing
+      name="Selection List 2"
+      helptext="Sometimes a second list is required, which can be selected here.">
+      <it_separator/>
+      </inputthing>
+    <inputthing
+      name="Tag Expression"
+      helptext="To allow selection of a thing (for example, a skill, ability score or weapon) from a menu, enter a tag expression.">
+      <it_field field="usrCandid2"/>
+      </inputthing>
+    <inputthing
+      name="Select From..."
+      helptext="Choose which list to select items from. You can choose All Things (everything, even those not added to the hero); All Picks on Hero (the default) or All Picks on Container (which may be useful on gizmos sometimes).">
+      <it_tagpick group="ChooseSrc2" tag="?"/>
+      </inputthing>
+    </editthing>
+
+	
+  <editthing
+    compset="HybridTal"
+    name="Hybrid Talents"
+    prefix="f"
+    description="A Hybrid Talent is used only by Hybrids, otherwise it works much like a Class Feature"
+    summary="A Hybrid Talent is used only by Hybrids, otherwise it works much like a Class Feature">
+    <inputthing
+      name="Hide from Special Tab?"
+      helptext="Specify whether this talent is not displayed on the Special tab. Typically this is done with talents that assign a fixed bonus to your statistics, since their effects are already built in to your hero.">
+      <it_tagcheck group="Hide" tag="Special"/>
+      </inputthing>
+    <inputthing
+      name="Level Requirement"
+      helptext="If this hybrid talent has a level requirement, specify it here.">
+      <it_tagpick group="ReqLevel" tag="?" require="no"/>
+      </inputthing>
+
+    <inputthing
+      name="Selection List 1"
+      helptext="Many hybrid talents require you to select from lists of things, which can be configured here. You can select from a fixed list, a list of things, or have a checkbox.">
+      <it_separator/>
+      </inputthing>
+    <inputthing
+      name="List of Text Items"
+      helptext="A list of items that can be chosen from by the hybrid talent. Enter one item per row.">
+      <it_field field="usrArray"/>
+      </inputthing>
+    <inputthing
+      name="Initial Item"
+      helptext="Select the initial item to be selected from the list. If left blank, the first item will be selected by default.">
+      <it_field field="usrSelect"/>
+      </inputthing>
+    <inputthing
+      name="Tag Expression"
+      helptext="To allow selection of a thing (for example, a skill, ability score or weapon) from a menu, enter a tag expression.">
+      <it_field field="usrCandid1"/>
+      </inputthing>
+    <inputthing
+      name="Select From..."
+      helptext="Choose which list to select items from. You can choose All Things (everything, even those not added to the hero); All Picks on Hero (the default) or All Picks on Container (which may be useful on gizmos sometimes).">
+      <it_tagpick group="ChooseSrc1" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Checkbox Text"
+      helptext="To show a checkbox that can be selected by the user, enter the label text for the checkbox here.">
+      <it_field field="usrChkText"/>
+      </inputthing>
+
+    <inputthing
+      name="Selection List 2"
+      helptext="Sometimes a second list is required, which can be selected here.">
+      <it_separator/>
+      </inputthing>
+    <inputthing
+      name="Tag Expression"
+      helptext="To allow selection of a thing (for example, a skill, ability score or weapon) from a menu, enter a tag expression.">
+      <it_field field="usrCandid2"/>
+      </inputthing>
+    <inputthing
+      name="Select From..."
+      helptext="Choose which list to select items from. You can choose All Things (everything, even those not added to the hero); All Picks on Hero (the default) or All Picks on Container (which may be useful on gizmos sometimes).">
+      <it_tagpick group="ChooseSrc2" tag="?"/>
+      </inputthing>
+    </editthing>
+
+  <editthing
+    compset="BuildOpt"
+    name="Build Option"
+    prefix="f"
+    description="Classes use build options to pick from multiple independent abilities."
+    summary="Build Options allow classes to choose from multiple independent abilities.">
+    <inputthing
+      name="Hide from Special Tab?"
+      helptext="Specify whether this feature is not displayed on the Special tab. Typically this is done with features that assign a fixed bonus to your statistics, since their effects are already built in to your hero.">
+      <it_tagcheck group="Hide" tag="Special"/>
+      </inputthing>
+
+    <inputthing
+      name="Selection List 1"
+      helptext="Many build options require you to select from lists of things, which can be configured here. You can select from a fixed list, a list of things, or have a checkbox.">
+      <it_separator/>
+      </inputthing>
+    <inputthing
+      name="List of Text Items"
+      helptext="A list of items that can be chosen from by the build option. Enter one item per row.">
+      <it_field field="usrArray"/>
+      </inputthing>
+    <inputthing
+      name="Initial Item"
+      helptext="Select the initial item to be selected from the list. If left blank, the first item will be selected by default.">
+      <it_field field="usrSelect"/>
+      </inputthing>
+    <inputthing
+      name="Tag Expression"
+      helptext="To allow selection of a thing (for example, a skill, ability score or weapon) from a menu, enter a tag expression.">
+      <it_field field="usrCandid1"/>
+      </inputthing>
+    <inputthing
+      name="Select From..."
+      helptext="Choose which list to select items from. You can choose All Things (everything, even those not added to the hero); All Picks on Hero (the default) or All Picks on Container (which may be useful on gizmos sometimes).">
+      <it_tagpick group="ChooseSrc1" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Checkbox Text"
+      helptext="To show a checkbox that can be selected by the user, enter the label text for the checkbox here.">
+      <it_field field="usrChkText"/>
+      </inputthing>
+
+    <inputthing
+      name="Selection List 2"
+      helptext="Sometimes a second list is required, which can be selected here.">
+      <it_separator/>
+      </inputthing>
+    <inputthing
+      name="Tag Expression"
+      helptext="To allow selection of a thing (for example, a skill, ability score or weapon) from a menu, enter a tag expression.">
+      <it_field field="usrCandid2"/>
+      </inputthing>
+    <inputthing
+      name="Select From..."
+      helptext="Choose which list to select items from. You can choose All Things (everything, even those not added to the hero); All Picks on Hero (the default) or All Picks on Container (which may be useful on gizmos sometimes).">
+      <it_tagpick group="ChooseSrc2" tag="?"/>
+      </inputthing>
+    </editthing>
+
+
+  <editthing
+    compset="Equipment"
+    name="Equipment"
+    prefix="eq"
+    description="Weapons, armor, and vehicles all have their own tabs for creating objects of those types."
+    summary="Defines a simple piece of equipment that can be selected on the Gear tab.">
+    <inputthing
+      name="Cost"
+      helptext="Specify the standard cost of the item, with a value of 0 meaning it is free.">
+      <it_field field="grCost"/>
+      </inputthing>
+    <inputthing
+      name="Lot Cost"
+      helptext="If the item is bought in &quot;lot size&quot; increments, you can specify a cost for that number of items here. For example, 30 arrows cost 1 gp, so you would leave the cost field blank and enter &quot;1&quot; here.">
+      <it_field field="grLotCost"/>
+      </inputthing>
+    <inputthing
+      name="Weight"
+      helptext="Specify the weight of the item in pounds.">
+      <it_field field="gearWeight"/>
+      </inputthing>
+    <inputthing
+      name="Equipment Type"
+      helptext="Choose a type for this equipment.">
+      <it_tagpick group="EquipType" tag="?" />
+      </inputthing>
+    <inputthing
+      name="Implement Type"
+      helptext="If this gear counts as an implement, pick what types of implement it represents.">
+      <it_taglist group="ImplemType" tag="?" />
+      </inputthing>
+    <inputthing
+      name="Container Behavior"
+      helptext="Specify whether this piece of equipment can contain other equipment. If this equipment can contain other equipment AND be contained within other equipment, select 'Holder'. If the equipment can only contain other equipment, select 'Top Holder'. If the equipment can only be contained by other equipment, do not select anything.">
+      <it_tagpick group="thing" tag="holder?" />
+      </inputthing>
+    </editthing>
+
+
+  <editthing
+    compset="Ammunition"
+    name="Ammunition"
+    prefix="eq"
+    description="Ammunition is like equipment, but includes a tracker to count its total number of uses remaining."
+    summary="Ammunition works like gear, but includes a counter.">
+    <inputthing
+      name="Cost"
+      helptext="Specify the standard cost of the item, with a value of 0 meaning it is free.">
+      <it_field field="grCost"/>
+      </inputthing>
+    <inputthing
+      name="Lot Cost"
+      helptext="If the item is bought in &quot;lot size&quot; increments, you can specify a cost for that number of items here. For example, 30 arrows cost 1 gp, so you would leave the cost field blank and enter &quot;1&quot; here.">
+      <it_field field="grLotCost"/>
+      </inputthing>
+    <inputthing
+      name="Weight"
+      helptext="Specify the weight of the item in pounds.">
+      <it_field field="gearWeight"/>
+      </inputthing>
+    <inputthing
+      name="Equipment Type"
+      helptext="Choose a type for this equipment.">
+      <it_tagpick group="EquipType" tag="?" />
+      </inputthing>
+    <inputthing
+      name="Implement Type"
+      helptext="If this gear counts as an implement, pick what types of implement it represents.">
+      <it_taglist group="ImplemType" tag="?" />
+      </inputthing>
+    <inputthing
+      name="Superior Implement?"
+      helptext="Specify whether this is a Superior Implement that must be chosen using the Superior Implement Training feat to be used.">
+      <it_tagcheck group="Equipment" tag="SuperImpl"/>
+      </inputthing>
+    <inputthing
+      name="Container Behavior"
+      helptext="Specify whether this piece of equipment can contain other equipment. If this equipment can contain other equipment AND be contained within other equipment, select 'Holder'. If the equipment can only contain other equipment, select 'Top Holder'. If the equipment can only be contained by other equipment, do not select anything.">
+      <it_tagpick group="thing" tag="holder?" />
+      </inputthing>
+    </editthing>
+
+
+  <editthing
+    compset="Melee"
+    name="Melee Weapon"
+    prefix="wp"
+    description="Armor, weapons, and simple equipment all have their own tabs for creating objects of those types."
+    summary="Defines a melee weapon that can be selected on the Armory tab.">
+    <inputthing
+      name="Proficiency Bonus"
+      helptext="Specify the attack bonus you receive when proficient with this weapon.">
+      <it_field field="wpProf"/>
+      </inputthing>
+    <inputthing
+      name="Short Range"
+      helptext="Specify the short range of the weapon, in squares.">
+      <it_field field="wpShort"/>
+      </inputthing>
+    <inputthing
+      name="Long Range"
+      helptext="Specify the long range of the weapon, in squares.">
+      <it_field field="wpLong"/>
+      </inputthing>
+    <inputthing
+      name="Damage"
+      helptext="Select the damage caused by this weapon.">
+      <it_tagpick group="WepDamage" tag="?" />
+      </inputthing>
+    <inputthing
+      name="Damage (Secondary)"
+      helptext="Select the damage caused by this weapon's secondary attack.">
+      <it_tagpick group="WepDamSec" tag="?" />
+      </inputthing>
+    <inputthing
+      name="Category"
+      helptext="Select the category this weapon is in.">
+      <it_tagpick group="WepCat" tag="?" dynamic="no"/>
+      </inputthing>
+    <inputthing
+      name="Two-Handed Weapon?"
+      helptext="Specify whether this weapon is two-handed.">
+      <it_tagcheck group="Equipment" tag="TwoHand"/>
+      </inputthing>
+    <inputthing
+      name="Properties"
+      helptext="Select the list of properties for this weapon.">
+      <it_taglist group="WepProp" tag="?" dynamic="no"/>
+      </inputthing>
+    <inputthing
+      name="Groups"
+      helptext="Select the list of weapon groups for this weapon.">
+      <it_taglist group="WepGroup" tag="?" dynamic="no"/>
+      </inputthing>
+    <inputthing
+      name="Cost"
+      helptext="Specify the standard cost of the item, with a value of 0 meaning it is free.">
+      <it_field field="grCost"/>
+      </inputthing>
+    <inputthing
+      name="Weight"
+      helptext="Specify the weight of the item in pounds.">
+      <it_field field="gearWeight"/>
+      </inputthing>
+    <inputthing
+      name="Natural Attack?"
+      helptext="Specify whether this weapon should be treated as a natural attack.">
+      <it_tagcheck group="Equipment" tag="Natural"/>
+      </inputthing>
+    <inputthing
+      name="Hexblade Weapon?"
+      helptext="Check whether this weapon is a special Hexblade weapon, and not available to normal heroes.">
+      <it_tagcheck group="User" tag="HexbladeWp"/>
+      </inputthing>
+    </editthing>
+
+
+  <editthing
+    compset="Ranged"
+    name="Ranged Weapon"
+    prefix="wp"
+    description="Armor, weapons, and simple equipment all have their own tabs for creating objects of those types."
+    summary="Defines a ranged weapon that can be selected on the Armory tab.">
+    <inputthing
+      name="Proficiency Bonus"
+      helptext="Specify the attack bonus you receive when proficient with this weapon.">
+      <it_field field="wpProf"/>
+      </inputthing>
+    <inputthing
+      name="Short Range"
+      helptext="Specify the short range of the weapon, in squares.">
+      <it_field field="wpShort"/>
+      </inputthing>
+    <inputthing
+      name="Long Range"
+      helptext="Specify the long range of the weapon, in squares.">
+      <it_field field="wpLong"/>
+      </inputthing>
+    <inputthing
+      name="Damage"
+      helptext="Select the damage caused by this weapon.">
+      <it_tagpick group="WepDamage" tag="?" />
+      </inputthing>
+    <inputthing
+      name="Damage (Secondary)"
+      helptext="Select the damage caused by this weapon's secondary attack.">
+      <it_tagpick group="WepDamSec" tag="?" />
+      </inputthing>
+    <inputthing
+      name="Category"
+      helptext="Select the category this weapon is in.">
+      <it_tagpick group="WepCat" tag="?" dynamic="no"/>
+      </inputthing>
+    <inputthing
+      name="Two-Handed Weapon?"
+      helptext="Specify whether this weapon is two-handed.">
+      <it_tagcheck group="Equipment" tag="TwoHand"/>
+      </inputthing>
+    <inputthing
+      name="Properties"
+      helptext="Select the list of properties for this weapon.">
+      <it_taglist group="WepProp" tag="?" dynamic="no"/>
+      </inputthing>
+    <inputthing
+      name="Groups"
+      helptext="Select the list of weapon groups for this weapon.">
+      <it_taglist group="WepGroup" tag="?" dynamic="no"/>
+      </inputthing>
+    <inputthing
+      name="Cost"
+      helptext="Specify the standard cost of the item, with a value of 0 meaning it is free.">
+      <it_field field="grCost"/>
+      </inputthing>
+    <inputthing
+      name="Weight"
+      helptext="Specify the weight of the item in pounds.">
+      <it_field field="gearWeight"/>
+      </inputthing>
+    <inputthing
+      name="Natural Attack?"
+      helptext="Specify whether this weapon should be treated as a natural attack.">
+      <it_tagcheck group="Equipment" tag="Natural"/>
+      </inputthing>
+    </editthing>
+
+
+  <editthing
+    compset="Armor"
+    name="Armor"
+    prefix="ar"
+    description="Weapons, armor, and simple equipment all have their own tabs for creating objects of those types."
+    summary="Defines armor that can be selected on the Armory tab.">
+    <inputthing
+      name="Armor Bonus"
+      helptext="Specify the AC bonus for wearing this armor.">
+      <it_field field="arAC"/>
+      </inputthing>
+    <inputthing
+      name="Reflex Bonus"
+      helptext="Specify the reflex bonus for wearing this armor.">
+      <it_field field="arRef"/>
+      </inputthing>
+    <inputthing
+      name="Fortitude Bonus"
+      helptext="Specify the fortitude bonus for wearing this armor.">
+      <it_field field="arFort"/>
+      </inputthing>
+    <inputthing
+      name="Will Bonus"
+      helptext="Specify the will bonus for wearing this armor.">
+      <it_field field="arWill"/>
+      </inputthing>
+    <inputthing
+      name="Check Penalty"
+      helptext="Specify the check penalty applied to physical skills while wearing this armor.">
+      <it_field field="arCheck"/>
+      </inputthing>
+    <inputthing
+      name="Speed Penalty"
+      helptext="Specify the speed penalty applied while wearing this armor.">
+      <it_field field="arSpeed"/>
+      </inputthing>
+    <inputthing
+      name="Category"
+      helptext="Select the category this armor is in.">
+      <it_tagpick group="ArmorCat" tag="?" />
+      </inputthing>
+    <inputthing
+      name="Armor Type"
+      helptext="If this weapon is an improved version of base armor, select the base armor type here.">
+      <it_tagpick group="ArmorType" tag="?" dynamic="no"/>
+      </inputthing>
+    <inputthing
+      name="Minimum Bonus"
+      helptext="If this weapon is an improved version of base armor, it requires a minimum item bonus before it can be used.">
+      <it_field field="arMinBonus"/>
+      </inputthing>
+    <inputthing
+      name="Cost"
+      helptext="Specify the standard cost of the item, with a value of 0 meaning it is free.">
+      <it_field field="grCost"/>
+      </inputthing>
+    <inputthing
+      name="Weight"
+      helptext="Specify the weight of the item in pounds.">
+      <it_field field="gearWeight"/>
+      </inputthing>
+    <inputthing
+      name="Natural Armor?"
+      helptext="Specify whether this armor should be treated as natural armor.">
+      <it_tagcheck group="Equipment" tag="Natural"/>
+      </inputthing>
+    </editthing>
+
+
+  <editthing
+    compset="Shield"
+    name="Shield"
+    prefix="ar"
+    description="Weapons, armor, and simple equipment all have their own tabs for creating objects of those types."
+    summary="Defines armor that can be selected on the Armory tab.">
+    <inputthing
+      name="Shield Bonus"
+      helptext="Specify the shield bonus for using this shield.">
+      <it_field field="arAC"/>
+      </inputthing>
+    <inputthing
+      name="Check Penalty"
+      helptext="Specify the check penalty applied to physical skills while using this shield.">
+      <it_field field="arCheck"/>
+      </inputthing>
+    <inputthing
+      name="Speed Penalty"
+      helptext="Specify the speed penalty applied while using this shield.">
+      <it_field field="arSpeed"/>
+      </inputthing>
+    <inputthing
+      name="Category"
+      helptext="Select the category this armor is in.">
+      <it_tagpick group="ArmorCat" tag="?" />
+      </inputthing>
+    <inputthing
+      name="Armor Type"
+      helptext="If this weapon is an improved version of base armor, select the base armor type here.">
+      <it_tagpick group="ArmorType" tag="?" dynamic="no"/>
+      </inputthing>
+    <inputthing
+      name="Minimum Bonus"
+      helptext="If this weapon is an improved version of base armor, it requires a minimum item bonus before it can be used.">
+      <it_field field="arMinBonus"/>
+      </inputthing>
+    <inputthing
+      name="Cost"
+      helptext="Specify the standard cost of the item, with a value of 0 meaning it is free.">
+      <it_field field="grCost"/>
+      </inputthing>
+    <inputthing
+      name="Weight"
+      helptext="Specify the weight of the item in pounds.">
+      <it_field field="gearWeight"/>
+      </inputthing>
+    <inputthing
+      name="Natural Armor?"
+      helptext="Specify whether this armor should be treated as natural armor.">
+      <it_tagcheck group="Equipment" tag="Natural"/>
+      </inputthing>
+    </editthing>
+
+
+  <editthing
+    compset="MagicWep"
+    name="Magic Weapon"
+    prefix="mw"
+    description="Defines magic upgrades that can be applied to weapons."
+    summary="Defines magic upgrades that can be applied to weapons.">
+    <inputthing
+      name="Flavor Text"
+      helptext="Flavor text that describes the magic item.">
+      <it_field field="mgFlavor"/>
+      </inputthing>
+    <inputthing
+      name="Weapon Required"
+      helptext="If we require a specific type of weapon, pick it here.">
+      <it_taglist group="ReqWep" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Item Bonus"
+      helptext="Specify the numerical enhancement bonus applied by this magic item.">
+      <it_field field="mgBonus"/>
+      </inputthing>
+    <inputthing
+      name="Magic Item Level"
+      helptext="Specify the level of this magic item.">
+      <it_field field="mgLevel"/>
+      </inputthing>
+    <inputthing
+      name="Enhancement"
+      helptext="Specify the enhancement effect text applied to this magic item.">
+      <it_field field="mgEnhance"/>
+      </inputthing>
+    <inputthing
+      name="Critical Strike"
+      helptext="Specify extra damage done by critical strikes with this magic item.">
+      <it_field field="mgCrit"/>
+      </inputthing>
+    </editthing>
+
+
+  <editthing
+    compset="MagicArmor"
+    name="Magic Armor"
+    prefix="ma"
+    description="Defines magic upgrades that can be applied to armor."
+    summary="Defines magic upgrades that can be applied to armor.">
+    <inputthing
+      name="Flavor Text"
+      helptext="Flavor text that describes the magic item.">
+      <it_field field="mgFlavor"/>
+      </inputthing>
+    <inputthing
+      name="Armor Required"
+      helptext="If we require a specific type of armor, pick it here.">
+      <it_taglist group="ReqArmor" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Item Bonus"
+      helptext="Specify the numerical enhancement bonus applied by this magic item.">
+      <it_field field="mgBonus"/>
+      </inputthing>
+    <inputthing
+      name="Magic Item Level"
+      helptext="Specify the level of this magic item.">
+      <it_field field="mgLevel"/>
+      </inputthing>
+    <inputthing
+      name="Enhancement"
+      helptext="Specify the enhancement effect text applied to this magic item.">
+      <it_field field="mgEnhance"/>
+      </inputthing>
+    <inputthing
+      name="Critical Strike"
+      helptext="Specify extra damage done by critical strikes with this magic item.">
+      <it_field field="mgCrit"/>
+      </inputthing>
+    </editthing>
+
+
+  <editthing
+    compset="MagicItem"
+    name="Magic Item"
+    prefix="mg"
+    description="Defines magic items that can be purchased for gold."
+    summary="Defines magic items that can be purchased for gold.">
+    <inputthing
+      name="Flavor Text"
+      helptext="Flavor text that describes the magic item.">
+      <it_field field="mgFlavor"/>
+      </inputthing>
+    <inputthing
+      name="Item Slot"
+      helptext="Specify the slot used by this magic item.">
+      <it_tagpick group="ItemSlot" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Implement Type"
+      helptext="If this item counts as an implement, specify the type here.">
+      <it_tagpick group="ImplemType" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Item Bonus"
+      helptext="Specify the numerical enhancement bonus applied by this magic item.">
+      <it_field field="mgBonus"/>
+      </inputthing>
+    <inputthing
+      name="Magic Item Level"
+      helptext="Specify the level of this magic item.">
+      <it_field field="mgLevel"/>
+      </inputthing>
+    <inputthing
+      name="Enhancement"
+      helptext="Specify the enhancement effect text applied to this magic item.">
+      <it_field field="mgEnhance"/>
+      </inputthing>
+    <inputthing
+      name="Critical Strike"
+      helptext="Specify extra damage done by critical strikes with this magic item.">
+      <it_field field="mgCrit"/>
+      </inputthing>
+    <inputthing
+      name="Hide from Special Tab?"
+      helptext="Specify whether this item is not displayed on the Special tab. Typically this is done with items that only add powers, instead of variable bonuses, which are not useful to show on the Special tab.">
+      <it_tagcheck group="Hide" tag="Special"/>
+      </inputthing>
+    </editthing>
+
+
+  <editthing
+    compset="MagicStaff"
+    name="Magic Staff"
+    prefix="mg"
+    description="Defines magic staffs that can be purchased for gold."
+    summary="Defines magic staffs that can be purchased for gold.">
+    <inputthing
+      name="Flavor Text"
+      helptext="Flavor text that describes the magic item.">
+      <it_field field="mgFlavor"/>
+      </inputthing>
+    <inputthing
+      name="Item Bonus"
+      helptext="Specify the numerical enhancement bonus applied by this magic item.">
+      <it_field field="mgBonus"/>
+      </inputthing>
+    <inputthing
+      name="Magic Item Level"
+      helptext="Specify the level of this magic item.">
+      <it_field field="mgLevel"/>
+      </inputthing>
+    <inputthing
+      name="Enhancement"
+      helptext="Specify the enhancement effect text applied to this magic item.">
+      <it_field field="mgEnhance"/>
+      </inputthing>
+    <inputthing
+      name="Critical Strike"
+      helptext="Specify extra damage done by critical strikes with this magic item.">
+      <it_field field="mgCrit"/>
+      </inputthing>
+    </editthing>
+
+
+  <editthing
+    compset="Ritual"
+    name="Ritual"
+    prefix="rt"
+    description="Defines rituals that can be learned and performed."
+    summary="Defines rituals that can be learned and performed.">
+    <inputthing
+      name="Level Requirement"
+      helptext="Choose the level of the ritual.">
+      <it_tagpick group="ReqLevel" tag="?" deftag="1" require="yes"/>
+      </inputthing>
+    <inputthing
+      name="Skills Used"
+      helptext="Specify the skills used by the ritual.">
+      <it_taglist group="RitualSkl" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Category"
+      helptext="Choose the category this ritual occupies.">
+      <it_tagpick group="RitualCat" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Component Cost"
+      helptext="The cost of components for the ritual.">
+      <it_field field="ritCompCst"/>
+      </inputthing>
+    <inputthing
+      name="Casting Time"
+      helptext="The time the ritual takes to cast.">
+      <it_field field="ritTime"/>
+      </inputthing>
+    <inputthing
+      name="Effects Duration"
+      helptext="The duration of the ritual's effects.">
+      <it_field field="ritLasts"/>
+      </inputthing>
+    <inputthing
+      name="Ritual Price"
+      helptext="Specify the price to buy the ritual on the open market.">
+      <it_field field="ritPrice"/>
+      </inputthing>
+    </editthing>
+
+
+  <editthing
+    compset="Paragon"
+    name="Paragon Path"
+    prefix="pp"
+    description="Defines a paragon path that can be chosen upon reaching level 11."
+    summary="Paragon Paths can be selected when you reach level 11.">
+    <inputthing
+      name="Flavor Text"
+      helptext="Flavor text describing the Paragon Path.">
+      <it_field field="pptFlavor"/>
+      </inputthing>
+
+    <inputthing
+      name="Requirements"
+      helptext="Lists any requirements that you must meet before the paragon path can be selected.">
+      <it_separator/>
+      </inputthing>
+    <inputthing
+      name="Requirement Details"
+      helptext="Text that identifies exactly what the paragon path requires.">
+      <it_field field="reqText"/>
+      </inputthing>
+    <inputthing
+      name="Race Requirement"
+      helptext="Choose a race the paragon path requires, if any.">
+      <it_taglist group="ReqRace" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Class Requirement"
+      helptext="Choose a class the paragon path requires, if any.">
+      <it_taglist group="ReqClass" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Level Requirement"
+      helptext="Choose a level the paragon path requires, if any.">
+      <it_tagpick group="ReqLevel" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Strength Required"
+      helptext="The hero must meet this minimum ability score requirement to pick the paragon path.">
+      <it_field field="reqStr"/>
+      </inputthing>
+    <inputthing
+      name="Constitution Required"
+      helptext="The hero must meet this minimum ability score requirement to pick the paragon path.">
+      <it_field field="reqCon"/>
+      </inputthing>
+    <inputthing
+      name="Dexterity Required"
+      helptext="The hero must meet this minimum ability score requirement to pick the paragon path.">
+      <it_field field="reqDex"/>
+      </inputthing>
+    <inputthing
+      name="Intelligence Required"
+      helptext="The hero must meet this minimum ability score requirement to pick the paragon path.">
+      <it_field field="reqInt"/>
+      </inputthing>
+    <inputthing
+      name="Wisdom Required"
+      helptext="The hero must meet this minimum ability score requirement to pick the paragon path.">
+      <it_field field="reqWis"/>
+      </inputthing>
+    <inputthing
+      name="Charisma Required"
+      helptext="The hero must meet this minimum ability score requirement to pick the paragon path.">
+      <it_field field="reqCha"/>
+      </inputthing>
+    <inputthing
+      name="Trained Skill Requirement"
+      helptext="Choose a skill the hero must be trained in to take the paragon path.">
+      <it_tagpick group="ReqSkill" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Deity Requirement"
+      helptext="Choose which deity the paragon path requires, if any.">
+      <it_tagpick group="ReqDeity" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Weapon Proficiency Requirement"
+      helptext="Choose which weapon proficiencies the paragon path requires, if any.">
+      <it_tagpick group="ReqWepProf" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Role Requirement"
+      helptext="Choose a class role the hero must meet to take the paragon path.">
+      <it_tagpick group="ReqRole" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Power Source Requirement"
+      helptext="Choose a power source that must be available for the hero to take the paragon path.">
+      <it_tagpick group="ReqPwrSrc" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Channel Divinity required?"
+      helptext="Check whether the Channel Divinity feature is required to take this feat.">
+      <it_tagcheck group="User" tag="ReqChanDiv"/>
+      </inputthing>
+    </editthing>
+
+
+  <editthing
+    compset="EpicDest"
+    name="Epic Destiny"
+    prefix="ed"
+    description="Defines an epic destiny that can be chosen upon reaching level 21."
+    summary="Epic Destinies can be selected when you reach level 21.">
+    <inputthing
+      name="Flavor Text"
+      helptext="Flavor text describing the Epic Destiny.">
+      <it_field field="edsFlavor"/>
+      </inputthing>
+
+    <inputthing
+      name="Requirements"
+      helptext="Lists any requirements that you must meet before the epic destiny can be selected.">
+      <it_separator/>
+      </inputthing>
+    <inputthing
+      name="Requirement Details"
+      helptext="Text that identifies exactly what the epic destiny requires.">
+      <it_field field="reqText"/>
+      </inputthing>
+    <inputthing
+      name="Race Requirement"
+      helptext="Choose a race the epic destiny requires, if any.">
+      <it_taglist group="ReqRace" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Class Requirement"
+      helptext="Choose a class the epic destiny requires, if any.">
+      <it_taglist group="ReqClass" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Level Requirement"
+      helptext="Choose a level the epic destiny requires, if any.">
+      <it_tagpick group="ReqLevel" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Strength Required"
+      helptext="The hero must meet this minimum ability score requirement to pick the epic destiny.">
+      <it_field field="reqStr"/>
+      </inputthing>
+    <inputthing
+      name="Constitution Required"
+      helptext="The hero must meet this minimum ability score requirement to pick the epic destiny.">
+      <it_field field="reqCon"/>
+      </inputthing>
+    <inputthing
+      name="Dexterity Required"
+      helptext="The hero must meet this minimum ability score requirement to pick the epic destiny.">
+      <it_field field="reqDex"/>
+      </inputthing>
+    <inputthing
+      name="Intelligence Required"
+      helptext="The hero must meet this minimum ability score requirement to pick the epic destiny.">
+      <it_field field="reqInt"/>
+      </inputthing>
+    <inputthing
+      name="Wisdom Required"
+      helptext="The hero must meet this minimum ability score requirement to pick the epic destiny.">
+      <it_field field="reqWis"/>
+      </inputthing>
+    <inputthing
+      name="Charisma Required"
+      helptext="The hero must meet this minimum ability score requirement to pick the epic destiny.">
+      <it_field field="reqCha"/>
+      </inputthing>
+    <inputthing
+      name="Trained Skill Requirement"
+      helptext="Choose a skill the hero must be trained in to take the epic destiny.">
+      <it_tagpick group="ReqSkill" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Deity Requirement"
+      helptext="Choose which deity the epic destiny requires, if any.">
+      <it_tagpick group="ReqDeity" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Weapon Proficiency Requirement"
+      helptext="Choose which weapon proficiencies the epic destiny requires, if any.">
+      <it_tagpick group="ReqWepProf" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Role Requirement"
+      helptext="Choose a class role the hero must meet to take the epic destiny.">
+      <it_tagpick group="ReqRole" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Power Source Requirement"
+      helptext="Choose a power source that must be available for the hero to take the epic destiny.">
+      <it_tagpick group="ReqPwrSrc" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Channel Divinity required?"
+      helptext="Check whether the Channel Divinity feature is required to take this epic destiny.">
+      <it_tagcheck group="User" tag="ReqChanDiv"/>
+      </inputthing>
+    </editthing>
+
+
+  <editthing
+    compset="Adjustment"
+    name="Adjustment"
+    prefix="adj"
+    description="Adjustments can be added on the Personal or In-Play tab to make arbitrary changes to the hero."
+    summary="Adjustments can be added to a hero to make arbitrary changes.">
+    <inputthing
+      name="Selection Expression"
+      helptext="If the adjustment shows a menu, enter the tag expression to select from here.">
+      <it_field field="adjCandid"/>
+      </inputthing>
+    <inputthing
+      name="Select From..."
+      helptext="Choose which list to select items from. You can choose All Things (everything, even those not added to the hero); All Picks on Hero (the default) or All Picks on Container (which may be useful on gizmos sometimes).">
+      <it_tagpick group="ChooseSrc1" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Show What?"
+      helptext="Which controls to show for the adjustment.">
+      <it_tagpick group="AdjustShow" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Can be Permanent Adjustment?"
+      helptext="Check if this can be a Permanent adjustment.">
+      <it_tagcheck group="InPlay" tag="PermOK" default="yes"/>
+      </inputthing>
+    <inputthing
+      name="Can be Temporary Adjustment?"
+      helptext="Check if this can be a Temporary adjustment.">
+      <it_tagcheck group="InPlay" tag="TempOK" default="yes"/>
+      </inputthing>
+    </editthing>
+
+
+  <editthing
+    compset="Tracker"
+    name="Tracker"
+    prefix="trk"
+    description="Trackers provide a counter on the in-play tab that allows you to keep a running count of ammunition, health, or other values."
+    summary="Trackers provide a counter on the in-play tab.">
+    <inputthing
+      name="Starting Value"
+      helptext="Select the starting value for the tracker here.">
+      <it_field field="trkUser"/>
+      </inputthing>
+    <inputthing
+      name="Bootstrap on Hero?"
+      helptext="Check if this tracker is always bootstrapped onto the hero. (Changing this requires a game system reload to take effect.)">
+      <it_tagcheck group="Helper" tag="Bootstrap"/>
+      </inputthing>
+    <inputthing
+      name="No Maximum Bounding Value?"
+      helptext="Check if this tracker does not have a maximum count.">
+      <it_tagcheck group="Helper" tag="NoMaxBound"/>
+      </inputthing>
+    <inputthing
+      name="No Minimum Bounding Value?"
+      helptext="Check if this tracker does not have a minimum count.">
+      <it_tagcheck group="Helper" tag="NoMinBound"/>
+      </inputthing>
+    <inputthing
+      name="No Reset Button?"
+      helptext="Check if this tracker does not have a reset button. This is suitable for trackers which should not be easily reset, like ammunition counts.">
+      <it_tagcheck group="Helper" tag="NoReset"/>
+      </inputthing>
+    <inputthing
+      name="Resets to Maximum Value?"
+      helptext="Check if this tracker reset button restores the tracker to its maximum value.">
+      <it_tagcheck group="Helper" tag="ResetMax"/>
+      </inputthing>
+    </editthing>
+
+
+  <editthing
+    compset="Power"
+    name="Power"
+    prefix="pw"
+    description="Powers allow you to perform fantastic exploits, and can be added from many sources. They appear on the Special tab, categorised by how often they can be used."
+    summary="Powers appear on the Special tab, showing you what you can do.">
+    <inputthing
+      name="Level Requirement"
+      helptext="Choose a level the power requires, if any.">
+      <it_tagpick group="ReqLevel" tag="?" deftag="1"/>
+      </inputthing>
+    <inputthing
+      name="Power Class"
+      helptext="Choose the class the power comes from. You can also choose &quot;Magic Item&quot;, &quot;Race&quot; or &quot;Feat&quot;. (If the power comes from a paragon path, epic destiny or theme, you don't need to pick anything here.)">
+      <it_tagpick group="PowerClass" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Power Paragon Path"
+      helptext="Choose the paragon path the power comes from. (If the power comes from a class, epic destiny or theme, you don't need to pick anything here.)">
+      <it_tagpick group="PowerPath" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Power Epic Destiny"
+      helptext="Choose the epic destiny the power comes from. (If the power comes from a class, paragon path or theme, you don't need to pick anything here.)">
+      <it_tagpick group="PowerDest" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Power Theme"
+      helptext="Choose the theme the power comes from. (If the power comes from a class, paragon path or epic destiny, you don't need to pick anything here.)">
+      <it_tagpick group="PowerTheme" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Flavor Text"
+      helptext="Enter flavor text that describes the power.">
+      <it_field field="pwFlavor"/>
+      </inputthing>
+    <inputthing
+      name="Recommended for Class"
+      helptext="Select the classes this power is recommended for.">
+      <it_taglist group="RecomClass" tag="?" dynamic="no"/>
+      </inputthing>
+
+    <inputthing
+      name="Attack Details"
+      helptext="Describes how the power attacks.">
+      <it_separator/>
+      </inputthing>
+    <inputthing
+      name="Attack Ability"
+      helptext="Choose the ability score used to attack with this power.">
+      <it_tagpick group="Attack" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Attacks Defense"
+      helptext="Choose the defense that this power targets.">
+      <it_tagpick group="AttackVs" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Attack Bonus"
+      helptext="Enter any fixed attack bonus bestowed by the power.">
+      <it_field field="pwAtkMod"/>
+      </inputthing>
+    <inputthing
+      name="Choose Physical Attribute?"
+      helptext="Check this checkbox if the power requires you to select from one of the physical attributes to choose its attack attribute, like Dragon Breath does.">
+      <it_tagcheck group="User" tag="AttrPhys"/>
+      </inputthing>
+    <inputthing
+      name="Choose Mental Attribute?"
+      helptext="Check this checkbox if the power requires you to select from one of the mental attributes to choose its attack attribute">
+      <it_tagcheck group="User" tag="AttrMental"/>
+      </inputthing>
+    <inputthing
+      name="Attack Extra Text"
+      helptext="Enter any text to appear after the attack details.">
+      <it_field field="pwAtkExtra"/>
+      </inputthing>
+
+    <inputthing
+      name="Damage Details"
+      helptext="Describes the damage the power does.">
+      <it_separator/>
+      </inputthing>
+    <inputthing
+      name="Weapon Damage"
+      helptext="If this power does a multiple of weapon damage, specify it here.">
+      <it_tagpick group="Damage" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Base Damage Dice"
+      helptext="If this power does a fixed amount of damage, such as 2d6 or 4d4, enter it here. If the power does 1[W] or 2[W] (etc) damage, select it from the &quot;Weapon Damage&quot; list above.">
+      <it_field field="pwDamBase"/>
+      </inputthing>
+    <inputthing
+      name="Damage Type"
+      helptext="Choose the damage type(s) this power causes.">
+      <it_taglist group="DamageType" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Damage Attribute"
+      helptext="Pick the attribute that adds to power damage.">
+      <it_tagpick group="DamageAttr" tag="?" dynamic="no"/>
+      </inputthing>
+
+    <inputthing
+      name="Combat Details"
+      helptext="Describes how the power works in combat.">
+      <it_separator/>
+      </inputthing>
+    <inputthing
+      name="Power Source"
+      helptext="Choose the source of this power.">
+      <it_tagpick group="PowerSrc" tag="?" deftag="Martial" require="yes"/>
+      </inputthing>
+    <inputthing
+      name="Power Accessories"
+      helptext="Choose if this power requires a weapon or implement.">
+      <it_tagpick group="PowerAcc" tag="?" deftag="Weapon" require="yes"/>
+      </inputthing>
+    <inputthing
+      name="Power Type"
+      helptext="Choose how often this power can be used.">
+      <it_tagpick group="PowerType" tag="?" deftag="Encounter" require="yes"/>
+      </inputthing>
+    <inputthing
+      name="Power Use"
+      helptext="If this power is a utility power, feature or feat power, choose how often it can be used here. You don't need to choose anything here if you picked at-will, encounter or daily as the Power Type entry above.">
+      <it_tagpick group="PowerUse" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Effect Type"
+      helptext="Choose the effect keywords for this power.">
+      <it_taglist group="EffectType" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Power Range"
+      helptext="Choose the range this power affects targets at.">
+      <it_tagpick group="AttackType" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Action Used"
+      helptext="Choose the action the power uses.">
+      <it_tagpick group="ActionType" tag="?" deftag="Standard" require="yes"/>
+      </inputthing>
+    <inputthing
+      name="Target Text"
+      helptext="Enter text describing the target of the power.">
+      <it_field field="pwTarget"/>
+      </inputthing>
+    <inputthing
+      name="Range Text"
+      helptext="Enter the range of the power in squares.">
+      <it_field field="pwRange1"/>
+      </inputthing>
+    <inputthing
+      name="Range Text (Within X)"
+      helptext="Enter the second range text for the power, typically for powers that have an effect &quot;within X squares&quot;.">
+      <it_field field="pwRange2"/>
+      </inputthing>
+    <inputthing
+      name="Linked To..."
+      helptext="If this power is linked to other powers (for example, the cleric Channel Divinity power) choose the power link here. The last character of the unique id of the link tag should be the number of times the linked powers can be used.">
+      <it_tagpick group="PowerLink" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Special Text"
+      helptext="Enter text to appear in the &quot;Special&quot; section of the power description.">
+      <it_field field="pwSpecial"/>
+      </inputthing>
+    <inputthing
+      name="Maximum Use Count"
+      helptext="Select how many times the power can be used. No value indicates the power can be used once.">
+      <it_field field="spcMax"/>
+      </inputthing>
+    </editthing>
+
+
+  <editthing
+    compset="Mechanics"
+    name="Mechanic"
+    description="Mechanics allow you to change core behaviors of the game system. You can replace numeric tables for experience, power and feat progression, and even damage dice for the game system."
+    summary="Mechanics allow you to change core behaviors of the game system.">
+    <inputthing
+      name="Overrides..."
+      helptext="Choose the type of mechanic to override. You can only override a single mechanic per thing - others you set are ignored. When you pick something, you should also replace the original thing (using the &quot;Replaces Thing Id&quot; control).">
+      <it_tagpick group="Mechanics" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="XP to Level"
+      helptext="If you selected &quot;XP Table Mechanics&quot; for the &quot;Overrides...&quot; entry, enter the new XP progression table here. For each row, enter the amount of XP required to reach that level.{br}For example, &quot;Row 2&quot; would normally be set to 1000, because you need 1000 XP to reach level 2.">
+      <it_field field="XPTable"/>
+      </inputthing>
+    <inputthing
+      name="Class Powers per Level"
+      helptext="If you selected &quot;At-Will / Encounter / Daily Utility Power Mechanics&quot; for the &quot;Overrides...&quot; entry, enter the new count of class powers per level here. For each row, enter the levels of the powers permitted at that level.{br}For example, for encounter powers, &quot;Row 7&quot; would have 3 entries (1, 3 and 7), because you can pick encounter powers of levels 1, 3 and 7 at level 7.">
+      <it_field field="ClPwrTable"/>
+      </inputthing>
+    <inputthing
+      name="Feats per Level"
+      helptext="If you selected &quot;Feat Mechanics&quot; for the &quot;Overrides...&quot; entry, enter the new count of feats per level here. For each row, enter the number of feats allowed at that level.{br}For example, &quot;Row 2&quot; would normally be set to 2, because you get 2 feats at level 2.">
+      <it_field field="FeatTable"/>
+      </inputthing>
+    <inputthing
+      name="Damage Dice"
+      helptext="If you selected &quot;One-Two Handed Damage Mechanics&quot; for the &quot;Overrides...&quot; entry, enter the new damage dice progression here. The first row should be the smallest damage dice used; the last row should be the largest dice used.">
+      <it_field field="DamageDice"/>
+      </inputthing>
+    <inputthing
+      name="Don't Bootstrap?"
+      helptext="Check if this mechanics pick should NOT be bootstrapped, because it gets added by another class (for example).">
+      <it_tagcheck group="User" tag="NoBootMech"/>
+      </inputthing>
+    </editthing>
+
+
+  <editthing
+    compset="Background"
+    name="Background"
+    prefix="bg"
+    description="Backgrounds are &quot;perks&quot; for starting characters. Each hero can select one on the Background tab. The backgrounds available might depend on your campaign setting."
+    summary="Your hero can select one Background on the Background tab.">
+    <inputthing
+      name="Free Languages"
+      helptext="Select the free languages learned by the background here.">
+      <it_bootlist compset="Language"/>
+      </inputthing>
+    <inputthing
+      name="Bonus Languages"
+      helptext="The number of extra languages the background allows you, on top of the free languages it assigns.">
+      <it_field field="bgLang"/>
+      </inputthing>
+    <inputthing
+      name="Class Skills"
+      helptext="Pick extra class skills assigned by the background.">
+      <it_taglist group="Skill" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Initiative Bonus"
+      helptext="A bonus to initiative assigned by the background.">
+      <it_field field="bgInit"/>
+      </inputthing>
+    <inputthing
+      name="Power Use"
+      helptext="If this background can be used like a power, specify how it can be used.">
+      <it_tagpick group="PowerUse" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Hide from Special Tab?"
+      helptext="Specify whether this background is not displayed on the Special tab. Typically this is done with backgrounds that assign a fixed bonus to your statistics, since their effects are already built in to your hero.">
+      <it_tagcheck group="Hide" tag="Special"/>
+      </inputthing>
+    </editthing>
+
+
+  <editthing
+    compset="WepGroup"
+    name="Weapon Group"
+    prefix="wg"
+    description="Each weapon can be assigned multiple weapon groups, and heroes can pick feats or powers that improve their performance when using weapons from certain groups."
+    summary="Weapons can belong to multiple weapon groups.">
+    </editthing>
+
+
+  <editthing
+    compset="Language"
+    name="Language"
+    prefix="lan"
+    description="Languages can be learned by heroes or assigned by races or classes."
+    summary="Languages can be learned by heroes or assigned by races or classes.">
+    </editthing>
+
+
+  <editthing
+    compset="Deity"
+    name="Deity"
+    prefix="dty"
+    description="Deities represent one of the powers in the setting of your choice."
+    summary="Your hero can select one Deity on the Personal tab.">
+    <inputthing
+      name="Alignment"
+      helptext="Pick the deity's alignment.">
+      <it_tagpick group="Alignment" tag="?"/>
+      </inputthing>
+    <inputthing
+      name="Gender"
+      helptext="Pick the deity's gender.">
+      <it_tagpick group="Gender" tag="?" deftag="Male"/>
+      </inputthing>
+    <inputthing
+      name="Flavor Text"
+      helptext="Enter descriptive flavor text for the deity here.">
+      <it_field field="dtyFlavor"/>
+      </inputthing>
+    <inputthing
+      name="Sphere"
+      helptext="Enter the deity's Sphere.">
+      <it_field field="dtySphere"/>
+      </inputthing>
+    <inputthing
+      name="Dominion"
+      helptext="Enter the deity's Dominion.">
+      <it_field field="dtyDomin"/>
+      </inputthing>
+    <inputthing
+      name="Priests"
+      helptext="Enter the descriptive term for priests of the deity.">
+      <it_field field="dtyPriests"/>
+      </inputthing>
+    <inputthing
+      name="Adjective"
+      helptext="Enter the term for describing things of this deity.">
+      <it_field field="dtyAdject"/>
+      </inputthing>
+    </editthing>
+
+  </document>

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This is the definition file that provides the basis for everything else. All of
+      the Skeleton data files contain examples of the most common behaviors you'll
+      need and can be readily adapted to the game system you want to support. You'll
+      find inline comments throughout all of the Skeleton data files that describe
+      what is being done, as well as external documentation that outlines how
+      everything is structured and how all the pieces fit together. A detailed
+      example is also provided that outlines how to adapt these Skeleton data files
+      for use with the Savage Worlds game system.
+-->
+
+<document signature="Hero Lab Definition">
+
+  <!-- The "game" element is where you'll define the basics for the game system.
+  -->
+
+  <game
+    game="4th Edition"
+    publisher="Wizards of the Coast"
+    website="http://www.wizards.com/dnd"
+    copyright="Dungeons &amp; Dragons and all other Wizards of the Coast product names are trademarks of Wizards of the Coast. ©2008-2014 Wizards of the Coast, Inc."
+    legaloutput="Dungeons &amp; Dragons and all other Wizards of the Coast product names are trademarks of Wizards of the Coast. ©2008-2014 Wizards of the Coast, Inc.">
+    </game>
+
+  <!-- The "author" element is where you'll provide details about yourself as the
+        author of the data files.
+  -->
+
+  <author
+    author="Released to Public Domain"
+    website="http://forums.wolflair.com/forumdisplay.php?f=58">
+    </author>
+
+  <!-- The "release" element specifies the details for each new revision of the data
+        files that you make available to others. This makes it easy to track the
+        version of the data files in which problems occur and ensures that other
+        users can verify that they update to new versions when you publish them.
+  -->
+
+  <release
+    major="14"
+    minor="091"
+    required="5.3"
+    summary="Herolab 4e Ruleset September 2014 release, including other option on gender support.">{b}{text ffff80}Herolab 4e Ruleset September 2014 release, including other option on gender support.{text 010101}{/b}
+
+Changes this version:
+
+&#149; Removed the need for the downloader
+
+These data files were written by Lone Wolf Development, but have been released into the public domain for example purposes. You are free to copy them and make any changes you wish.
+
+Maintenance and debugging of these data files are now maintained at http://hl4e.cryptoknight.org  If you have new bugs with the data, please join us in trying to squash them!
+    <launch nature="brief"><![CDATA[{b}{text ffff80}Retrieving 4e Data{text 010101}{/b}
+
+If you're seeing this, you no longer need to use the downloader.
+
+We've moved management of the data and files to http://hl4e.cryptoknight.org
+	
+	]]></launch>
+    </release>
+
+  <!-- The "structure" element defines special structural details about the data files
+        and how Hero Lab should manage them.
+  -->
+
+  <structure
+    folder="4e">
+    </structure>
+
+  <!-- The "behavior" element specifies assorted behavioral aspects of the data files
+        that reflect the nuances of both the game system and the data files your create.
+  -->
+
+  <behavior>
+
+    <!-- Configure how the integrated dice roller should behave for this game system. -->
+
+    <diceroller mode="totals" dietype="6" quantity="1"/>
+
+    <!-- Define how each lead is displayed to the user when importing from a portfolio. -->
+
+    <leadsummary><![CDATA[
+      ~race
+      @text = herofield[acRace].text & " " & herofield[acClass].text
+      ]]></leadsummary>
+
+    <!-- Reset encounter powers on all heroes when a combat starts. -->
+
+    <newcombat><![CDATA[
+      foreach actor in portfolio
+        foreach pick in hero from SpecialTab where "PowerUse.Encounter"
+          each.field[spcUsed].value = 0
+          nexteach
+        nexteach
+      ]]></newcombat>
+
+    <!-- Define how the initiative is auto-calculated by the Tactical Console. -->
+
+    <initiative><![CDATA[
+      ~initiative = 1d20 + initiative bonus
+      @initiative = random(20) + 1 + #trait[trInit]
+
+
+      ~tiebreaker is the initiative bonus itself
+      @tiebreaker = #trait[trInit]
+      ]]></initiative>
+
+    <!-- Define xpaths to values important to the encounter builder -->
+    <encounter>
+      <encounterinfo type="sourcebooks"
+          xpath="/document/public/character/npc/bookinfo"
+          attribute="name"/>
+      </encounter>
+    </behavior>
+
+  <!-- Define an assortment of macros that will make writing scripts faster and easier. -->
+
+  <scriptmacro
+    name="level"
+    result="hero.tagvalue[Level.?]"/>
+  <scriptmacro
+    name="halflevel"
+    result="round(hero.tagvalue[Level.?] / 2, 0, -1)"/>
+  <scriptmacro
+    name="trait"
+    param1="trait"
+    result="hero.child[#trait].field[trtFinal].value"/>
+  <scriptmacro
+    name="traitfound"
+    param1="trait"
+    result="hero.childfound[#trait].field[trtFinal].value"/>
+  <scriptmacro
+    name="traitbonus"
+    param1="trait"
+    result="hero.child[#trait].field[trtBonus].value"/>
+  <scriptmacro
+    name="traittext"
+    param1="trait"
+    result="hero.child[#trait].field[trtText].text"/>
+  <scriptmacro
+    name="attrbonus"
+    param1="attr"
+    result="hero.child[#attr].field[attrBonus].value"/>
+  <scriptmacro
+    name="attrbasebonus"
+    param1="attr"
+    result="hero.child[#attr].field[attrBnBase].value"/>
+  <scriptmacro
+    name="traitmodify"
+    param1="trait"
+    param2="field"
+    param3="value"
+    param4="text"
+    result="perform hero.child[#trait].field[#field].modify[+,#value,#text]"/>
+  <scriptmacro
+    name="traitinplay"
+    param1="trait"
+    result="hero.child[#trait].field[trtInPlay].value"/>
+  <scriptmacro
+    name="traituser"
+    param1="trait"
+    result="hero.child[#trait].field[trtUser].value"/>
+  <scriptmacro
+    name="childname"
+    param1="child"
+    result="hero.childfound[#child].field[name].text"/>
+  <scriptmacro
+    name="resmax"
+    param1="resource"
+    result="hero.child[#resource].field[resMax].value"/>
+  <scriptmacro
+    name="resspent"
+    param1="resource"
+    result="hero.child[#resource].field[resSpent].value"/>
+  <scriptmacro
+    name="resleft"
+    param1="resource"
+    result="hero.child[#resource].field[resLeft].value"/>
+  <scriptmacro
+    name="resextra"
+    param1="resource"
+    result="hero.child[#resource].field[resExtra].value"/>
+  <scriptmacro
+    name="trkmax"
+    param1="tracker"
+    result="hero.child[#tracker].field[trkMax].value"/>
+  <scriptmacro
+    name="circlenum"
+    param1="index"
+    result="chr(129 + #index - 1)"/>
+  <scriptmacro
+    name="thingdescappend"
+    param1="thing"
+    param2="append"
+    result="perform state.thing[#thing].amendthing[description,#append &amp; &quot;{br}{br}&quot; &amp; state.thing[#thing].field[descript].text]"/>
+
+  <!-- Define constants for the main / off / both hands states -->
+  <scriptmacro
+    name="mainhand"
+    result="0"/>
+  <scriptmacro
+    name="bothhands"
+    result="1"/>
+  <scriptmacro
+    name="offhand"
+    result="2"/>
+
+
+  <!-- Optional Things - these things are sometimes not defined properly by the
+      downloader, so we need to declare them here to avoid causing trouble -->
+  <optional type="thing" id="pRacDraBre"/>
+
+
+  <!-- The "phase" elements define the various evaluation stages that all processing of
+        scripts will be channeled through. Each phase identifies a stage, with the list
+        of phases being processed in the order specified below. Within each phase, the
+        priority value assigned controls the processing order.
+  -->
+
+  <phase
+    id="Initialize"
+    name="Initialization"
+    description="Anything that has to happen before everything else">
+    </phase>
+
+  <phase
+    id="Setup"
+    name="Setup"
+    description="Anything that has to be processed before normal processing gets underway">
+    </phase>
+
+  <phase
+    id="Effects"
+    name="Effects"
+    description="Apply derived effects that influence equipment modifiers and the like">
+    </phase>
+
+  <phase
+    id="PreTraits"
+    name="Pre-Traits"
+    description="Adjustments to traits before they are finalized">
+    </phase>
+
+  <!-- NOTE! All Health calculations are assumed to occur within the 5000-5999 priority range during this phase. -->
+  <phase
+    id="Traits"
+    name="Traits"
+    description="Finalization of trait values">
+    </phase>
+
+  <phase
+    id="Final"
+    name="Final"
+    description="Any last-minute processing that must happen after everything else">
+    </phase>
+
+  <phase
+    id="Validate"
+    name="Validation"
+    description="Validation tests that occur after all evaluation processing">
+    </phase>
+
+  <phase
+    id="Render"
+    name="Render"
+    description="Any processing that simply renders values for use by the UI or processes last-minute validation - no calculations">
+    </phase>
+
+
+  </document>

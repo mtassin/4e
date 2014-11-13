@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the definition of the "Abilities" summary panel. This panel
+      contains the list of special abilities and all skills for the character.
+
+      Since all of the tables shown within this summary panel should fit within the
+      available vertical space, no scroller is required, so we turn off the scroller
+      for each table so that Hero Lab doesn't leave space for one.
+-->
+
+<document signature="Hero Lab Data">
+
+
+  <!-- smPowers portal - table of special abilities
+  -->
+  <portal
+    id="smPowers"
+    style="tblInvisSm">
+    <table_fixed
+      component="SpecialTab"
+      showtemplate="smPowers"
+      showsortset="SpecialTab"
+      alwaysupdate="yes">
+      <list><![CDATA[
+        !Hide.Special
+        ]]></list>
+      </table_fixed>
+    </portal>
+
+
+  <!-- smPowers template
+        This template shows the names of each special ability ability, providing
+        mouse-over behavior to show the details of each ability.
+  -->
+  <template
+    id="smPowers"
+    name="Summary Ability Pick"
+    compset="Ability"
+    marginvert="1">
+
+    <portal
+      id="name"
+      style="lblSummary">
+      <label>
+        <labeltext><![CDATA[
+          @text = "{align left}"
+          if (field[spcSumm].isempty = 0) then
+            @text &= "(" & field[spcSumm].text & ") "
+            endif
+          @text &= field[name].text
+          ]]></labeltext>
+        </label>
+      <mouseinfo>
+        var mouseinfo as string
+        call MouseInfo
+        @text = mouseinfo
+        </mouseinfo>
+      </portal>
+
+    <position><![CDATA[
+      ~set up our height based on our tallest portal
+      height = portal[name].height
+
+      ~if this is a "sizing" calculation, we're done
+      doneif (issizing <> 0)
+
+      ~the name is the only portal to position - if this is a separator, center
+      ~it and make it pretty
+      if (tagis[Separator.Yes] <> 0) then
+        perform portal[name].centerhorz
+        perform portal[name].setstyle[lblBright]
+        perform portal[name].autosize
+      else
+        portal[name].left = 0
+        if (tagis[Helper.Exhausted] + tagis[Helper.Exceeded] + tagis[Helper.Disable] <> 0) then
+          perform portal[name].setstyle[lblSummDis]
+          endif
+        if (portal[name].textwidth > width) then
+          portal[name].width = width
+          perform portal[name].sizetofit[32]
+          portal[name].height = portal[name].fontheight
+          endif
+        endif
+      portal[name].top = 0
+      ]]></position>
+    </template>
+
+
+  <!-- smPowers layout
+        This layout contains both the table of special abilities and the table of
+        skills for the actor.
+  -->
+  <layout
+    id="smPowers">
+    <portalref portal="smPowers"/>
+
+    <position><![CDATA[
+      ~leave a little gap on the left of the table, and make it take up the rest
+      ~of the width
+      portal[smPowers].left = 5
+      portal[smPowers].width = width - portal[smPowers].left
+
+      ~set the heights of the tables to use all the space they need
+      portal[smPowers].height = height
+
+      ~position the tables vertically
+      portal[smPowers].top = 0
+      ]]></position>
+
+    </layout>
+
+
+  <!-- smPowers panel
+        This panel is designated as a summary panel and given an order that positions
+        it properly amongst the other defined summary panels. We setup a small margin
+        to indent the layout from the edges of the panel.
+
+        The panel is assigned a "live" tagexpr so that its visibility can be
+        controlled for different types of characters. While not really useful in the
+        sample data files, this approach can be quite useful when the data files
+        expand to govern creation of widely varying characters, such as vampires vs.
+        ghosts vs. mortals in the World of Darkness game system.
+  -->
+  <panel
+    id="smPowers"
+    name="Powers"
+    order="10020"
+    marginvert="2"
+    issummary="yes">
+    <live>!HideTab.smPowers</live>
+    <layoutref layout="smPowers"/>
+
+    <position><![CDATA[
+      ]]></position>
+
+    </panel>
+
+
+  </document>

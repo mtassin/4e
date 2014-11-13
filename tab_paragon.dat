@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the definition of the "Abilities" tab panel. This tab is where
+      the user selects the special abilities for the character.
+
+      All public visual elements used with this tab panel start with the prefix "ab"
+      to associate them with the tab.
+-->
+
+<document signature="Hero Lab Data">
+
+
+  <portal
+    id="ppHelp"
+    style="lblDisable">
+    <label
+      ismultiline="yes"
+      text="You can choose a Paragon Path at level 11. Once you've chosen a path, you can view the path features and powers on this tab.">
+      </label>
+    </portal>
+
+  <!-- Paragon title label, chooser and info button -->
+  <portal
+    id="ppTitle"
+    style="lblNormal">
+    <label
+      text="Choose Paragon Path:">
+      </label>
+    </portal>
+  <portal
+    id="ppPath"
+    style="chsNormal">
+    <chooser_table
+      component="Paragon"
+      choosetemplate="SimpleItem"
+      showupdate="yes"
+      descwidth="450"
+      selectnone="yes"
+      candidatepick="actor"
+      candidatefield="acPathExp">
+      <candidate></candidate>
+      <chosen><![CDATA[
+        if (@ispick = 0) then
+          if (hero.tagvalue[Level.?] >= 11) then
+            @text = "{text ff0000}Select Paragon Path"
+          else
+            @text = "{text a0a0a0}Not until level 11"
+            endif
+        else
+          @text = field[name].text
+          if (valid = 0) then
+            @text = "{text ff0000}" & @text
+            endif
+          endif
+        ]]></chosen>
+      <titlebar><![CDATA[
+        @text = "Choose the paragon path for your character"
+        ]]></titlebar>
+      </chooser_table>
+    </portal>
+  <portal
+    id="ppInfo"
+    style="actInfo">
+    <action
+      action="info">
+      </action>
+    <mouseinfo><![CDATA[
+      ~ Get our currently selected paragon path
+      perform hero.findchild[Paragon].setfocus
+      if (state.isfocus = 0) then
+        @text = "No paragon path selected."
+        done
+        endif
+
+      ~ Append paragon info
+      @text = "{b}" & focus.field[name].text & "{/b}{br}{br}"
+      @text &= focus.field[descript].text
+      ]]></mouseinfo>
+    </portal>
+
+  <!-- ppFeatures portal
+        Presents a fixed table where the user can inspect and configure paragon
+        path features.
+  -->
+  <portal
+    id="ppFeatures"
+    style="tblNormal">
+    <table_fixed
+      component="UserSelect"
+      showtemplate="MenuSlPick"
+      showsortset="ReqLevel">
+      <list><![CDATA[
+        (PowerPath.? | ConfSource.Paragon | (component.Power & User.PathFeat)) &
+        (!User.NeedChosen | Helper.ChosenOpt) & !Hide.Paragon
+        ]]></list>
+      <headertitle><![CDATA[
+        @text = "Paragon Path Features"
+        ]]></headertitle>
+      </table_fixed>
+    </portal>
+
+
+
+  <!-- ppAtWill portal
+        Presents a dynamic table that you can add at-will powers with.
+  -->
+  <portal
+    id="ppAtWill"
+    style="tblNormal">
+    <table_dynamic
+      component="Power"
+      showtemplate="PowerItem"
+      choosetemplate="PowerItem"
+      addpick="resPMCAtW"
+      candidatepick="actor"
+      candidatefield="acMCAtWExp"
+      showsortset="PowerLevel"
+      choosesortset="PowerLevel"
+      descwidth="400">
+      <list>FALSE</list> <!-- Show only powers added from this table -->
+      <restriction>TRUE</restriction> <!-- We can't take the same power more than once -->
+      <secondary phase="Setup" priority="0">
+        Paragon.ParaMulti
+        </secondary> <!-- Remove the powers if we stop multiclassing -->
+      <autotag group="Helper" tag="PwrParMult"/>
+      <titlebar><![CDATA[
+        @text = "Add an At-Will Power - " & hero.child[resPMCAtW].field[resSummary].text
+        ]]></titlebar>
+      <description/>
+      <headertitle><![CDATA[
+        @text = "At-Will Powers: " & hero.child[resPMCAtW].field[resSummary].text
+        ]]></headertitle>
+      <additem><![CDATA[
+        ~set the color based on whether the proper number of slots are allocated
+        if (field[resLeft].value = 0) then
+          @text = "{text a0a0a0}"
+        elseif (field[resLeft].value < 0) then
+          @text = "{text ff0000}"
+          endif
+        @text &= "Add New At-Will Power"
+        ]]></additem>
+      </table_dynamic>
+    </portal>
+
+
+  <!-- ppEncount portal
+        Presents a dynamic table that you can add encounter powers with.
+  -->
+  <portal
+    id="ppEncount"
+    style="tblNormal">
+    <table_dynamic
+      component="Power"
+      showtemplate="PowerItem"
+      choosetemplate="PowerItem"
+      addpick="resPMCEnc"
+      candidatepick="actor"
+      candidatefield="acMCEncExp"
+      showsortset="PowerLevel"
+      choosesortset="PowerLevel"
+      descwidth="400">
+      <list>FALSE</list> <!-- Show only powers added from this table -->
+      <restriction>TRUE</restriction> <!-- We can't take the same power more than once -->
+      <secondary phase="Setup" priority="0">
+        Paragon.ParaMulti
+        </secondary> <!-- Remove the powers if we stop multiclassing -->
+      <autotag group="Helper" tag="PwrParMult"/>
+      <titlebar><![CDATA[
+        @text = "Add an Encounter Power - " & hero.child[resPMCEnc].field[resSummary].text
+        ]]></titlebar>
+      <description/>
+      <headertitle><![CDATA[
+        @text = "Encounter Powers: " & hero.child[resPMCEnc].field[resSummary].text
+        ]]></headertitle>
+      <additem><![CDATA[
+        ~set the color based on whether the proper number of slots are allocated
+        if (field[resLeft].value = 0) then
+          @text = "{text a0a0a0}"
+        elseif (field[resLeft].value < 0) then
+          @text = "{text ff0000}"
+          endif
+        @text &= "Add New Encounter Power"
+        ]]></additem>
+      </table_dynamic>
+    </portal>
+
+
+  <!-- ppDaily portal
+        Presents a dynamic table that you can add daily powers with.
+  -->
+  <portal
+    id="ppDaily"
+    style="tblNormal">
+    <table_dynamic
+      component="Power"
+      showtemplate="PowerItem"
+      choosetemplate="PowerItem"
+      addpick="resPMCDai"
+      candidatepick="actor"
+      candidatefield="acMCDaiExp"
+      showsortset="PowerLevel"
+      choosesortset="PowerLevel"
+      descwidth="400">
+      <list>FALSE</list> <!-- Show only powers added from this table -->
+      <restriction>TRUE</restriction> <!-- We can't take the same power more than once -->
+      <secondary phase="Setup" priority="0">
+        Paragon.ParaMulti
+        </secondary> <!-- Remove the powers if we stop multiclassing -->
+      <autotag group="Helper" tag="PwrParMult"/>
+      <titlebar><![CDATA[
+        @text = "Add an Daily Power - " & hero.child[resPMCDai].field[resSummary].text
+        ]]></titlebar>
+      <description/>
+      <headertitle><![CDATA[
+        @text = "Daily Powers: " & hero.child[resPMCDai].field[resSummary].text
+        ]]></headertitle>
+      <additem><![CDATA[
+        ~set the color based on whether the proper number of slots are allocated
+        if (field[resLeft].value = 0) then
+          @text = "{text a0a0a0}"
+        elseif (field[resLeft].value < 0) then
+          @text = "{text ff0000}"
+          endif
+        @text &= "Add New Daily Power"
+        ]]></additem>
+      </table_dynamic>
+    </portal>
+
+
+  <!-- ppUtility portal
+        Presents a dynamic table that you can add utility powers with.
+  -->
+  <portal
+    id="ppUtility"
+    style="tblNormal">
+    <table_dynamic
+      component="Power"
+      showtemplate="PowerItem"
+      choosetemplate="PowerItem"
+      addpick="resPMCUtil"
+      candidatepick="actor"
+      candidatefield="acMCUtiExp"
+      showsortset="PowerLevel"
+      choosesortset="PowerLevel"
+      descwidth="400">
+      <list>FALSE</list> <!-- Show only powers added from this table -->
+      <restriction>TRUE</restriction> <!-- We can't take the same power more than once -->
+      <secondary phase="Setup" priority="0">
+        Paragon.ParaMulti
+        </secondary> <!-- Remove the powers if we stop multiclassing -->
+      <autotag group="Helper" tag="PwrParMult"/>
+      <titlebar><![CDATA[
+        @text = "Add an Utility Power - " & hero.child[resPMCUtil].field[resSummary].text
+        ]]></titlebar>
+      <description/>
+      <headertitle><![CDATA[
+        @text = "Utility Powers: " & hero.child[resPMCUtil].field[resSummary].text
+        ]]></headertitle>
+      <additem><![CDATA[
+        ~set the color based on whether the proper number of slots are allocated
+        if (field[resLeft].value = 0) then
+          @text = "{text a0a0a0}"
+        elseif (field[resLeft].value < 0) then
+          @text = "{text ff0000}"
+          endif
+        @text &= "Add New Utility Power"
+        ]]></additem>
+      </table_dynamic>
+    </portal>
+
+
+  <!-- paragon layout
+        This layout orchestrates the display of the visual elements that comprise
+        the Paragon tab. This amounts to a title at the top and a dynamic table
+        below where the user can add the special abilities he wants.
+
+        The logic for this layout is similar to (albeit much simpler than) the
+        logic for the Basics tab. So please refer to the Basics tab for more details.
+  -->
+  <layout
+    id="paragon">
+    <portalref portal="ppTitle"/>
+    <portalref portal="ppPath" taborder="10"/>
+    <portalref portal="ppHelp"/>
+    <portalref portal="ppInfo" taborder="20"/>
+    <portalref portal="ppFeatures" taborder="40"/>
+    <portalref portal="ppAtWill" taborder="50"/>
+    <portalref portal="ppEncount" taborder="60"/>
+    <portalref portal="ppUtility" taborder="70"/>
+    <portalref portal="ppDaily" taborder="80"/>
+
+    <!-- This script sizes and positions the layout and its child visual elements. -->
+    <position><![CDATA[
+      portal[ppPath].width = 200
+
+      ~position the path selection portals at the top of the panel,
+      ~horizontally centered
+      var space as number
+      space = 10
+      var total as number
+      total = portal[ppTitle].width + space + portal[ppPath].width + space + portal[ppInfo].width
+      portal[ppTitle].left = (width - total) / 2
+      portal[ppPath].left = portal[ppTitle].right + space
+      portal[ppInfo].left = portal[ppPath].right + space
+
+      ~center the controls vertically within the path chooser
+      portal[ppPath].top = 3
+      perform portal[ppTitle].centeron[vert,ppPath]
+      perform portal[ppInfo].centeron[vert,ppPath]
+
+      ~if we don't have a paragon path, hide all our tables and show the help label
+      if (hero.tagis[Paragon.?] = 0) then
+        portal[ppFeatures].visible = 0
+        portal[ppAtWill].visible = 0
+        portal[ppEncount].visible = 0
+        portal[ppDaily].visible = 0
+        portal[ppUtility].visible = 0
+
+      ~if we have a multiclass path, hide the help label and features table
+      elseif (hero.tagis[Paragon.ParaMulti] <> 0) then
+        portal[ppFeatures].visible = 0
+        portal[ppHelp].visible = 0
+
+      ~otherwise, just hide the help label and multiclass tables
+      else
+        portal[ppHelp].visible = 0
+        portal[ppAtWill].visible = 0
+        portal[ppEncount].visible = 0
+        portal[ppDaily].visible = 0
+        portal[ppUtility].visible = 0
+        endif
+
+      ~position our help label under the 'choose' chooser.
+      portal[ppHelp].width = width * 2 / 3
+      portal[ppHelp].height = portal[ppHelp].textheight
+      perform portal[ppHelp].centerhorz
+      portal[ppHelp].top = portal[ppPath].bottom + 50
+
+      ~position the paragon features table under the paragon chooser, taking up
+      ~the rest of the tab
+      portal[ppFeatures].width = width * 4 / 5
+      perform portal[ppFeatures].centerhorz
+      portal[ppFeatures].top = portal[ppPath].bottom + 20
+      portal[ppFeatures].height = height - portal[ppFeatures].top
+
+      ~our at-will table gets positioned at the features
+      var lowest as number
+      lowest = portal[ppFeatures].top
+      portal[ppAtWill].top = lowest
+      portal[ppAtWill].width = (width - 10) / 2
+      portal[ppAtWill].height = height - portal[ppAtWill].top
+
+      ~our encounter powers get positioned at the same place as the at-will
+      ~powers, but on the right
+      portal[ppEncount].top = portal[ppAtWill].top
+      portal[ppEncount].width = portal[ppAtWill].width
+      portal[ppEncount].left = portal[ppAtWill].right + 10
+      portal[ppEncount].height = height - portal[ppAtWill].top
+
+      ~utility powers go right under at-will powers
+      lowest = maximum(portal[ppAtWill].bottom, portal[ppEncount].bottom) + 10
+      portal[ppUtility].top = lowest
+      portal[ppUtility].width = portal[ppAtWill].width
+      portal[ppUtility].height = height - portal[ppUtility].top
+
+      ~daily powers go right under encounter powers
+      portal[ppDaily].top = portal[ppUtility].top
+      portal[ppDaily].width = portal[ppAtWill].width
+      portal[ppDaily].left = portal[ppEncount].left
+      portal[ppDaily].height = height - portal[ppUtility].top
+      ]]></position>
+
+    </layout>
+
+
+  <!-- paragon panel
+        This is the "Paragon" panel shown within Hero Lab. Since we want this
+        panel to appear just the gear tab, we assign it an "order" of 320.
+
+        The logic for this panel is similar to the logic for the Basics panel, so
+        please refer to the Basics panel for more details.
+  -->
+  <panel
+    id="paragon"
+    name="Paragon"
+    marginhorz="5"
+    marginvert="5"
+    order="320">
+    <live>!HideTab.paragon</live>
+    <layoutref layout="paragon"/>
+    <position><![CDATA[
+      ]]></position>
+    </panel>
+  </document>

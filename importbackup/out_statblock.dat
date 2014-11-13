@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the definition of a traditional "statblock" output for the
+      game system. The statblock is defined as a dossier and then uses an assortment
+      of procedures to orchestrate the synthesis of the output.
+-->
+
+<document signature="Hero Lab Data">
+
+
+  <!-- Procedure sbtraits
+        Output all of the traits that satisfy the provided tag expression, reporting
+        the name and final value for each. The "tagexpr" text variable specifies the
+        constraints that must be satisfied for the list of traits. The "isabbr"
+        numeric parameter controls whether to use the trait abbreviation, if present.
+        The "isvalue" numeric parameter controls whether to output the trait value.
+
+        Inbound parameters:  tagexpr, isabbr, isvalue
+  -->
+  <procedure id="sbtraits" scripttype="synthesize"><![CDATA[
+    var tagexpr as string
+    var isabbr as number
+    var isvalue as number
+    var ismore as number
+    ismore = 0
+    foreach pick in hero where tagexpr sortas explicit
+      if (ismore <> 0) then
+        append ", "
+        endif
+      if (isabbr <> 0) then
+        if (eachpick.field[trtAbbrev].isempty = 0) then
+          append eachpick.field[trtAbbrev].text
+        else
+          append eachpick.field[name].text
+          endif
+      else
+        append eachpick.field[name].text
+        endif
+
+      ~if this is a skill, output the special roll field; otherwise, just output
+      ~the trait final value
+      if (isvalue <> 0) then
+        append ": "
+        if (eachpick.tagis[component.Skill] <> 0) then
+          append eachpick.field[sklRoll].text
+        else
+          append eachpick.field[trtText].text
+          endif
+        endif
+      ismore = 1
+      nexteach
+    append @newline & @newline
+    ]]></procedure>
+
+
+  <!-- Procedure sbweapons
+        Output all of the weapons possessed by the character, listing equipped
+        weapons first and including attack values, damage, and ranges for each.
+  -->
+  <procedure id="sbweapons" scripttype="synthesize"><![CDATA[
+    var ismore as number
+    append @boldon & "Weapons/Attacks: " & @boldoff & @newline
+    ~output a list of all weapons (equipped first)
+    ismore = 0
+    foreach pick in hero from WeaponBase where "!Hide.Weapon" sortas Armory
+      ismore = 1
+      append @indent & eachpick.field[wpNetAtk].text & " - " & eachpick.field[name].text
+      append " - " & eachpick.field[wpDamage].text
+      if (eachpick.field[grIsEquip].value <> 0) then
+        append " (Equipped)"
+        endif
+      if (eachpick.field[wpShort].value + eachpick.field[wpLong].value <> 0) then
+        append " (Rng: " & eachpick.field[wpShort].value & "/" & eachpick.field[wpLong].value & ")"
+        endif
+      append " - " & eachpick.field[wpSummary].text & @newline
+      nexteach
+    ~if we have no weapons, output that fact
+    if (ismore = 0) then
+      append @indent & "-none-" & @newline
+      endif
+    ]]></procedure>
+
+
+  <!-- Procedure sbarmor
+        Output all of the armor possessed by the character, listing equipped gear
+        first and including the defense value for each.
+  -->
+  <procedure id="sbarmor" scripttype="synthesize"><![CDATA[
+    var ismore as number
+    append @boldon & "Armor: " & @boldoff & @newline
+    ~output the details of all armor (equipped first)
+    ismore = 0
+    foreach pick in hero from ArmorBase sortas Armory
+      ismore = 1
+      append @indent & eachpick.field[arAC].text & " - " & eachpick.field[name].text
+      if (eachpick.field[grIsEquip].value <> 0) then
+        append " (Equipped)"
+        endif
+      append @newline
+      nexteach
+    ~if we have no armor, output that fact
+    if (ismore = 0) then
+      append @indent & "-none-" & @newline
+      endif
+    ]]></procedure>
+
+
+  <!-- Procedure sbtrackres
+        Output all of the tracked resources possessed by the character, if the
+        right output source is enabled.
+  -->
+  <procedure id="sbtrackres" scripttype="synthesize"><![CDATA[
+    doneif (hero.tagis[source.ShowTrackR] = 0)
+
+    var ismore as number
+    append @newline & @boldon & "Tracked Resources: " & @boldoff & @newline
+    ~output the details of all resources
+    ismore = 0
+    foreach pick in hero from Tracker where "!Hide.Tracker"
+      ismore = 1
+      append @indent & eachpick.field[name].text & " - " & eachpick.field[trkUser].text
+      append @newline
+      nexteach
+    ~if we have no resources, output that fact
+    if (ismore = 0) then
+      append @indent & "-none-" & @newline
+      endif
+    ]]></procedure>
+
+
+  <!-- Procedure sbnpcinfo
+        Checks all npc info picks with a certain tag expression and appends
+        their info to the text.
+  -->
+  <procedure id="sbnpcinfo" scripttype="synthesize"><![CDATA[
+    var title as string
+    var tagexpr as string
+
+    ~go through the npc info picks, adding them to the info string
+    var info as string
+    info = ""
+    foreach pick in hero from NPCInfo where tagexpr sortas explicit
+      if (eachpick.field[npcInfo].isempty = 0) then
+        info &= eachpick.field[name].text & ": " & eachpick.field[npcInfo].text & @newline
+        endif
+      nexteach
+
+    ~if we ended up with any text, append it to our output with the
+    ~appropriate title
+    if (empty(info) = 0) then
+      append @newline & "===== " & title & " =====" & @newline
+      append info
+      endif
+    ]]></procedure>
+
+
+  <!-- Define the statblock as a text-based dossier. The "synthesize" script actually
+        generates the output.
+  -->
+  <dossier
+    id="statblock"
+    name="Character Statblock">
+    <dossier_text
+      grouping="statblock"
+      styles="plain+html+bbcode+wikitext+print">
+      <synthesize><![CDATA[
+        var txt as string
+        var tagexpr as string
+
+        ~start by getting our name and race
+        var name as string
+        name = hero.actorname
+        append @boldon & name & ", " & herofield[acRace].text
+
+        ~non-monsters also get background and class
+        if (hero.tagis[Hero.Monster] = 0) then
+          perform hero.findchild[Background,"TRUE"].setfocus
+          if (state.isfocus <> 0) then
+            append " (" & focus.field[name].text & ")"
+            endif
+          perform state.clearfocus
+
+          ~class level
+          if (herofield[acClass].isempty = 0) then
+            append " " & herofield[acClass].text
+            endif
+
+        ~monsters get their xp bonus
+        else
+          append @newline & "XP " & herofield[acMonXP].value
+          endif
+        append @boldoff & @newline
+
+        ~if we have a paragon path / epic destiny, show them
+        var text as string
+        perform state.clearfocus
+        perform hero.findchild[Paragon,"TRUE"].setfocus
+        if (state.isfocus <> 0) then
+          text = focus.field[name].text
+          endif
+        perform state.clearfocus
+        perform hero.findchild[EpicDest,"TRUE"].setfocus
+        if (state.isfocus <> 0) then
+          if (empty(text) = 0) then
+            text &= ", "
+            endif
+          text &= focus.field[name].text
+          endif
+        if (empty(text) = 0) then
+          append text & @newline
+          endif
+
+        ~output any configurable class and race abilities
+        foreach pick in hero where "component.ClassFeat | component.RaceFeat | component.ThemeFeat"
+          if (!eachpick.field[usrCandid1].isempty + !empty(eachpick.field[usrArray].arraytext[0]) <> 0) then
+            append eachpick.field[name].text & @newline
+            endif
+          nexteach
+        append @newline
+
+        ~output attributes
+        var ismore as number
+        foreach pick in hero from Attribute sortas explicit
+          if (ismore <> 0) then
+            append ", "
+            endif
+          append left(eachpick.field[name].text, 3) & " " & eachpick.field[trtFinal].value
+          append " (" & eachpick.field[attrBonus].text & ")"
+          ismore = 1
+          nexteach
+        append @newline & @newline
+
+        ~output defenses
+        var isabbr as number
+        var isvalue as number
+        isvalue = 1
+        isabbr = 1
+        tagexpr = "component.Defense"
+        call sbtraits
+        isabbr = 0
+
+        ~output health details
+        tagexpr = "User.TrtHealth"
+        call sbtraits
+
+        ~output other details
+        tagexpr = "(User.BasicsNarr | User.BasicsWide) & !User.TrtHealth & !component.Defense"
+        call sbtraits
+
+        ~output trained skills
+        append @boldon & "Trained Skills: " & @boldoff
+        ismore = 0
+        foreach pick in hero from Skill where "Helper.Trained?"
+          if (ismore <> 0) then
+            append ", "
+            endif
+          append eachpick.field[name].text
+          ismore = 1
+          nexteach
+        append @newline
+
+        ~output skill values
+        tagexpr = "component.Skill"
+        call sbtraits
+
+        ~output special abilities
+        if (hero.haschild[Feat] <> 0) then
+          append @boldon & "Feats: " & @boldoff & @newline
+          tagexpr = "component.Feat"
+          isvalue = 0
+          call sbtraits
+          isvalue = 1
+          endif
+
+        ~output monster options
+        if (hero.haschild[MonsterOpt] <> 0) then
+          append @boldon & "Features: " & @boldoff & @newline
+          tagexpr = "component.MonsterOpt"
+          isvalue = 0
+          call sbtraits
+          isvalue = 1
+          endif
+
+        ~output powers
+        append @boldon & "Powers: " & @boldoff & @newline
+        ismore = 0
+        foreach pick in hero where "(component.Power & PowerType.? & !PowerType.Feature) | component.PowerUser" sortas ReqLevel
+          if (ismore <> 0) then
+            append @newline
+            endif
+          if (eachpick.tagis[ReqLevel.?] <> 0) then
+            append eachpick.tagvalue[ReqLevel.?] & ", "
+            endif
+          if (eachpick.tagis[PowerType.?] <> 0) then
+            append eachpick.tagnames[PowerType.?, "???"]
+          else
+            append eachpick.tagnames[PowerUse.?, "???"]
+            endif
+          append ": " & eachpick.field[name].text
+          ismore = 1
+          nexteach
+        append @newline & @newline
+
+        ~output rituals
+        if (hero.haschild[Ritual,"TRUE"] <> 0) then
+          append @boldon & "Rituals: " & @boldoff & @newline
+          tagexpr = "component.Ritual"
+          isvalue = 0
+          call sbtraits
+          isvalue = 1
+          endif
+
+        ~output weapons/attacks
+        call sbweapons
+
+        ~output armor
+        call sbarmor
+
+        ~output tracked resources
+        call sbtrackres
+
+        ~output NPC details if this character is a NPC - if any field for any
+        ~of the three blocks of text is set, output that block
+        doneif (hero.tagis[Hero.Monster] = 0)
+        var tagexpr as string
+        var title as string
+
+        ~values of up to 15 are basic details only
+        tagexpr = "val:explicit.? <= 15"
+        title = "Basic Details"
+        call sbnpcinfo
+
+        ~values of up to 30 are tactics
+        tagexpr = "val:explicit.? > 15 & val:explicit.? <= 30"
+        title = "Tactics"
+        call sbnpcinfo
+
+        ~values of up to 45 are ecology
+        tagexpr = "val:explicit.? > 30 & val:explicit.? <= 45"
+        title = "Ecology"
+        call sbnpcinfo
+
+        ~anything else is extra
+        tagexpr = "val:explicit.? > 45"
+        title = "Additional Details"
+        call sbnpcinfo
+        ]]></synthesize>
+      </dossier_text>
+    </dossier>
+
+
+  </document>

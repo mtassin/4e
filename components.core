@@ -1,0 +1,2204 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the definitions of assorted components that are utilized by
+      multiple component sets. Since the component sets require that all referenced
+      components must already be defined, and we can't control the compilation order
+      of files with the same filename extension, these shared components are placed in
+      a file with a ".core" extension to ensure they are processed before the various
+      ".pri" and ".aug" files.
+-->
+
+<document signature="Hero Lab Structure">
+
+  <!-- Tracker component
+        For managing user-controlled resource pools such as power points, etc. One
+        field tracks the current user-assigned value, the appropriate bounds for the
+        user value being dictated by other fields.
+  -->
+  <component
+    id="Tracker"
+    name="Tracker">
+
+    <!-- Minimum value for resource -->
+    <field
+      id="trkMin"
+      name="Minimum Value"
+      type="derived">
+      </field>
+
+    <!-- Maximum value for resource -->
+    <field
+      id="trkMax"
+      name="Maximum Value"
+      type="derived">
+      </field>
+
+    <!-- User value assigned for the quantity spent of the resource -->
+    <field
+      id="trkUser"
+      name="User Value"
+      type="user"
+      usedelta="yes"
+      maxfinal="40">
+      <!-- Value is bounded by the minimum and maximum limits specified -->
+      <bound phase="Render" priority="1000"><![CDATA[
+        if (tagis[Helper.NoMinBound] = 0) then
+          @minimum = field[trkMin].value
+          endif
+        if (tagis[Helper.NoMaxBound] = 0) then
+          @maximum = field[trkMax].value
+          endif
+        ]]></bound>
+      <!-- Final value for display shows the value and the maximum limit -->
+      <finalize><![CDATA[
+        if (tagis[Helper.NoMaxBound] = 0) then
+          @text &= "{size 32}{text a0a0a0}/" & field[trkMax].value
+          endif
+        ]]></finalize>
+      </field>
+
+    <!-- Quantity of resource leftover -->
+    <field
+      id="trkLeft"
+      name="Quantity Remaining"
+      type="derived">
+      <!-- Quantity remaining unused is auto-calculated -->
+      <calculate phase="Final" priority="1000" name="Calc trkLeft"><![CDATA[
+        @value = field[trkMax].value - field[trkUser].value
+        ]]></calculate>
+      </field>
+
+    </component>
+
+
+  <!-- UserSelect component
+        Used for things that require the presentation of user selection options to
+        customize a pick within a table. For example, a special ability that requires
+        the user to select an attribute to be associated would use the menus offered
+        by this component to easily add the capability. You can use the "UserSelect"
+        template in the file "visual.dat" to manage the pick within a table or adapt
+        the mechanisms therein for your own needs.
+  -->
+  <component
+    id="UserSelect"
+    name="User Selection"
+    autocompset="no"
+    ispublic="no">
+
+    <!-- Text to display with the checkbox
+          NOTE! If this field is empty, it means NO checkbox is shown for the pick.
+    -->
+    <field
+      id="usrChkText"
+      name="Checkbox Text"
+      type="derived"
+      maxlength="100">
+      </field>
+
+    <!-- Indicates whether the checkbox is selected is not -->
+    <field
+      id="usrIsCheck"
+      name="Checked?"
+      type="user"
+      minvalue="0"
+      maxvalue="1">
+      </field>
+
+    <!-- Tracks the first selection made when a menu choice is required -->
+    <field
+      id="usrChosen1"
+      name="Chosen Thing / Pick #1"
+      type="user"
+      style="menu">
+      </field>
+
+    <!-- Candidate tagexpr used to determine which picks/things are shown in menu #1
+          NOTE! If this field is empty, it means NO first menu is shown for the pick.
+    -->
+    <field
+      id="usrCandid1"
+      name="Candidate TagExpr for Menu #1"
+      type="derived"
+      maxlength="1000"
+      defvalue="">
+      </field>
+
+    <!-- Source to pull choices from within menu #1 -->
+    <field
+      id="usrSource1"
+      name="Source for Menu #1 Choices"
+      type="derived">
+      <!-- Determine the source to choose from based on the tag, defaulting to "Hero" -->
+      <calculate phase="Render" priority="10000"><![CDATA[
+        if (tagis[ChooseSrc1.Thing] <> 0) then
+          @value = 0
+        elseif (tagis[ChooseSrc1.Container] <> 0) then
+          @value = 1
+        elseif (tagis[ChooseSrc1.Hero] <> 0) then
+          @value = 2
+        else
+          @value = 2
+          endif
+        ]]></calculate>
+      </field>
+
+    <!-- Tracks the second selection made when a menu choice is required -->
+    <field
+      id="usrChosen2"
+      name="Chosen Thing / Pick #2"
+      type="user"
+      style="menu">
+      </field>
+
+    <!-- Candidate tagexpr used to determine which picks/things are shown in menu #2
+          NOTE! If this field is empty, it means NO second menu is shown for the pick.
+    -->
+    <field
+      id="usrCandid2"
+      name="Candidate TagExpr for Menu #2"
+      type="derived"
+      maxlength="1000"
+      defvalue="">
+      </field>
+
+    <!-- Source to pull choices from within menu #2 -->
+    <field
+      id="usrSource2"
+      name="Source for Menu #2 Choices"
+      type="derived">
+      <!-- Determine the source to choose from based on the tag, defaulting to "Hero" -->
+      <calculate phase="Render" priority="10000"><![CDATA[
+        if (tagis[ChooseSrc2.Thing] <> 0) then
+          @value = 0
+        elseif (tagis[ChooseSrc2.Container] <> 0) then
+          @value = 1
+        elseif (tagis[ChooseSrc2.Hero] <> 0) then
+          @value = 2
+        else
+          @value = 2
+          endif
+        ]]></calculate>
+      </field>
+
+    <!-- Array of text items user can select from
+          NOTE! If the 0th element is empty, it means NO menu is shown for the pick.
+    -->
+    <field
+      id="usrArray"
+      name="Array of Items to Choose"
+      type="derived"
+      style="array"
+      arrayrows="15"
+      maxlength="30">
+      </field>
+
+    <!-- Item selected from the array -->
+    <field
+      id="usrSelect"
+      name="Selected Item in Array"
+      type="user"
+      maxlength="30">
+      </field>
+
+    <!-- Name displayed in configurable pick templates (i.e. the class tab) -->
+    <field
+      id="usrConfNm"
+      name="Configurable Template Name"
+      type="derived"
+      maxfinal="150">
+      <finalize><![CDATA[
+        @text = field[thingname].text
+
+        var level as number
+        if (tagis[AtLevel.?] <> 0) then
+          level = tagvalue[AtLevel.?]
+          endif
+        doneif (level <= 1)
+
+        @text = "{text 808080}(" & level & "){text 010101} " & @text
+        ]]></finalize>
+      </field>
+
+    <!-- Initialize the current array-based selection from the array if not defined -->
+    <creation><![CDATA[
+      if (empty(field[usrArray].arraytext[0]) = 0) then
+        if (field[usrSelect].isempty <> 0) then
+          field[usrSelect].text = field[usrArray].arraytext[0]
+          endif
+        endif
+      ]]></creation>
+
+    <!-- This tag is added for sorting in the BuildLast sort set - it is deleted
+        off BuildOpt components, but remains on everything else, allowing
+        Build Options to be sorted last. -->
+    <tag group="BuildLast" tag="NotBuild"/>
+
+    <eval index="1" phase="Setup" priority="1000"><![CDATA[
+      ~if we already have a configuration source tag, get out now
+      doneif (tagis[ConfSource.?] <> 0)
+
+      ~if we don't have a bootstrap source, there's nothing we can do here
+      doneif (isroot = 0)
+
+      ~ Add a tag to indicate our source, so that the pick can be displayed in
+      ~ the appropriate table
+      if (root.tagis[component.Race] <> 0) then
+        perform assign[ConfSource.Race]
+      elseif (root.tagis[component.Class] <> 0) then
+        perform assign[ConfSource.Class]
+      elseif (root.tagis[component.Feat] <> 0) then
+        perform assign[ConfSource.Feat]
+      elseif (root.tagis[component.Paragon] <> 0) then
+        perform assign[ConfSource.Paragon]
+      elseif (root.tagis[component.EpicDest] <> 0) then
+        perform assign[ConfSource.EpicDest]
+      elseif (root.tagis[component.Theme] <> 0) then
+        perform assign[ConfSource.Theme]
+        endif
+      ]]></eval>
+
+    <!-- If we're too low level for this power, hide it on the special tab -->
+    <eval index="2" phase="Setup" priority="5000">
+      <after name="Level final"/>
+      <![CDATA[
+      ~if we don't have a level, do nothing
+      doneif (tagis[ReqLevel.?] = 0)
+
+      ~if we're the right level, do nothing
+      doneif (hero.tagvalue[Level.?] >= tagvalue[ReqLevel.?])
+
+      ~otherwise, disable us in the powers list
+      perform assign[Hide.Special]
+      ]]></eval>
+
+
+    <!-- Integrate the various user selections into the name of the pick
+          NOTE! Must be scheduled after the "shortname" field is synthesized at Render/100.
+    -->
+    <eval index="4" phase="Render" priority="500"><![CDATA[
+      ~if we're not supposed to auto-amend the name for this pick, we're done
+      doneif (tagis[User.NoAutoName] <> 0)
+
+      ~if we have thing-based menus, determine the text to append to the name
+      var choices as string
+      if (field[usrCandid1].isempty = 0) then
+        if (field[usrChosen1].ischosen <> 0) then
+          choices = field[usrChosen1].chosen.field[name].text
+        else
+          choices = "-Choose-"
+          endif
+        if (field[usrChosen2].ischosen <> 0) then
+          choices &= ", " & field[usrChosen2].chosen.field[name].text
+          endif
+
+      ~if we have an array-based menu, determine the text to append
+      elseif (empty(field[usrArray].arraytext[0]) = 0) then
+        choices = field[usrSelect].text
+
+      ~if we have a selected checkbox, determine the text to append
+      elseif (field[usrChkText].isempty = 0) then
+        if (field[usrIsCheck].value <> 0) then
+          choices = field[usrChkText].text
+          endif
+        endif
+
+      ~if we have no text to append, we're done
+      doneif (empty(choices) <> 0)
+
+      ~add the selection to both the livename and shortname (if present) fields
+      field[livename].text = field[name].text & ": " & choices
+      if (tagis[component.shortname] <> 0) then
+        field[shortname].text &= " (" & choices & ")"
+        endif
+      ]]></eval>
+
+    <!-- Report a validation error if no selection has been made for a menu selection -->
+    <evalrule phase="Validate" priority="10000" message="You must choose an option" summary="Choose!"><![CDATA[
+      ~determine the number of menus that NEED selection
+      ~Note: Remember that a non-empty tagexpr field indicates menu selection is used.
+      var needed as number
+      needed = !field[usrCandid1].isempty + !field[usrCandid2].isempty
+      needed += !empty(field[usrArray].arraytext[0])
+
+      ~if we need to be chosen but aren't, we're valid
+      validif (tagexpr[User.NeedChosen & !Helper.ChosenOpt] <> 0)
+
+      ~if our level is too low for this, we don't need to select something yet
+      if (tagis[AtLevel.?] <> 0) then
+        validif (hero.tagvalue[Level.?] < tagvalue[AtLevel.?])
+        endif
+      if (tagis[ReqLevel.?] <> 0) then
+        validif (hero.tagvalue[Level.?] < tagvalue[ReqLevel.?])
+        endif
+
+      ~if this is a build option or hybrid talent that hasn't been chosen, we
+      ~don't need anything because the user can't pick anything
+      if (tagis[component.BuildOpt] + tagis[component.HybridTal] <> 0) then
+        if (tagis[Helper.ChosenOpt] = 0) then
+          needed = 0
+          endif
+        endif
+      if (tagis[User.FeatureChk] <> 0) then
+        if (activated = 0) then
+          needed = 0
+          endif
+        endif
+
+      ~determine the number of menus that HAVE selections
+      var actual as number
+      if (field[usrCandid1].isempty = 0) then
+        actual += field[usrChosen1].ischosen
+        endif
+      if (field[usrCandid2].isempty = 0) then
+        actual += field[usrChosen2].ischosen
+        endif
+      if (field[usrSelect].isempty = 0) then
+        actual += 1
+        endif
+
+      ~if the user has chosen something whenever required, we're valid
+      if (actual >= needed) then
+        @valid = 1
+        done
+        endif
+
+      ~mark any associated tab as invalid
+      if (ispanel <> 0) then
+        linkvalid = 0
+        endif
+      ]]></evalrule>
+
+    </component>
+
+
+  <!-- Requires component
+        Everything that has complex requirements (e.g. feats and paragon paths)
+        should derive from this component
+  -->
+  <component
+    id="Requires"
+    name="Requirements"
+    autocompset="no"
+    ispublic="no">
+
+    <field
+      id="reqText"
+      name="Prerequisite Text"
+      type="static"
+      maxlength="1000">
+      </field>
+
+    <field
+      id="reqStr"
+      name="Strength Required"
+      type="static">
+      </field>
+    <field
+      id="reqDex"
+      name="Dexterity Required"
+      type="static">
+      </field>
+    <field
+      id="reqCon"
+      name="Constitution Required"
+      type="static">
+      </field>
+    <field
+      id="reqInt"
+      name="Intelligence Required"
+      type="static">
+      </field>
+    <field
+      id="reqWis"
+      name="Wisdom Required"
+      type="static">
+      </field>
+    <field
+      id="reqCha"
+      name="Charisma Required"
+      type="static">
+      </field>
+
+    <!-- Check to make sure we're the appropriate "tier". -->
+    <prereq message="Tier requirement not met.">
+
+      <match><![CDATA[
+        Tier.Paragon | Tier.Epic
+        ]]></match>
+
+      <validate><![CDATA[
+        ~check our level requirement
+        var reqlevel as number
+        var tiername as string
+        if (altthing.tagis[Tier.Epic] <> 0) then
+          reqlevel = 21
+          tiername = "Epic"
+        else
+          reqlevel = 11
+          tiername = "Paragon"
+          endif
+
+        ~if we're over our level requirement, we're good
+        if (hero.tagvalue[Level.?] >= reqlevel) then
+          @valid = 1
+          done
+          endif
+
+        ~we're not valid, so set up an appropriate message
+        @message = "Requires " & tiername & " Tier (level " & reqlevel & ")"
+        ]]></validate>
+      </prereq>
+
+    <!-- Check to make sure we're the appropriate level. -->
+    <prereq message="Level requirement not met.">
+
+      <match><![CDATA[
+        ReqLevel.?
+        ]]></match>
+
+      <validate><![CDATA[
+        ~check our level requirement
+        var reqlevel as number
+        reqlevel = altthing.tagvalue[ReqLevel.?]
+        if (reqlevel = 0) then
+          @valid = 1
+          done
+          endif
+
+        ~if we're over our level requirement, we're good
+        if (hero.tagvalue[Level.?] >= reqlevel) then
+          @valid = 1
+          done
+          endif
+
+        ~if we're a pick and have the 'bad level ok' tag, we're fine - the
+        ~error will be handled some other way
+        if (@ispick <> 0) then
+          if (altpick.tagis[User.BadLevelOK] <> 0) then
+            @valid = 1
+            done
+            endif
+          endif
+
+        ~we're not valid, so set up an appropriate message
+        @message = "Requires level " & reqlevel
+        ]]></validate>
+      </prereq>
+
+    <!-- Check to make sure we're the right race. -->
+    <prereq message="Race requirement not met.">
+
+      <match><![CDATA[
+        ReqRace.?
+        ]]></match>
+
+      <validate><![CDATA[
+        @valid = altthing.intersect[ReqRace,Race]
+        @message = altthing.tagnames[ReqRace.?, ", "] & " race required"
+        ]]></validate>
+      </prereq>
+
+    <!-- Check to make sure we're the right class. -->
+    <prereq message="Class requirement not met.">
+
+      <match><![CDATA[
+        ReqClass.?
+        ]]></match>
+
+      <validate><![CDATA[
+        @valid = altthing.intersect[ReqClass,Class] + altthing.intersect[ReqClass,Multiclass]
+        @message = altthing.tagnames[ReqClass.?, ", "] & " class required"
+        ]]></validate>
+      </prereq>
+
+    <!-- Check to make sure we worship the right deity. -->
+    <prereq message="Deity requirement not met.">
+
+      <match><![CDATA[
+        ReqDeity.?
+        ]]></match>
+
+      <validate><![CDATA[
+        @valid = altthing.intersect[ReqDeity,Deity]
+        @message = "Must worship " & altthing.tagnames[ReqDeity.?, ", "]
+        ]]></validate>
+      </prereq>
+
+    <!-- Check to make sure we're the right role. -->
+    <prereq message="Role requirement not met.">
+
+      <match><![CDATA[
+        ReqRole.?
+        ]]></match>
+
+      <validate><![CDATA[
+        @valid = altthing.intersect[ReqRole,ClassRole]
+        @message = altthing.tagnames[ReqRole.?, ", "] & " role required"
+        ]]></validate>
+      </prereq>
+
+    <!-- Check to make sure we're the right background (doesn't apply to actual
+        backgrounds). -->
+    <prereq message="Background requirement not met.">
+
+      <match><![CDATA[
+        ReqBackgr.? & !component.Background
+        ]]></match>
+
+      <validate><![CDATA[
+        @valid = altthing.intersect[ReqBackgr,Background]
+        @message = altthing.tagnames[ReqBackgr.?, ", "] & " background required"
+        ]]></validate>
+      </prereq>
+
+    <!-- Check to make sure we're the right power source. -->
+    <prereq message="Power Source requirement not met.">
+
+      <match><![CDATA[
+        ReqPwrSrc.?
+        ]]></match>
+
+      <validate><![CDATA[
+        @valid = altthing.intersect[ReqPwrSrc,PowerSrc]
+        @message = altthing.tagnames[ReqPwrSrc.?, ", "] & " power source required"
+        ]]></validate>
+      </prereq>
+
+    <!-- Check to make sure we have appropriate trained skills. -->
+    <prereq message="Skill requirement not met.">
+
+      <match><![CDATA[
+        ReqSkill.?
+        ]]></match>
+
+      <validate><![CDATA[
+        @valid = 1
+
+        var expr as string
+        expr = altthing.tagids[ReqSkill.?, " | "]
+        foreach pick in hero from Skill where expr
+          if (eachpick.tagis[Helper.Trained?] = 0) then
+            @valid = 0
+            @message = "Must be trained in " & altthing.tagnames[ReqSkill.?, ", "]
+            done
+            endif
+          nexteach
+        ]]></validate>
+      </prereq>
+
+    <!-- Check to make sure we have appropriate weapon proficiencies. -->
+    <prereq message="Weapon proficiency requirement not met.">
+
+      <match><![CDATA[
+        ReqWepProf.?
+        ]]></match>
+
+      <validate><![CDATA[
+        ~find a weapon with the appropriate id tag
+        var expr as string
+        expr = altthing.tagids[ReqWepProf.?, " | "]
+        foreach thing in WeaponBase where expr
+
+          ~first, check to see if we're proficient with this specific weapon
+          validif (eachthing.intersect[WeaponProf,WeaponProf] <> 0)
+
+          ~check to see if we're proficient with this weapon category for melee or
+          ~ranged weapons
+          if (eachthing.tagis[component.WeapMelee] <> 0) then
+            validif (eachthing.intersect[WepCat,WpCatRqMel] <> 0)
+          else
+            validif (eachthing.intersect[WepCat,WpCatRqRng] <> 0)
+            endif
+
+          ~check to see if we're proficient with this weapon category / group
+          ~combination
+          if (eachthing.tagis[WepCat.wcSimple] <> 0) then
+            validif (eachthing.intersect[WpGrpRqSim,WepGroup] <> 0)
+          elseif (eachthing.tagis[WepCat.wcMilitary] <> 0) then
+            validif (eachthing.intersect[WpGrpRqMil,WepGroup] <> 0)
+          elseif (eachthing.tagis[WepCat.wcSuperior] <> 0) then
+            validif (eachthing.intersect[WpGrpRqSup,WepGroup] <> 0)
+            endif
+
+          nexteach
+        ]]></validate>
+      </prereq>
+
+    <!-- Check to make sure we have high enough ability scores. -->
+    <prereq message="Ability score requirement not met.">
+
+      <validate><![CDATA[
+        @valid = 1
+
+        if (altthing.field[reqStr].value > hero.child[attrStr].field[trtFinal].value) then
+          @valid = 0
+          done
+        elseif (altthing.field[reqDex].value > hero.child[attrDex].field[trtFinal].value) then
+          @valid = 0
+          done
+        elseif (altthing.field[reqCon].value > hero.child[attrCon].field[trtFinal].value) then
+          @valid = 0
+          done
+        elseif (altthing.field[reqInt].value > hero.child[attrInt].field[trtFinal].value) then
+          @valid = 0
+          done
+        elseif (altthing.field[reqWis].value > hero.child[attrWis].field[trtFinal].value) then
+          @valid = 0
+          done
+        elseif (altthing.field[reqCha].value > hero.child[attrCha].field[trtFinal].value) then
+          @valid = 0
+          done
+          endif
+        ]]></validate>
+      </prereq>
+
+    <!-- Check Channel Divinity presence. -->
+    <prereq message="Channel Divinity feature required.">
+
+      <match><![CDATA[
+        User.ReqChanDiv
+        ]]></match>
+
+      <validate><![CDATA[
+        validif (hero.tagis[Hero.ChannelDiv] <> 0)
+        ]]></validate>
+      </prereq>
+
+    </component>
+
+
+  <!-- Adjustment component
+        Used for managing all types of adjustments (e.g. permanent and in-play). One
+        field tracks whether the adjustment is activated. A user-defined value allows
+        for dynamic adjustments, with suitable bounds being specified for each
+        adjustment, while another field supports a fixed adjustment value. An
+        appropriate name is synthesized for the adjustment based on its nature.
+
+        For menu-based adjustments, one field tracks the choice selected by the user.
+        Another field controls the candidate tagexpr used to determine the valid set
+        of choices, and a third controls whether the menu displays things or picks for
+        the user to choose from.
+  -->
+  <component
+    id="Adjustment"
+    name="In-Play Adjustment"
+    orderfield="adjIndex">
+
+    <!-- Enabled/disabled state of adjustment - we're enabled by default -->
+    <field
+      id="adjEnabled"
+      name="Is Enabled?"
+      type="user"
+      defvalue="1"
+      minvalue="0"
+      maxvalue="1">
+      </field>
+
+    <!-- Minimum value allowed for the adjustment -->
+    <field
+      id="adjMinimum"
+      name="Minimum value"
+      type="static"
+      defvalue="-9">
+      </field>
+
+    <!-- Maximum value allowed for the adjustment -->
+    <field
+      id="adjMaximum"
+      name="Maximum value"
+      type="static"
+      defvalue="9">
+      </field>
+
+    <!-- User-defined adjustment value to apply -->
+    <field
+      id="adjUser"
+      name="Adjust By"
+      type="user"
+      maxfinal="100">
+      <!-- Value is bounded by the minimum and maximum limits specified -->
+      <bound phase="Setup" priority="10000"><![CDATA[
+        @minimum = field[adjMinimum].value
+        @maximum = field[adjMaximum].value
+        ]]></bound>
+      <!-- Final value for display should always be properly signed -->
+      <finalize><![CDATA[
+        ~if we're positive or 0, prepend a + sign
+        if (@value >= 0) then
+          @text = "+" & @text
+          endif
+        ]]></finalize>
+      </field>
+
+    <!-- If this is a fixed adjustment, this is the bonus to apply -->
+    <field
+      id="adjBonus"
+      name="Bonus for Fixed Items"
+      type="derived">
+      </field>
+
+    <!-- Tracks the selection made when a menu choice is required -->
+    <field
+      id="adjChosen"
+      name="Chosen Thing / Pick"
+      type="user"
+      style="menu">
+      </field>
+
+    <!--  Allow the user to annotate the source of the adjustment -->
+    <field
+      id="adjSource"
+      name="Adjustment Source"
+      type="user"
+      maxlength="100">
+      </field>
+
+    <!-- Allow the user to annotate the duration of the adjustment -->
+    <field
+      id="adjLasts"
+      name="Adjustment Duration"
+      type="user"
+      maxlength="100">
+      </field>
+
+    <!-- Modified name to be displayed (synthesized via an eval script below) -->
+    <field
+      id="adjName"
+      name="Name for Output"
+      type="derived"
+      maxlength="100">
+      </field>
+
+    <!-- Shortened name to be used on the TacCon -->
+    <field
+      id="adjShort"
+      name="Short Name for TacCon"
+      type="derived"
+      maxlength="25">
+      </field>
+
+    <!-- Long name for use in other situations -->
+    <field
+      id="adjLong"
+      name="Long Display Name"
+      type="derived"
+      maxlength="100">
+      </field>
+
+    <!-- Whether to use picks (or things) in the displayed menu -->
+    <field
+      id="adjUsePick"
+      name="Use Picks in Menu"
+      type="derived"
+      defvalue="2"> <!-- 0 = things; 1 = picks on container; 2 = picks on hero -->
+      <calculate phase="Render" priority="10000"><![CDATA[
+        if (tagis[ChooseSrc1.Thing] <> 0) then
+          @value = 0
+        elseif (tagis[ChooseSrc1.Container] <> 0) then
+          @value = 1
+        elseif (tagis[ChooseSrc1.Hero] <> 0) then
+          @value = 2
+          endif
+        ]]></calculate>
+      </field>
+
+    <!-- Candidate tagexpr used to determine which picks/things are shown in the menu -->
+    <field
+      id="adjCandid"
+      name="Include Candidate TagExpr"
+      type="derived"
+      maxlength="500"
+      defvalue="component.Attribute">
+      </field>
+
+    <!-- Setup an identity tag group to track all activated abilities and adjustments -->
+    <identity group="Activated"/>
+
+    <!-- If the adjustment is activated, designate it appropriately -->
+    <eval index="1" phase="Setup" priority="100"><![CDATA[
+      ~if we require menu selection, bail out if we don't have our selection yet
+      if (tagis[AdjustShow.Menu] <> 0) then
+        doneif (field[adjChosen].ischosen = 0)
+        endif
+
+      ~if we've been specifically hidden, bail out
+      doneif (tagis[Hide.InPlay] <> 0)
+
+      ~if we've been activated by the user, mark ourselves as activated; if this
+      ~is NOT a permanent adjustment, forward our identity tag to our parent actor;
+      ~this allows the actor to know when temporary in-play adjustments are active
+      if (field[adjEnabled].value <> 0) then
+        perform assign[Helper.Activated]
+        if (tagis[InPlay.Permanent] = 0) then
+          perform forward[Activated.?]
+          endif
+        endif
+      ]]></eval>
+
+    <!-- Synthesize our name for printouts and mouse info
+          NOTE! We must schedule this AFTER the "shortname" field is set at Render/100.
+    -->
+    <eval index="2" phase="Render" priority="1000"><![CDATA[
+      ~if we require menu selection, bail out if we don't have our selection yet
+      if (tagis[AdjustShow.Menu] <> 0) then
+        doneif (field[adjChosen].ischosen = 0)
+        endif
+
+      ~if we've been specifically hidden, bail out
+      doneif (tagis[Hide.InPlay] <> 0)
+
+      ~if we have a menu, append the name of the menu selection, else use our direct name;
+      ~build a short version of the name at the same time
+      var name as string
+      var short as string
+      if (tagis[AdjustShow.Menu] <> 0) then
+        perform field[adjChosen].chosen.setfocus
+        name &= focus.field[name].text
+        if (focus.tagis[component.shortname] <> 0) then
+          short = focus.field[shortname].text
+          endif
+      else
+        name &= field[name].text
+        if (tagis[component.shortname] <> 0) then
+          short = field[shortname].text
+          endif
+        endif
+
+      ~if we don't have a short name, just use the regular name
+      if (empty(short) <> 0) then
+        short = name
+        endif
+
+      ~if we're adjustable, determine the adjustment value, else get any fixed bonus
+      var bonus as number
+      if (tagis[AdjustShow.Increment] <> 0) then
+        bonus = field[adjUser].value
+      else
+        bonus = field[adjBonus].value
+        endif
+
+      ~append any adjustment value, including a suitable "+" if positive or zero
+      if (bonus <> -999999) then
+        name &= " "
+        short &= " "
+        if (bonus >= 0) then
+          name &= "+"
+          short &= "+"
+          endif
+        name &= bonus
+        short &= bonus
+        endif
+
+      ~save our synthesized names
+      field[adjName].text = name
+      field[adjShort].text = short
+      ]]></eval>
+
+    <!-- Report a validation error if no selection has been made for a menu selection -->
+    <evalrule
+      phase="Validate"
+      priority="10000"
+      message="Choose an option!"
+      summary="Choose!"><![CDATA[
+      ~if no choice is needed, we're valid
+      if (tagis[AdjustShow.Menu] = 0) then
+        @valid = 1
+        done
+        endif
+
+      ~if the user has chosen something, we're valid
+      if (field[adjChosen].ischosen <> 0) then
+        @valid = 1
+        done
+        endif
+
+      ~report an error
+      @message = "You must choose an option."
+      if (tagis[InPlay.Permanent] <> 0) then
+        container.panelvalid[personal] = 0
+      else
+        container.panelvalid[inplay] = 0
+        endif
+      ]]></evalrule>
+
+    </component>
+
+
+  <!-- SpecialTab component
+        Used for anything that must appear on the "Special" tab. A field controls
+        whether the user designated the entry for promotion to the top of the list.
+        Another provides a customized name for display, which can be generated for
+        certain things, as needed.
+  -->
+  <component
+    id="SpecialTab"
+    name="Special Tab Entry">
+
+    <!-- Whether entry has been promoted to the top -->
+    <field
+      id="spcPromote"
+      name="Promoted?"
+      type="user">
+      </field>
+
+    <!-- Whether entry will be printed in the power cards list -->
+    <field
+      id="spcPrint"
+      name="Prints in Power Cards list?"
+      type="user"
+      defvalue="1">
+      </field>
+
+    <!-- Custom name for display on the tab (if needed) -->
+    <field
+      id="spcName"
+      name="Special Name"
+      type="derived"
+      maxlength="100">
+      </field>
+
+    <!-- Number of times ability can be used -->
+    <field
+      id="spcMax"
+      name="Maximum # Uses"
+      type="derived"
+      defvalue="1"
+      minvalue="1">
+      </field>
+
+    <!-- Number of times ability has been used -->
+    <field
+      id="spcUsed"
+      name="Use Count"
+      type="user"
+      minvalue="0">
+      <bound phase="Traits" priority="10000" name="spcUsed bounded"><![CDATA[
+        @minimum = 0
+        @maximum = field[spcMax].value
+        ]]></bound>
+      </field>
+
+    <!-- Notes - used by attack powers to show total attack bonus - plus a
+        short version of same -->
+    <field
+      id="spcNotes"
+      name="Special Notes"
+      type="derived"
+      maxlength="500">
+      </field>
+    <field
+      id="spcShort"
+      name="Special Short Notes"
+      type="derived"
+      maxlength="500">
+      </field>
+    <field
+      id="spcSumm"
+      name="Special Summary Notes"
+      type="derived"
+      maxlength="500">
+      </field>
+
+    <!-- Other informational fields used by the printout -->
+    <field
+      id="spcWep1"
+      name="Weapon for Summary Attack"
+      type="derived"
+      maxlength="100">
+      </field>
+    <field
+      id="spcBonus1"
+      name="Bonus for Summary Attack"
+      type="derived"
+      maxfinal="25">
+      <finalize><![CDATA[
+        @text = signed(@value)
+        ]]></finalize>
+      </field>
+
+    <!-- Every thing that is shown on the Special tab also gets shown on the Dashboard/TacCon -->
+    <tag group="DashTacCon" tag="Special"/>
+
+    <!-- Assign an appropriate ordering tag if we don't have one yet -->
+    <eval index="1" phase="Final" priority="10000" name="Assign SpecialTab"><![CDATA[
+      if (tagis[SpecialTab.?] = 0) then
+        perform assign[SpecialTab.Unknown]
+        endif
+
+      ~If we don't meet the criteria for display on the Powers list, hide us
+      if (tagexpr[Helper.Disable | (User.NeedChosen & !Helper.ChosenOpt)] <> 0) then
+        perform assign[Hide.Special]
+      elseif (tagis[User.FeatureChk] <> 0) then
+        if (activated = 0) then
+          perform assign[Hide.Special]
+          endif
+        endif
+      ]]></eval>
+
+    <!-- If the "promote" field is non-zero, assign ourselves the "Promote.Top" tag -->
+    <eval index="2" phase="Setup" priority="9000"><![CDATA[
+      ~if we're not a power or a separator, we get the 'feature' tag so we sort
+      ~correctly
+      if (tagis[component.Power] + tagis[Separator.Yes] = 0) then
+        perform assign[PowerUse.Feature]
+        endif
+
+      ~if we have a "power override" tag, replace our "power use" tag with it
+      if (tagis[PowerOver.?] <> 0) then
+        perform delete[PowerUse.?]
+        perform pulltags[PowerOver.?,PowerUse]
+        endif
+
+      if (field[spcPromote].value <> 0) then
+        perform assign[Promote.Top]
+        endif
+      ]]></eval>
+
+    <evalrule index="1" phase="Validate" priority="10000"
+      message="Use limit exceeded"><![CDATA[
+      @valid = 1
+
+      ~count how many times this kind of power can be used - if it's an item
+      ~power, this depends on our level
+      var uses as number
+      if (tagexpr[!PowerLink.? | !component.Power] <> 0) then
+        uses = field[spcMax].value
+      else
+        uses = field[pwLinkUses].value
+        endif
+
+      ~count the number of times powers with this link tag have been used
+      var totalused as number
+      if (tagis[PowerLink.?] = 0) then
+        totalused = field[spcUsed].value
+      else
+        var expr as string
+        expr = tagids[PowerLink.?, " | "]
+        foreach pick in hero from SpecialTab where expr
+          totalused += eachpick.field[spcUsed].value
+          nexteach
+        endif
+
+      ~if we're under the max number of uses, we're done
+      doneif (totalused < uses)
+
+      ~if we're over the max number of uses, we're invalid
+      if (totalused > uses) then
+        @valid = 0
+        @message = "Too many " & tagnames[PowerLink.?, "???"] & " powers used"
+        perform assign[Helper.Exceeded]
+
+      ~otherwise, we've merely run out of uses
+      else
+        perform assign[Helper.Exhausted]
+        perform assign[Helper.ExPwrItem]
+        endif
+      ]]></evalrule>
+
+    </component>
+
+
+  <!-- Race component
+        Each race derives from this component
+  -->
+  <component
+    id="Race"
+    name="Race"
+    autocompset="no">
+
+    <field
+      id="racFlavor"
+      name="Flavor Text"
+      type="static"
+      maxlength="1000">
+      </field>
+
+    <field
+      id="racStr"
+      name="Strength Bonus"
+      type="static">
+      </field>
+    <field
+      id="racDex"
+      name="Dexterity Bonus"
+      type="static">
+      </field>
+    <field
+      id="racCon"
+      name="Constitution Bonus"
+      type="static">
+      </field>
+    <field
+      id="racInt"
+      name="Intelligence Bonus"
+      type="static">
+      </field>
+    <field
+      id="racWis"
+      name="Wisdom Bonus"
+      type="static">
+      </field>
+    <field
+      id="racCha"
+      name="Charisma Bonus"
+      type="static">
+      </field>
+    <field
+      id="racInit"
+      name="Initiative Bonus"
+      type="static">
+      </field>
+    <field
+      id="racSpeed"
+      name="Speed (Squares)"
+      type="static"
+      defvalue="6"
+      maxfinal="25">
+      <finalize><![CDATA[
+        @text &= " squares"
+        ]]></finalize>
+      </field>
+    <field
+      id="racFeat"
+      name="Bonus Feats"
+      type="static">
+      </field>
+    <field
+      id="racSkill"
+      name="Bonus Trained Skills"
+      type="static">
+      </field>
+    <field
+      id="racLang"
+      name="Bonus Languages"
+      type="static">
+      </field>
+    <field
+      id="racFort"
+      name="Fortitude Save Bonus"
+      type="static">
+      </field>
+    <field
+      id="racRef"
+      name="Reflex Save Bonus"
+      type="static">
+      </field>
+    <field
+      id="racWill"
+      name="Will Save Bonus"
+      type="static">
+      </field>
+    <field
+      id="racAC"
+      name="Natural armor bonus"
+      type="static">
+      </field>
+
+    <field
+      id="racHtMin"
+      name="Minimum Height (inches)"
+      type="static">
+      </field>
+    <field
+      id="racHtMax"
+      name="Maximum Height (inches)"
+      type="static">
+      </field>
+    <field
+      id="racWtMin"
+      name="Minimum Weight (lbs)"
+      type="static">
+      </field>
+    <field
+      id="racWtMax"
+      name="Maximum Weight (lbs)"
+      type="static">
+      </field>
+
+    <!-- Each race needs its own identity tag to configure the hero appropriately -->
+    <identity group="Race"/>
+
+    <!-- Also a tag to use to note that certain things (e.g. feats) require
+        certain races -->
+    <identity group="ReqRace"/>
+
+    <!-- Don't show prestige classes if the ruleset is enabled -->
+    <condtest phase="Initialize" priority="0">
+      <match><![CDATA[
+        User.StdRace
+        ]]></match><![CDATA[
+      !source.HideStdRac
+      ]]></condtest>
+
+    <!-- Track the race on the actor by assigning the appropriate tag -->
+    <eval index="1" phase="Setup" priority="3000" name="Race tag final">
+      <before name="Size final"/><![CDATA[
+      perform forward[Race.?]
+
+      ~ Add appropriate bonuses
+      #traitmodify[attrStr,trtRacial,field[racStr].value,""]
+      #traitmodify[attrDex,trtRacial,field[racDex].value,""]
+      #traitmodify[attrCon,trtRacial,field[racCon].value,""]
+      #traitmodify[attrInt,trtRacial,field[racInt].value,""]
+      #traitmodify[attrWis,trtRacial,field[racWis].value,""]
+      #traitmodify[attrCha,trtRacial,field[racCha].value,""]
+
+      #traitmodify[defFort,trtRacial,field[racFort].value,""]
+      #traitmodify[defRef,trtRacial,field[racRef].value,""]
+      #traitmodify[defWill,trtRacial,field[racWill].value,""]
+      #traitmodify[defAC,trtRacial,field[racAC].value,""]
+
+      hero.child[resFeats].field[resMax].value += field[racFeat].value
+      hero.child[resLangSta].field[resMax].value += field[racLang].value
+      hero.child[resSkills].field[resMax].value += field[racSkill].value
+
+      hero.child[mscPerson].field[perHtMin].value = field[racHtMin].value
+      hero.child[mscPerson].field[perHtMax].value = field[racHtMax].value
+      hero.child[mscPerson].field[perWtMin].value = field[racWtMin].value
+      hero.child[mscPerson].field[perWtMax].value = field[racWtMax].value
+
+      #traitmodify[trInit,trtRacial,field[racInit].value,""]
+
+      #traitmodify[trSpeed,trtRacial,field[racSpeed].value,""]
+
+      if (tagis[Size.Tiny] <> 0) then
+        #traitmodify[trSize,trtRacial,-2,""]
+      elseif (tagis[Size.Small] <> 0) then
+        #traitmodify[trSize,trtRacial,-1,""]
+      elseif (tagis[Size.Large] <> 0) then
+        #traitmodify[trSize,trtRacial,1,""]
+      elseif (tagis[Size.Huge] <> 0) then
+        #traitmodify[trSize,trtRacial,2,""]
+      elseif (tagis[Size.Gargantuan] <> 0) then
+        #traitmodify[trSize,trtRacial,3,""]
+        endif
+
+      perform forward[ArmorProf.?]
+      perform forward[WeaponProf.?]
+      perform forward[ImplemType.?]
+
+      perform forward[Vision.?]
+
+      var expr as string
+      if (tagis[SkillBonus.?] <> 0) then
+        expr = tagids[SkillBonus.?, " | "]
+        foreach pick in hero from Skill where expr
+          perform eachpick.field[trtRacial].modify[+,2,""]
+          nexteach
+        endif
+
+      ~any races on the lead are "important" picks, as without them the lead
+      ~wouldn't be able to be loaded properly. We assume races on minions are
+      ~less important and aren't worth flagging if they won't load properly.
+      if (hero.isminion = 0) then
+        perform assign[thing.important]
+        endif
+      ]]></eval>
+
+    </component>
+
+
+  <!-- Class component
+        Each class derives from this component
+  -->
+  <component
+    id="Class"
+    name="Class"
+    autocompset="no">
+
+    <!-- Various informational fields -->
+    <field
+      id="clsFlavor"
+      name="Flavor Text"
+      type="static"
+      maxlength="1000">
+      </field>
+    <field
+      id="clsRoleTxt"
+      name="Role Text"
+      type="static"
+      maxlength="1000">
+      </field>
+    <field
+      id="clsSrcTxt"
+      name="Power Source Text"
+      type="static"
+      maxlength="1000">
+      </field>
+
+    <!-- Number of trained skills you can pick from the class list -->
+    <field
+      id="clsSkills"
+      name="Trained Skills"
+      type="static"
+      minvalue="0"
+      maxvalue="10">
+      </field>
+
+    <!-- Defense bonuses -->
+    <field
+      id="clsFort"
+      name="Fortitude Defense Bonus"
+      type="static">
+      </field>
+    <field
+      id="clsRef"
+      name="Reflex Defense Bonus"
+      type="static">
+      </field>
+    <field
+      id="clsWill"
+      name="Will Defense Bonus"
+      type="static">
+      </field>
+    <field
+      id="clsAC"
+      name="AC Defense Bonus"
+      type="static">
+      </field>
+
+    <!-- HP, HP per level, and healing surges -->
+    <field
+      id="clsStartHP"
+      name="Starting HP"
+      type="static"
+      minvalue="1">
+      </field>
+    <field
+      id="clsHPLev"
+      name="HP per Level"
+      type="static"
+      minvalue="1">
+      </field>
+    <field
+      id="clsSurges"
+      name="Healing Surges"
+      type="static"
+      minvalue="1">
+      </field>
+
+    <!-- Number of free 'bonus rituals' -->
+    <field
+      id="clsRituals"
+      name="Bonus Rituals"
+      type="static"
+      minvalue="0"
+      maxvalue="10">
+      </field>
+
+    <!-- Multiplier for utility spells - wizards start at 2, everyone else
+        starts at 1 -->
+    <field
+      id="clsUtilMl"
+      name="Utility Powers Multiplier"
+      type="derived"
+      defvalue="1"
+      minvalue="1"
+      maxvalue="3">
+      </field>
+
+    <!-- Multiplier for daily spells - wizards start at 2 and can go to 3,
+        everyone else starts at 1 (and Swordmages can go to 2) -->
+    <field
+      id="clsDailyMl"
+      name="Daily Powers Multiplier"
+      type="derived"
+      defvalue="1"
+      minvalue="1"
+      maxvalue="3">
+      </field>
+
+    <!-- Whether or not the class has any restricted skills from each category -->
+    <field
+      id="clsSklRes1"
+      name="Trained Skills (Restricted 1)?"
+      type="derived"
+      minvalue="0"
+      maxvalue="1">
+      <calculate phase="Initialize" priority="400"><![CDATA[
+        @value = tagis[Skill1.?]
+        ]]></calculate>
+      </field>
+    <field
+      id="clsSklRes2"
+      name="Trained Skills (Restricted 2)?"
+      type="derived"
+      minvalue="0"
+      maxvalue="1">
+      <calculate phase="Initialize" priority="400"><![CDATA[
+        @value = tagis[Skill2.?]
+        ]]></calculate>
+      </field>
+    <field
+      id="clsSklRes3"
+      name="Trained Skills (Restricted 3)?"
+      type="derived"
+      minvalue="0"
+      maxvalue="1">
+      <calculate phase="Initialize" priority="400"><![CDATA[
+        @value = tagis[Skill3.?]
+        ]]></calculate>
+      </field>
+
+    <!-- At-Will Power Term -->
+    <field
+      id="clsTrmAtW"
+      name="At-Will Power Term"
+      type="user"
+      maxlength="25">
+      </field>
+    <field
+      id="clsTrmAtWs"
+      name="At-Will Power Term Plural"
+      type="user"
+      maxlength="25">
+      </field>
+
+    <!-- At-Will Power Expression -->
+    <field
+      id="clsExprAtW"
+      name="At-Will Power Expression"
+      type="user"
+      maxlength="500">
+      </field>
+
+    <!-- Each class needs its own identity tag to configure the hero
+        appropriately, and another to attach to powers for that class. -->
+    <identity group="Class"/>
+    <identity group="PowerClass"/>
+
+    <!-- Also a tag to use to note that certain things (e.g. feats) require
+        certain classes -->
+    <identity group="ReqClass"/>
+
+    <!-- Also a tag to allow us to see what has been multiclassed into -->
+    <identity group="Multiclass"/>
+
+    <!-- Also a tag for recommended powers -->
+    <identity group="RecomClass"/>
+
+    <!-- Also a tag for tracking original class names (e.g. Fighter vs
+        Weaponmaster) -->
+    <identity group="ClassName"/>
+
+    <!-- Hybrid classes aren't allowed if specifically disabled -->
+    <containerreq phase="Initialize" priority="0">
+      <match>User.Hybrid</match><![CDATA[
+      !source.HideHybrid
+      ]]></containerreq>
+
+    <!-- Bootstrap 3 restricted skill picks -->
+    <bootstrap thing="conTrainS1">
+      <containerreq phase="Initialize" priority="500"><![CDATA[
+        fieldval:clsSklRes1 <> 0
+        ]]></containerreq>
+      </bootstrap>
+    <bootstrap thing="conTrainS2">
+      <containerreq phase="Initialize" priority="500"><![CDATA[
+        fieldval:clsSklRes2 <> 0
+        ]]></containerreq>
+      </bootstrap>
+    <bootstrap thing="conTrainS3">
+      <containerreq phase="Initialize" priority="500"><![CDATA[
+        fieldval:clsSklRes3 <> 0
+        ]]></containerreq>
+      </bootstrap>
+
+    <!-- Track the class on the actor by assigning the appropriate tag -->
+    <eval index="1" phase="Initialize" priority="500" name="Class tag final">
+      <before name="Implement expression final"/>
+      <before name="Armor type proficiencies"/>
+      <before name="Weapon proficiencies final"/>
+      <![CDATA[
+      perform forward[Class.?]
+      perform forward[ClassRole.?]
+      perform forward[PowerSrc.?]
+      perform forward[User.PP?]
+      perform forward[Hero.HidePwr?]
+
+      if (tagis[User.Hybrid] <> 0) then
+        perform hero.assign[Hero.Hybrid]
+        endif
+      if (tagis[User.RecomPower] <> 0) then
+        perform hero.assign[User.RecomPower]
+        endif
+      if (tagis[Hero.NoMemUnder] <> 0) then
+        perform hero.assign[Hero.NoMemUnder]
+        endif
+
+      if (field[clsTrmAtW].isempty = 0) then
+        herofield[acTermAtW].text = field[clsTrmAtW].text
+        endif
+      if (field[clsTrmAtWs].isempty = 0) then
+        herofield[acTermAtWs].text = field[clsTrmAtWs].text
+        endif
+
+      ~set up any custom at-will expression
+      if (field[clsExprAtW].isempty = 0) then
+        herofield[acClAtWExp].text = field[clsExprAtW].text
+
+        ~if appropriate, limit it to recommended-only powers
+        if (tagis[User.RecomPower] <> 0) then
+          if (herofield[acRecOnly].value <> 0) then
+            herofield[acClAtWExp].text = "(" & herofield[acClAtWExp].text & ") & "
+            herofield[acClAtWExp].text &= "(" & replace(tagids[Class.?, " | "], "Class.", "RecomClass.", 0) & ")"
+            endif
+          endif
+        endif
+
+      ~if we're the primary hybrid class, the hero gets a flat 3 trained skills
+      if (tagexpr[User.Hybrid & !Helper.SecondCls] <> 0) then
+        hero.child[resSkills].field[resMax].value += 3
+
+      ~otherwise, add to our skill count for a non-hybrid class as normal - if
+      ~we don't have a skill limit, just allow the user to pick as many as
+      ~they want
+      elseif (tagis[User.Hybrid] = 0) then
+        if (field[clsSkills].value = 0) then
+          perform hero.child[resSkills].assign[User.ResUnlim]
+        else
+          hero.child[resSkills].field[resMax].value += field[clsSkills].value
+          endif
+        endif
+
+      ~add to our bonus ritual count
+      hero.child[resRituals].field[resMax].value += field[clsRituals].value
+
+      ~forward any class skill tags to the hero
+      perform forward[Skill.?]
+
+      ~forward any key abilities tags to the hero
+      perform forward[KeyAbility.?]
+
+      ~if we're not a hybrid class, forward our armor proficincies to the hero
+      if (tagis[User.Hybrid] = 0) then
+        perform forward[ArmorProf.?]
+
+      ~if we're the primary hybrid class, we need to forward all the armor
+      ~proficiencies to the hero that we have, AND that our secondary hybrid
+      ~class has.
+      elseif (tagis[Helper.SecondCls] = 0) then
+
+        ~first, set our focus to the secondary hybrid class. Then iterate
+        ~through all the armor proficiency things, so we can check each of them
+        ~separately.
+        perform hero.findchild[Class,"User.Hybrid & Helper.SecondCls"].setfocus
+        if (state.isfocus <> 0) then
+          foreach thing in ArmorProf
+            var armortag as string
+            armortag = "ArmorProf." & eachthing.idstring
+
+            ~if we have the tag for this proficiency, and the secondary class
+            ~also has the tag, we can assign it to the hero.
+            if (tagcountstr[armortag] <> 0) then
+              if (focus.tagcountstr[armortag] <> 0) then
+                perform hero.assignstr[armortag]
+                endif
+              endif
+            nexteach
+          endif
+        endif
+
+      ~forward any weapon proficiencies to the hero
+      perform forward[WpCatRqMel.?]
+      perform forward[WpCatRqRng.?]
+      perform forward[WpGrpRqSim.?]
+      perform forward[WpGrpRqMil.?]
+      perform forward[WpGrpRqSup.?]
+      perform forward[WpGrpRqImp.?]
+      perform forward[WeaponProf.?]
+
+      ~forward any implement types to our hero
+      perform forward[ImplemType.?]
+
+      ~add to our defenses
+      #traitmodify[defFort,trtClass,field[clsFort].value,""]
+      #traitmodify[defRef,trtClass,field[clsRef].value,""]
+      #traitmodify[defWill,trtClass,field[clsWill].value,""]
+      #traitmodify[defAC,trtClass,field[clsAC].value,""]
+
+      ~any character classes on the lead are "important" picks, as without them
+      ~the lead wouldn't be able to be loaded properly. We assume classes on
+      ~minions are less important and aren't worth flagging if they won't load
+      ~properly.
+      if (hero.isminion = 0) then
+        perform assign[thing.important]
+        endif
+      ]]></eval>
+
+    <eval index="3" phase="Setup" priority="1000" name="Class skills final">
+      <before name="Implement expression final"/><![CDATA[
+      ~go through our trained skills and mark them as trained
+      var expr as string
+      if (tagis[TrainSkill.?] <> 0) then
+        expr = tagids[TrainSkill.?, " | "]
+        foreach pick in hero from Skill where expr
+          perform eachpick.assign[Helper.TrainedAut]
+          nexteach
+        endif
+      ]]></eval>
+
+    <!-- Add our hit points appropriately -->
+    <eval index="4" phase="Setup" priority="1000" name="Class HP added">
+      <before name="trSurges final"/>
+      <after name="Level final"/>
+      <![CDATA[
+      ~if we're the secondary hybrid class, do nothing - the primary class will
+      ~add to our health
+      doneif (tagis[Helper.SecondCls] <> 0)
+
+      var starting as number
+      var perlevel as number
+      var surges as number
+      starting = field[clsStartHP].value
+      perlevel = field[clsHPLev].value
+      surges = field[clsSurges].value
+
+      ~if we're the primary hybrid class, add our secondary hybrid classes
+      ~values to our own, round down, then add them to the hero. This is so
+      ~that two classes, for example, that give you 7.5 starting hp combine
+      ~to give you 15 starting hp.
+      if (tagis[User.Hybrid] <> 0) then
+        perform hero.findchild[Class,"User.Hybrid & Helper.SecondCls"].setfocus
+        if (state.isfocus <> 0) then
+          starting += focus.field[clsStartHP].value
+          perlevel += focus.field[clsHPLev].value
+          surges += focus.field[clsSurges].value
+
+          starting = round(starting, 0, -1)
+          perlevel = round(perlevel, 0, -1)
+          surges = round(surges, 0, -1)
+          endif
+        endif
+
+      ~work out the total of our hp per level for all levels
+      perlevel *= hero.tagvalue[Level.?] - 1
+
+      ~add to our HP and healing surges
+      #traitmodify[trHealth,trtClass,starting,"Class Starting HP"]
+      #traitmodify[trHealth,trtClass,perlevel,"Class HP per level"]
+      #traitmodify[trSurges,trtClass,surges,"Class"]
+      ]]></eval>
+
+    <eval index="5" phase="Setup" priority="5" name="Daily powers multiplied">
+      <before name="Level final"/><![CDATA[
+      var multiply as number
+      var powertype as string
+      multiply = field[clsDailyMl].value
+      powertype = "Daily"
+      call PowerMult
+      ]]></eval>
+
+    <eval index="6" phase="Setup" priority="5" name="Utility powers multiplied">
+      <before name="Level final"/><![CDATA[
+      var multiply as number
+      var powertype as string
+      multiply = field[clsUtilMl].value
+      powertype = "Utility"
+      call PowerMult
+      ]]></eval>
+
+    <eval index="7" phase="Setup" priority="1000">
+      <after name="Level final"/><![CDATA[
+      doneif (tagis[User.PPNormal] + tagis[User.PPHybrid] = 0)
+
+      ~add an appropriate number of power points based on our level
+      ~(note: generalise this if it becomes the standard progression)
+      var pp as number
+      var level as number
+      level = hero.tagvalue[Level.?]
+
+      ~if we're a normal class, or if both our classes are hybrid psionicists,
+      ~we just get the normal number of PP.
+      if (tagexpr[User.PPNormal | (count:hero#User.PPHybrid >= 2)] <> 0) then
+
+        ~if this is the second hybrid class, the power points have already been
+        ~added, so there's nothing to do
+        if (tagis[Helper.SecondCls] <> 0) then
+          done
+          endif
+
+        if (level < 3) then
+          pp = 2
+        elseif (level < 7) then
+          pp = 4
+        elseif (level < 13) then
+          pp = 6
+        elseif (level < 17) then
+          pp = 7
+        elseif (level < 21) then
+          pp = 9
+        elseif (level < 23) then
+          pp = 11
+        elseif (level < 27) then
+          pp = 13
+        else
+          pp = 15
+          endif
+
+      ~if we're level 0 with no encounter powers, or if we're level 3+, we get
+      ~power points based on the augmentable at-will powers we have. Otherwise,
+      ~we get none at all!
+      else
+        if (level < 3) then
+          doneif (hero.haschild[Power,"PowerType.Encounter"] <> 0)
+          endif
+        foreach pick in hero from Power where "EffectType.Augment & PowerType.AtWill"
+          var powerlevel as number
+          powerlevel = eachpick.tagvalue[ReqLevel.?]
+          if (powerlevel <= 10) then
+            pp += 2
+          elseif (powerlevel <= 20) then
+            pp += 4
+          else
+            pp += 6
+            endif
+          nexteach
+        endif
+
+      hero.child[trkPower].field[trkMax].value += pp
+      ]]></eval>
+
+    <!-- If we're the 2nd class, make sure our first class is a hybrid class -->
+    <evalrule index="1" phase="Validate" priority="10000"
+      message="Taking a second class is illegal unless the first class is a hybrid class."
+      summary="Second class illegal"><![CDATA[
+      validif (tagis[Helper.SecondCls] = 0)
+
+      perform hero.findchild[Class,"User.Hybrid & !Helper.SecondCls"].setfocus
+      validif (state.isfocus <> 0)
+
+      ~otherwise hero has a second class without a hybrid class as the primary
+      ~class, so we're invalid
+      ]]></evalrule>
+
+    <!-- If we're a hybrid class, make sure that we take at least one power
+        each class in each category, unless we're only allowed one power in
+        that category. -->
+    <evalrule index="2" phase="Validate" priority="10000"
+      message="You must take at least one power of each type from each hybrid class."
+      summary="Must distribute powers between classes"><![CDATA[
+      validif (tagis[User.Hybrid] = 0)
+
+      ~we need to get the id of the class we're a hybrid for, so we can check
+      ~the powers for it. We assume there are two class tags - our id tag, and
+      ~the tag for the real class - so we need to get rid of them.
+      var classid as string
+      classid = tagids[Class.?,""]
+      classid = replace(classid, "Class.", "", 0)
+      classid = replace(classid, idstring, "", 0)
+
+      ~check at-will powers
+      if (#resmax[resAtWill] > 1) then
+        perform state.clearfocus
+        perform hero.findchild[Power,"PowerType.AtWill & PowerClass." & classid].setfocus
+        if (state.isfocus = 0) then
+          @message = "Must have at least one at-will power from each class."
+          done
+          endif
+        endif
+
+      ~check encounter powers
+      if (#resmax[resEncount] > 1) then
+        perform state.clearfocus
+        perform hero.findchild[Power,"PowerType.Encounter & PowerClass." & classid].setfocus
+        if (state.isfocus = 0) then
+          @message = "Must have at least one encounter power from each class."
+          done
+          endif
+        endif
+
+      ~check utility powers
+      if (#resmax[resUtility] > 1) then
+        perform state.clearfocus
+        perform hero.findchild[Power,"PowerType.Utility & PowerClass." & classid].setfocus
+        if (state.isfocus = 0) then
+          @message = "Must have at least one utility power from each class."
+          done
+          endif
+        endif
+
+      ~check daily powers
+      if (#resmax[resDaily] > 1) then
+        perform state.clearfocus
+        perform hero.findchild[Power,"PowerType.Daily & PowerClass." & classid].setfocus
+        if (state.isfocus = 0) then
+          @message = "Must have at least one daily power from each class."
+          done
+          endif
+        endif
+
+      @valid = 1
+      ]]></evalrule>
+
+    </component>
+
+
+  <!-- Paragon component
+        Each paragon path derives from this component
+  -->
+  <component
+    id="Paragon"
+    name="Paragon Path"
+    autocompset="no">
+
+    <!-- Various informational fields -->
+    <field
+      id="pptFlavor"
+      name="Flavor Text"
+      type="static"
+      maxlength="1000">
+      </field>
+
+    <!-- Each paragon path needs its own identity tag to configure the hero
+        appropriately, and another to attach to powers for that path. -->
+    <identity group="Paragon"/>
+    <identity group="PowerPath"/>
+
+    <!-- NOTE - this script adds the paragon tag to the hero, which means it
+        must run before the secondary tag expression is checked on the
+        multiclass power tables on the Paragon tab -->
+    <eval index="1" phase="Initialize" priority="5000"><![CDATA[
+      perform forward[Paragon.?]
+      ]]></eval>
+
+    <!-- Check to make sure we're the right power source. -->
+    <prereq message="Paragon tier required.">
+
+      <validate><![CDATA[
+        if (hero.tagvalue[Level.?] >= 11) then
+          @valid = 1
+          done
+          endif
+        ]]></validate>
+      </prereq>
+
+    </component>
+
+
+  <!-- EpicDest component
+        Each epic destiny derives from this component
+  -->
+  <component
+    id="EpicDest"
+    name="Epic Destiny"
+    autocompset="no">
+
+    <!-- Various informational fields -->
+    <field
+      id="edsFlavor"
+      name="Flavor Text"
+      type="static"
+      maxlength="1000">
+      </field>
+
+    <!-- Each epic destiny needs its own identity tag to configure the hero
+        appropriately, and another to attach to powers for that destiny. -->
+    <identity group="EpicDest"/>
+    <identity group="PowerDest"/>
+
+    <eval index="1" phase="Setup" priority="1000"><![CDATA[
+      perform forward[EpicDest.?]
+      ]]></eval>
+
+    <!-- Check to make sure we're the right power source. -->
+    <prereq message="Epic tier required.">
+
+      <validate><![CDATA[
+        if (hero.tagvalue[Level.?] >= 21) then
+          @valid = 1
+          done
+          endif
+        ]]></validate>
+      </prereq>
+
+    </component>
+
+
+  <!-- ChooseEqp component
+        Three picks derived from this component are added, allowing the user to
+        select up to three weapons / implements to be "equipped" at once.
+  -->
+  <component
+    id="ChooseEqp"
+    name="Choose Equipped Items">
+
+    <field
+      id="chqMenuSel"
+      name="Chosen Selection"
+      type="user"
+      style="menu">
+      </field>
+    <field
+      id="chqMenuHow"
+      name="How Equipped?"
+      type="user"
+      minvalue="0"
+      maxvalue="2"> <!-- 0 = main hand, 1 = off hand, 2 = both hands -->
+      </field>
+    <field
+      id="chqExpr"
+      name="Selection Tag Expression"
+      type="derived"
+      maxlength="1000">
+      </field>
+
+    <eval index="1" phase="Initialize" priority="0">
+      <before name="Equipped"/><![CDATA[
+      ~if we have something selected, push an appropriate tag onto it for which
+      ~index it's equipped on
+      perform field[chqMenuSel].chosen.setfocus
+      doneif (state.isfocus = 0)
+      doneif (focus.tagis[thingid.chqNothing] <> 0)
+      perform focus.pushtags[explicit.?,EquipIndex]
+
+      ~if we chose a weapon, add a tag that we can check from elsewhere
+      if (focus.tagis[component.WeaponBase] <> 0) then
+        perform assign[Helper.IsWeapon]
+        endif
+
+      ~record which hand it's in
+      if (field[chqMenuHow].value = #mainhand[]) then
+        perform focus.assign[Helper.EqpMain]
+        perform assign[Helper.EqpMain]
+      elseif (field[chqMenuHow].value = #bothhands[]) then
+        perform focus.assign[Helper.EqpBoth]
+        perform assign[Helper.EqpBoth]
+      elseif (field[chqMenuHow].value = #offhand[]) then
+        perform focus.assign[Helper.EqpOff]
+        perform assign[Helper.EqpOff]
+        endif
+      perform focus.assign[Equipped.Equipped]
+      perform assign[Equipped.Equipped]
+      ]]></eval>
+
+    <eval index="2" phase="Final" priority="10000">
+      <after name="Implement expression final"/><![CDATA[
+      ~set up the tag expression for our menu - we want to select a weapon, an
+      ~implement, or nothing at all
+      field[chqExpr].text =  "((component.WeaponBase & !Helper.SizeError)"
+      field[chqExpr].text &= " | (component.Gear & (" & herofield[acImplExp].text & ")) & !Hide.Weapon)"
+      field[chqExpr].text &= " | thingid.chqNothing"
+      ]]></eval>
+
+    <!-- If this weapon is equipped in the off-hand, make sure it's an off-hand
+        weapon -->
+    <evalrule index="1" phase="Validate" priority="10000"
+      message="Only Offhand weapons may be equipped in your off-hand"><![CDATA[
+      ~if we have the 'one handed weapons in off-hand' tag, we're fine
+      if (hero.tagis[Hero.OneHandOff] <> 0) then
+        @valid = 1
+        done
+        endif
+
+      ~if this isn't a weapon, it's probably an implement or something, so
+      ~we're fine
+      if (tagis[Helper.IsWeapon] = 0) then
+        @valid = 1
+        done
+        endif
+
+      perform field[chqMenuSel].chosen.setfocus
+      if (state.isfocus = 0) then
+        @valid = 1
+        done
+        endif
+      if (focus.tagis[thingid.chqNothing] <> 0) then
+        @valid = 1
+        done
+        endif
+
+      if (field[chqMenuHow].value <> #offhand[]) then
+        @valid = 1
+        done
+        endif
+
+      if (focus.tagis[WepProp.OffHand] <> 0) then
+        @valid = 1
+        done
+        endif
+      ]]></evalrule>
+
+    <!-- If this weapon is equipped in the main-hand, make sure it's not a
+        2-handed weapon -->
+    <evalrule index="2" phase="Validate" priority="10000"
+      message="Two-handed weapons must be equipped in both hands"><![CDATA[
+      perform field[chqMenuSel].chosen.setfocus
+      if (state.isfocus = 0) then
+        @valid = 1
+        done
+        endif
+      if (focus.tagis[thingid.chqNothing] <> 0) then
+        @valid = 1
+        done
+        endif
+
+      ~if we're not a 2h weapon, we're fine
+      if (focus.tagis[Equipment.TwoHand] = 0) then
+        @valid = 1
+        done
+        endif
+
+      ~if we have the off-hand property, we're fine, since we're used as a
+      ~double weapon
+      if (focus.tagis[WepProp.OffHand] <> 0) then
+        @valid = 1
+        done
+        endif
+
+      if (field[chqMenuHow].value = #bothhands[]) then
+        @valid = 1
+        done
+        endif
+      ]]></evalrule>
+
+    </component>
+
+
+  <!-- ClassRole component
+        Each class role should have a thing defined from this component, to
+        properly generate identity tags.
+  -->
+  <component
+    id="ClassRole"
+    name="Class Role">
+
+    <identity group="ClassRole"/>
+    <identity group="ReqRole"/>
+
+    </component>
+
+
+  <!-- PowerSrc component
+        Each power source should have a thing defined from this component, to
+        properly generate identity tags.
+  -->
+  <component
+    id="PowerSrc"
+    name="Power Source">
+
+    <identity group="PowerSrc"/>
+    <identity group="ReqPwrSrc"/>
+
+    </component>
+
+
+  <!-- MagicItTbl component
+        Magic items and powers should derive from this component. This means
+        that we can show them interleaved in the magic item table.
+  -->
+  <component
+    id="MagicItTbl"
+    name="Appears in Magic Item Table"
+    ispublic="no">
+
+    <field
+      id="mgitSlot"
+      name="Item Slot Text"
+      type="derived"
+      maxlength="50">
+      <finalize><![CDATA[
+        ]]></finalize>
+      </field>
+
+    <eval index="1" phase="Render" priority="10000"><![CDATA[
+      if (tagis[ItemSlot.?] <> 0) then
+        field[mgitSlot].text = tagabbrevs[ItemSlot.?, "???"]
+      elseif (tagis[component.WeaponBase] <> 0) then
+        field[mgitSlot].text = "Weapon"
+      elseif (tagis[component.ArmorBase] <> 0) then
+        field[mgitSlot].text = "Armor"
+      elseif (tagis[ImplemType.?] <> 0) then
+        field[mgitSlot].text = tagabbrevs[ImplemType.?, "???"]
+      else
+        field[mgitSlot].text = "?"
+        endif
+      ]]></eval>
+
+    </component>
+
+
+  <!-- Custom component
+        Can be added to any other component to allow creation of a "custom
+        thing" with a user-definable name, for example with Custom Gear.
+  -->
+  <component
+    id="Custom"
+    name="Custom"
+    ispublic="no">
+
+    <!-- Manage an optional user-assigned name for custom things -->
+    <field
+      id="UserName"
+      name="User Name"
+      maxlength="100"
+      type="user">
+      </field>
+
+    <!-- If we have a user-assigned name, copy that into the live name -->
+    <eval index="1" phase="Setup" priority="10000" name="Custom set livename"><![CDATA[
+      if (field[UserName].isempty = 0) then
+        field[livename].text = field[UserName].text
+        endif
+      ]]></eval>
+
+    </component>
+
+
+  <!-- PowerCard component
+        Each power derives from this component - it doesn't do anything other
+        than allow us to output power cards separately from powers on the main
+        character sheet.
+  -->
+  <component
+    id="PowerCard"
+    name="Power Card"
+    ispublic="no">
+    </component>
+
+
+  <!-- Define various component sets associated with the components defined above.
+  -->
+
+  <!-- The "Tracker" compset is auto-defined for the component -->
+  <!-- The "Adjustment" compset is auto-defined for the component -->
+  <!-- The "SpecialTab" compset is auto-defined for the component -->
+
+  <!-- Race - all races derive from this compset -->
+  <compset
+    id="Race"
+    forceunique="yes">
+    <compref component="Race"/>
+    </compset>
+
+  <!-- Class - all classes derive from this compset -->
+  <compset
+    id="Class"
+    forceunique="yes">
+    <compref component="Class"/>
+    </compset>
+
+  <!-- Paragon - all paragon paths derive from this compset -->
+  <compset
+    id="Paragon"
+    forceunique="yes">
+    <compref component="Paragon"/>
+    <compref component="Requires"/>
+    </compset>
+
+  <!-- EpicDest - all epic destinies derive from this compset -->
+  <compset
+    id="EpicDest"
+    forceunique="yes">
+    <compref component="EpicDest"/>
+    <compref component="Requires"/>
+    </compset>
+
+  <!-- UserSelect - general compset to let the user configure a thing wth a menu -->
+  <compset
+    id="UserSelect">
+    <compref component="UserSelect"/>
+    <compref component="Custom"/>
+    </compset>
+
+  </document>

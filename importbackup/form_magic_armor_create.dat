@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the definition of the "mgArmor" form for the game system.
+      The "mgArmor" form represents the form where the user can choose magic
+      armor.
+-->
+
+<document signature="Hero Lab Data">
+
+
+  <portal
+    id="mgaTitle"
+    style="lblTitle">
+    <label
+      istitle="yes"
+      text="Create Magic Armor">
+      </label>
+    </portal>
+
+  <portal
+    id="mgaLblWep"
+    style="lblNormal">
+    <label
+      text="Choose Armor:">
+      </label>
+    </portal>
+  <portal
+    id="mgaArmor"
+    style="chsNormal"
+    width="200">
+    <chooser_table
+      component="ArmorBase"
+      choosetemplate="arDefThing"
+      showupdate="yes"
+      candidatefield="mghEqExpr"
+      candidatepick="MagicHelp">
+      <!-- Candidate expression generated using field -->
+      <chosen><![CDATA[
+        if (@ispick = 0) then
+          @text = "{text ff0000}Select Armor"
+        else
+          @text = field[name].text
+
+          ~if our choice isn't valid, prepend the name with red
+          if (prereqok = 0) then
+            @text = "{text ff0000}" & @text
+          elseif (valid = 0) then
+            @text = "{text ff0000}" & @text
+            endif
+          endif
+        ]]></chosen>
+      <titlebar><![CDATA[
+        @text = "Choose the type of armor"
+        ]]></titlebar>
+      </chooser_table>
+    </portal>
+
+  <portal
+    id="mgaLblMag"
+    style="lblNormal">
+    <label
+      text="Choose Magic:">
+      </label>
+    </portal>
+  <portal
+    id="mgcArmor"
+    style="chsNormal"
+    width="200">
+    <chooser_table
+      component="MagicArmor"
+      choosetemplate="mgcArThing"
+      showupdate="yes"
+      descwidth="350"
+      candidatefield="mghMagExpr"
+      candidatepick="MagicHelp">
+      <!-- Candidate expression generated using field -->
+      <chosen><![CDATA[
+        if (@ispick = 0) then
+          @text = "{text ff0000}Select Magic Effect"
+        else
+          @text = field[name].text
+
+          ~if our choice isn't valid, prepend the name with red
+          if (prereqok = 0) then
+            @text = "{text ff0000}" & @text
+          elseif (valid = 0) then
+            @text = "{text ff0000}" & @text
+            endif
+          endif
+        ]]></chosen>
+      <titlebar><![CDATA[
+        @text = "Choose the magic effect"
+        ]]></titlebar>
+      </chooser_table>
+    </portal>
+
+
+  <!-- mgaArmor template
+        Shows important details of a selected magic weapon.
+  -->
+  <template
+    id="mgaArmor"
+    name="Chosen Magic Weapon Pick"
+    compset="MagicHelp">
+
+    <portal
+      id="name"
+      style="lblNormal">
+      <label>
+        <labeltext><![CDATA[
+          ~get the selected weapon
+          perform container.findchild[ArmorBase].setfocus
+          if (state.isfocus = 0) then
+            @text = "(No armor selected)"
+            done
+            endif
+
+          ~append the name of our parent
+          @text = parent.field[name].text
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <portal
+      id="ac"
+      style="lblLarge">
+      <label>
+        <labeltext><![CDATA[
+          ~append the AC of our parent
+          @text = parent.field[arAC].text
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <portal
+      id="check"
+      style="lblLarge">
+      <label>
+        <labeltext><![CDATA[
+          ~append the check penalty of our parent
+          @text = parent.field[arCheck].text
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <portal
+      id="speed"
+      style="lblDisable">
+      <label>
+        <labeltext><![CDATA[
+          ~append the speed penalty of our parent
+          @text = parent.field[arSpeed].text
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <portal
+      id="cost"
+      style="lblNormal">
+      <label>
+        <labeltext><![CDATA[
+          @text = "Cost: " & field[mghCost].text
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <position><![CDATA[
+      ~determine the center point position for our speed column
+      var center as number
+      center = 360
+
+      ~position everything under our name
+      perform portal[speed].alignrel[ttob,name,10]
+      perform portal[check].alignrel[ttob,name,10]
+      perform portal[ac].alignrel[ttob,name,10]
+
+      ~position the ac portal to the left of check column; we want the
+      ~ac to be centered in its own column relative to a centerpoint position
+      portal[ac].left = 30
+      portal[check].left = 85
+      portal[speed].left = 135
+
+      ~position the name on the left and let it use all available space
+      portal[name].left = 0
+
+      portal[cost].top = portal[speed].bottom + 10
+      ]]></position>
+
+    </template>
+
+
+  <template
+    id="mgcArThing"
+    name="Magic Weapon Thing"
+    compset="MagicWep"
+    marginhorz="3"
+    marginvert="2">
+
+    <portal
+      id="name"
+      style="lblNormal"
+      showinvalid="yes">
+      <label>
+        <labeltext><![CDATA[
+          @text = field[name].text
+          if (field[mgBonus].value <> 0) then
+            @text &= " " & signed(field[mgBonus].text)
+          elseif (field[mgLevel].value <> 0) then
+            @text &= " {text 808080}(L" & field[mgLevel].text & ")"
+            endif
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <portal
+      id="cost"
+      style="lblNormal">
+      <label>
+        <labeltext><![CDATA[
+          @text = field[mgCost].text
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <position><![CDATA[
+      ~set up our height based on our tallest portal
+      width = 300
+      height = portal[name].height
+
+      ~if this is a "sizing" calculation, we're done
+      doneif (issizing <> 0)
+
+      ~our cost appears on the right
+      perform portal[cost].alignedge[right,0]
+
+      ~position the name on the left and let it use all available space
+      portal[name].left = 0
+      if (portal[name].right > portal[cost].left) then
+        portal[name].width = portal[cost].left - 5 - portal[name].left
+        endif
+      ]]></position>
+
+    </template>
+
+
+  <!-- mgArmor layout
+        This layout consists of a chooser to pick a type of magic item and a
+        weapon or armor to make magical, with a template below showing a
+        summary thereof.
+  -->
+  <layout
+    id="mgArmor"
+    marginhorz="5"
+    marginvert="5">
+    <portalref portal="mgaTitle"/>
+    <portalref portal="mgaLblMag"/>
+    <portalref portal="mgcArmor" taborder="10"/>
+    <portalref portal="mgaLblWep"/>
+    <portalref portal="mgaArmor" taborder="20"/>
+    <templateref template="mgaArmor" thing="MagicHelp" taborder="50"/>
+    <position><![CDATA[
+      portal[mgaTitle].width = width
+
+      portal[mgaLblMag].top = portal[mgaTitle].bottom + 15
+
+      perform portal[mgcArmor].centeron[vert,mgaLblMag]
+      portal[mgcArmor].left = scenevalue[chooseleft]
+
+      portal[mgaLblWep].top = portal[mgaLblMag].bottom + 15
+
+      perform portal[mgaArmor].centeron[vert,mgaLblWep]
+      portal[mgaArmor].left = scenevalue[chooseleft]
+
+      template[mgaArmor].top = portal[mgaArmor].bottom + 15
+      template[mgaArmor].height = height - template[mgaArmor].top
+      template[mgaArmor].width = width
+      ]]></position>
+    </layout>
+
+
+  <!-- mgArmor form
+  -->
+  <form
+    id="mgArmor"
+    name="Create Magic Weapon / Armor"
+    showbutton="no">
+    <layoutref layout="mgArmor"/>
+    <position><![CDATA[
+      scenevalue[chooseleft] = 155
+
+      width = 400
+      height = 175
+      layout[mgArmor].width = width
+      layout[mgArmor].height = height
+      ]]></position>
+    </form>
+
+
+  </document>

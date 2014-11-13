@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document signature="Hero Lab Data">
+
+  <loadmods>
+
+    <!-- These sources went away for some reason -->
+    <silentsource source="KhyberHarv"/>
+    <silentsource source="TreasTalon"/>
+    <silentsource source="VilHommlet"/>
+
+    <!-- The "None" selection is now handled automatically by Hero Lab -->
+    <silentthing thing="bgNone"/>
+    <silentthing thing="NoEpicDest"/>
+    <silentthing thing="NoParagon"/>
+
+    </loadmods>
+
+  </document>

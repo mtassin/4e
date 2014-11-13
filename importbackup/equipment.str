@@ -1,0 +1,2313 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the definitions of components associated with equipment such as
+      weapons, armor, gear, etc.
+-->
+
+<document signature="Hero Lab Structure">
+
+  <!-- Gear component
+        All gear must derive from this component
+        NOTE! Designate this component as "gear" to enable containment handling.
+  -->
+  <component
+    id="Gear"
+    name="Gear"
+    isgear="yes"
+    autocompset="no"
+    ispublic="no">
+
+    <!-- Stack name field - name is prefixed with the quantity if not a value of one,
+          which is important for stackable items that can have varying quantities
+    -->
+    <field
+      id="grStkName"
+      name="(Qty) Name"
+      type="derived"
+      maxfinal="110"
+      nevercache="yes">
+      <!-- Final value for display consists of the name with a prefixed quantity
+            if not one
+      -->
+      <finalize><![CDATA[
+        ~if we have a customized name already, use it; otherwise, use the default name
+        var name as string
+        if (field[livename].isempty = 0) then
+          name = field[livename].text
+        else
+          name = field[name].text
+          endif
+
+        ~if we're not stackable or if our quantity is one, just use the simple name
+        if (stackable = 0) then
+          @text = name
+        elseif (field[stackQty].value = 1) then
+          @text = name
+
+        ~prefix the name with the quantity
+        else
+          @text = "(" & field[stackQty].value & "x) " & name
+          endif
+        ]]></finalize>
+      </field>
+
+    <!-- Gear cost -->
+    <field
+      id="grCost"
+      name="Cost"
+      minvalue="0"
+      defvalue="0"
+      type="derived"
+      maxfinal="10">
+      <!-- If a "lot cost" is specified, calculate the individual cost from it -->
+      <calculate phase="Initialize" priority="5000"><![CDATA[
+        ~if we have a 'lot cost', find the cost for a single item by dividing
+        ~it by the lot size.
+        ~NOTE: The calculate script is only applied to picks - not things - so
+        ~     we must also do this calculation in both the Finalize script and
+        ~     the TransactionSetup script, so they behave properly on things.
+        if (field[grLotCost].value > 0) then
+          @value = field[grLotCost].value / field[lotsize].value
+          endif
+        ]]></calculate>
+      <finalize><![CDATA[
+        ~if this is a thing, we have to determine the value for use below; if we
+        ~have a non-zero lot cost, override our value based on the lot cost, else
+        ~use multiply the unit code by the lot size. See the Calculate script
+        ~comments for more details.
+        if (ispick = 0) then
+          if (field[grLotCost].value > 0) then
+            @value = field[grLotCost].value
+          else
+            @value = field[grCost].value * field[lotsize].value
+            endif
+          endif
+
+        ~display our cost in terms of different types of money
+        var gp as number
+        var text as string
+        gp = @value
+        call MoneyText
+        @text = text
+        ]]></finalize>
+      </field>
+
+    <!-- Gear lot cost - used when you have a set of items (like arrows) that
+          cost 1g for N items. For example, 30 arrows cost 1g. Since 30 doesn't
+          divide into 1, we specify a lot cost of 1gp instead of a normal cost
+          of 3.333333 cp. -->
+    <field
+      id="grLotCost"
+      name="Lot Cost"
+      minvalue="0"
+      defvalue="0"
+      type="static">
+      </field>
+
+    <!-- Manage an optional user-assigned name for custom equipment -->
+    <field
+      id="grUserName"
+      name="User Name"
+      maxlength="100"
+      type="user">
+      </field>
+
+    <!-- Initialize the gear characteristics from our transaction pick (if any) -->
+    <creation><![CDATA[
+      ~if we don't have a transaction pick to initialize from, bail out; this can
+      ~occur if the gear is bootstrapped or auto-added for the actor
+      doneif (hero.istransact = 0)
+
+      ~initialize our fields appropriately from the transaction pick
+      ~.... add any necessary code here ....
+      ]]></creation>
+
+    <!-- Call the appropriate procedures to perform transaction setup, buy, and sell behaviors -->
+    <xactsetup><![CDATA[
+      ~perform standard transaction setup for the gear
+      call XactSetup
+
+      ~initialize any transaction fields appropriately from this piece of gear
+      ~.... add code here ....
+      ]]></xactsetup>
+
+    <xactbuy><![CDATA[
+      call XactBuy
+      ]]></xactbuy>
+
+    <xactsell><![CDATA[
+      call XactSell
+      ]]></xactsell>
+
+    <!-- If we have a user-assigned name, copy that into the live name -->
+    <eval index="1" phase="Setup" priority="10000"><![CDATA[
+      if (field[grUserName].isempty = 0) then
+        field[livename].text = field[grUserName].text
+        endif
+      ]]></eval>
+
+    <!-- Accrue the weight of this item into the character, as appropriate -->
+    <eval index="2" phase="Effects" priority="10000" name="Accrue Weight"><![CDATA[
+      ~if this piece of gear is held by something else, ignore it - we'll get it below
+      doneif (isgearheld <> 0)
+
+      ~if this piece of gear is a topmost holder, ignore it - it's not on the character
+      doneif (tagis[thing.holder_top] <> 0)
+
+      ~accrue the net weight of this piece of gear into the character
+      ~#resspent[resourceid] += field[gearNet].value
+      ]]></eval>
+
+    <eval index="3" phase="Final" priority="5000">
+      <after name="wpMagic copy"/>
+      <![CDATA[
+      ~check to see if we're a valid implement - if so, assign us a tag
+      if (hero.intersect[ImplemType,ImplemType] <> 0) then
+        perform assign[Helper.ImplemOK]
+        endif
+      ]]></eval>
+
+    </component>
+
+
+  <!-- Equipment component
+        All general non-combat equipment derives from this component
+  -->
+  <component
+    id="Equipment"
+    name="Equipment"
+    autocompset="no"
+    panellink="gear">
+
+    </component>
+
+  <!-- Superior Implement component
+        Added to any compset that can be a superior implement -->
+  <component
+    id="SuperImpl"
+    name="Superior Implement"
+    autocompset="no">
+
+    <!-- Superior Implements need identity tags generated -->
+    <identity group="SuperImpl"/>
+
+    <!-- Check to make sure we're the appropriate level. -->
+    <prereq message="'Superior Implement Training' feat required for this implement.">
+
+      <match><![CDATA[
+        Equipment.SuperImpl
+        ]]></match>
+
+      <validate><![CDATA[
+        ~we can't be used unless our identity tag is present on the hero
+        ~(transition to the hero specifically so we work on magic weapons, too,
+        ~even though the prereq is being evaluated on a gizmo)
+        @valid = hero.isidentity[SuperImpl]
+
+        ~if we're a pick, we're valid unless equipped, so people can carry us
+        ~without using us
+        if (@ispick <> 0) then
+          @valid = !tagis[Equipped.Equipped]
+          endif
+        ]]></validate>
+      </prereq>
+
+    </component>
+
+
+  <!-- Mount component
+        All mounts derive from this component
+  -->
+  <component
+    id="Mount"
+    name="Mount"
+    autocompset="no">
+
+    <!-- All mounts can carry gear -->
+    <tag group="thing" tag="holder_top"/>
+
+    </component>
+
+
+  <!-- Ally component
+        All allies derive from this component
+  -->
+  <component
+    id="Ally"
+    name="Ally"
+    autocompset="no"
+    panellink="allies"
+    ispublic="no">
+
+    </component>
+
+
+  <!-- Equippable component
+        Any gear that can be equipped (e.g. weapons) must derive from this component.
+        A field is managed that tracks whether the gear is actually equipped, and the
+        state can be controlled via a checkbox presented to the user. Equipped gear
+        automatically accrues the number of hands required to ensure that a character
+        doesn't equip more gear than he has hands for.
+  -->
+  <component
+    id="Equippable"
+    name="Equippable"
+    autocompset="no"
+    ispublic="no">
+
+    <!-- Is the gear equipped? -->
+    <field
+      id="grIsEquip"
+      name="Is Equipped?"
+      type="user"
+      minvalue="0"
+      maxvalue="1">
+      </field>
+
+    <!-- If the equipment should be selected by default, select it now -->
+    <creation><![CDATA[
+      ~if this is natural equipment, initialize the equipped
+      ~state
+      if (tagis[Equipment.Natural] <> 0) then
+        field[grIsEquip].value = 1
+        endif
+
+      ~if this equipment is supposed to start out as equipped, initialize the state
+      if (tagis[Equipment.StartEquip] <> 0) then
+        field[grIsEquip].value = 1
+        endif
+
+      ]]></creation>
+
+    <!-- If we're equipped, assign ourselves the corresponding tag -->
+    <eval index="1" phase="Initialize" priority="5000" name="Equipped"><![CDATA[
+      ~weapons are never equipped, they're handled through the special tab.
+      ~force our equipped state for any weapon to off.
+      if (tagis[component.WeaponBase] <> 0) then
+        trustme
+        field[grIsEquip].value = 0
+        endif
+
+      if (field[grIsEquip].value <> 0) then
+        perform assign[Equipped.Equipped]
+        endif
+      ]]></eval>
+
+    <!-- If this equipment is a automatically equipped (e.g. a natural attack), we
+          can't be moved and we must force the equipped state
+    -->
+    <eval index="2" phase="Initialize" priority="1000">
+      <before name="Equipped"/><![CDATA[
+      if (tagis[Equipment.AutoEquip] <> 0) then
+        perform assign[Helper.NoMove]
+        ~since the equipped field is a "user" field, we need to tell the compiler
+        ~not to complain before setting the field
+        trustme
+        field[grIsEquip].value = 1
+        endif
+      ]]></eval>
+
+    <!-- If equipped and held within a container, we have a conflict -->
+    <evalrule index="1" phase="Validate" priority="10000" message="Gear is equipped while stored in a container"><![CDATA[
+      ~if not both equipped and held within a container, we're valid
+      if (field[grIsEquip].value + isgearheld < 2) then
+        @valid = 1
+        done
+        endif
+
+      ~mark the tab as invalid
+      linkvalid = 0
+      ]]></evalrule>
+
+    </component>
+
+
+  <!-- ImplemType component
+        Each implement type should have a thing defined for this component.
+        Weapon categories, weapon groups, and weapons also have identity
+        tags from this group, since they can sometimes be used as implements.
+  -->
+  <component
+    id="ImplemType"
+    name="Implement Type">
+    <identity group="ImplemType"/>
+    </component>
+
+
+  <!-- WepCat component
+        Each weapon category should have a thing defined from this component.
+        This generates identity tags which can then be assigned to classes
+        and weapons.
+  -->
+  <component
+    id="WepCat"
+    name="Weapon Category">
+    <identity group="WepCat"/>
+
+    <!-- Create tags for ranged and melee weapons of this category being allowed -->
+    <identity group="WpCatRqMel"/>
+    <identity group="WpCatRqRng"/>
+
+    <!-- Also give us an 'implement type' tag in case some class can use us as
+        an implement -->
+    <identity group="ImplemType"/>
+    </component>
+
+
+  <!-- ArmorProf component
+        Each armor proficiency should have a thing defined from this component.
+        This generates an identity tag which can then be assigned to classes
+        and armor.
+  -->
+  <component
+    id="ArmorProf"
+    name="Armor Proficiency">
+    <identity group="ArmorProf"/>
+
+    <!-- All armor proficiency components are bootstrapped onto the hero, to
+        help us work out which types of armor we're proficient with -->
+    <tag group="Helper" tag="Bootstrap"/>
+
+    <!-- If the hero is proficient with us, add a tag -->
+    <eval index="1" phase="Setup" priority="10000" name="Armor type proficiencies">
+      <after name="Class tag final"/>
+      <![CDATA[
+      if (hero.isidentity[ArmorProf] <> 0) then
+        perform assign[Helper.Proficient]
+        endif
+      ]]></eval>
+
+    </component>
+
+
+  <!-- WepGroup component
+        Each weapon group must have a pick derived from this component. This
+        generates an identity tag which can then be assigned to weapons.
+  -->
+  <component
+    id="WepGroup"
+    name="Weapon Group">
+
+    <!-- Create weapon group tags that can be assigned to weapons -->
+    <identity group="WepGroup"/>
+
+    <!-- Create tags for simple, military, superior, or improvised weapons of
+        this group being allowed -->
+    <identity group="WpGrpRqSim"/>
+    <identity group="WpGrpRqMil"/>
+    <identity group="WpGrpRqSup"/>
+    <identity group="WpGrpRqImp"/>
+
+    <!-- Also give us an 'implement type' tag in case some class can use us as
+        an implement -->
+    <identity group="ImplemType"/>
+
+    <!-- Also an identity tag for magic weapons to specify what kind of weapon
+        they require -->
+    <identity group="ReqWep"/>
+    </component>
+
+
+  <!-- WeaponBase component
+        All weapons derive from this component. Weapons track a bonus value and damage
+        rating, as well as a strength requirement. The net attack value for the weapon
+        is calculating, incorporating any penalties that may be applied due to special
+        circumstances (e.g. failing to meet the strength requirement).
+  -->
+  <component
+    id="WeaponBase"
+    name="Weapon"
+    autocompset="no"
+    hasshortname="yes"
+    panellink="armory"
+    ispublic="no">
+
+    <!-- Weapon proficiency bonus -->
+    <field
+      id="wpProf"
+      name="Weapon Proficiency Bonus"
+      type="derived"
+      maxfinal="50">
+      <finalize><![CDATA[
+        if (@value >= 0) then
+          @text = "+" & @text
+          endif
+        ]]></finalize>
+      </field>
+
+    <!-- Damage rating of the weapon -->
+    <field
+      id="wpDamFeat"
+      name="Damage Feat Bonus"
+      type="derived"
+      history="best">
+      </field>
+    <field
+      id="wpDamMagic"
+      name="Damage Feat Bonus"
+      type="derived"
+      history="best">
+      </field>
+    <field
+      id="wpDamage"
+      name="Damage"
+      type="derived"
+      maxfinal="20"
+      history="changes">
+      <finalize><![CDATA[
+        var dicemult as number
+        var dicemain as string
+        var dicesec as string
+        var dicemod as number
+
+        ~get our final damage dice string - upgrade our damage dice
+        ~appropriately (for things, we always show the optimal dice
+        ~for the hero
+        if (@ispick = 0) then
+          if (#trait[trSize] < 0) then
+            dicemod = 0
+          else
+            dicemod = #trait[trSize]
+            endif
+          dicemod += hero.tagcount[Hero.Oversized]
+        else
+          dicemod = field[wpDamDice].value
+          endif
+        dicemult = 1
+        call DamageDice
+
+        ~start with just the damage tags
+        @text = dicemain
+
+        ~apply any damage bonus or penalty
+        if (@value <> 0) then
+          @text &= signed(@value)
+          endif
+
+        ~now do the same with any secondary damage tags
+        doneif (tagis[WepDamSec.?] = 0)
+        @text &= " / " & dicesec
+
+        ~apply any damage bonus or penalty
+        if (@value <> 0) then
+          @text &= signed(@value)
+          endif
+        ]]></finalize>
+      </field>
+
+    <!-- Damage dice changes - for example, rogues give shuriken a +1 to their
+        damage dice size, going from d4 to d6 -->
+    <field
+      id="wpDamDice"
+      name="Damage Dice Size"
+      type="derived"
+      history="changes">
+      </field>
+
+    <!-- Weapon size -->
+    <field
+      id="wpSize"
+      name="Weapon Size"
+      type="derived"
+      persistence="full">
+      </field>
+    <field
+      id="wpSizeDiff"
+      name="Size Difference"
+      type="derived">
+      <calculate phase="Traits" priority="5000" name="Calc wpSizeDiff">
+        <after name="Size final"/>
+        <![CDATA[
+        ~first, if we're a natural weapon, make sure our size is the same
+        ~as the hero
+        if (tagis[Equipment.Natural] <> 0) then
+          trustme
+          field[wpSize].value = #trait[trSize]
+          @value = 0
+          done
+          endif
+
+        @value = field[wpSize].value - #trait[trSize]
+
+        ~change our damage dice appropriately
+        perform field[wpDamDice].modify[+,field[wpSize].value,"Weapon Size"]
+        ]]></calculate>
+      </field>
+
+    <!-- Weapon bonus -->
+    <field
+      id="wpAtkFeat"
+      name="Weapon Feat Attack Bonus"
+      type="derived"
+      history="best">
+      </field>
+    <field
+      id="wpBonus"
+      name="Weapon Bonus"
+      type="derived"
+      history="changes">
+      </field>
+
+    <!-- Net attack roll for weapon -->
+    <field
+      id="wpNetAtk"
+      name="Net Attack"
+      type="derived"
+      maxfinal="50">
+      <finalize><![CDATA[
+        if (@value >= 0) then
+          @text = "+" & @text
+          endif
+        ]]></finalize>
+      </field>
+
+    <!-- Short range for the weapon -->
+    <field
+      id="wpShort"
+      name="Short Range"
+      type="derived">
+      </field>
+
+    <!-- Long range for the weapon -->
+    <field
+      id="wpLong"
+      name="Long Range"
+      type="derived">
+      </field>
+
+    <!-- Synthesized text ranges for the weapon -->
+    <field
+      id="wpRange"
+      name="Range"
+      type="derived"
+      maxfinal="25">
+      <!-- Calculate the value based on all three range elements so that any changes
+          to any value safely trigger an update of the finalized value
+      -->
+      <calculate phase="Render" priority="10000"><![CDATA[
+        @value = field[wpShort].value * 10000 + field[wpLong].value
+        ]]></calculate>
+
+      <!-- Final value for display is a blending of the various range values -->
+      <finalize><![CDATA[
+        @text = ""
+        doneif (@value = 0)
+
+        if (tagis[Weapon.SpecRange] <> 0) then
+          @text = "Special"
+        else
+          @text = field[wpShort].value & "/" & field[wpLong].value
+          endif
+        ]]></finalize>
+      </field>
+
+    <!-- Weapon info -->
+    <field
+      id="wpSummary"
+      name="Summary"
+      type="derived"
+      maxfinal="500"
+      nevercache="yes">
+      <finalize><![CDATA[
+        @text = tagnames[WepCat.?, "/"] & " "
+        if (tagis[Equipment.TwoHand] <> 0) then
+          @text &= "2-Handed "
+          endif
+        @text &= tagnames[WepGroup.?, "/"]
+        if (tagis[WepProp.?] <> 0) then
+          @text &= "; " & tagnames[WepProp.?, ", "]
+          endif
+
+        ~if we're a magic weapon with a crit bonus, append info about it
+        if (ispick <> 0) then
+          if (isgizmo <> 0) then
+            perform gizmo.findchild[MagicWep].setfocus
+            if (state.isfocus <> 0) then
+              var crit as string
+              crit = focus.field[mgCrit].text
+              @text &= "; ~[(^" & crit & "]Crit Bonus~[(#]"
+              endif
+            endif
+          endif
+        ]]></finalize>
+      </field>
+
+    <!-- All weapons have a tag for proficiencies -->
+    <identity group="WeaponProf"/>
+
+    <!-- Also give us an 'implement type' tag in case some class can use us as
+        an implement -->
+    <identity group="ImplemType"/>
+
+    <!-- Also an identity tag for magic weapons to specify what kind of weapon
+        they require -->
+    <identity group="ReqWep"/>
+
+    <!-- Also an identity tag for feat requirements, etc -->
+    <identity group="ReqWepProf"/>
+
+    <!-- If we're being created by a transaction, initialize our size -->
+    <creation><![CDATA[
+      if (hero.istransact <> 0) then
+        field[wpSize].value = hero.transact.field[xactSize].value
+        endif
+      ]]></creation>
+
+    <!-- Weapons require one hand by default (unless natural) -->
+    <tag group="Equipment" tag="Hand"/>
+
+    <eval index="1" phase="Final" priority="5000">
+      <before name="Power attack final"/>
+      <after name="wpMagic copy"/>
+      <after name="Calc wpSizeDiff"/>
+      <![CDATA[
+      ~get the number of 'oversized' tags - this is the number of categories
+      ~larger weapons we can use
+      var oversized as number
+      oversized = hero.tagcount[Hero.Oversized]
+
+      ~check if our size is different from the hero - note that a small hero
+      ~and a medium weapon is ok, so we exempt it from this check
+      var issizediff as number
+      issizediff = field[wpSizeDiff].value
+      if (field[wpSize].value = 0) then
+        if (#trait[trSize] = -1) then
+          issizediff = 0
+          endif
+        endif
+
+      ~small heroes can't use two-handed weapons, unless they're Small
+      if (#trait[trSize] = -1) then
+        if (tagis[Equipment.TwoHand] <> 0) then
+          if (tagis[WepProp.Small] = 0) then
+            perform assign[Helper.SizeError]
+            endif
+          endif
+        endif
+
+      ~if we're a different size from the hero, append some text to our name
+      if (issizediff <> 0) then
+        if (field[livename].isempty <> 0) then
+          field[livename].text = field[name].text
+          endif
+        if (field[wpSize].value <= -2) then
+          field[livename].text &= " [T]"
+        elseif (field[wpSize].value = -1) then
+          field[livename].text &= " [S]"
+        elseif (field[wpSize].value = 0) then
+          field[livename].text &= " [M]"
+        elseif (field[wpSize].value = 1) then
+          field[livename].text &= " [L]"
+        elseif (field[wpSize].value = 2) then
+          field[livename].text &= " [H]"
+        else
+          field[livename].text &= " [G]"
+          endif
+
+        ~if this weapon is one size smaller than us, if it's 2-handed it counts
+        ~as 1-handed; if it's 1-handed we can't use it
+        if (field[wpSizeDiff].value = -1) then
+          if (tagis[Equipment.TwoHand] <> 0) then
+            perform delete[Equipment.TwoHand]
+          else
+            perform assign[Helper.SizeError]
+            endif
+
+        ~otherwise, add a size error tag if the size is invalid for us
+        elseif (field[wpSizeDiff].value < -1) then
+          perform assign[Helper.SizeError]
+        elseif (field[wpSizeDiff].value > oversized) then
+          perform assign[Helper.SizeError]
+          endif
+        endif
+      ]]></eval>
+
+    <!-- Check if the hero is proficient with this weapon -->
+    <eval index="2" phase="Traits" priority="10000" name="Weapon proficiencies final"><![CDATA[
+      ~if this is an improvised weapon, we're proficient in it
+      if (tagis[WepCat.wcImprov] <> 0) then
+        perform assign[Helper.Proficient]
+        done
+        endif
+
+      ~NOTE! If you add more conditions here, make sure to add them to the
+      ~checks for the ReqWepProf prerequisite in components.core too!
+
+      ~check to see if we're proficient with this weapon category for melee or
+      ~ranged weapons
+      if (tagis[component.WeapMelee] <> 0) then
+        if (hero.intersect[WpCatRqMel,WepCat] <> 0) then
+          perform assign[Helper.Proficient]
+          done
+          endif
+      else
+        if (hero.intersect[WpCatRqRng,WepCat] <> 0) then
+          perform assign[Helper.Proficient]
+          done
+          endif
+        endif
+
+      ~check to see if we're proficient with this weapon category / group
+      ~combination
+      if (tagis[WepCat.wcSimple] <> 0) then
+        if (hero.intersect[WpGrpRqSim,WepGroup] <> 0) then
+          perform assign[Helper.Proficient]
+          done
+          endif
+      elseif (tagis[WepCat.wcMilitary] <> 0) then
+        if (hero.intersect[WpGrpRqMil,WepGroup] <> 0) then
+          perform assign[Helper.Proficient]
+          done
+          endif
+      elseif (tagis[WepCat.wcSuperior] <> 0) then
+        if (hero.intersect[WpGrpRqSup,WepGroup] <> 0) then
+          perform assign[Helper.Proficient]
+          done
+          endif
+        endif
+
+      ~now check to see if we're proficient with this specific weapon
+      if (hero.intersect[WeaponProf,WeaponProf] <> 0) then
+        perform assign[Helper.Proficient]
+        done
+        endif
+      ]]></eval>
+
+    <!-- Calculate the net attack roll for the weapon -->
+    <eval index="3" phase="Final" priority="7000" name="Calc wpNetAtk">
+      <after name="Weapon proficiencies final"/>
+      <![CDATA[
+      if (tagis[Helper.Proficient] <> 0) then
+        field[wpNetAtk].value += field[wpProf].value
+        endif
+      perform field[wpBonus].modify[+,field[wpAtkFeat].value,field[wpAtkFeat].history]
+      field[wpNetAtk].value += field[wpBonus].value
+
+      ~if not proficient, assign the 'nonproficient' property
+      if (tagis[Helper.Proficient] = 0) then
+        perform assign[WepProp.NonProf]
+        endif
+      ]]></eval>
+
+    <!-- Forward appropriate tags to our parent -->
+    <eval index="4" phase="Setup" priority="100" name="Magic Weapon Copy">
+      <![CDATA[
+      ~first, delete any ReqWep tag we have - this was just defined as an
+      ~identity tag, so there's no reason for it to be on the pick. Also, it
+      ~messes up chekcing for the correct type of weapons if we're a magic
+      ~weapon and we forward it up to our container.
+      perform delete[ReqWep.?]
+
+      ~if we're on a gizmo, we're part of a magic item, so forward all tags and
+      ~some fields up to our parent item so it can use them
+      if (container.ishero = 0) then
+        perform forward
+        parent.field[gearWeight].value = field[gearWeight].value
+        parent.field[wpProf].value = field[wpProf].value
+        parent.field[wpShort].value = field[wpShort].value
+        parent.field[wpLong].value = field[wpLong].value
+
+        ~also, push any "WepGroup" tags up to our parent as "ImplemType" tags,
+        ~so we know what types of implement this weapon is
+        perform parent.pushtags[WepGroup.?,ImplemType]
+
+      ~otherwise, just copy the WepGroup tags to the ImplemType group normally
+      else
+        perform pushtags[WepGroup.?,ImplemType]
+        endif
+      ]]></eval>
+
+    <!-- Fold the consolidated feat and magic damage bonus into our weapon
+          damage field -->
+    <eval index="5" phase="Final" priority="9999">
+      <before name="Power attack final"/>
+      <![CDATA[
+      perform field[wpDamage].modify[+,field[wpDamFeat].value,field[wpDamFeat].history]
+      perform field[wpDamage].modify[+,field[wpDamMagic].value,field[wpDamMagic].history]
+      ]]></eval>
+
+    <!-- Check to see if the magic item chosen matches our type. -->
+    <prereq message="Wrong type of magic item.">
+
+      <validate><![CDATA[
+        ~if our container is the hero, we're not a magic weapon, so we're valid.
+        if (ishero <> 0) then
+          @valid = 1
+          done
+          endif
+
+        ~if our container has no ReqWep tags, no magic item has been selected, so
+        ~we're valid and can get out
+        if (tagis[ReqWep.?] = 0) then
+          @valid = 1
+          done
+          endif
+
+        ~if any of our 'weapon group' tags match any of our 'weapon required'
+        ~tags, we're valid
+        if (altthing.intersect[WepGroup,ReqWep] <> 0) then
+          @valid = 1
+          done
+          endif
+
+        ~if our "any melee / ranged / thrown" tags match, we're valid
+        if (altthing.tagis[component.WeapMelee] + tagis[ReqWep.AnyMelee] = 2) then
+          @valid = 1
+          done
+          endif
+        if (altthing.tagexpr[component.WeapRange | WepProp.HeavyThrow | WepProp.LightThrow] + tagis[ReqWep.AnyRange] = 2) then
+          @valid = 1
+          done
+          endif
+        if (altthing.tagexpr[WepProp.HeavyThrow | WepProp.LightThrow] + tagis[ReqWep.AnyThrow] = 2) then
+          @valid = 1
+          done
+          endif
+
+        ~if any of our specific weapon tags match any of our 'weapon required'
+        ~tags, we're valid
+        if (altthing.intersect[thingid,ReqWep] <> 0) then
+          @valid = 1
+          done
+          endif
+
+        ~otherwise, we couldn't find a matching weapon, so we're not valid
+        @valid = 0
+        ]]></validate>
+      </prereq>
+
+    <!-- Check for proficiency if we haven't been added to the hero yet - this
+        greys the weapon out in the thing list if we're not proficient -->
+    <prereq message="Not proficient with weapon.">
+
+      <validate><![CDATA[
+        ~if we're a pick, we're valid - we can take weapons we're not proficient
+        ~in, they just don't work as well
+        if (@ispick <> 0) then
+          @valid = 1
+          done
+          endif
+
+        ~if this is an improvised weapon, we're proficient in it
+        if (altthing.tagis[WepCat.wcImprov] <> 0) then
+          @valid = 1
+          done
+          endif
+
+        ~if this is a magic weapon, we're proficient in it
+        if (altthing.tagis[thingid.wpMagic?] <> 0) then
+          @valid = 1
+          done
+          endif
+
+        ~check to see if we're proficient with this weapon category for melee or
+        ~ranged weapons
+        if (altthing.tagis[component.WeapMelee] <> 0) then
+          if (altthing.intersect[WepCat,WpCatRqMel] <> 0) then
+            @valid = 1
+            done
+            endif
+        else
+          if (altthing.intersect[WepCat,WpCatRqRng] <> 0) then
+            @valid = 1
+            done
+            endif
+          endif
+
+        ~check to see if we're proficient with this weapon category / group
+        ~combination
+        if (altthing.tagis[WepCat.wcSimple] <> 0) then
+          if (altthing.intersect[WepGroup,WpGrpRqSim] <> 0) then
+            @valid = 1
+            done
+            endif
+        elseif (altthing.tagis[WepCat.wcMilitary] <> 0) then
+          if (altthing.intersect[WepGroup,WpGrpRqMil] <> 0) then
+            @valid = 1
+            done
+            endif
+        elseif (altthing.tagis[WepCat.wcSuperior] <> 0) then
+          if (altthing.intersect[WepGroup,WpGrpRqSup] <> 0) then
+            @valid = 1
+            done
+            endif
+          endif
+
+        ~now check to see if we're proficient with this specific weapon
+        if (altthing.intersect[WeaponProf,WeaponProf] <> 0) then
+          @valid = 1
+          done
+          endif
+        ]]></validate>
+      </prereq>
+
+
+    <prereq message="Small heroes can't use Two-Handed weapons that aren't Small.">
+
+      <match><![CDATA[
+        Equipment.TwoHand & !WepProp.Small
+        ]]></match>
+
+      <validate><![CDATA[
+        ~if the hero isn't small, we're fine
+        if (#trait[trSize] > -1) then
+          @valid = 1
+          done
+          endif
+
+        ~if we're a pick, we're valid unless we're equipped
+        if (@ispick <> 0) then
+          @valid = !altpick.tagis[Equipped.Equipped]
+          done
+          endif
+        ]]></validate>
+      </prereq>
+
+    </component>
+
+
+  <!-- WeapRange component
+        Ranged weapons derive from this component. They add range distances for three
+        different range classifications. For simplicity, a text-based version of the
+        ranges is automatically generated for easy use in displaying the weapon.
+        Ranged weapons auto-calculate their net attack value based on the Shooting
+        skill.
+  -->
+  <component
+    id="WeapRange"
+    name="Ranged Weapon"
+    autocompset="no">
+
+    <!-- All ranged weapons get the same tag for sorting purposes -->
+    <tag group="Armory" tag="Range"/>
+
+    </component>
+
+
+  <!-- WeapMelee component
+        Melee weapons derive from this component. Melee weapons auto-calculate their
+        net attack value based on the Melee skill.
+  -->
+  <component
+    id="WeapMelee"
+    name="Melee Weapon"
+    autocompset="no">
+
+    <!-- All melee weapons get the same tag for sorting purposes -->
+    <tag group="Armory" tag="Melee"/>
+
+    </component>
+
+
+  <!-- Defense component
+        All armor and shields derive from this component. Defensive gear tracks a
+        defense rating and a strength requirement. The defense rating is added to the
+        character's overall Defense trait when the gear is equipped.
+  -->
+  <component
+    id="ArmorBase"
+    name="Armor Base"
+    autocompset="no"
+    panellink="armory"
+    ispublic="no">
+
+    <!-- Defense adjustment conferred by the equipment -->
+    <field
+      id="arAC"
+      name="AC Adjustment"
+      maxfinal="50"
+      type="derived">
+      <finalize><![CDATA[
+        if (@value >= 0) then
+          @text = "+" & @text
+          endif
+        ]]></finalize>
+      </field>
+    <field
+      id="arRef"
+      name="Reflex Adjustment"
+      maxfinal="50"
+      type="derived">
+      <finalize><![CDATA[
+        if (@value >= 0) then
+          @text = "+" & @text
+          endif
+        ]]></finalize>
+      </field>
+    <field
+      id="arFort"
+      name="Fortitude Adjustment"
+      maxfinal="50"
+      type="derived">
+      <finalize><![CDATA[
+        if (@value >= 0) then
+          @text = "+" & @text
+          endif
+        ]]></finalize>
+      </field>
+    <field
+      id="arWill"
+      name="Will Adjustment"
+      maxfinal="50"
+      type="derived">
+      <finalize><![CDATA[
+        if (@value >= 0) then
+          @text = "+" & @text
+          endif
+        ]]></finalize>
+      </field>
+    <field
+      id="arResAll"
+      name="Resist All Adjustment"
+      type="derived">
+      </field>
+
+    <!-- Check Penalty -->
+    <field
+      id="arCheck"
+      name="Check Penalty"
+      type="derived"
+      maxvalue="0"
+      maxfinal="50">
+      <finalize><![CDATA[
+        if (@value = 0) then
+          @text = "-"
+          endif
+        ]]></finalize>
+      </field>
+
+    <!-- Speed Penalty -->
+    <field
+      id="arSpeed"
+      name="Speed Penalty"
+      type="derived"
+      maxvalue="0"
+      maxfinal="50">
+      <finalize><![CDATA[
+        if (@value = 0) then
+          @text = "-"
+          endif
+        ]]></finalize>
+      </field>
+
+    <!-- Minimum enhancement bonus required to use this armor -->
+    <field
+      id="arMinBonus"
+      name="Minimum Enhancement Bonus"
+      type="static"
+      maxfinal="20">
+      <finalize><![CDATA[
+        @text = signed(@value)
+        ]]></finalize>
+      </field>
+
+    <!-- All armor has a "type" id tag, so "Darkhide" can say that it's a type
+          of hide armor, etc. -->
+    <identity group="ArmorType"/>
+
+    <eval index="1" phase="Traits" priority="15000" name="Armor effects final">
+      <before name="Derived trtFinal"/>
+      <after name="arMagic copy"/>
+      <after name="Armor proficiencies final"/>
+      <![CDATA[
+      ~if we're not equipped, get out
+      doneif (tagis[Equipped.Equipped] = 0)
+
+      ~if we're heavy armor, add the tag to the hero
+      if (tagis[ArmorCat.Heavy] <> 0) then
+        perform hero.assign[ArmorCat.Heavy]
+        endif
+
+      ~if we're a shield, add our reflex bonus and AC as a shield bonus;
+      ~otherwise, just add to our AC as an armor bonus
+      if (tagis[Shield.?] <> 0) then
+        #traitmodify[defAC,trtShield,field[arAC].value,""]
+        #traitmodify[defRef,trtShield,field[arAC].value,""]
+      else
+        #traitmodify[defAC,trtArmor,field[arAC].value,""]
+        #traitmodify[defRef,trtArmor,field[arRef].value,""]
+        #traitmodify[defFort,trtArmor,field[arFort].value,""]
+        #traitmodify[defWill,trtArmor,field[arWill].value,""]
+        #traitmodify[rsAll,rsTotal,field[arResAll].value,""]
+        endif
+
+      ~subtract our speed penalty, unless the hero doesn't get those kind of
+      ~penalties
+      if (hero.tagis[Hero.NoArmorSpd] = 0) then
+        #traitmodify[trSpeed,trtArmor,field[arSpeed].value,""]
+        endif
+
+      ~apply our check penalty to all str, dex and con-based skills
+      if (tagexpr[(!Shield.? & hero#Hero.NoArmorChk) | (Shield.? & hero#Hero.NoShldChk)] = 0) then
+        foreach pick in hero from Skill where "!Helper.NoArmorChk"
+          perform eachpick.linkage[attribute].setfocus
+          if (focus.tagexpr[thingid.attrStr | thingid.attrDex | thingid.attrCon] <> 0) then
+            perform eachpick.field[sklArmor].modify[+,field[arCheck].value,""]
+            endif
+          nexteach
+        endif
+
+      ~if we're not proficient, apply a -2 penalty to our attacks and reflex
+      ~save
+      if (tagis[Helper.Proficient] = 0) then
+        #traitmodify[defRef,trtBonus,-2,"non-proficient with armor"]
+        foreach pick in hero from SpecialTab where "AttackVs.?"
+          perform eachpick.field[pwAtkMod].modify[-,2,"non-proficient with armor"]
+          nexteach
+        endif
+      ]]></eval>
+
+    <eval index="2" phase="Initialize" priority="5000"><![CDATA[
+      ~if we're on a gizmo, we're part of a magic item, so forward all tags up
+      ~to our parent item so it can use them
+      ~NOTE! Delete any 'armorreq' tag from us first, since we don't want that
+      ~   to be forwarded - if it is, it messes up detecting valid types of
+      ~armor.
+      if (container.ishero = 0) then
+        perform delete[ReqArmor.?]
+        perform forward
+        endif
+      ]]></eval>
+
+    <!-- Check if the hero is proficient with this armor -->
+    <eval index="3" phase="Traits" priority="10000" name="Armor proficiencies final">
+      <after name="Armor type proficiencies"/>
+      <![CDATA[
+      ~find the first armor proficiency pick with armor type tags from this
+      ~pick - if we're proficient with it, we're proficient with this armor
+      var expr as string
+      expr = tagids[ArmorType.?, " | "]
+      perform hero.findchild[ArmorProf,expr].setfocus
+      if (state.isfocus <> 0) then
+        if (focus.tagis[Helper.Proficient] <> 0) then
+          perform assign[Helper.Proficient]
+          done
+          endif
+        endif
+      ]]></eval>
+
+    <!-- If we're equipped and not a natural form, track the armor / shield on
+        the actor - we have to do this here, and not in the armor / shield
+        components, because magic armor needs to emulate both behaviors. -->
+    <eval index="4" phase="Setup" priority="5000" name="Equip Armor"><![CDATA[
+      if (field[grIsEquip].value > 0) then
+        if (tagis[Shield.?] <> 0) then
+          perform forward[Shield.?]
+        elseif (tagis[Equipment.Natural] = 0) then
+          perform forward[Armor.?]
+          endif
+
+        ~make sure the hero doesn't have the 'magic armor' tag, which might have
+        ~been forwarded, above - if so, delete it! Otherwise we'll get an error
+        ~about too many suits of armor whenever we equip any.
+        if (hero.tagis[Armor.arMagic?] + hero.tagis[Shield.arMagic?] <> 0) then
+          perform hero.delete[Armor.arMagic?]
+          perform hero.delete[Shield.arMagic?]
+          endif
+        endif
+      ]]></eval>
+
+
+    <!-- If multiple pieces of armor are equipped, mark ourselves invalid but don't
+        flag a separate validation error for each piece - we have to do this here,
+        and not in the armor / shield components, because magic armor needs to
+        emulate both behaviors. -->
+    <evalrule index="1" phase="Validate" priority="10000" message="?" issilent="yes"><![CDATA[
+      ~if we're a shield, do nothing
+      if (tagis[Shield.?] <> 0) then
+        @valid = 1
+        done
+        endif
+
+      ~if this gear is not equipped, we're valid
+      if (field[grIsEquip].value = 0) then
+        @valid = 1
+        done
+        endif
+
+      ~if there are NOT multiple pieces of armor equipped, we're valid
+      if (hero.tagcount[Armor.?] <= 1) then
+        @valid = 1
+        done
+        endif
+
+      ~mark the tab as invalid
+      linkvalid = 0
+      ]]></evalrule>
+
+    <!-- If multiple shields are equipped, mark ourselves invalid but don't
+        flag a separate validation error for each piece - we have to do this here,
+        and not in the armor / shield components, because magic armor needs to
+        emulate both behaviors. -->
+    <evalrule index="2" phase="Validate" priority="10000" message="?" issilent="yes"><![CDATA[
+      ~if we're not a shield, do nothing
+      if (tagis[Shield.?] = 0) then
+        @valid = 1
+        done
+        endif
+
+      ~if this gear is not equipped, we're valid
+      if (field[grIsEquip].value = 0) then
+        @valid = 1
+        done
+        endif
+
+      ~if there are NOT multiple shields equipped, we're valid
+      if (hero.tagcount[Shield.?] <= 1) then
+        @valid = 1
+        done
+        endif
+
+      ~mark the tab as invalid
+      linkvalid = 0
+      ]]></evalrule>
+
+
+    <!-- Check to see if the magic item chosen matches our type. -->
+    <prereq message="Wrong type of magic item.">
+
+      <validate><![CDATA[
+        ~if our container is the hero, we're not magic armor, so we're valid.
+        if (ishero <> 0) then
+          @valid = 1
+          done
+          endif
+
+        ~if our container has no ReqArmor tags, no magic item has been selected, so
+        ~we're valid and can get out
+        if (tagis[ReqArmor.?] = 0) then
+          @valid = 1
+          done
+          endif
+
+        ~if any of our 'armor type' tags match any of our 'armor required'
+        ~tags, we're valid
+        if (altthing.intersect[ArmorType,ReqArmor] <> 0) then
+          @valid = 1
+          done
+          endif
+
+        ~otherwise, we couldn't find matching armor, so we're not valid
+        @valid = 0
+        ]]></validate>
+      </prereq>
+
+    <!-- Check to see if the magic item chosen is high enough level. -->
+    <prereq message="Magic item level too low.">
+
+      <validate><![CDATA[
+        ~if our container is the hero, we're not magic armor, so we're valid.
+        if (ishero <> 0) then
+          @valid = 1
+          done
+          endif
+
+        ~if our magic armor helper has a bonus of 0, we can't really validate
+        ~anything
+        if (child[MagicHelp].field[mghBonus].value = 0) then
+          @valid = 1
+          done
+          endif
+
+        ~if the bonus is over what we require, we're good
+        if (child[MagicHelp].field[mghBonus].value >= altthing.field[arMinBonus].value) then
+          @valid = 1
+          done
+          endif
+
+        ~otherwise, we couldn't find matching armor, so we're not valid
+        @valid = 0
+        ]]></validate>
+      </prereq>
+
+    <!-- Check for proficiency if we haven't been added to the hero yet - this
+        greys the armor out in the thing list if we're not proficient -->
+    <prereq message="Not proficient with armor.">
+
+      <validate><![CDATA[
+        ~if we're a pick, we're valid - we can take weapons we're not proficient
+        ~in, they just don't work as well
+        if (@ispick <> 0) then
+          @valid = 1
+          done
+          endif
+
+        ~if this is a magic armor, we're proficient in it
+        if (altthing.tagis[thingid.arMagic?] <> 0) then
+          @valid = 1
+          done
+          endif
+
+        ~find the first armor proficiency pick with armor type tags from this
+        ~pick - if we're proficient with it, we're proficient with this armor
+        var expr as string
+        expr = altthing.tagids[ArmorType.?, " | "]
+        perform hero.findchild[ArmorProf,expr].setfocus
+        if (state.isfocus <> 0) then
+          @valid = focus.tagis[Helper.Proficient]
+          done
+          endif
+        ]]></validate>
+      </prereq>
+
+    </component>
+
+
+  <!-- Armor component
+        Armor derives from this component. The tracking of multiple pieces of armor
+        on the character is automatically managed.
+  -->
+  <component
+    id="Armor"
+    name="Armor"
+    autocompset="no">
+
+    <!-- Each piece of armor needs its own identity tag to detect multiple pieces being equipped -->
+    <identity group="Armor"/>
+
+    <!-- Also an identity tag for magic armor to specify what kind of armor
+        they require -->
+    <identity group="ReqArmor"/>
+
+    <!-- All armor gets the same tag for sorting purposes -->
+    <tag group="Armory" tag="Armor"/>
+
+    </component>
+
+
+  <!-- Shield component
+        Shields derive from this component. The tracking of multiple shields on the
+        character is automatically managed.
+  -->
+  <component
+    id="Shield"
+    name="Shield"
+    autocompset="no">
+
+    <!-- Each shield needs its own identity tag to detect multiple shields being equipped -->
+    <identity group="Shield"/>
+
+    <!-- Also an identity tag for magic armor to specify what kind of armor
+        they require -->
+    <identity group="ReqArmor"/>
+
+    <!-- All shields get the same tag for sorting purposes -->
+    <tag group="Armory" tag="Shield"/>
+
+    <!-- Shield require one hand by default -->
+    <tag group="Equipment" tag="Hand"/>
+
+    </component>
+
+
+  <!-- Ammunition component
+        Bullets and the like derive from this component. Ammunition blends gear with
+        a tracker that lets the user monitor the consumption of the ammunition.
+  -->
+  <component
+    id="Ammunition"
+    name="Ammunition"
+    autocompset="no">
+
+    <!-- Initialize the user value to the new quantity -->
+    <creation><![CDATA[
+      ~if we don't have a transaction pick to initialize from, use what we know;
+      ~this can occur if the gear is bootstrapped or auto-added for the actor
+      if (hero.istransact = 0) then
+        field[trkUser].value = field[stackQty].value * field[lotsize].value
+
+      ~otherwise, use the contents of the transaction pick to start our value
+      else
+        field[trkUser].value = hero.transact.field[xactQty].value
+        endif
+      ]]></creation>
+
+    <!-- The tracker quantity should reset to the maximum value -->
+    <tag group="Helper" tag="ResetMax"/>
+
+    <!-- Setup our tracker bounds based on the quantity purchased -->
+    <eval index="1" phase="Final" priority="1000"><![CDATA[
+      field[trkMin].value = 0
+      field[trkMax].value = field[stackQty].value
+      ]]></eval>
+
+    <!-- Add the quantities from the other pick into this one -->
+    <merge><![CDATA[
+      field[trkMax].value += altpick.field[trkMax].value
+      field[trkUser].value += altpick.field[trkUser].value
+      ]]></merge>
+
+    <!-- Split the quantities properly across the two picks -->
+    <split><![CDATA[
+      ~save the quantity of ammo that still remains unused
+      var user as number
+      user = field[trkUser].value
+
+      ~update the new "max" values for both picks based on the stack quantity
+      field[trkMax].value = field[stackQty].value
+      altpick.field[trkMax].value -= altpick.field[stackQty].value
+
+      ~the user value for the first pick is the quantity of ammo still unused,
+      ~subject to the maximum size for the pick
+      field[trkUser].value = minimum(user,field[trkMax].value)
+
+      ~subtract the quantity allocated to the first pick from what's now left
+      user -= field[trkUser].value
+
+      ~if we have any unused ammo left to assign to the other pick, assign it
+      if (user <= 0) then
+        altpick.field[trkUser].value = 0
+      else
+        altpick.field[trkUser].value = user
+        endif
+      ]]></split>
+
+    </component>
+
+
+  <!-- MagicHelp component
+        Picks derived from this component help magic weapons and armor configure
+        themselves.
+  -->
+  <component
+    id="MagicHelp"
+    name="Magic Item Helper">
+
+    <!-- Enhancement Bonus -->
+    <field
+      id="mghBonus"
+      name="Enhancement Bonus"
+      type="derived">
+      </field>
+
+    <!-- Item Cost -->
+    <field
+      id="mghCost"
+      name="Magic Item Cost"
+      type="derived"
+      maxfinal="20">
+      <finalize><![CDATA[
+        @text &= " gp"
+        ]]></finalize>
+      </field>
+
+    <!-- Size of the item - only used by weapons right now -->
+    <field
+      id="mghSize"
+      name="Size"
+      type="user"
+      minvalue="-2"
+      maxvalue="3">
+      </field>
+
+    <!-- Selection Tag Expressions -->
+    <field
+      id="mghEqExpr"
+      name="Equipment Tag Expression"
+      type="derived"
+      maxlength="500">
+      </field>
+    <field
+      id="mghMagExpr"
+      name="Magic Tag Expression"
+      type="derived"
+      maxlength="500">
+      </field>
+
+    <!-- Initialize the size from our transaction pick (if any) -->
+    <creation><![CDATA[
+      ~if we don't have a transaction pick to initialize from, bail out; this can
+      ~occur if the gear is bootstrapped or auto-added for the actor
+      doneif (hero.istransact = 0)
+
+      ~initialize our 'size' field
+      field[mghSize].value = hero.transact.field[xactSize].value
+      ]]></creation>
+
+    <eval index="1" phase="Setup" priority="5000">
+      <before name="wpMagic copy"/>
+      <before name="arMagic copy"/>
+      <after name="mgCost final"/><![CDATA[
+      ~add a tag to our parent to let it know that we're a constructed item
+      perform parent.assign[Helper.ConstrItem]
+
+      ~if we're a weapon, set the size of our parent weapon
+      doneif (parent.tagis[component.WeaponBase] = 0)
+      trustme
+      parent.field[wpSize].value = field[mghSize].value
+      ]]></eval>
+
+    <!-- If we're a weapon, pull down all the proficiency tags from the hero,
+        and put them on the gizmo - this allows us to resolve weapon
+        proficiencies when choosing the weapon -->
+    <eval index="2" phase="Render" priority="10000"><![CDATA[
+      doneif (parent.tagis[component.WeaponBase] = 0)
+      perform hero.pulltags[WpCatRqMel.?]
+      perform hero.pulltags[WpCatRqRng.?]
+      perform hero.pulltags[WpGrpRqSim.?]
+      perform hero.pulltags[WpGrpRqMil.?]
+      perform hero.pulltags[WpGrpRqSup.?]
+      perform hero.pulltags[WeaponProf.?]
+
+      perform container.pushtags[WpCatRqMel.?]
+      perform container.pushtags[WpCatRqRng.?]
+      perform container.pushtags[WpGrpRqSim.?]
+      perform container.pushtags[WpGrpRqMil.?]
+      perform container.pushtags[WpGrpRqSup.?]
+      perform container.pushtags[WeaponProf.?]
+      ]]></eval>
+
+    <eval index="3" phase="Final" priority="10000"><![CDATA[
+      ~multiply our cost by the stack quantity, so we get charged the correct
+      ~amount
+      field[mghCost].value *= parent.field[stackQty].value
+
+      ~if we're in the middle of buying it, also multiply the cost by the
+      ~number of stacks being bought
+      if (parent.isbuying <> 0) then
+        field[mghCost].value *= parent.buystacks
+        endif
+      ]]></eval>
+
+    </component>
+
+
+  <!-- MagicItem component
+        All magic items derive from this component.
+  -->
+  <component
+    id="MagicItem"
+    name="Magic Item"
+    autocompset="no">
+
+    <field
+      id="mgFlavor"
+      name="Flavor Text"
+      type="static"
+      maxlength="2000">
+      </field>
+
+    <field
+      id="mgBonus"
+      name="Enhancement Bonus"
+      type="static"
+      maxfinal="20">
+      <finalize><![CDATA[
+        @text = signed(@value)
+        ]]></finalize>
+      </field>
+
+    <!-- Used to add an additional item damage bonus to attacks with this
+        magic item - used by e.g. Staff of Ruin -->
+    <field
+      id="mgItemDam"
+      name="Item Damage Bonus"
+      type="static">
+      </field>
+
+    <field
+      id="mgLevel"
+      name="Level"
+      type="static">
+      </field>
+
+    <field
+      id="mgCost"
+      name="Cost"
+      type="derived"
+      maxfinal="20">
+      <calculate phase="Setup" priority="2000" name="mgCost final"><![CDATA[
+        ~get the level from the magic weapon and compute the cost
+        var level as number
+        var cost as number
+        level = field[mgLevel].value
+        call MagicCost
+        @value = cost
+        ]]></calculate>
+      <finalize><![CDATA[
+        ~if this is a thing, calculate our cost
+        if (ispick = 0) then
+          var level as number
+          var cost as number
+          level = field[mgLevel].value
+          call MagicCost
+          @value = cost
+          @text = @value
+          endif
+
+        @text &= " gp"
+        ]]></finalize>
+      </field>
+
+    <field
+      id="mgEnhance"
+      name="Enhancement Details"
+      maxlength="1000"
+      type="static">
+      </field>
+
+    <field
+      id="mgCrit"
+      name="Critical Bonus"
+      maxlength="1000"
+      type="static">
+      </field>
+
+    <creation><![CDATA[
+      ~if we don't appear on the special tab, we don't print by default.
+      if (tagexpr[Hide.Special & component.SpecialTab] <> 0) then
+        field[spcPrint].value = 0
+        endif
+      ]]></creation>
+
+    <!-- Call the appropriate procedures to perform transaction setup, buy, and sell behaviors -->
+    <xactsetup><![CDATA[
+      ~perform standard transaction setup for the gear
+      call XactSetup
+      ]]></xactsetup>
+
+    <xactbuy><![CDATA[
+      call XactBuy
+      ]]></xactbuy>
+
+    <xactsell><![CDATA[
+      call XactSell
+      ]]></xactsell>
+
+    <!-- If this is meant to appear on the special tab, it needs an Item tag -->
+    <tag group="SpecialTab" tag="Item"/>
+
+    <loadfixup><![CDATA[
+      ~for portfolios saved before v2.8, set the "print" fields of anything
+      ~hidden on the special tab to 0, to make sure it doesn't print
+      doneif (@filemajor > 2)
+      doneif (@fileminor > 7)
+      doneif (tagexpr[Hide.Special & component.SpecialTab] = 0)
+      field[spcPrint].value = 0
+      ]]></loadfixup>
+
+    <eval index="1" phase="Traits" priority="1000"><![CDATA[
+      doneif (tagis[component.Gear] = 0)
+
+      ~if this item isn't equipped, disable it and make sure it isn't printed
+      ~on the power cards printout; if it can't be equipped, hide
+      ~it on the special tab
+      if (tagis[User.NoMgcEquip] <> 0) then
+        perform assign[Hide.Special]
+      elseif (field[grIsEquip].value = 0) then
+        perform assign[Helper.Exhausted]
+        endif
+
+      ~Add a "no power card" tag if we're not going to print
+      if (tagis[component.SpecialTab] = 0) then
+        perform assign[Print.NoPowerCrd]
+      elseif (field[spcPrint].value = 0) then
+        perform assign[Print.NoPowerCrd]
+        endif
+      ]]></eval>
+
+    <eval index="2" phase="Setup" priority="5000" name="mghBonus set">
+      <before name="wpMagic copy"/>
+      <before name="arMagic copy"/>
+      <after name="mgCost final"/>
+      <![CDATA[
+      ~if we're equipped and have an item slot, forward the item slot to the hero
+      if (tagis[Equipped.Equipped] + tagis[ItemSlot.?] = 2) then
+        perform forward[ItemSlot.?]
+        endif
+
+      ~if we're an implement, add the 'don't equip' field, since we get
+      ~equipped on the special tab
+      if (tagis[ImplemType.?] <> 0) then
+        perform assign[User.NoMgcEquip]
+        endif
+
+      ~if we're an equipped neck slot item, add our enhancement bonus to our
+      ~fortitude, reflex and will defenses
+      if (tagis[ItemSlot.isNeck] + tagis[Equipped.Equipped] = 2) then
+        #traitmodify[defRef,trtEnhance,field[mgBonus].value,""]
+        #traitmodify[defFort,trtEnhance,field[mgBonus].value,""]
+        #traitmodify[defWill,trtEnhance,field[mgBonus].value,""]
+        endif
+
+      ~if we're a magic weapon or armor, forward our bonuses to our helper pick
+      if (tagis[component.MagicWep] + tagis[component.MagicArmor] <> 0) then
+        container.child[MagicHelp].field[mghBonus].value += field[mgBonus].value
+        container.child[MagicHelp].field[mghCost].value += field[mgCost].value
+
+      ~otherwise, add our bonus / level to the name of the magic item
+      else
+        if (field[livename].isempty <> 0) then
+          field[livename].text = field[name].text
+          endif
+        if (field[mgBonus].value <> 0) then
+          field[livename].text &= " " & signed(field[mgBonus].value)
+        elseif (field[mgLevel].value <> 0) then
+          field[livename].text &= " {text 808080}(L" & field[mgLevel].value & "){text 010101}"
+          endif
+        endif
+      ]]></eval>
+
+    <evalrule index="1" phase="Validate" priority="20000"
+      message="Too many items equipped in this slot">
+      <match>ItemSlot.?</match>
+      <after name="Item Slot valid"/>
+      <![CDATA[
+      @valid = 1
+
+      ~find the item slot for this item, and pull any 'shouldn't equip' tag
+      ~across.
+      var expr as string
+      expr = tagids[ItemSlot.?, " | "]
+      perform hero.findchild[ItemSlot,expr].setfocus
+      doneif (state.isfocus = 0)
+      perform focus.pulltags[User.NoMgcEquip]
+
+      ~if we're not equipped, we're done
+      doneif (tagis[Equipped.Equipped] = 0)
+
+      ~if our item slot is valid, so are we
+      @valid = focus.valid
+      ]]></evalrule>
+
+    <prereq message="Cannot use / sell a magic item more than 4 levels higher than you.">
+
+      <!-- RPGA only -->
+      <match><![CDATA[
+        hero#source.RPGA
+        ]]></match>
+
+      <valid><![CDATA[
+        if (altthing.field[mgLevel].value <= #level[] + 4) then
+          @valid = 1
+          endif
+        ]]></valid>
+      </prereq>
+
+    </component>
+
+
+  <!-- MagicStaff component
+        All magic staffs derive from this component.
+  -->
+  <component
+    id="MagicStaff"
+    name="Magic Staff"
+    autocompset="no">
+
+    <!-- All staffs are obviously... staffs -->
+    <tag group="ImplemType" tag="itStaff"/>
+    <tag group="WeaponProf" tag="wpQuarters"/>
+    <tag group="WepCat" tag="wcSimple"/>
+    <tag group="WepGroup" tag="wgStaff"/>
+
+    <!-- Grab important details from the quarterstaff thing -->
+    <eval index="1" phase="Setup" priority="1000"><![CDATA[
+      field[wpBonus].value = field[mgBonus].value
+
+      foreach thing in WeapMelee where "thingid.wpQuarters"
+        field[gearWeight].value = eachthing.field[gearWeight].value
+        field[wpProf].value = eachthing.field[wpProf].value
+        perform eachthing.pulltags[WepDamage.?]
+        perform eachthing.pulltags[Equipment.?]
+        perform eachthing.pulltags[thingid.?]
+        done
+        nexteach
+      ]]></eval>
+
+    </component>
+
+
+  <!-- ItemSlot component
+        Represents a magic item slot, and the number of such items that can be
+        taken.
+  -->
+  <component
+    id="ItemSlot"
+    name="Magic Item Slot">
+
+    <field
+      id="isLimit"
+      name="Item Limit"
+      type="static"
+      minvalue="0"
+      defvalue="1">
+      </field>
+
+    <identity group="ItemSlot"/>
+
+    <!-- All item slots need to be on the hero to validate -->
+    <tag group="Helper" tag="Bootstrap"/>
+
+    <evalrule index="1" phase="Validate" priority="10000" name="Item Slot valid"
+      message="Too many magic items equipped in slot"><![CDATA[
+      validif (tagis[User.NoMgcEquip] <> 0)
+
+      ~if there's no limit, do nothing
+      if (field[isLimit].value = 0) then
+        @valid = 1
+        done
+        endif
+
+      ~otherwise, verify the limit
+      if (field[isLimit].value >= hero.countidentity[ItemSlot]) then
+        @valid = 1
+        done
+        endif
+
+      @message = "Too many magic items equipped in slot (max " & field[isLimit].value & ")"
+      ]]></evalrule>
+
+    </component>
+
+
+  <!-- MagicWep component
+        Magic weapons (for example Berserker Weapon, Lifedrinker) are derived
+        from this component.
+  -->
+  <component
+    id="MagicWep"
+    name="Magic Weapon"
+    autocompset="no">
+
+    <!-- Check to see if the weapon chosen matches our type. -->
+    <prereq message="Wrong type of weapon.">
+
+      <!-- This component-based prereq applies to all magic weapons with a
+          weapon requirement tag -->
+      <match><![CDATA[
+        ReqWep.?
+        ]]></match>
+
+      <validate><![CDATA[
+        ~if our container has no WepGroup tags, no weapon has been selected, so
+        ~we're valid and can get out
+        if (tagis[WepGroup.?] = 0) then
+          @valid = 1
+          done
+          endif
+
+        ~if any of our 'weapon group' tags match any of our 'weapon required'
+        ~tags, we're valid
+        if (altthing.intersect[ReqWep,WepGroup] <> 0) then
+          @valid = 1
+          done
+          endif
+
+        ~if our "any melee / ranged / thrown" tags match, we're valid
+        if (tagis[component.WeapMelee] + altthing.tagis[ReqWep.AnyMelee] = 2) then
+          @valid = 1
+          done
+          endif
+        if (tagexpr[component.WeapRange | WepProp.HeavyThrow | WepProp.LightThrow] + altthing.tagis[ReqWep.AnyRange] = 2) then
+          @valid = 1
+          done
+          endif
+        if (tagexpr[WepProp.HeavyThrow | WepProp.LightThrow] + altthing.tagis[ReqWep.AnyThrow] = 2) then
+          @valid = 1
+          done
+          endif
+
+        ~if any of our specific weapon tags match any of our 'weapon required'
+        ~tags, we're valid
+        if (intersect[ReqWep,thingid] <> 0) then
+          @valid = 1
+          done
+          endif
+
+        ~otherwise, we couldn't find a matching weapon, so we're not valid
+        @valid = 0
+        ]]></validate>
+      </prereq>
+
+    </component>
+
+
+  <!-- MagicArmor component
+        Magic armor is derived from this component.
+  -->
+  <component
+    id="MagicArmor"
+    name="Magic Armor"
+    autocompset="no">
+
+    <!-- Check to see if the armor chosen matches our type. -->
+    <prereq message="Wrong type of armor.">
+
+      <!-- This component-based prereq applies to all magic armor with an
+          armor requirement tag -->
+      <match><![CDATA[
+        ReqArmor.?
+        ]]></match>
+
+      <validate><![CDATA[
+        ~if our container has no ArmorType tags, no armor has been selected, so
+        ~we're valid and can get out
+        if (tagis[ArmorType.?] = 0) then
+          @valid = 1
+          done
+          endif
+
+        ~if any of our 'armor type' tags match any of our 'armor required'
+        ~tags, we're valid
+        if (altthing.intersect[ReqArmor,ArmorType] <> 0) then
+          @valid = 1
+          done
+          endif
+
+        ~otherwise, we couldn't find a matching weapon, so we're not valid
+        @valid = 0
+        ]]></validate>
+      </prereq>
+
+    </component>
+
+
+  <!-- Ritual component
+        Each ritual includes this component.
+  -->
+  <component
+    id="Ritual"
+    name="Ritual"
+    autocompset="no">
+
+    <field
+      id="ritLevText"
+      name="Level Text"
+      maxlength="100"
+      type="static">
+      </field>
+    <field
+      id="ritTime"
+      name="Casting Time"
+      maxlength="100"
+      type="static">
+      </field>
+    <field
+      id="ritLasts"
+      name="Duration"
+      maxlength="100"
+      type="static">
+      </field>
+    <field
+      id="ritCompCst"
+      name="Component Cost"
+      maxlength="100"
+      type="static">
+      </field>
+    <field
+      id="ritPrice"
+      name="Market Price"
+      minvalue="0"
+      type="static"
+      maxfinal="100">
+      <finalize><![CDATA[
+        if (@value = 0) then
+          @text = "-"
+        else
+          @text &= " gp"
+          endif
+        ]]></finalize>
+      </field>
+
+    <field
+      id="ritMaster"
+      name="Mastered?"
+      minvalue="0"
+      maxvalue="1"
+      type="user">
+      </field>
+
+    <field
+      id="ritIsBonus"
+      name="Is Bonus Ritual?"
+      minvalue="0"
+      maxvalue="1"
+      type="derived"
+      persistence="full">
+      </field>
+
+    <!-- Initialize the ritual characteristics from our transaction pick (if any) -->
+    <creation><![CDATA[
+      ~if we don't have a transaction pick to initialize from, bail out; this can
+      ~occur if the gear is bootstrapped or auto-added for the actor
+      doneif (hero.istransact = 0)
+
+      ~initialize our 'bonus ritual' field
+      field[ritIsBonus].value = hero.transact.field[xactIsBRit].value
+      ]]></creation>
+
+    <!-- Call the appropriate procedures to perform transaction setup, buy, and sell behaviors -->
+    <xactsetup><![CDATA[
+      ~if we're buying the ritual, our cost equals our price - otherwise it
+      ~starts at 0, since we never really sell it
+      if (@isbuy <> 0) then
+        hero.transact.field[xactEach].value = field[ritPrice].value
+        endif
+
+      ~if we have any free bonus rituals, and our special symbol isn't "1"
+      ~(1 means buying a scroll), set this ritual up as a bonus
+      if (@special = 1) then
+        hero.transact.field[xactIsBRit].value = 0
+      elseif (#resleft[resRituals] > 0) then
+        hero.transact.field[xactIsBRit].value = 1
+      else
+        hero.transact.field[xactIsBRit].value = 0
+        endif
+      ]]></xactsetup>
+
+    <xactbuy><![CDATA[
+      ~if we bought this as a bonus ritual, do nothing
+      doneif (hero.transact.field[xactIsBRit].value <> 0)
+
+      call XactBuy
+      ]]></xactbuy>
+
+    <xactsell><![CDATA[
+      call XactSell
+      ]]></xactsell>
+
+    <!-- It's ok to have rituals we're too low level for - we just can't master
+        them. Adding this tag removes the normal handling for a failed level
+        requirement, meaning we have to do it ourself in a different way. -->
+    <tag group="User" tag="BadLevelOK"/>
+
+    <eval index="1" phase="Setup" priority="10000" name="Mastered tag final"><![CDATA[
+      ~if our field is active, add a tag showing we're mastered
+      if (field[ritMaster].value <> 0) then
+        perform assign[Helper.Mastered]
+
+      ~if we weren't user-added, we were bootstrapped by something like a class,
+      ~so we count as mastered
+      elseif (tagis[thing.user_added] = 0) then
+        perform assign[Helper.Mastered]
+
+      ~if we're a bonus ritual, we're mastered automatically
+      ~so we count as mastered
+      elseif (field[ritIsBonus].value <> 0) then
+        perform assign[Helper.Mastered]
+
+      ~if we're on a scroll and we meet the level requirement, we count as
+      ~being mastered
+      elseif (tagis[Helper.RitScroll] <> 0) then
+        if (hero.tagvalue[Level.?] >= tagvalue[ReqLevel.?]) then
+          perform assign[Helper.Mastered]
+          endif
+
+        ~make sure we're noted as being on a scroll
+        field[livename].text = field[name].text & " [Scroll]"
+        endif
+
+      ~if we're a bonus ritual, add one to our bonus rituals taken and add to
+      ~our name
+      if (field[ritIsBonus].value <> 0) then
+        hero.child[resRituals].field[resSpent].value += 1
+        field[livename].text = field[name].text & " [Bonus]"
+        endif
+      ]]></eval>
+
+    <evalrule index="1" phase="Validate" priority="10000" message="Level requirement not met"><![CDATA[
+      if (tagis[thing.skipprereq] <> 0) then
+        @valid = 1
+        done
+        endif
+
+      ~if we meet the level requirement for this ritual, we're fine -
+      ~otherwise, we can't be mastered
+      if (hero.tagvalue[Level.?] >= tagvalue[ReqLevel.?]) then
+        @valid = 1
+        done
+        endif
+      perform assign[Helper.NoMaster]
+
+      ~if we're not mastered, we're fine
+      if (tagis[Helper.Mastered] = 0) then
+        @valid = 1
+        done
+        endif
+
+      hero.panelvalid[rituals] = 0
+      ]]></evalrule>
+
+    <evalrule index="2" phase="Validate" priority="10000" message="Must be a Ritual Caster"><![CDATA[
+      if (tagis[thing.skipprereq] <> 0) then
+        @valid = 1
+        done
+        endif
+
+      ~if we're a monster, we don't care about this
+      if (hero.tagis[Hero.Monster] <> 0) then
+        @valid = 1
+        done
+        endif
+
+      ~if we're a ritual caster, or if this ritual is ignoring pre-requisites,
+      ~or if we're on a scroll we're fine - otherwise, we can't be mastered
+      if (tagexpr[hero#Feat.ftRituaCas | thing.skipprereq | Helper.RitScroll] <> 0) then
+        @valid = 1
+        done
+        endif
+      perform assign[Helper.NoMaster]
+
+      ~if we're not mastered, we're fine
+      if (tagis[Helper.Mastered] = 0) then
+        @valid = 1
+        done
+        endif
+
+      hero.panelvalid[rituals] = 0
+      ]]></evalrule>
+
+    </component>
+
+
+  <!-- Define various component sets associated with the components defined above.
+  -->
+
+  <!-- No compsets are auto-defined for the component -->
+
+  <!-- Ritual - rituals -->
+  <compset
+    id="Ritual"
+    stackable="yes">
+    <compref component="Ritual"/>
+    <compref component="Requires"/>
+    <compref component="Custom"/>
+    </compset>
+
+  <!-- Ranged - ranged weapons -->
+  <compset
+    id="Ranged"
+    stackable="yes">
+    <compref component="WeaponBase"/>
+    <compref component="WeapRange"/>
+    <compref component="Equippable"/>
+    <compref component="MagicItTbl"/>
+    <compref component="Gear"/>
+    </compset>
+
+  <!-- Melee - melee weapons -->
+  <compset
+    id="Melee"
+    stackable="yes">
+    <compref component="WeaponBase"/>
+    <compref component="WeapMelee"/>
+    <compref component="Equippable"/>
+    <compref component="SuperImpl"/>
+    <compref component="MagicItTbl"/>
+    <compref component="Gear"/>
+    </compset>
+
+  <!-- Weapon - all weapons (above) must include these fields -->
+  <compset
+    id="Weapon"
+    stackable="yes">
+    <compref component="WeaponBase"/>
+    <compref component="Equippable"/>
+    <compref component="Gear"/>
+    </compset>
+
+  <!-- Armor -->
+  <compset
+    id="Armor"
+    stackable="yes">
+    <compref component="Armor"/>
+    <compref component="ArmorBase"/>
+    <compref component="Equippable"/>
+    <compref component="MagicItTbl"/>
+    <compref component="Gear"/>
+    </compset>
+
+  <!-- Shield -->
+  <compset
+    id="Shield"
+    stackable="yes">
+    <compref component="Shield"/>
+    <compref component="ArmorBase"/>
+    <compref component="Equippable"/>
+    <compref component="MagicItTbl"/>
+    <compref component="Gear"/>
+    </compset>
+
+  <!-- ArmorBase - all armor and shields (above) must include these fields -->
+  <compset
+    id="ArmorBase"
+    stackable="yes">
+    <compref component="ArmorBase"/>
+    <compref component="Equippable"/>
+    <compref component="Gear"/>
+    </compset>
+
+  <!-- Magic Weapon -->
+  <compset
+    id="MagicWep">
+    <compref component="MagicWep"/>
+    <compref component="MagicItem"/>
+    </compset>
+
+  <!-- Magic Armor -->
+  <compset
+    id="MagicArmor">
+    <compref component="MagicArmor"/>
+    <compref component="MagicItem"/>
+    </compset>
+
+  <!-- Magic Item -->
+  <compset
+    id="MagicItem"
+    stackable="yes">
+    <compref component="MagicItem"/>
+    <compref component="MagicItTbl"/>
+    <compref component="SpecialTab"/>
+    <compref component="Equippable"/>
+    <compref component="PowerCard"/>
+    <compref component="Gear"/>
+    </compset>
+
+  <!-- Magic Staff -->
+  <compset
+    id="MagicStaff">
+    <compref component="WeaponBase"/>
+    <compref component="WeapMelee"/>
+    <compref component="MagicStaff"/>
+    <compref component="MagicItem"/>
+    <compref component="MagicItTbl"/>
+    <compref component="Equippable"/>
+    <compref component="Gear"/>
+    </compset>
+
+  <!-- Equipment -->
+  <compset
+    id="Equipment"
+    stackable="yes">
+    <compref component="Equipment"/>
+    <compref component="SuperImpl"/>
+    <compref component="Gear"/>
+    </compset>
+
+  <!-- Ally -->
+  <compset
+    id="Ally">
+    <compref component="Ally"/>
+    <compref component="Gear"/>
+    </compset>
+
+  <!-- Mount -->
+  <compset
+    id="Mount">
+    <compref component="Ally"/>
+    <compref component="Mount"/>
+    <compref component="Gear"/>
+    </compset>
+
+  <!-- Ammunition -->
+  <compset
+    id="Ammunition"
+    stackable="yes">
+    <compref component="Equipment"/>
+    <compref component="Gear"/>
+    <compref component="Ammunition"/>
+    <compref component="Tracker"/>
+    </compset>
+
+  </document>

@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the definition of the "Magic" tab panel. This tab is where
+      the user selects general magical items for the character.
+
+      All public visual elements used with this tab panel start with the prefix "mg"
+      to associate them with the tab.
+-->
+
+<document signature="Hero Lab Data">
+
+
+  <!-- mgMagic portal
+        Presents a dynamic table where the user can add magic items for the character.
+
+        We use separate templates for selecting magic and showing the magic that has
+        been chosen. Each of these appears further below.
+
+        We use an "additem" script to simply prompt the user to add magic. We also
+        add some extra vertical spacing above and below the "add" item.
+
+        The "buytemplate" and "selltemplate" attributes hook in the logic for
+        properly buying and selling magic for cash.
+
+        We use a "headertitle" script to place a suitable title above the table.
+
+        See the details for the "arMelee" portal for a discussion of why we use a
+        component of "Magic" and restrictive "list" and "candidate" tag expressions.
+  -->
+  <portal
+    id="mgMagic"
+    style="tblNormal">
+    <table_dynamic
+      component="MagicItem"
+      showtemplate="mgMgPick"
+      choosetemplate="mgMgThing"
+      choosesortset="MagicItems"
+      buytemplate="BuyCash"
+      selltemplate="SellCash"
+      descwidth="350">
+      <list><![CDATA[
+        !component.MagicWep & !component.MagicArmor
+        ]]></list>
+      <description/>
+      <headertitle><![CDATA[
+        @text = "Miscellaneous Magic Items"
+        ]]></headertitle>
+      <additem><![CDATA[
+        @text = "Add New Magic Item"
+        ]]></additem>
+      </table_dynamic>
+    </portal>
+
+
+  <!-- mgMgThing template
+        Derived from the SimpleItem template, this includes the purchase cost
+        of the item to be purchased.
+  -->
+  <template
+    id="mgMgThing"
+    name="Magic Thing"
+    compset="MagicItem"
+    marginhorz="3"
+    marginvert="2">
+
+    <portal
+      id="name"
+      style="lblNormal">
+      <label>
+        <labeltext><![CDATA[
+          @text = field[name].text
+          if (field[mgBonus].value <> 0) then
+            @text &= " " & signed(field[mgBonus].text)
+            endif
+          if (field[mgLevel].value <> 0) then
+            @text = "{text 808080}" & field[mgLevel].text & "{text 010101}  " & @text
+            endif
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <portal
+      id="cost"
+      style="lblNormal">
+      <label>
+        <labeltext><![CDATA[
+          @text = field[mgCost].text
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <position><![CDATA[
+      ~set up our dimensions, with a width that we dictate
+      height = portal[name].height
+      width = 325
+
+      ~if this is a "sizing" calculation, we're done
+      doneif (issizing <> 0)
+
+      ~position the cost portal on the far right
+      perform portal[cost].alignedge[right,0]
+
+      ~position the name on the left and let it use all available space
+      portal[name].left = 0
+      portal[name].width = minimum(portal[name].width,portal[cost].left - 10)
+      ]]></position>
+
+    </template>
+
+
+  <!-- mgMgPick template
+        Derived from the SimpleItem template, this includes the gear button to move
+        equipment between various containers.
+  -->
+  <template
+    id="mgMgPick"
+    name="Magic Pick"
+    compset="MagicItem"
+    marginhorz="3"
+    marginvert="3">
+
+    <portal
+      id="name"
+      style="lblNormal"
+      showinvalid="yes">
+      <label
+        field="grStkName">
+        </label>
+      </portal>
+
+    <portal
+      id="chkname"
+      style="chkNormal"
+      showinvalid="yes">
+      <checkbox
+        field="grIsEquip"
+        dynamicfield="grStkName">
+        </checkbox>
+      </portal>
+
+    <portal
+      id="container"
+      style="imgNormal">
+      <image_literal
+        image="container.bmp"
+        isbuiltin="yes"
+        istransparent="yes">
+        </image_literal>
+      <mouseinfo><![CDATA[
+        call InfoHolder
+        ]]></mouseinfo>
+      </portal>
+
+    <portal
+      id="heldby"
+      style="imgNormal">
+      <image_literal
+        image="gearinfo.bmp"
+        isbuiltin="yes"
+        istransparent="yes">
+        </image_literal>
+      <mouseinfo><![CDATA[
+        call InfoHeld
+        ]]></mouseinfo>
+      </portal>
+
+    <portal
+      id="print"
+      style="chkPrint"
+      tiptext="Click to toggle whether this magic item is included on the power cards sheet.">
+      <checkbox
+        field="spcPrint">
+        </checkbox>
+      </portal>
+
+    <portal
+      id="gearmanage"
+      style="actGear"
+      tiptext="Click here to choose which container to place this equipment within.">
+      <action
+        action="gear">
+        </action>
+      </portal>
+
+    <portal
+      id="info"
+      style="actInfo">
+      <action
+        action="info">
+        </action>
+      <mouseinfo/>
+      </portal>
+
+    <portal
+      id="delete"
+      style="actDelete"
+      tiptext="Click to delete this magic item">
+      <action
+        action="delete">
+        </action>
+      </portal>
+
+    <position><![CDATA[
+      ~set up our height based on our tallest portal
+      height = portal[info].height
+
+      ~if this is a "sizing" calculation, we're done
+      doneif (issizing <> 0)
+
+      ~center the portals vertically
+      perform portal[info].centervert
+      perform portal[name].centervert
+      perform portal[chkname].centervert
+      perform portal[gearmanage].centervert
+      perform portal[delete].centervert
+      perform portal[container].centervert
+      perform portal[heldby].centervert
+      perform portal[print].centervert
+
+      ~position the delete portal on the far right
+      perform portal[delete].alignedge[right,0]
+
+      ~position the info portal to the left of the delete button
+      perform portal[info].alignrel[rtol,delete,-8]
+
+      ~position the gear portal to the left of the info button
+      perform portal[gearmanage].alignrel[rtol,info,-8]
+
+      ~position the print portal to the left of the gear button
+      perform portal[print].alignrel[rtol,gearmanage,-8]
+
+      ~position the name on the left and let it use all available space
+      portal[name].left = 0
+      portal[chkname].left = 0
+
+      var nextleft as number
+      if (tagis[User.NoMgcEquip] <> 0) then
+        portal[chkname].visible = 0
+        nextleft = portal[name].right
+      else
+        portal[name].visible = 0
+        nextleft = portal[chkname].right
+        endif
+
+      ~show the 'container' icon to the right of the name
+      portal[container].left = nextleft + 5
+      portal[container].visible = tagis[thing.holder?]
+
+      ~show the 'held by' icon to the right of the container icon
+      if (portal[container].visible = 0) then
+        portal[heldby].left = portal[container].left
+      else
+        perform portal[heldby].alignrel[ltor,container,2]
+        endif
+      portal[heldby].visible = isgearheld
+
+      ~if the magic can't be deleted (i.e. it's been auto-added instead of user-added,
+      ~set the style to indicate that behavior to the user
+      if (candelete = 0) then
+        perform portal[name].setstyle[lblAuto]
+        endif
+      ]]></position>
+
+    </template>
+
+
+  <!-- magic layout
+        This layout orchestrates the display of the visual elements that comprise
+        the Magic tab. This amounts to a title and a table that allow the user to
+        add magic to the character.
+
+        The logic for this layout is similar to preceeding tabs, so please refer
+        to those tabs for more details.
+  -->
+  <layout
+    id="magic">
+    <portalref portal="mgMagic" taborder="10"/>
+
+    <!-- This script sizes and positions the layout and its child visual elements. -->
+    <position><![CDATA[
+      ~position and size the table to span the full layout
+      perform portal[mgMagic].autoplace
+      ]]></position>
+
+    </layout>
+
+
+  <!-- magic panel
+        This is the "Magic Items" panel shown within Hero Lab. Since we want this
+        panel to appear after gear, we assign it an order of 230.
+
+        The logic for this panel is similar to the logic for the preceeding panels,
+        so please refer to those panels for more details.
+  -->
+  <panel
+    id="magic"
+    name="Magic"
+    marginhorz="5"
+    marginvert="5"
+    order="230">
+    <live>!HideTab.magic</live>
+    <layoutref layout="magic"/>
+    <position><![CDATA[
+      ]]></position>
+    </panel>
+
+
+  </document>

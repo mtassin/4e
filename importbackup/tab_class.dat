@@ -1,0 +1,930 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the definition of the "Abilities" tab panel. This tab is where
+      the user selects the special abilities for the character.
+
+      All public visual elements used with this tab panel start with the prefix "ab"
+      to associate them with the tab.
+-->
+
+<document signature="Hero Lab Data">
+
+  <portal
+    id="clHelp"
+    style="lblDisable">
+    <label
+      ismultiline="yes"
+      text="Once you've chosen a character class, you can view class features and choose your powers on this tab.">
+      </label>
+    </portal>
+
+  <!-- Class title label, chooser and info button -->
+  <portal
+    id="clTitle"
+    style="lblNormal">
+    <label
+      text="Choose Character Class:">
+      </label>
+    </portal>
+  <portal
+    id="clClass"
+    style="chsNormal">
+    <chooser_table
+      component="Class"
+      choosetemplate="ClassThing"
+      empty="These data files provide the core mechanics for 4th edition Dungeons and Dragons support, but no game content. You can either enter game content yourself using the integrated editor, or use our automated downloader program to download it from the Compendium web. site For details on how to download content for this game system, go to the Help menu and select &quot;4th Edition Manual&quot;."
+      showupdate="yes"
+      descwidth="450">
+      <candidate></candidate>
+      <chosen><![CDATA[
+        if (@ispick = 0) then
+          @text = "{text ff0000}Select Class"
+        else
+          @text = field[name].text
+          if (valid = 0) then
+            @text = "{text ff0000}" & @text
+            endif
+          endif
+        ]]></chosen>
+      <titlebar><![CDATA[
+        @text = "Choose the class for your character"
+        ]]></titlebar>
+      </chooser_table>
+    </portal>
+  <portal
+    id="clClass2"
+    style="chsNormal">
+    <chooser_table
+      component="Class"
+      choosetemplate="LargeItem"
+      showupdate="yes"
+      descwidth="450"
+      selectnone="yes">
+      <candidate>User.Hybrid</candidate>
+      <autotag group="Helper" tag="SecondCls"/>
+      <chosen><![CDATA[
+        if (@ispick = 0) then
+          @text = "{text ff0000}Select 2nd Class"
+        else
+          @text = field[name].text
+          if (valid = 0) then
+            @text = "{text ff0000}" & @text
+            endif
+          endif
+        ]]></chosen>
+      <titlebar><![CDATA[
+        @text = "Choose the second hybrid class for your character"
+        ]]></titlebar>
+      </chooser_table>
+    </portal>
+  <portal
+    id="clInfo"
+    style="actInfo">
+    <action
+      action="info">
+      </action>
+    <mouseinfo><![CDATA[
+      ~ Get our currently selected race
+      perform hero.findchild[Class].setfocus
+      if (state.isfocus = 0) then
+        @text = "No class selected."
+        done
+        endif
+
+      ~ Append class info
+      @text = "{b}" & focus.field[name].text & "{/b}{br}{br}"
+      @text &= focus.field[descript].text
+      ]]></mouseinfo>
+    </portal>
+
+  <!-- clFeatures portal
+        Presents a fixed table where the user can inspect and configure class
+        features. Build options, like the fighter one-handed weapon talent, are
+        always shown last.
+  -->
+  <portal
+    id="clFeatures"
+    style="tblNormal">
+    <table_fixed
+      component="UserSelect"
+      showtemplate="MenuSlPick"
+      showsortset="BuildLast"
+      columns="2"
+      alwaysupdate="yes">
+      <list><![CDATA[
+        ConfSource.Class | ConfSource.ClassSkill | (component.Power & User.ClassFeat) &
+        (!User.NeedChosen | Helper.ChosenOpt) | PowerType.BuildOpt
+        ]]></list>
+      <headertitle><![CDATA[
+        @text = "Class Features"
+        ]]></headertitle>
+      </table_fixed>
+    </portal>
+
+
+  <!-- clAtWill portal
+        Presents a dynamic table that you can add at-will powers with.
+  -->
+  <portal
+    id="clAtWill"
+    style="tblNormal">
+    <table_dynamic
+      component="Power"
+      showtemplate="PowerItem"
+      choosetemplate="PowerItem"
+      addpick="resAtWill"
+      candidatepick="actor"
+      candidatefield="acClAtWExp"
+      showsortset="PowerLevel"
+      choosesortset="PowerLevel"
+      descwidth="400">
+      <list><![CDATA[
+        Helper.AutoClsPwr & PowerType.AtWill
+        ]]></list> <!-- Show powers added from this table, plus auto-added at-will powers (like the ones the Warlock uses) -->
+      <restriction>TRUE</restriction> <!-- We can't take the same power more than once -->
+      <autotag group="Helper" tag="PwrClass"/>
+      <autotag group="Helper" tag="ForceAtW"/>
+      <titlebar><![CDATA[
+        @text = "Add an At-Will Power - " & hero.child[resAtWill].field[resSummary].text
+        ]]></titlebar>
+      <description/>
+      <headertitle><![CDATA[
+        @text = herofield[acTermAtWs].text & ": " & hero.child[resAtWill].field[resSummary].text
+        ]]></headertitle>
+      <additem><![CDATA[
+        ~set the color based on whether the proper number of slots are allocated
+        if (field[resLeft].value = 0) then
+          @text = "{text a0a0a0}"
+        elseif (field[resLeft].value < 0) then
+          @text = "{text ff0000}"
+          endif
+        @text &= "Add New " & herofield[acTermAtW].text
+        ]]></additem>
+      </table_dynamic>
+    </portal>
+
+
+  <!-- clEncount portal
+        Presents a dynamic table that you can add encounter powers with.
+  -->
+  <portal
+    id="clEncount"
+    style="tblNormal">
+    <table_dynamic
+      component="Power"
+      showtemplate="PowerItem"
+      choosetemplate="PowerItem"
+      addpick="resEncount"
+      candidatepick="actor"
+      candidatefield="acClEncExp"
+      showsortset="PowerLevel"
+      choosesortset="PowerLevel"
+      descwidth="400">
+      <list><![CDATA[
+        Helper.AutoClsPwr & PowerType.Encounter
+        ]]></list> <!-- Also show powers added by class, themes and build options -->
+      <restriction>TRUE</restriction> <!-- We can't take the same power more than once -->
+      <autotag group="Helper" tag="PwrClass"/>
+      <titlebar><![CDATA[
+        @text = "Add an Encounter Power - " & hero.child[resEncount].field[resSummary].text
+        ]]></titlebar>
+      <description/>
+      <headertitle><![CDATA[
+        @text = "Encounter Powers: " & hero.child[resEncount].field[resSummary].text
+        ]]></headertitle>
+      <additem><![CDATA[
+        ~set the color based on whether the proper number of slots are allocated
+        if (field[resLeft].value = 0) then
+          @text = "{text a0a0a0}"
+        elseif (field[resLeft].value < 0) then
+          @text = "{text ff0000}"
+          endif
+        @text &= "Add New Encounter Power"
+        ]]></additem>
+      </table_dynamic>
+    </portal>
+
+
+  <!-- clDaily portal
+        Presents a dynamic table that you can add daily powers with.
+  -->
+  <portal
+    id="clDaily"
+    style="tblNormal">
+    <table_dynamic
+      component="Power"
+      showtemplate="PowerItem"
+      choosetemplate="PowerItem"
+      addpick="resDaily"
+      candidatepick="actor"
+      candidatefield="acClDaiExp"
+      showsortset="PowerLevel"
+      choosesortset="PowerLevel"
+      descwidth="400">
+      <list><![CDATA[
+        Helper.AutoClsPwr & PowerType.Daily
+        ]]></list> <!-- Also show powers added by class, themes and build options -->
+      <restriction>TRUE</restriction> <!-- We can't take the same power more than once -->
+      <autotag group="Helper" tag="PwrClass"/>
+      <titlebar><![CDATA[
+        @text = "Add an Daily Power - " & hero.child[resDaily].field[resSummary].text
+        ]]></titlebar>
+      <description/>
+      <headertitle><![CDATA[
+        @text = "Daily Powers: " & hero.child[resDaily].field[resSummary].text
+        ]]></headertitle>
+      <additem><![CDATA[
+        ~set the color based on whether the proper number of slots are allocated
+        if (field[resLeft].value = 0) then
+          @text = "{text a0a0a0}"
+        elseif (field[resLeft].value < 0) then
+          @text = "{text ff0000}"
+          endif
+        @text &= "Add New Daily Power"
+        ]]></additem>
+      </table_dynamic>
+    </portal>
+
+
+  <!-- clUtility portal
+        Presents a dynamic table that you can add utility powers with.
+  -->
+  <portal
+    id="clUtility"
+    style="tblNormal">
+    <table_dynamic
+      component="Power"
+      showtemplate="PowerItem"
+      choosetemplate="PowerItem"
+      addpick="resUtility"
+      candidatepick="actor"
+      candidatefield="acClUtiExp"
+      showsortset="PowerLevel"
+      choosesortset="PowerLevel"
+      descwidth="400">
+      <list><![CDATA[
+        Helper.AutoClsPwr & PowerType.Utility
+        ]]></list> <!-- Also show powers added by class, themes and build options -->
+      <restriction>TRUE</restriction> <!-- We can't take the same power more than once -->
+      <autotag group="Helper" tag="PwrClass"/>
+      <titlebar><![CDATA[
+        @text = "Add an Utility Power - " & hero.child[resUtility].field[resSummary].text
+        ]]></titlebar>
+      <description/>
+      <headertitle><![CDATA[
+        @text = "Utility Powers: " & hero.child[resUtility].field[resSummary].text
+        ]]></headertitle>
+      <additem><![CDATA[
+        ~set the color based on whether the proper number of slots are allocated
+        if (field[resLeft].value = 0) then
+          @text = "{text a0a0a0}"
+        elseif (field[resLeft].value < 0) then
+          @text = "{text ff0000}"
+          endif
+        @text &= "Add New Utility Power"
+        ]]></additem>
+      </table_dynamic>
+    </portal>
+
+  <!-- Power count info -->
+  <portal
+    id="clPwrCount"
+    style="lblDisable">
+    <label
+      ismultiline="yes">
+      <labeltext><![CDATA[
+        var powerinfo as string
+        var powertype as string
+        var powertypes as string
+        var nolevels as number
+        var findmech as string
+        var numcounts as number
+
+        @text = "At this level, you may choose the following class & multiclass powers:{br}{vert 5}"
+
+        ~at-will powers
+        if (hero.tagis[Hero.HidePwrAtW] = 0) then
+          powerinfo = ""
+          findmech = "PwrAtWill"
+          call FindMech
+          doneif (state.isfocus = 0)
+          powertype = lowercase(herofield[acTermAtW].text)
+          powertypes = lowercase(herofield[acTermAtWs].text)
+          call PowerCount
+
+          if (numcounts = 2) then
+            @text &= ";{br}"
+          elseif (numcounts > 0) then
+            @text &= "; "
+            endif
+          @text &= powerinfo
+          numcounts += 1
+          endif
+
+        ~encounter powers
+        if (hero.tagis[Hero.HidePwrEnc] = 0) then
+          powerinfo = ""
+          findmech = "PwrEncount"
+          doneif (state.isfocus = 0)
+          call FindMech
+          powertype = "encounter power"
+          powertypes = "encounter powers"
+          call PowerCount
+
+          if (numcounts = 2) then
+            @text &= ";{br}"
+          elseif (numcounts > 0) then
+            @text &= "; "
+            endif
+          @text &= powerinfo
+          numcounts += 1
+          endif
+
+        ~utility powers
+        if (hero.tagis[Hero.HidePwrUti] = 0) then
+          powerinfo = ""
+          findmech = "PwrUtility"
+          call FindMech
+          doneif (state.isfocus = 0)
+          powertype = "utility power"
+          powertypes = "utility powers"
+          call PowerCount
+
+          if (numcounts = 2) then
+            @text &= ";{br}"
+          elseif (numcounts > 0) then
+            @text &= "; "
+            endif
+          @text &= powerinfo
+          numcounts += 1
+          endif
+
+        ~daily powers
+        if (hero.tagis[Hero.HidePwrDai] = 0) then
+          powerinfo = ""
+          findmech = "PwrDaily"
+          call FindMech
+          doneif (state.isfocus = 0)
+          powertype = "daily power"
+          powertypes = "daily powers"
+          call PowerCount
+
+          if (numcounts = 2) then
+            @text &= ";{br}"
+          elseif (numcounts > 0) then
+            @text &= "; "
+            endif
+          @text &= powerinfo
+          numcounts += 1
+          endif
+
+        @text &= "."
+        ]]></labeltext>
+      </label>
+    </portal>
+
+  <portal
+    id="clPwrInfo"
+    style="actInfo">
+    <action
+      action="info">
+      </action>
+    <mouseinfo><![CDATA[
+      ~ Get our currently selected race
+      perform hero.findchild[Class].setfocus
+      if (state.isfocus = 0) then
+        @text = "No class selected."
+        done
+        endif
+
+      ~ Append class info
+      @text = "{b}" & focus.field[name].text & " Power Progression{/b}{br}"
+      @text &= "(" & herofield[acTermAtWs].text & " / Encounter / Utility / Daily){br}{br}"
+
+      var i as number
+      var level as number
+      for i = 1 to 10
+        var pwrallsumm as string
+
+        ~start with a space for levels 1-9, to balance things
+        if (i < 10) then
+          @text &= " "
+          endif
+
+        ~levels 1-10
+        level = i
+        call PwrAllSumm
+        @text &= pwrallsumm
+
+        ~levels 11-20
+        level = i + 10
+        call PwrAllSumm
+        @text &= "      " & pwrallsumm
+
+        ~levels 21-10
+        level = i + 20
+        call PwrAllSumm
+        @text &= "      " & pwrallsumm & "{br}"
+        next
+      ]]></mouseinfo>
+    </portal>
+
+
+  <!-- ClassThing template
+  -->
+  <template
+    id="ClassThing"
+    name="Class Thing"
+    compset="Class"
+    marginhorz="3"
+    marginvert="5"
+    width="200">
+
+    <portal
+      id="name"
+      style="lblXLarge"
+      showinvalid="yes">
+      <label
+        field="name">
+        </label>
+      </portal>
+
+    <portal
+      id="otherclass"
+      style="lblDisable"
+      showinvalid="yes">
+      <label>
+        <labeltext><![CDATA[
+          ~we assume we only ever have one or two class tags, one of which is
+          ~always our own - if there's another, we want to display it here
+          var otherclass as string
+          otherclass = tagnames[ClassName.?, ""]
+          otherclass = replace(otherclass, field[name].text, "", -1)
+          doneif (empty(otherclass) <> 0)
+
+          @text = "{/b}("
+          @text &= otherclass
+          @text &= ")"
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <position><![CDATA[
+      ~set up our height based on our tallest portal
+      height = portal[name].height
+
+      ~if this is a "sizing" calculation, we're done
+      doneif (issizing <> 0)
+
+      ~center the portals vertically
+      perform portal[name].centervert
+      perform portal[otherclass].centervert
+
+      portal[name].left = 0
+
+      perform portal[otherclass].alignrel[ltor,name,5]
+      ]]></position>
+
+    </template>
+
+
+  <!-- PowerItem template
+        As the SimpleItem template in visual.dat, but customized for powers -
+        the power level is displayed before the name.
+  -->
+  <template
+    id="PowerItem"
+    name="Power Item"
+    compset="Power"
+    marginhorz="3"
+    marginvert="2">
+
+    <portal
+      id="name"
+      style="lblNormal"
+      showinvalid="yes">
+      <label>
+        <labeltext><![CDATA[
+          ~if we have a power level requirement, show it
+          if (tagis[ReqLevel.?] <> 0) then
+            @text = "{text 606060}" & tagvalue[ReqLevel.?] & "{text 010101}{horz 6}"
+            endif
+
+          ~append the name
+          @text &= field[name].text
+
+          ~if the hero is a hybrid hero
+          if (ispick = 0) then
+            if (hero.tagis[Hero.Hybrid] <> 0) then
+              if (tagis[PowerClass.?] <> 0) then
+                @text &= "  {text clrdisable}(" & left(tagnames[PowerClass.?, "??"], 3) & ")"
+                endif
+              endif
+            endif
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <portal
+      id="chkname"
+      style="chkNormal"
+      showinvalid="yes">
+      <checkbox
+        field="usrIsCheck"
+        dynamicfield="name">
+        </checkbox>
+      </portal>
+
+    <portal
+      id="info"
+      style="actInfo">
+      <action
+        action="info">
+        </action>
+      <mouseinfo/>
+      </portal>
+
+    <portal
+      id="delete"
+      style="actDelete"
+      tiptext="Click to delete this item">
+      <action
+        action="delete">
+        </action>
+      </portal>
+
+    <position><![CDATA[
+      ~set up our height based on our tallest portal
+      height = portal[info].height
+
+      ~if we've been assigned a non-default width for use when showing things, adopt
+      ~that width now
+      if (ispick = 0) then
+        var size as number
+        size = tagvalue[SimpleItem.width?]
+        if (size > 0) then
+          width = size
+          endif
+        endif
+
+      ~if this is a "sizing" calculation, we're done
+      doneif (issizing <> 0)
+
+      ~position our tallest portal at the top
+      portal[info].top = 0
+
+      ~center the other portals vertically
+      perform portal[name].centervert
+      perform portal[chkname].centervert
+      perform portal[delete].centervert
+
+      ~show the appropriate name portal
+      if (tagis[Helper.PowerCheck] = 0) then
+        portal[chkname].visible = 0
+      else
+        portal[name].visible = 0
+        endif
+
+      ~if we're underlevelled, set our color portal to yellow as a notifier
+      if (tagis[Helper.PwrUnderLv] <> 0) then
+        perform portal[name].setstyle[lblBright]
+        perform portal[chkname].setstyle[chkBright]
+        endif
+
+      ~if we're recommended for this hero in selection mode, show it
+      if (ispick = 0) then
+        if (hero.intersect[Class,RecomClass] <> 0) then
+          perform portal[name].setstyle[lblBright]
+          endif
+        endif
+
+      ~if we're not checked, disable our name checkbox
+      if (field[usrIsCheck].value = 0) then
+        perform portal[chkname].setstyle[chkDisable]
+        endif
+
+      ~position the delete portal on the far right
+      perform portal[delete].alignedge[right,0]
+
+      ~position the info portal to the left of the delete button
+      perform portal[info].alignrel[rtol,delete,-8]
+
+      ~if we're showing a thing, the info and delete buttons are irrelevant, since
+      ~we should be showing within a chooser, in which case there's nothing to
+      ~delete and we have the description already visible
+      var edge as number
+      if (ispick = 0) then
+        portal[info].visible = 0
+        portal[delete].visible = 0
+        edge = width
+      else
+        edge = portal[info].left - 5
+        endif
+
+      ~position the name on the left and let it use all available space
+      portal[name].left = 0
+      portal[name].width = minimum(portal[name].width,edge)
+      portal[chkname].left = 0
+      portal[chkname].width = minimum(portal[chkname].width,edge)
+      ]]></position>
+
+    </template>
+
+
+  <!-- clRecOnly template
+        Displays info for the "recommended powers only?" checkbox
+  -->
+  <template
+    id="clRecOnly"
+    name="Recommended Powers Only?"
+    compset="Actor">
+
+    <portal
+      id="checkbox"
+      style="chkNormal"
+      tiptext="When checked, only recommended powers appear for the class.">
+      <checkbox
+        field="acRecOnly"
+        message="Only Include Recommended Class Powers in List?">
+        </checkbox>
+      </portal>
+
+    <position><![CDATA[
+      ~set up our height based on our tallest portal
+      perform portal[checkbox].centerhorz
+      height = portal[checkbox].height
+      ]]></position>
+
+    </template>
+
+
+  <!-- class layout
+        This layout orchestrates the display of the visual elements that comprise
+        the Class tab. This amounts to a title at the top and a dynamic table
+        below where the user can add the special abilities he wants.
+
+        The logic for this layout is similar to (albeit much simpler than) the
+        logic for the Basics tab. So please refer to the Basics tab for more details.
+  -->
+  <layout
+    id="class">
+    <portalref portal="clTitle"/>
+    <portalref portal="clClass" taborder="10"/>
+    <portalref portal="clClass2" taborder="15"/>
+    <portalref portal="clHelp"/>
+    <portalref portal="clInfo" taborder="20"/>
+    <portalref portal="clFeatures" taborder="40"/>
+    <portalref portal="clAtWill" taborder="50"/>
+    <portalref portal="clEncount" taborder="60"/>
+    <portalref portal="clUtility" taborder="70"/>
+    <portalref portal="clDaily" taborder="80"/>
+    <portalref portal="clPwrCount"/>
+    <portalref portal="clPwrInfo" taborder="90"/>
+    <templateref template="clRecOnly" taborder="85" thing="actor"/>
+
+    <!-- This script sizes and positions the layout and its child visual elements. -->
+    <position><![CDATA[
+      portal[clClass2].visible = hero.tagis[Hero.Hybrid]
+      if (portal[clClass2].visible <> 0) then
+        portal[clClass].width = 145
+        portal[clInfo].visible = 0
+      else
+        portal[clClass].width = 200
+        endif
+      portal[clClass2].width = portal[clClass].width
+
+      ~position the class selection portals at the top of the panel,
+      ~horizontally centered - if we're a hybrid class, allow space for our
+      ~second class chooser and hide our info button
+      var space as number
+      space = 10
+      var total as number
+      total = portal[clTitle].width + space + portal[clClass].width + space + portal[clInfo].width
+      if (portal[clClass2].visible <> 0) then
+        total += portal[clClass2].width - portal[clInfo].width
+        endif
+      portal[clTitle].left = (width - total) / 2
+      portal[clClass].left = portal[clTitle].right + space
+      portal[clClass2].left = portal[clClass].right + space
+      portal[clInfo].left = portal[clClass].right + space
+
+      ~center the controls vertically within the class chooser
+      portal[clClass].top = 3
+      portal[clClass2].top = portal[clClass].top
+      perform portal[clTitle].centeron[vert,clClass]
+      perform portal[clInfo].centeron[vert,clClass]
+
+      ~if we don't have a class, hide all our tables and show the help label
+      if (hero.tagis[Class.?] = 0) then
+        portal[clFeatures].visible = 0
+        portal[clAtWill].visible = 0
+        portal[clEncount].visible = 0
+        portal[clUtility].visible = 0
+        portal[clDaily].visible = 0
+        portal[clPwrCount].visible = 0
+        portal[clPwrInfo].visible = 0
+      else
+        portal[clHelp].visible = 0
+        endif
+
+      ~position our help label under the 'choose' chooser.
+      portal[clHelp].width = width * 2 / 3
+      portal[clHelp].height = portal[clHelp].textheight
+      perform portal[clHelp].centerhorz
+      portal[clHelp].top = portal[clClass].bottom + 50
+
+      ~now we know how much space we need for controls at the top of the tab,
+      ~so figure out how much space we need for controls at the bottom.
+      var botspace as number
+      portal[clPwrInfo].left = width - portal[clPwrInfo].width - 5
+      portal[clPwrCount].width = portal[clPwrInfo].left - 5
+      perform portal[clPwrCount].autoheight
+
+      ~shrink our "count" label if it's more than 3 lines plus a bit of extra space
+      if (portal[clPwrCount].height > portal[clPwrCount].fontheight * 3 + 10) then
+        perform portal[clPwrCount].setstyle[lblTinyDis]
+        perform portal[clPwrCount].autoheight
+        endif
+      botspace = portal[clPwrCount].height + 10
+
+      ~include our 'recommended only' template under here, if appropriate
+      var lowest as number
+      if (hero.tagis[User.RecomPower] = 0) then
+        template[clRecOnly].visible = 0
+      else
+        template[clRecOnly].width = width
+        perform template[clRecOnly].render
+        botspace += template[clRecOnly].height + 10
+        endif
+
+      ~position the class features table under the class chooser - always let
+      ~it use all the space it needs, since if it uses up too much we'll just
+      ~scroll the tab
+      portal[clFeatures].left = 0
+      portal[clFeatures].width = width
+      portal[clFeatures].top = portal[clClass].bottom + 20
+      portal[clFeatures].height = height
+
+      ~now we should know how much space we have left for power tables
+      var tablespace as number
+      tablespace = height - portal[clFeatures].bottom - 20 - botspace
+      var leftused as number
+      var rightused as number
+
+      ~work out what the lowest point is for the skills and features table -
+      ~our at-will table gets positioned under there
+      var lowest as number
+      lowest = portal[clFeatures].bottom + 20
+      portal[clAtWill].top = lowest
+      portal[clAtWill].width = (width - 10) / 2
+      portal[clAtWill].height = tablespace
+
+      ~our encounter powers get positioned at the same place as the at-will
+      ~powers, but on the right
+      portal[clEncount].top = portal[clAtWill].top
+      portal[clEncount].width = portal[clAtWill].width
+      portal[clEncount].left = portal[clAtWill].right + 10
+      portal[clEncount].height = tablespace
+
+      ~hide either table that is not required
+      if (portal[clAtWill].itemcount + !hero.tagis[Hero.HidePwrAtW] = 0) then
+        portal[clAtWill].visible = 0
+      else
+        leftused += portal[clAtWill].height
+        endif
+      if (portal[clEncount].itemcount + !hero.tagis[Hero.HidePwrEnc] = 0) then
+        portal[clEncount].visible = 0
+      else
+        rightused += portal[clEncount].height
+        endif
+
+      ~utility powers go right under at-will powers
+      if (portal[clAtWill].visible <> 0) then
+        portal[clUtility].top = portal[clAtWill].bottom + 10
+      else
+        portal[clUtility].top = portal[clAtWill].top
+        endif
+      portal[clUtility].width = portal[clAtWill].width
+      portal[clUtility].height = tablespace
+
+      ~daily powers go right under encounter powers
+      if (portal[clEncount].visible <> 0) then
+        portal[clDaily].top = portal[clEncount].bottom + 10
+      else
+        portal[clDaily].top = portal[clEncount].top
+        endif
+      portal[clDaily].width = portal[clAtWill].width
+      portal[clDaily].left = portal[clEncount].left
+      portal[clDaily].height = tablespace
+
+      ~hide either table that is not required
+      if (portal[clUtility].itemcount + !hero.tagis[Hero.HidePwrUti] = 0) then
+        portal[clUtility].visible = 0
+      else
+        leftused += portal[clUtility].height
+        endif
+      if (portal[clDaily].itemcount + !hero.tagis[Hero.HidePwrDai] = 0) then
+        portal[clDaily].visible = 0
+      else
+        rightused += portal[clDaily].height
+        endif
+
+      ~choose a reasonable minimum size for tables
+      var mintable as number
+      mintable = 150
+
+      ~if we don't have enough space to hold our tables on the left side, that
+      ~means we have two of them (since one would have fit in the space
+      ~exactly).
+      if (leftused > tablespace) then
+
+        ~find the biggest table and cut it in half, and subtract the remaining
+        ~space from the other table
+        if (portal[clAtWill].height > portal[clUtility].height) then
+          portal[clAtWill].height = maximum(mintable, portal[clAtWill].height / 2)
+          portal[clUtility].height = maximum(mintable, tablespace - 10 - portal[clAtWill].height)
+        else
+          portal[clUtility].height = maximum(mintable, portal[clUtility].height / 2)
+          portal[clAtWill].height = maximum(mintable, tablespace - 10 - portal[clUtility].height)
+          endif
+
+        ~now reposition the bottom table to deal with the new heights
+        if (portal[clAtWill].visible <> 0) then
+          portal[clUtility].top = portal[clAtWill].bottom + 10
+          endif
+        endif
+
+      ~do the same on the right
+      if (rightused > tablespace) then
+        if (portal[clEncount].height > portal[clDaily].height) then
+          portal[clEncount].height = maximum(mintable, portal[clEncount].height / 2)
+          portal[clDaily].height = maximum(mintable, tablespace - 10 - portal[clEncount].height)
+        else
+          portal[clDaily].height = maximum(mintable, portal[clDaily].height / 2)
+          portal[clEncount].height = maximum(mintable, tablespace - 10 - portal[clDaily].height)
+          endif
+        if (portal[clEncount].visible <> 0) then
+          portal[clDaily].top = portal[clEncount].bottom + 10
+          endif
+        endif
+
+      ~our tables should all have been positioned appropriately, so now find
+      ~the lowest unused point so far to position stuff at the bottom of the
+      ~tables
+      lowest = portal[clFeatures].bottom
+      if (portal[clAtWill].visible <> 0) then
+        lowest = maximum(lowest, portal[clAtWill].bottom)
+        endif
+      if (portal[clEncount].visible <> 0) then
+        lowest = maximum(lowest, portal[clEncount].bottom)
+        endif
+      if (portal[clUtility].visible <> 0) then
+        lowest = maximum(lowest, portal[clUtility].bottom)
+        endif
+      if (portal[clDaily].visible <> 0) then
+        lowest = maximum(lowest, portal[clDaily].bottom)
+        endif
+      lowest += 10
+
+      ~show our 'recommended only' template under here, if appropriate
+      var lowest as number
+      if (template[clRecOnly].visible <> 0) then
+        template[clRecOnly].top = lowest
+        lowest = template[clRecOnly].bottom + 10
+        endif
+
+      ~the power count is positioned under our tables, centered
+      portal[clPwrCount].top = lowest
+      perform portal[clPwrInfo].centeron[vert,clPwrCount]
+
+      ~set our height to be used for scrolling if necessary
+      height = portal[clPwrCount].bottom
+      ]]></position>
+
+    </layout>
+
+
+  <!-- class panel
+        This is the "Class" panel shown within Hero Lab. Since we want this
+        panel to appear after Basics and within the traits grouping, we assign it
+        an "order" of 120.
+
+        The logic for this panel is similar to the logic for the Basics panel, so
+        please refer to the Basics panel for more details.
+  -->
+  <panel
+    id="class"
+    name="Class"
+    marginhorz="5"
+    marginvert="5"
+    order="100">
+    <live>!HideTab.class</live>
+    <layoutref layout="class"/>
+    <position><![CDATA[
+      ~get the height used by the layout and use it, as that means we scroll
+      ~if necessary
+      perform layout[class].render
+      height = layout[class].height
+      ]]></position>
+    </panel>
+  </document>

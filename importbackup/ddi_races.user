@@ -1,0 +1,1932 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document signature="Hero Lab Data">
+  <thing id="rBladeling" name="Bladeling" description="{b}Acid Resistance{/b}: You have resist acid 5 + one-half your level.{br}{b}Razor Storm{/b}: You can use razor storm as an encounter power." compset="Race" uniqueness="unique">
+    <fieldval field="racDex" value="2"/>
+    <fieldval field="racWis" value="2"/>
+    <fieldval field="racHtMin" value="68"/>
+    <fieldval field="racHtMax" value="76"/>
+    <fieldval field="racWtMin" value="210"/>
+    <fieldval field="racWtMax" value="310"/>
+    <fieldval field="racSpeed" value="6"/>
+    <usesource source="ManPlanes"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="SkillBonus" tag="skIntimida"/>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="pRacRazSto"></bootstrap>
+    <bootstrap thing="fRBlAciRes"></bootstrap>
+    </thing>
+  <thing id="rBugbear" name="Bugbear" description="{b}Oversized{/b}: You can use weapons of your size or one size larger than you as if they were your size.{br}{b}Predatory Eye{/b}: You can use predatory eye as an encounter power." compset="Race" uniqueness="unique">
+    <fieldval field="racDex" value="2"/>
+    <fieldval field="racStr" value="2"/>
+    <fieldval field="racHtMin" value="82"/>
+    <fieldval field="racHtMax" value="86"/>
+    <fieldval field="racWtMin" value="250"/>
+    <fieldval field="racWtMax" value="300"/>
+    <fieldval field="racSpeed" value="6"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="Vision" tag="Lowlight"/>
+    <tag group="SkillBonus" tag="skIntimida"/>
+    <tag group="SkillBonus" tag="skStealth"/>
+    <bootstrap thing="lanGoblin"></bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="pRacPreEye"></bootstrap>
+    <bootstrap thing="fRBuOversi"></bootstrap>
+    </thing>
+  <thing id="rBullywug" name="Bullywug" description="{b}Rancid Air{/b}: (Poison) aura 2: Any enemy that spends a healing surge within the aura is weakened until the end of its next turn.{br}{b}Swamp Walk{/b}: A creature that has swamp walk ignores difficult terrain that is mud or shallow water." compset="Race" uniqueness="unique">
+    <fieldval field="racCon" value="2"/>
+    <fieldval field="racDex" value="2"/>
+    <fieldval field="racHtMin" value="64"/>
+    <fieldval field="racHtMax" value="72"/>
+    <fieldval field="racWtMin" value="150"/>
+    <fieldval field="racWtMax" value="240"/>
+    <fieldval field="racSpeed" value="6"/>
+    <usesource source="MM2"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="SkillBonus" tag="skAthletic"/>
+    <bootstrap thing="lanPrimord"></bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="fRBuRanAir"></bootstrap>
+    <bootstrap thing="fRBuSwaWal"></bootstrap>
+    </thing>
+  <thing id="rChangelin" name="Changeling" description="{b}Change Shape{/b}: You have the changeling disguise power.{br}{b}Changeling Trick{/b}: You have the changeling trick power.{br}{b}Mental Defense{/b}: You have a +1 racial bonus to Will.{br}{b}Shapechanger{/b}: You have the shapechanger subtype; you can alter your appearance. As such, you are subject to effects and conditions that affect shapechangers." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Anyone, anywhere, hidden in plain sight"/>
+    <fieldval field="racCha" value="2"/>
+    <fieldval field="racHtMin" value="67"/>
+    <fieldval field="racHtMax" value="72"/>
+    <fieldval field="racWtMin" value="120"/>
+    <fieldval field="racWtMax" value="160"/>
+    <fieldval field="racSpeed" value="6"/>
+    <fieldval field="racWill" value="1"/>
+    <usesource source="EbPG"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="SkillBonus" tag="skBluff"/>
+    <tag group="SkillBonus" tag="skInsight"/>
+    <tag group="User" tag="StdRace"/>
+    <bootstrap thing="pRacChaDis"></bootstrap>
+    <bootstrap thing="pRacChaTri"></bootstrap>
+    <bootstrap thing="fRChChaSha"></bootstrap>
+    <bootstrap thing="fRChMenDef"></bootstrap>
+    <bootstrap thing="fRChShapec"></bootstrap>
+    <bootstrap thing="chnPlusAb"></bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    </thing>
+  <thing id="rDeva" name="Deva" description="{b}Astral Majesty{/b}: You have a +1 bonus to all defenses against attacks made by bloodied creatures.{br}{b}Astral Resistance{/b}: You have resistance to necrotic damage and radiant damage equal to 5 + one-half your level.{br}{b}Immortal Origin{/b}: Your spirit is native to the Astral Sea, so you are considered an immortal creature for the purpose of effects that relate to creature origin.{br}{b}Memory of a Thousand Lifetimes{/b}: You have the memory of a thousand lifetimes power." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Immortal spirits who embody virtue, born and reborn to mortal life in the world"/>
+    <fieldval field="racWis" value="2"/>
+    <fieldval field="racHtMin" value="73"/>
+    <fieldval field="racHtMax" value="78"/>
+    <fieldval field="racWtMin" value="175"/>
+    <fieldval field="racWtMax" value="280"/>
+    <fieldval field="racLang" value="2"/>
+    <usesource source="PHB2"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="SkillBonus" tag="skHistory"/>
+    <tag group="SkillBonus" tag="skReligion"/>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrCha"/>
+      <autotag group="RaceBonus" tag="attrInt"/>
+      </bootstrap>
+    <bootstrap thing="pRacMemTho"></bootstrap>
+    <bootstrap thing="fRDeAstMaj"></bootstrap>
+    <bootstrap thing="fRDeAstRes"></bootstrap>
+    <bootstrap thing="fRDeImmOri"></bootstrap>
+    </thing>
+  <thing id="rDragonbor" name="Dragonborn" description="{b}Draconic Heritage{/b}: Your healing surge value is equal to one-quarter of your maximum hit points + your Constitution modifier.{br}{b}Dragonborn Fury{/b}: While you are bloodied, you gain a +1 racial bonus to attack rolls.{br}{b}Dragonborn Racial Power{/b}: When you select dragonborn as your character&apos;s race, choose one of the following powers. Your dragonborn character gains that power.{br}{i}Dragon Breath{/i}: You have the dragon breath power.{br}{i}Dragonfear{/i}: You are naturally intimidating at the best of times, and when passions strike, you are positively terrifying. You gain the dragonfear racial power." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Proud, honorable warriors, born from the blood of an ancient dragon god."/>
+    <fieldval field="racCha" value="2"/>
+    <fieldval field="racHtMin" value="74"/>
+    <fieldval field="racHtMax" value="80"/>
+    <fieldval field="racWtMin" value="220"/>
+    <fieldval field="racWtMax" value="320"/>
+    <fieldval field="racSpeed" value="6"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="SkillBonus" tag="skHistory"/>
+    <tag group="SkillBonus" tag="skIntimida"/>
+    <bootstrap thing="lanDraconi"></bootstrap>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrCon"/>
+      <autotag group="RaceBonus" tag="attrStr"/>
+      </bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="pRacDraBre"></bootstrap>
+    <bootstrap thing="pRacDragon"></bootstrap>
+    <bootstrap thing="fRDrDraHer"></bootstrap>
+    <bootstrap thing="fRDrDraFur"></bootstrap>
+    <bootstrap thing="fRDrDraRac"></bootstrap>
+    <bootstrap thing="drgBrthTyp"></bootstrap>
+    </thing>
+  <thing id="rDrow" name="Drow" description="{b}Fey Origin{/b}: Your ancestors were native to the Feywild, so you are considered a fey creature for the purpose of effects that relate to creature origin.{br}{b}Lolthtouched{/b}: You have your choice of either the cloud of darkness or darkfire power.{br}{b}Trance (Drow){/b}: Rather than sleep, drow enter a meditative state known as trance. You need to spend 4 hours in this state to gain the same benefits other races gain from taking a 6-hour extended rest. While in a trance, you are fully aware of your surroundings and notice approaching enemies and other events as normal." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Graceful and deadly, at home in the depths of darkness"/>
+    <fieldval field="racDex" value="2"/>
+    <fieldval field="racHtMin" value="64"/>
+    <fieldval field="racHtMax" value="72"/>
+    <fieldval field="racWtMin" value="130"/>
+    <fieldval field="racWtMax" value="170"/>
+    <fieldval field="racSpeed" value="6"/>
+    <usesource source="FRPG"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="Vision" tag="Darkvision"/>
+    <tag group="SkillBonus" tag="skIntimida"/>
+    <tag group="SkillBonus" tag="skStealth"/>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrCha"/>
+      <autotag group="RaceBonus" tag="attrWis"/>
+      </bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="lanElven"></bootstrap>
+    <bootstrap thing="pRacCloDar"></bootstrap>
+    <bootstrap thing="pRacDarkfi"></bootstrap>
+    <bootstrap thing="fRDrFeyOri"></bootstrap>
+    <bootstrap thing="fRDrLoltht"></bootstrap>
+    <bootstrap thing="fRDrTraDro"></bootstrap>
+    </thing>
+  <thing id="rDuergar" name="Duergar" description="{b}Infernal Quills{/b}: You can use infernal quills as an encounter power." compset="Race" uniqueness="unique">
+    <fieldval field="racCon" value="2"/>
+    <fieldval field="racWis" value="2"/>
+    <fieldval field="racHtMin" value="50"/>
+    <fieldval field="racHtMax" value="56"/>
+    <fieldval field="racWtMin" value="160"/>
+    <fieldval field="racWtMax" value="220"/>
+    <fieldval field="racSpeed" value="6"/>
+    <usesource source="MM2"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="Vision" tag="Darkvision"/>
+    <tag group="SkillBonus" tag="skDungeone"/>
+    <bootstrap thing="lanDwarven"></bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="lanDeepSpe"></bootstrap>
+    <bootstrap thing="pRacInfQui"></bootstrap>
+    </thing>
+  <thing id="rDwarf" name="Dwarf" description="{b}Cast-Iron Stomach{/b}: You have a +5 racial bonus to saving throws against poison.{br}{b}Dwarven Resilience{/b}: You have the dwarven resilience power.{br}{b}Dwarven Weapon Proficiency{/b}: You gain proficiency with the throwing hammer and the warhammer.{br}{b}Encumbered Speed{/b}: You move at your normal speed even when it would be reduced by armor or a heavy load. Other effects that limit speed (such as difficult terrain or magic) affect you normally.{br}{b}Stand Your Ground{/b}: When an effect forces you to move - through a pull, a push, or a slide - you can move 1 square less than the effect specifies. This means an effect that normally pulls, pushes, or slides a target 1 square does not force you to move unless you want to.{br}In addition, when an attack would knock you prone, you can make a saving throw to avoid falling prone." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Stout warriors, master artisans, lords of the mountain peaks"/>
+    <fieldval field="racCon" value="2"/>
+    <fieldval field="racHtMin" value="51"/>
+    <fieldval field="racHtMax" value="57"/>
+    <fieldval field="racWtMin" value="160"/>
+    <fieldval field="racWtMax" value="220"/>
+    <fieldval field="racSpeed" value="5"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="Vision" tag="Lowlight"/>
+    <tag group="SkillBonus" tag="skDungeone"/>
+    <tag group="SkillBonus" tag="skEnduranc"/>
+    <tag group="WeaponProf" tag="wpWarhamme"/>
+    <tag group="WeaponProf" tag="wpThrowham"/>
+    <bootstrap thing="lanDwarven"></bootstrap>
+    <bootstrap thing="pRacDwaRes"></bootstrap>
+    <bootstrap thing="fRDwCasSto"></bootstrap>
+    <bootstrap thing="fRDwDwaWea"></bootstrap>
+    <bootstrap thing="fRDwEncSpe"></bootstrap>
+    <bootstrap thing="fRDwStaYou"></bootstrap>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrStr"/>
+      <autotag group="RaceBonus" tag="attrWis"/>
+      </bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    </thing>
+  <thing id="rEladrin" name="Eladrin" description="{b}Eladrin Education{/b}: You gain training in one skill of your choice.{br}{b}Eladrin Weapon Proficiency{/b}: You gain proficiency with the longsword.{br}{b}Eladrin Will{/b}: You gain a +1 racial bonus to Will. In addition, you gain a +5 racial bonus to saving throws against charm effects.{br}{b}Fey Origin{/b}: Your ancestors were native to the Feywild, so you are considered a fey creature for the purpose of effects that relate to creature origin.{br}{b}Fey Step{/b}: You have the fey step power.{br}{b}Trance{/b}: Rather than sleep, you enter a meditative state known as trance. You need to spend 4 hours in this state to gain the same benefits other races gain from taking a 6-hour extended rest. While in a trance, you are fully aware of your surroundings and notice approaching enemies and other events as normal." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Powerful wizards, haughty courtiers, creatures of the mysterious Feywild"/>
+    <fieldval field="racInt" value="2"/>
+    <fieldval field="racHtMin" value="65"/>
+    <fieldval field="racHtMax" value="73"/>
+    <fieldval field="racWtMin" value="130"/>
+    <fieldval field="racWtMax" value="180"/>
+    <fieldval field="racSpeed" value="6"/>
+    <fieldval field="racWill" value="1"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="Vision" tag="Lowlight"/>
+    <tag group="SkillBonus" tag="skArcana"/>
+    <tag group="SkillBonus" tag="skHistory"/>
+    <tag group="WeaponProf" tag="wpLongswor"/>
+    <tag group="User" tag="StdRace"/>
+    <bootstrap thing="lanElven"></bootstrap>
+    <bootstrap thing="pRacFeySte"></bootstrap>
+    <bootstrap thing="fRElElaEdu"></bootstrap>
+    <bootstrap thing="fRElElaWea"></bootstrap>
+    <bootstrap thing="fRElElaWil"></bootstrap>
+    <bootstrap thing="fRElFeyOri"></bootstrap>
+    <bootstrap thing="fRElTrance"></bootstrap>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrCha"/>
+      <autotag group="RaceBonus" tag="attrDex"/>
+      </bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    </thing>
+  <thing id="rElf" name="Elf" description="{b}Elven Accuracy{/b}: You have the elven accuracy power.{br}{b}Elven Weapon Proficiency{/b}: You gain proficiency with the longbow and the shortbow.{br}{b}Fey Origin{/b}: Your ancestors were native to the Feywild, so you are considered a fey creature for the purpose of effects that relate to creature origin.{br}{b}Group Awareness{/b}: You grant non-elf allies within 5 squares of you a +1 racial bonus to Perception checks.{br}{b}Wild Step{/b}: You ignore difficult terrain when you shift." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Unmatched archers, cunning explorers, protectors of the wild forests"/>
+    <fieldval field="racDex" value="2"/>
+    <fieldval field="racHtMin" value="64"/>
+    <fieldval field="racHtMax" value="72"/>
+    <fieldval field="racWtMin" value="130"/>
+    <fieldval field="racWtMax" value="170"/>
+    <fieldval field="racSpeed" value="7"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="Vision" tag="Lowlight"/>
+    <tag group="SkillBonus" tag="skNature"/>
+    <tag group="SkillBonus" tag="skPercepti"/>
+    <tag group="WeaponProf" tag="wpLongbow"/>
+    <tag group="WeaponProf" tag="wpShortbow"/>
+    <bootstrap thing="lanElven"></bootstrap>
+    <bootstrap thing="pRacElvAcc"></bootstrap>
+    <bootstrap thing="fRElElvWea"></bootstrap>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrInt"/>
+      <autotag group="RaceBonus" tag="attrWis"/>
+      </bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    </thing>
+  <thing id="rGenasi" name="Genasi" description="{b}Elemental Manifestation{/b}: Choose one manifestation. That manifestation is part of your nature. Each manifestation offers particular benefits and provides an associated encounter power. Your appearance changes based on the element you are manifesting.{br}{i}Firesoul{/i}: You gain +1 Reflex defense, resist 5 fire and the firepulse power. At 11th level, the resistance improves to 10 fire. At 21st level, the resistance improves to 15 fire.{br}{i}Earthsoul{/i}: You gain a +1 racial bonus to your Fortitude defense, a +1 racial bonus to saving throws, and the earthshock power.{br}{i}Stormsoul{/i}: You gain a +1 racial bonus to your Fortitude defense, resist 5 lightning, and the promise of storm power. At 11th level, the resistance improves to 10 lightning. At 21st level, the resistance improves to 15 lightning.{br}{i}Watersoul{/i}: You can breathe underwater. You also gain a +2 racial bonus to saving throws against ongoing damage and the swiftcurrent power.{br}{i}Windsoul{/i}: You gain resist 5 cold and the windwalker power. At 11th level, the resistance improves to 10 cold. At 21st level, the resistance improves to 15 cold.{br}{i}Causticsoul{/i}: You can breathe underwater. You also gain resist 5 acid and the acid surge power.{br}At 11th level, the resistance improves to 10 acid.{br}At 21st level, the resistance improves to 15 acid.{br}{i}Cindersoul{/i}: You gain a +1 racial bonus to Fortitude, resist 5 fire, and the firedeath power.{br}At 11th level, the resistance improves to 10 fire.{br}At 21st level, the resistance improves to 15 fire.{br}{i}Plaguesoul{/i}: You gain resist 5 poison, a +5 racial bonus to saving throws against disease, and the plaguebearer power.{br}At 11th level, the resistance improves to 10 poison.{br}At 21st level, the resistance improves to 15 poison.{br}{i}Voidsoul{/i}: You gain resist 5 psychic, a +1 racial bonus to Will, and the void assumption power.{br}At 11th level, the resistance improves to 10 psychic.{br}At 21st level, the resistance improves to 15 psychic.{br}{i}Embersoul{/i}: You have a +1 racial bonus to Reflex and a +2 racial bonus to saving throws against ongoing fire damage. In addition, you have the ashfall evasion power.{br}{i}Magmasoul{/i}: You have a +1 racial bonus to Fortitude. Whenever you take fire damage, your melee attacks deal 1d6 extra fire damage until the end of your next turn. In addition, you have the flowing magma power.{br}{i}Sandsoul{/i}: You have a +4 racial bonus to Acrobatics checks and Athletics checks made when taking the escape action. You also have a +2 racial bonus to saving throws against effects that immobilize, restrain, or slow you. In addition, you have the sandslide power.{br}{i}Sunsoul{/i}: You have a +2 racial bonus to saving throws against ongoing damage that includes fire or radiant damage. You and your equipment suffer no ill effect from ambient temperatures between -50 and 140 degrees Fahrenheit, and you are immune to sun sickness. In addition, you have the sun flare power.{br}{b}Elemental Origins{/b}: Your ancestors were native to the Elemental Chaos, so you are considered an elemental creature for the purpose of effects that relate to creature origin." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Energy embodied, chaos and order united - a race of inherent flexibility, passion, and diversity"/>
+    <fieldval field="racInt" value="2"/>
+    <fieldval field="racHtMin" value="67"/>
+    <fieldval field="racHtMax" value="74"/>
+    <fieldval field="racWtMin" value="130"/>
+    <fieldval field="racWtMax" value="225"/>
+    <fieldval field="racSpeed" value="6"/>
+    <usesource source="FRPG"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="SkillBonus" tag="skEnduranc"/>
+    <tag group="SkillBonus" tag="skNature"/>
+    <bootstrap thing="lanPrimord"></bootstrap>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrCon"/>
+      <autotag group="RaceBonus" tag="attrStr"/>
+      </bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="fRGeEleMan"></bootstrap>
+    <bootstrap thing="fRGeEleOri"></bootstrap>
+    <bootstrap thing="fRGeFiresl"></bootstrap>
+    <bootstrap thing="fRGeEartsl"></bootstrap>
+    <bootstrap thing="fRGeStorsl"></bootstrap>
+    <bootstrap thing="fRGeWatesl"></bootstrap>
+    <bootstrap thing="fRGeWindsl"></bootstrap>
+    <bootstrap thing="fRGeCaussl"></bootstrap>
+    <bootstrap thing="fRGeCindsl"></bootstrap>
+    <bootstrap thing="fRGePlagsl"></bootstrap>
+    <bootstrap thing="fRGeVoidsl"></bootstrap>
+    <bootstrap thing="fRGeEmbesl"></bootstrap>
+    <bootstrap thing="fRGeMagmsl"></bootstrap>
+    <bootstrap thing="fRGeSandsl"></bootstrap>
+    <bootstrap thing="fRGeSunsl"></bootstrap>
+    </thing>
+  <thing id="rGithyanki" name="Githyanki" description="{b}Danger Sense{/b}: You have a +2 racial bonus to initiative checks.{br}{b}Githyanki Willpower{/b}: You gain a +1 bonus to your Will defense, and a +2 bonus to saving throws against charm effects.{br}{b}Telekinetic Leap{/b}: You can use telekinetic leap as an encounter power." compset="Race" uniqueness="unique">
+    <fieldval field="racCon" value="2"/>
+    <fieldval field="racInt" value="2"/>
+    <fieldval field="racHtMin" value="72"/>
+    <fieldval field="racHtMax" value="77"/>
+    <fieldval field="racWtMin" value="160"/>
+    <fieldval field="racWtMax" value="190"/>
+    <fieldval field="racSpeed" value="6"/>
+    <fieldval field="racWill" value="1"/>
+    <fieldval field="racInit" value="2"/>
+    <tag group="SkillBonus" tag="skHistory"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="Size" tag="Medium"/>
+    <bootstrap thing="pRacTelLea"></bootstrap>
+    <bootstrap thing="fRGiDanSen"></bootstrap>
+    <bootstrap thing="fRGiGitWil"></bootstrap>
+    <bootstrap thing="lanDeepSpe"></bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    </thing>
+  <thing id="rGithzerai" name="Githzerai" description="{b}Danger Sense{/b}: You have a +2 racial bonus to initiative checks.{br}{b}Defended Mind{/b}: You have a +2 racial bonus to saving throws against effects that daze, dominate, or stun.{br}{b}Iron Mind{/b}: You have the Iron Mind Power.{br}{b}Shifting Fortunes{/b}: When you use your second wind, you can shift 3 squares as a free action." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Ascetic and disciplined, masters of body and mind"/>
+    <fieldval field="racWis" value="2"/>
+    <fieldval field="racHtMin" value="72"/>
+    <fieldval field="racHtMax" value="77"/>
+    <fieldval field="racWtMin" value="160"/>
+    <fieldval field="racWtMax" value="190"/>
+    <fieldval field="racSpeed" value="6"/>
+    <fieldval field="racInit" value="2"/>
+    <usesource source="PHB3"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="SkillBonus" tag="skAcrobati"/>
+    <tag group="SkillBonus" tag="skAthletic"/>
+    <tag group="Size" tag="Medium"/>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrDex"/>
+      <autotag group="RaceBonus" tag="attrInt"/>
+      </bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="pRacIroMin"></bootstrap>
+    <bootstrap thing="lanDeepSpe"></bootstrap>
+    </thing>
+  <thing id="rGnoll" name="Gnoll" description="{b}Blood Fury{/b}: While you&apos;re bloodied, you gain a +2 bonus to damage rolls. This increases to a +4 bonus at 21st level.{br}{b}Ferocious Charge{/b}: You can use ferocious charge as an encounter power.{br}{b}Pack Attack{/b}: You deal an extra 2 damage on melee attacks against an enemy that has two or more of your allies adjacent to it." compset="Race" uniqueness="unique">
+    <fieldval field="racCon" value="2"/>
+    <fieldval field="racDex" value="2"/>
+    <fieldval field="racHtMin" value="84"/>
+    <fieldval field="racHtMax" value="90"/>
+    <fieldval field="racWtMin" value="280"/>
+    <fieldval field="racWtMax" value="320"/>
+    <fieldval field="racSpeed" value="7"/>
+    <usesource source="Dragon"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="Vision" tag="Lowlight"/>
+    <tag group="SkillBonus" tag="skIntimida"/>
+    <tag group="SkillBonus" tag="skPercepti"/>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="lanAbyssal"></bootstrap>
+    <bootstrap thing="pRacFerCha"></bootstrap>
+    <bootstrap thing="fRGnBloFur"></bootstrap>
+    <bootstrap thing="fRGnPacAtt"></bootstrap>
+    </thing>
+  <thing id="rGnome" name="Gnome" description="{b}Fade Away{/b}: You have the fade away power.{br}{b}Fey Origin{/b}: Your ancestors were native to the Feywild, so you are considered a fey creature for the purpose of effects that relate to creature origin.{br}{b}Master Trickster{/b}: Once per encounter, you can use the wizard cantrip ghost sound as a minor action.{br}{b}Reactive Stealth{/b}: If you have any cover or concealment when you make an initiative check, you can make a Stealth check.{br}{b}Trickster&apos;s Cunning{/b}: You have a +5 racial bonus to saving throws against illusions." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Slight, sly tricksters of the Feywild who excel at avoiding notice"/>
+    <fieldval field="racInt" value="2"/>
+    <fieldval field="racHtMin" value="40"/>
+    <fieldval field="racHtMax" value="44"/>
+    <fieldval field="racWtMin" value="50"/>
+    <fieldval field="racWtMax" value="75"/>
+    <fieldval field="racSpeed" value="5"/>
+    <usesource source="PHB2"/>
+    <tag group="Size" tag="Small"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="Vision" tag="Lowlight"/>
+    <tag group="SkillBonus" tag="skArcana"/>
+    <tag group="SkillBonus" tag="skStealth"/>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrCha"/>
+      <autotag group="RaceBonus" tag="attrDex"/>
+      </bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="lanElven"></bootstrap>
+    <bootstrap thing="pRacFadAwa"></bootstrap>
+    <bootstrap thing="fRGnFeyOri"></bootstrap>
+    <bootstrap thing="fRGnMasTri"></bootstrap>
+    <bootstrap thing="fRGnReaSte"></bootstrap>
+    <bootstrap thing="fRGnTriCun"></bootstrap>
+    </thing>
+  <thing id="rGoblin" name="Goblin" description="{b}Goblin Reflexes{/b}: You gain a +1 racial bonus to Reflex.{br}{b}Goblin Tactics{/b}: You have the goblin tactics power." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Pint-sized rascals known throughout the world for their spitefulness and thievery"/>
+    <fieldval field="racDex" value="2"/>
+    <fieldval field="racHtMin" value="40"/>
+    <fieldval field="racHtMax" value="44"/>
+    <fieldval field="racWtMin" value="40"/>
+    <fieldval field="racWtMax" value="55"/>
+    <fieldval field="racSpeed" value="6"/>
+    <fieldval field="racRef" value="1"/>
+    <tag group="Size" tag="Small"/>
+    <tag group="Vision" tag="Lowlight"/>
+    <tag group="SkillBonus" tag="skBluff"/>
+    <tag group="SkillBonus" tag="skStealth"/>
+    <tag group="User" tag="StdRace"/>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="lanGoblin"></bootstrap>
+    <bootstrap thing="pRacGobTac"></bootstrap>
+    <bootstrap thing="fRGoGobRef"></bootstrap>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrCha"/>
+      <autotag group="RaceBonus" tag="attrWis"/>
+      </bootstrap>
+    </thing>
+  <thing id="rGoldDwa" name="Gold Dwarf" description="Gold dwarves see themselves as the founders of the dwarven race, their society able to trace an unbroken line back nearly to the world&apos;s creation. It should be no surprise, then, that gold dwarves have a chip on their shoulders - and a heavy one at that. Gold dwarves get along well with others, but they come from a culture where tradition reigns and codes of honor are strict. Each dwarf has a predestined role and a place in society that stems from birth order and bloodline. Gold dwarves who stray from such strictures bring great dishonor on themselves and shame to their clans.{br}The largely isolated kingdoms of the gold dwarves had begun to expand before the Spellplague hit. Many adventurous gold dwarves left the Great Rift and their other traditional lands to explore distant parts of the surface world. This emigration served them well when their homeland was destroyed by the plague. Much of the Great Rift and the surrounding surface was obliterated, leaving in its wake the massive Underchasm and the realm of Great Bhaerynden. The gold dwarves who were spread across Faerun returned to the area to help rebuild their homeland, and the realm known as the East Rift was built on and in the ruins of the Great Rift. The disaster and the disruption of those dark times caused numerous gold dwarf clans to accept new ideas and new peoples, while some others retreated into xenophobia as a means of holding onto the traditions of the past.{br}{br}Roleplaying a Gold DwarfTradition preserves us. Your people have survived for eons by adhering to the ways of their ancestors back to the All-Father. Tradition must be respected, and those who go against it dishonor themselves and cannot be trusted.{br}Wisdom comes with age. Those who have witnessed the passage of decades deserve respect. Those who have seen centuries come and go deserve more. Any society that does not respect its elders is dangerous, for it ignores the wisdom those elders represent.{br}Blood bears truth. You were born into a society where everything was decided for you, from your profession to whom you would marry when the time comes. These decisions were not the whim of an elder, but the dictates of your bloodline in relation to others. Among gold dwarves, who you become is a direct result of who your parents were and all your ancestors before them. Even far from the East Rift, you understand that getting to know someone means getting to know their past as well.{br}{br}Gold Dwarf Benefits{b}Cast-Iron Mind: {/b}Gold dwarves have developed a resistance to protect against the depredations of aberrant creatures from the Underdark.{br}{i}Benefits: {/i}You have a +5 racial bonus to saving throws against ongoing psychic damage. This benefit replaces Cast-Iron Stomach.{br}{b}Gold Dwarf Weapon Proficiency: {/b}Though gold dwarves rely on the hammer as a tool as much as do any of their kin, carving their homes from the living rock requires other specialized implements. Such tools have been adapted for use as the traditional weapons of the gold dwarves for as long as anyone remembers.{br}{i}Benefits: {/i}You gain proficiency with the war pick and the maul. This benefit replaces Dwarven Weapon Proficiency.{br}Published in Neverwinter Campaign Setting, page(s) 46." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Stout warriors, master artisans, lords of the mountain peaks"/>
+    <fieldval field="racCon" value="2"/>
+    <fieldval field="racHtMin" value="51"/>
+    <fieldval field="racHtMax" value="57"/>
+    <fieldval field="racWtMin" value="160"/>
+    <fieldval field="racWtMax" value="220"/>
+    <fieldval field="racSpeed" value="5"/>
+    <usesource source="NeverCamp"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="Vision" tag="Lowlight"/>
+    <tag group="SkillBonus" tag="skDungeone"/>
+    <tag group="SkillBonus" tag="skEnduranc"/>
+    <tag group="Race" tag="rDwarf"/>
+    <tag group="WeaponProf" tag="wpWarPic"/>
+    <tag group="WeaponProf" tag="wpMaul"/>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrStr"/>
+      <autotag group="RaceBonus" tag="attrWis"/>
+      </bootstrap>
+    <bootstrap thing="fRGoGolDwa"></bootstrap>
+    <bootstrap thing="pRacDwaRes"></bootstrap>
+    <bootstrap thing="fRDwEncSpe"></bootstrap>
+    <bootstrap thing="fRDwStaYou"></bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="lanDwarven"></bootstrap>
+    <bootstrap thing="fRGoCasMin"></bootstrap>
+    </thing>
+  <thing id="rGoliath" name="Goliath" description="{b}Mountain&apos;s Tenacity{/b}: You have a +1 racial bonus to Will.{br}{b}Powerful Athlete{/b}: When you make an Athletics check to jump or climb, roll twice and use either result.{br}{b}Stone&apos;s Endurance{/b}: You have the stone&apos;s endurance power." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Tribal nomads of the mountains, strong as the rock and proud as the peak"/>
+    <fieldval field="racStr" value="2"/>
+    <fieldval field="racHtMin" value="86"/>
+    <fieldval field="racHtMax" value="92"/>
+    <fieldval field="racWtMin" value="280"/>
+    <fieldval field="racWtMax" value="340"/>
+    <fieldval field="racSpeed" value="6"/>
+    <fieldval field="racLang" value="1"/>
+    <fieldval field="racWill" value="1"/>
+    <usesource source="PHB2"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="SkillBonus" tag="skAthletic"/>
+    <tag group="SkillBonus" tag="skNature"/>
+    <tag group="User" tag="StdRace"/>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrCon"/>
+      <autotag group="RaceBonus" tag="attrWis"/>
+      </bootstrap>
+    <bootstrap thing="pRacStoEnd"></bootstrap>
+    <bootstrap thing="fRGoMouTen"></bootstrap>
+    <bootstrap thing="fRGoPowAth"></bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    </thing>
+  <thing id="rHalfElf" name="Half-Elf" description="{b}Dual Heritage{/b}: You can take feats that have either elf or human as a prerequisite (as well as those specifically for half-elves), as long as you meet any other requirements.{br}{b}Group Diplomacy{/b}: You grant allies within 10 squares of you a +1 racial bonus to Diplomacy checks.{br}{b}Half-Elf Power Selection{/b}: Select an option for your half-elf character.{br}{i}Dilettante{/i}: At 1st level, you choose a 1st-level at-will attack power from a class different from yours. You can use that power as an encounter power.{br}{i}Knack For Success{/i}: You have the knack for success power." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Born heroes and leaders who combine the best features of both humans and elves."/>
+    <fieldval field="racCon" value="2"/>
+    <fieldval field="racHtMin" value="65"/>
+    <fieldval field="racHtMax" value="74"/>
+    <fieldval field="racWtMin" value="130"/>
+    <fieldval field="racWtMax" value="190"/>
+    <fieldval field="racSpeed" value="6"/>
+    <fieldval field="racLang" value="1"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="Vision" tag="Lowlight"/>
+    <tag group="SkillBonus" tag="skDiplomac"/>
+    <tag group="SkillBonus" tag="skInsight"/>
+    <tag group="Race" tag="rHuman"/>
+    <tag group="Race" tag="rElf"/>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrCha"/>
+      <autotag group="RaceBonus" tag="attrWis"/>
+      </bootstrap>
+    <bootstrap thing="pRacKnaSuc"></bootstrap>
+    <bootstrap thing="fRHaDuaHer"></bootstrap>
+    <bootstrap thing="fRHaGroDip"></bootstrap>
+    <bootstrap thing="fRHaHalPow"></bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="lanElven"></bootstrap>
+    <bootstrap thing="fRHaDilett"></bootstrap>
+    </thing>
+  <thing id="rHalfOrc" name="Half-Orc" description="{b}Furious Assault{/b}: You have the furious assault power.{br}{b}Half-Orc Resilience{/b}: The first time you are bloodied during an encounter, you gain 5 temporary hit points. The temporary hit points increase to 10 at 11th level and to 15 at 21st level.{br}{b}Swift Charge{/b}: You gain a +2 bonus to speed when charging." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Fierce warriors who combine human resolve with orc savagery"/>
+    <fieldval field="racDex" value="2"/>
+    <fieldval field="racHtMin" value="69"/>
+    <fieldval field="racHtMax" value="76"/>
+    <fieldval field="racWtMin" value="155"/>
+    <fieldval field="racWtMax" value="225"/>
+    <fieldval field="racSpeed" value="6"/>
+    <usesource source="PHB2"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="Vision" tag="Lowlight"/>
+    <tag group="SkillBonus" tag="skEnduranc"/>
+    <tag group="SkillBonus" tag="skIntimida"/>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrCon"/>
+      <autotag group="RaceBonus" tag="attrStr"/>
+      </bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="lanGiant"></bootstrap>
+    <bootstrap thing="pRacFurAss"></bootstrap>
+    <bootstrap thing="fRHaHalRes"></bootstrap>
+    <bootstrap thing="fRHaSwiCha"></bootstrap>
+    </thing>
+  <thing id="rHalfling" name="Halfling" description="{b}Bold{/b}: You gain a +5 racial bonus to saving throws against fear.{br}{b}Nimble Reaction{/b}: You gain a +2 racial bonus to AC against opportunity attacks.{br}{b}Second Chance{/b}: You can use second chance as an encounter power." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Resourceful wanderers, cunning scouts, travelers of forgotten roads"/>
+    <fieldval field="racDex" value="2"/>
+    <fieldval field="racHtMin" value="46"/>
+    <fieldval field="racHtMax" value="50"/>
+    <fieldval field="racWtMin" value="75"/>
+    <fieldval field="racWtMax" value="85"/>
+    <fieldval field="racSpeed" value="6"/>
+    <fieldval field="racLang" value="1"/>
+    <tag group="Size" tag="Small"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="SkillBonus" tag="skAcrobati"/>
+    <tag group="SkillBonus" tag="skThievery"/>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrCha"/>
+      <autotag group="RaceBonus" tag="attrCon"/>
+      </bootstrap>
+    <bootstrap thing="pRacSecCha"></bootstrap>
+    <bootstrap thing="fRHaBold"></bootstrap>
+    <bootstrap thing="fRHaNimRea"></bootstrap>
+    </thing>
+  <thing id="rHamadryad" name="Hamadryad" description="{b}Female Only{/b}: All hamadryads are female.{br}{b}Fey Origin{/b}: Your ancestors were native to the Feywild, so you are considered a fey creature for the purpose of effects that relate to creature origin.{br}{b}Forest Walk (Hamadryad){/b}: You ignore difficult terrain if that terrain is the result of trees, underbrush, plants, or natural growth.{br}{b}Hamadryad Aspects{/b}: You have the hamadryad aspects power.{br}{b}Oaken Vitality{/b}: Your tree heritage grants you a +5 racial bonus to Endurance checks to resist the effects of starvation, thirst, or suffocation, and you can survive for twice the normal time period before you are required to make such checks. You do not require sleep, but you must meditate at least four hours each day to absorb light (even from as small a source as a candle), soak in water, or connect with the earth beneath your feet. This meditation grants you the benefits that other races receive from an extended rest. While meditating, you are fully aware of your surroundings and notice approaching enemies and other events as normal.{br}{b}Tree Mind{/b}: You gain a +2 racial bonus to saving throws against effects that daze, dominate, or stun." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Enchanting spellcasters, unparalleled beauties, wild queens of the fey"/>
+    <fieldval field="racWis" value="2"/>
+    <fieldval field="racHtMin" value="66"/>
+    <fieldval field="racHtMax" value="74"/>
+    <fieldval field="racWtMin" value="130"/>
+    <fieldval field="racWtMax" value="180"/>
+    <fieldval field="racSpeed" value="6"/>
+    <usesource source="HeroFeywil"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="SkillBonus" tag="skDiplomac"/>
+    <tag group="SkillBonus" tag="skNature"/>
+    <bootstrap thing="lanElven"></bootstrap>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrCha"/>
+      <autotag group="RaceBonus" tag="attrInt"/>
+      </bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="pRacHamAsp"></bootstrap>
+    <bootstrap thing="fRHaFemOnl"></bootstrap>
+    <bootstrap thing="fRHaFeyOri"></bootstrap>
+    <bootstrap thing="fRHaForWal"></bootstrap>
+    <bootstrap thing="fRHaOakVit"></bootstrap>
+    <bootstrap thing="fRHaTreMin"></bootstrap>
+    </thing>
+  <thing id="rHengeyoka" name="Hengeyokai" description="{b}Animal Form{/b}: Select your animal form and gain +2 to a skill determined by your animal form: badger (Endurance), carp (Endurance), cat (Acrobatics), crab (Intimidate), crane (Nature), dog (Insight), fox (Stealth), hare (Athletics), monkey (Athletics), raccoon dog (Stealth), rat (Thievery), or sparrow (Perception).{br}{b}Beast Nature{/b}: You are considered both a magical beast and a humanoid for the purpose of effects that relate to creature type.{br}{b}Elusive{/b}: You have a +2 racial bonus to checks made to escape a grab and to saving throws against effects that immobilize, restrain, or slow you.{br}{b}Fey Origin{/b}: Your ancestors were native to the Feywild, so you are considered a fey creature for the purpose of effects that relate to creature origin.{br}{b}Language of Beasts{/b}: While you are in animal or hybrid form, you can communicate with any natural or fey beasts that share your animal form or a form that is closely related (for example, a dog hengeyokai can communicate with a wolf). In human form, you can understand these beasts but cannot directly communicate with them.{br}You can communicate simple concepts and commands to such creatures, but they are under no compulsion to obey you, and their knowledge is restricted by their experience and mobility. Beasts you talk to are not necessarily friendly; your DM may require skill checks to influence their attitude.{br}{b}Nature&apos;s Mask{/b}: You have the nature&apos;s mask power.{br}{b}Shapechanger{/b}: You have the shapechanger subtype; you can alter your appearance. As such, you are subject to effects and conditions that affect shapechangers." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Wily beasts with the ability to assume human form."/>
+    <fieldval field="racDex" value="2"/>
+    <fieldval field="racHtMin" value="58"/>
+    <fieldval field="racHtMax" value="66"/>
+    <fieldval field="racWtMin" value="100"/>
+    <fieldval field="racWtMax" value="140"/>
+    <fieldval field="racSpeed" value="7"/>
+    <fieldval field="racLang" value="1"/>
+    <usesource source="Dragon"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="Vision" tag="Lowlight"/>
+    <tag group="SkillBonus" tag="skBluff"/>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrCha"/>
+      <autotag group="RaceBonus" tag="attrWis"/>
+      </bootstrap>
+    <bootstrap thing="pRacNatMas"></bootstrap>
+    <bootstrap thing="fRHeAniFor"></bootstrap>
+    <bootstrap thing="fRHeBeaNat"></bootstrap>
+    <bootstrap thing="fRHeElusiv"></bootstrap>
+    <bootstrap thing="fRHeFeyOri"></bootstrap>
+    <bootstrap thing="fRHeLanBea"></bootstrap>
+    <bootstrap thing="fRHeShapec"></bootstrap>
+    </thing>
+  <thing id="rHobgoblin" name="Hobgoblin" description="{b}Battle Ready{/b}: You gain a +2 bonus to initiative checks.{br}{b}Hobgoblin Resilience{/b}: You can use hobgoblin resilience as an encounter power." compset="Race" uniqueness="unique">
+    <fieldval field="racCha" value="2"/>
+    <fieldval field="racCon" value="2"/>
+    <fieldval field="racHtMin" value="73"/>
+    <fieldval field="racHtMax" value="77"/>
+    <fieldval field="racWtMin" value="190"/>
+    <fieldval field="racWtMax" value="240"/>
+    <fieldval field="racSpeed" value="6"/>
+    <fieldval field="racInit" value="2"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="Vision" tag="Lowlight"/>
+    <tag group="SkillBonus" tag="skAthletic"/>
+    <tag group="SkillBonus" tag="skHistory"/>
+    <tag group="User" tag="StdRace"/>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="pRacHobRes"></bootstrap>
+    <bootstrap thing="fRHoBatRea"></bootstrap>
+    <bootstrap thing="lanGoblin"></bootstrap>
+    </thing>
+  <thing id="rHuman" name="Human" description="{b}Bonus Feat{/b}: You gain a bonus feat at 1st level. You must meet the feat&apos;s prerequisites.{br}{b}Bonus Skill{/b}: You gain training in one additional skill from your class skills list.{br}{b}Human Defense Bonuses{/b}: You gain a +1 racial bonus to Fortitude, Reflex, and Will.{br}{b}Human Power Selection{/b}: Choose an option for your human character.{br}{i}Bonus At-Will Power{/i}: You know one extra 1st level at-will attack power from your class.{br}{i}Heroic Effort{/i}: You have the heroic effort power." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Ambitious explorers, driven leaders, eager to master the world"/>
+    <fieldval field="racHtMin" value="66"/>
+    <fieldval field="racHtMax" value="74"/>
+    <fieldval field="racWtMin" value="135"/>
+    <fieldval field="racWtMax" value="220"/>
+    <fieldval field="racSpeed" value="6"/>
+    <fieldval field="racLang" value="1"/>
+    <fieldval field="racFeat" value="1"/>
+    <fieldval field="racSkill" value="1"/>
+    <fieldval field="racFort" value="1"/>
+    <fieldval field="racRef" value="1"/>
+    <fieldval field="racWill" value="1"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="User" tag="StdRace"/>
+    <bootstrap thing="fRHuHumPow"></bootstrap>
+    <bootstrap thing="humPlusAb"></bootstrap>
+    <bootstrap thing="fRHuBonAtW"></bootstrap>
+    <bootstrap thing="fRHuBonSki"></bootstrap>
+    <bootstrap thing="fRHuHumDef"></bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="pRacHerEff"></bootstrap>
+    <bootstrap thing="fRHuBonFea"></bootstrap>
+    </thing>
+  <thing id="rKalashtar" name="Kalashtar" description="{b}Bastion of Mental Clarity{/b}: You have the bastion of mental clarity power.{br}{b}Dual Soul{/b}: At the start of your turn, you can make a saving throw against each effect currently rendering you dazed or dominated. If you fail the saving throw, you do not make a saving throw against the effect at the end of your turn.{br}{b}Telepathy 5{/b}: You can communicate with any other creature that has a language and is within line of sight and within 5 squares of you; this allows for two-way communication" compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Refugees from the realm of dreams whose minds are as sharp as their swords"/>
+    <fieldval field="racCha" value="2"/>
+    <fieldval field="racHtMin" value="68"/>
+    <fieldval field="racHtMax" value="75"/>
+    <fieldval field="racWtMin" value="130"/>
+    <fieldval field="racWtMax" value="220"/>
+    <fieldval field="racSpeed" value="6"/>
+    <usesource source="EbPG"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="SkillBonus" tag="skInsight"/>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrInt"/>
+      <autotag group="RaceBonus" tag="attrWis"/>
+      </bootstrap>
+    <bootstrap thing="pRacBasMen"></bootstrap>
+    <bootstrap thing="fRKaDuaSou"></bootstrap>
+    <bootstrap thing="fRKaTel5"></bootstrap>
+    <bootstrap thing="fRKalSkill"></bootstrap>
+    </thing>
+  <thing id="rKenku" name="Kenku" description="{b}Flock Effect{/b}: When you have combat advantage against a creature as a result of flanking it, you gain a +3 bonus to attack rolls against it, rather than the normal +2.{br}{b}Flock Tactics{/b}: You have the flock tactics power.{br}{b}Mimicry{/b}: You can imitate sounds and voices you have heard, even sounds that cannot normally be made by humanoids. Each time you attempt to mimic a sound, you must succeed on a Bluff check to fool those who hear the sound into believing it is genuine." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Cunning survivors, sly allies, hoarders of secrets"/>
+    <fieldval field="racCha" value="2"/>
+    <fieldval field="racHtMin" value="60"/>
+    <fieldval field="racHtMax" value="66"/>
+    <fieldval field="racWtMin" value="110"/>
+    <fieldval field="racWtMax" value="150"/>
+    <fieldval field="racSpeed" value="6"/>
+    <fieldval field="racLang" value="1"/>
+    <usesource source="MM2"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="Vision" tag="Lowlight"/>
+    <tag group="SkillBonus" tag="skBluff"/>
+    <tag group="SkillBonus" tag="skStealth"/>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrDex"/>
+      <autotag group="RaceBonus" tag="attrInt"/>
+      </bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="pRacFloTac"></bootstrap>
+    <bootstrap thing="fRKeFloEff"></bootstrap>
+    <bootstrap thing="fRKeMimicr"></bootstrap>
+    </thing>
+  <thing id="rKobold" name="Kobold" description="{b}Reptile{/b}: You are considered a reptile for the purpose of effects that relate to the reptile keyword.{br}{b}Shifty Maneuver{/b}: You have the shifty maneuver power.{br}{b}Trap Sense{/b}: You gain a +2 racial bonus to all defenses against attacks from traps." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Reptilian tunnel dwellers who stick together to survive"/>
+    <fieldval field="racCon" value="2"/>
+    <fieldval field="racHtMin" value="42"/>
+    <fieldval field="racHtMax" value="48"/>
+    <fieldval field="racWtMin" value="60"/>
+    <fieldval field="racWtMax" value="75"/>
+    <fieldval field="racSpeed" value="6"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="Size" tag="Small"/>
+    <tag group="Vision" tag="Darkvision"/>
+    <tag group="SkillBonus" tag="skDungeone"/>
+    <tag group="SkillBonus" tag="skThievery"/>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrCha"/>
+      <autotag group="RaceBonus" tag="attrDex"/>
+      </bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="lanDraconi"></bootstrap>
+    <bootstrap thing="pRacShiMan"></bootstrap>
+    <bootstrap thing="fRKoReptil"></bootstrap>
+    <bootstrap thing="fRKoTraSen"></bootstrap>
+    </thing>
+  <thing id="rLlewyrElf" name="Llewyrr Elf" description="During the Crown Wars, the Llewyrr were a community of moon elves and green elves dwelling in the verdant woodland known today as Neverwinter Wood. When Vyshaan armies swept through their lands, the Llewyrr fled across the sea seeking the fabled isle of Evermeet.{br}A fierce squall forced the refugees to make landfall on the Moonshaes, where they were greeted by the enigmatic leShay, legendary progenitors of the fey. The leShay permitted the Llewyrr to settle in isolation and safety among the mountains of the large central island. The Llewyrr named their new kingdom Synnoria, after the queen who led them to this island sanctuary.{br}Over the next eleven millennia, the Llewyrr evolved into a unique subrace rarely seen outside the Moonshaes. Llewyrr share many of the same societal attributes of their moon elf ancestors, including the building of grand cities and advanced mastery of arcane arts. Llewyrr have fair skin, but unlike their moon elf cousins, the elves of Synnoria have golden hair. Llewyrr born in the last century share the hauntingly opalescent eyes common to all eladrin, with the pupils of older generations colored in shades of green and brown, with gold flecks. {br}At the heart of Synnoria is the resplendent city of Chrysalis, resting upon a verdant tor rising from a crystal clear lake. The city is a dazzling display of soaring glassteel towers, crystalline gardens, and majestic silver-glyphed boulevards. {br}Today, much of the city is abandoned, for the Llewyrr have paid a price for their long isolation. Birth rates are low, and centuries of attrition has dwindled their numbers dramatically. Males are uncommon, constituting less than a quarter of the population.{br}{br}Roleplaying a Llewyrr ElfSun elves were the aggressors who forced the Llewyrr out of the Llewyrrwood on the mainland, so you harbor a lingering animosity toward them. This distrust extends to other elf subraces as well. Having lived in isolation for so long, most Llewyrr feel no kinship toward their elf cousins, and have no desire to be caught up in elven politics and intrigues. You swear fealty to the High Lady of Sarifal, not the crown of Evermeet.{br}You share a bond with the natural world and primal spirits of the land. Unlike many eladrin, the Llewyrr do not worship Corellon Larethian or other divine entities of the Seldarine. Instead, the Llewyrr venerate the &quot;fey gods,&quot; mighty primal spirits and archfey that have watched over the Moonshaes for millennia. Greatest among these primal manifestations are the Earthmother and her children.{br}Your people have survived for millennia by forming strong family and community bonds, and you honor these. An oath given by a Llewyrr is a binding pledge. Though Llewyrr are slow to trust, once a bond is formed, the friendship lasts a lifetime.{br}{br}Llewyrr Elf Benefits{b}Historical Insight: {/b}Armed with a voracious appetite for studying the antiquity of humanoid culture, you have an uncanny ability to discern the intent of individuals based solely on the historical exploits of their kind.{br}{i}Benefits: {/i}You gain a +2 bonus to Insight checks. This benefit replaces the normal eladrin skill bonus to Arcana.{br}{b}Elf Weapon Proficiency (Llewyrr Elf): {/b}Elves and eladrin of all stripes take time to learn the traditional weapons of their people.{br}{i}Benefits: {/i}You gain proficiency with the longbow and the shortbow. This benefit replaces Eladrin Weapon Proficiency.{br}Published in Dragon Magazine 405." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Unmatched archers, cunning explorers, protectors of the wild forests"/>
+    <fieldval field="racDex" value="2"/>
+    <fieldval field="racHtMin" value="64"/>
+    <fieldval field="racHtMax" value="72"/>
+    <fieldval field="racWtMin" value="130"/>
+    <fieldval field="racWtMax" value="170"/>
+    <fieldval field="racSpeed" value="7"/>
+    <usesource source="Dragon"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="Vision" tag="Lowlight"/>
+    <tag group="SkillBonus" tag="skNature"/>
+    <tag group="SkillBonus" tag="skPercepti"/>
+    <tag group="Race" tag="rElf"/>
+    <bootstrap thing="lanElven"></bootstrap>
+    <bootstrap thing="fRLlHisIns"></bootstrap>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrInt"/>
+      <autotag group="RaceBonus" tag="attrWis"/>
+      </bootstrap>
+    <bootstrap thing="fRLlElfWea"></bootstrap>
+    <bootstrap thing="pRacElvAcc"></bootstrap>
+    <bootstrap thing="fRElElvWea"></bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    </thing>
+  <thing id="rShifteLon" name="Longtooth Shifter" description="{b}Longtooth Shifting{/b}: You have the longtooth shifting power." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Ferocious heirs of the wild, the perfect fusion of civilized race and wild beast"/>
+    <fieldval field="racStr" value="2"/>
+    <fieldval field="racWis" value="2"/>
+    <fieldval field="racHtMin" value="67"/>
+    <fieldval field="racHtMax" value="72"/>
+    <fieldval field="racWtMin" value="130"/>
+    <fieldval field="racWtMax" value="180"/>
+    <fieldval field="racSpeed" value="6"/>
+    <fieldval field="racLang" value="1"/>
+    <usesource source="PHB2"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="Vision" tag="Lowlight"/>
+    <tag group="SkillBonus" tag="skAthletic"/>
+    <tag group="SkillBonus" tag="skEnduranc"/>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="pRacLonShi"></bootstrap>
+    </thing>
+  <thing id="rMinotaur" name="Minotaur" description="{b}Ferocity{/b}: When you drop to 0 hit points or fewer, you can make a melee basic attack as an immediate interrupt.{br}{b}Goring Charge{/b}: You have the goring charge power.{br}{b}Heedless Charge{/b}: You have a +2 racial bonus to AC against opportunity attacks you provoke during a charge.{br}{b}Vitality{/b}: You have one additional healing surge." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Caught between savagery and civilization, these warriors struggle against the beast within"/>
+    <fieldval field="racStr" value="2"/>
+    <fieldval field="racHtMin" value="85"/>
+    <fieldval field="racHtMax" value="89"/>
+    <fieldval field="racWtMin" value="320"/>
+    <fieldval field="racWtMax" value="350"/>
+    <fieldval field="racSpeed" value="6"/>
+    <fieldval field="racLang" value="1"/>
+    <usesource source="PHB3"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="SkillBonus" tag="skNature"/>
+    <tag group="SkillBonus" tag="skPercepti"/>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrCon"/>
+      <autotag group="RaceBonus" tag="attrWis"/>
+      </bootstrap>
+    <bootstrap thing="pRacGorCha"></bootstrap>
+    <bootstrap thing="fRMiFeroci"></bootstrap>
+    <bootstrap thing="fRMiHeeCha"></bootstrap>
+    <bootstrap thing="fRMiVitali"></bootstrap>
+    </thing>
+  <thing id="rMoonElf" name="Moon Elf (Eladrin)" description="In the ancient past, the moon elves reveled in travel and exploration. As a result, though they were the largest in number, their empires were the last to rise. Moon elves today still have this wanderlust, and are thus both numerous and widespread. Open to new experiences and honest by nature, moon elves are often seen as worthy companions by the people they meet in their travels.{br}Though the Spellplague inspired many sun elves to retreat further into isolation, most moon elves reacted to the tragedy of that period by forming stronger bonds with other races. Many moon elves now consider themselves a citizen of a worldly nation first and an eladrin second. Others have used renewed links with the Feywild to reconnect with their ancient homeland. In turn, a new generation of moon elves now spreads from the Feywild to explore the world.{br}{br}Roleplaying a Moon Elf (Eladrin)Each new day brings new horizons. You feel the wanderlust of your people, and you look to fresh experiences to grant you new insights on life. No matter how much you have seen, the world always offers more to explore.{br}Magic exists in all things. Most moon elves appreciate the fact that magic can be found anywhere - and often in a surprising form. You know to keep an open mind and accept the power that magic can unlock in even the simplest of objects and weakest of creatures.{br}A hidden good cannot be great. While the sun elves built up empires in isolation, the moon elves explored the world and saw their culture thrive and grow. In the same way, you know that good deeds should not be hidden. Others who witness acts of charity and nobility take strength and hope from them. Righteousness should be bolder than villainy.{br}{br}Moon Elf (Eladrin) Benefits{b}Moon Elf Skill Bonuses: {/b}Moon elves usually devote themselves to the study of magic and history. However, some find that their travels make understanding others and learning the lay of the social landscape more useful in their daily lives.{br}{i}Benefits: {/i}You gain a +2 bonus to Insight checks and Streetwise checks. This benefit replaces the normal eladrin skill bonuses to Arcana and History.{br}{b}Elf Weapon Proficiency: {/b}Elves and eladrin of all stripes take time to learn the traditional weapons of their people.{br}{i}Benefits: {/i}You gain proficiency with the longbow and the shortbow. This benefit replaces Eladrin Education.{br}Published in Neverwinter Campaign Setting, page(s) 49." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Powerful wizards, haughty courtiers, creatures of the mysterious Feywild"/>
+    <fieldval field="racInt" value="2"/>
+    <fieldval field="racHtMin" value="65"/>
+    <fieldval field="racHtMax" value="73"/>
+    <fieldval field="racWtMin" value="130"/>
+    <fieldval field="racWtMax" value="180"/>
+    <fieldval field="racSpeed" value="6"/>
+    <fieldval field="racWill" value="1"/>
+    <usesource source="NeverCamp"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="Vision" tag="Lowlight"/>
+    <tag group="Race" tag="rEladrin"/>
+    <tag group="WeaponProf" tag="wpLongswor"/>
+    <tag group="SkillBonus" tag="skInsight"/>
+    <tag group="SkillBonus" tag="skStreetwi"/>
+    <tag group="WeaponProf" tag="wpLongbow"/>
+    <tag group="WeaponProf" tag="wpShortbow"/>
+    <tag group="User" tag="StdRace"/>
+    <bootstrap thing="fRElElaWil"></bootstrap>
+    <bootstrap thing="fRElFeyOri"></bootstrap>
+    <bootstrap thing="fRElTrance"></bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="lanElven"></bootstrap>
+    <bootstrap thing="fRMoMooElf"></bootstrap>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrCha"/>
+      <autotag group="RaceBonus" tag="attrDex"/>
+      </bootstrap>
+    <bootstrap thing="fRMoElfWea"></bootstrap>
+    <bootstrap thing="pRacFeySte"></bootstrap>
+    <bootstrap thing="fRElElaWea"></bootstrap>
+    </thing>
+  <thing id="rMul" name="Mul" description="{b}Born of Two Races{/b}: Select either human or dwarf. You can take feats that have your choice as a prerequisite (as well as those specifically for muls), as long as you meet any other requirements.{br}{b}Incredible Toughness{/b}: You have the incredible toughness power.{br}{b}Mul Vitality{/b}: Increase your number of healing surges by one.{br}{b}Tireless{/b}: You need to sleep 6 hours in a 72-hour period (instead of a 24-hour period) to gain the benefit of an extended rest." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Tireless and unyielding, born to fight"/>
+    <fieldval field="racCon" value="2"/>
+    <fieldval field="racHtMin" value="68"/>
+    <fieldval field="racHtMax" value="76"/>
+    <fieldval field="racWtMin" value="200"/>
+    <fieldval field="racWtMax" value="300"/>
+    <fieldval field="racSpeed" value="6"/>
+    <usesource source="DarkSun"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="SkillBonus" tag="skEnduranc"/>
+    <tag group="SkillBonus" tag="skStreetwi"/>
+    <bootstrap thing="lanDwarven"></bootstrap>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrStr"/>
+      <autotag group="RaceBonus" tag="attrWis"/>
+      </bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="pRacIncTou"></bootstrap>
+    <bootstrap thing="fRMuBorTwo"></bootstrap>
+    <bootstrap thing="fRMuMulVit"></bootstrap>
+    <bootstrap thing="fRMuTirele"></bootstrap>
+    </thing>
+  <thing id="rOrc" name="Orc" description="{b}Running Charge{/b}: When you charge, add 2 to your speed.{br}{b}Warrior&apos;s Surge{/b}: You can use warrior&apos;s surge as an encounter power." compset="Race" uniqueness="unique">
+    <fieldval field="racCon" value="2"/>
+    <fieldval field="racStr" value="2"/>
+    <fieldval field="racHtMin" value="72"/>
+    <fieldval field="racHtMax" value="77"/>
+    <fieldval field="racWtMin" value="200"/>
+    <fieldval field="racWtMax" value="230"/>
+    <fieldval field="racSpeed" value="6"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="Vision" tag="Lowlight"/>
+    <bootstrap thing="lanGiant"></bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="pRacWarSur"></bootstrap>
+    <bootstrap thing="fROrRunCha"></bootstrap>
+    </thing>
+  <thing id="rPixie" name="Pixie" description="{b}Fey Origin{/b}: Your ancestors were native to the Feywild, so you are considered a fey creature for the purpose of effects that relate to creature origin.{br}{b}Pixie Magic{/b}: You have the pixie dust and shrink powers.{br}{b}Speak with Beasts{/b}: You can communicate with natural beasts and fey beasts.{br}{b}Wee Warrior{/b}: You have a reach of 1, rather than the reach of 0 that is typical for a Tiny creature. You also take a -5 penalty to Strength checks to break or force open objects. When wielding a weapon of your size, you follow the same rules that Small creatures do." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Magical fairy folk, childlike mischief-makers, enchanted caretakers of nature"/>
+    <fieldval field="racCha" value="2"/>
+    <fieldval field="racHtMin" value="6"/>
+    <fieldval field="racSpeed" value="4"/>
+    <usesource source="HeroFeywil"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="Size" tag="Tiny"/>
+    <tag group="SkillBonus" tag="skNature"/>
+    <tag group="SkillBonus" tag="skStealth"/>
+    <bootstrap thing="lanElven"></bootstrap>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrDex"/>
+      <autotag group="RaceBonus" tag="attrInt"/>
+      </bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="pRacPixDus"></bootstrap>
+    <bootstrap thing="pRacShrink"></bootstrap>
+    <bootstrap thing="fRPiFeyOri"></bootstrap>
+    <bootstrap thing="fRPiPixMag"></bootstrap>
+    <bootstrap thing="fRPiSpewit"></bootstrap>
+    <bootstrap thing="fRPiWeeWar"></bootstrap>
+    </thing>
+  <thing id="rShifteRaz" name="Razorclaw Shifter" description="{b}Razorclaw Shifting{/b}: You have the razorclaw shifting power." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Ferocious heirs of the wild, the perfect fusion of civilized race and wild beast"/>
+    <fieldval field="racDex" value="2"/>
+    <fieldval field="racWis" value="2"/>
+    <fieldval field="racHtMin" value="67"/>
+    <fieldval field="racHtMax" value="72"/>
+    <fieldval field="racWtMin" value="130"/>
+    <fieldval field="racWtMax" value="180"/>
+    <fieldval field="racSpeed" value="6"/>
+    <fieldval field="racLang" value="1"/>
+    <usesource source="PHB2"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="Vision" tag="Lowlight"/>
+    <tag group="SkillBonus" tag="skAcrobati"/>
+    <tag group="SkillBonus" tag="skStealth"/>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="pRacRazShi"></bootstrap>
+    </thing>
+  <thing id="rRevenant" name="Revenant" description="{b}Dark Reaping{/b}: You have the dark reaping power.{br}{b}Past life{/b}: Select a race other than revenant. You are also considered a member of that race for the purpose of meeting prerequisites, such as feat or paragon path prerequisites.{br}{b}Undead{/b}: You are considered an undead creature for the purpose of effects that relate to the undead keyword. You are also considered a living creature.{br}{b}Unnatural Vitality{/b}: When you drop to 0 hit points or fewer and are subjected to the dying condition, you can choose to be dazed, instead of falling unconscious. You make death saving throws as normal, and if you fail one, you fall unconscious instead of being dazed." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Resilient souls returned from death to do the work of Fate"/>
+    <fieldval field="racDex" value="2"/>
+    <fieldval field="racHtMin" value="65"/>
+    <fieldval field="racHtMax" value="74"/>
+    <fieldval field="racWtMin" value="100"/>
+    <fieldval field="racWtMax" value="200"/>
+    <fieldval field="racSpeed" value="6"/>
+    <fieldval field="racLang" value="1"/>
+    <usesource source="Dragon"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="SkillBonus" tag="skEnduranc"/>
+    <tag group="SkillBonus" tag="skIntimida"/>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrCha"/>
+      <autotag group="RaceBonus" tag="attrCon"/>
+      </bootstrap>
+    <bootstrap thing="pRacDarRea"></bootstrap>
+    <bootstrap thing="fRRePaslif"></bootstrap>
+    <bootstrap thing="fRReUndead"></bootstrap>
+    <bootstrap thing="fRReUnnVit"></bootstrap>
+    </thing>
+  <thing id="rSatyr" name="Satyr" description="{b}Fey Origin{/b}: Your ancestors were native to the Feywild, so you are considered a fey creature for the purpose of effects that relate to creature origin.{br}{b}Light of Heart{/b}: You can make saving throws both at the start of your turn and the end of your turn against fear effects that a save can end.{br}{b}Lure of Enchantment{/b}: You have the lure of enchantment power.{br}{b}Male Only{/b}: All satyrs are male.{br}{b}Pleasant Recovery{/b}: You regain 1d8 additional hit points for each healing surge you spend during a short rest.{br}{b}Sly Words{/b}: Bluff is always a class skill for you." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Adventurous fey, wild revelers, curious explorers"/>
+    <fieldval field="racCha" value="2"/>
+    <fieldval field="racHtMin" value="62"/>
+    <fieldval field="racHtMax" value="70"/>
+    <fieldval field="racWtMin" value="120"/>
+    <fieldval field="racWtMax" value="190"/>
+    <fieldval field="racSpeed" value="6"/>
+    <usesource source="HeroFeywil"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="SkillBonus" tag="skNature"/>
+    <tag group="SkillBonus" tag="skThievery"/>
+    <bootstrap thing="lanElven"></bootstrap>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrCon"/>
+      <autotag group="RaceBonus" tag="attrDex"/>
+      </bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="pRacLurEnc"></bootstrap>
+    <bootstrap thing="fRSaFeyOri"></bootstrap>
+    <bootstrap thing="fRSaLigHea"></bootstrap>
+    <bootstrap thing="fRSaMalOnl"></bootstrap>
+    <bootstrap thing="fRSaPleRec"></bootstrap>
+    <bootstrap thing="fRSaSlyWor"></bootstrap>
+    </thing>
+  <thing id="rShadarkai" name="Shadar-kai" description="{b}Shadow Jaunt{/b}: You can use shadow jaunt as an encounter power.{br}{b}Shadow Origin{/b}: The Shadowfell has left its mark on you, so you are considered a shadow creature for the purpose of effects that relate to creature origin.{br}{b}Winterkin{/b}: Due to your connection to the Raven Queen, you gain a +1 racial bonus to your Fortitude defense. You also gain a +2 racial bonus to death saving throws and saving throws against the unconscious condition." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Cold of heart and dark of eye, passion burns still within these people of shadow and deep winter."/>
+    <fieldval field="racDex" value="2"/>
+    <fieldval field="racHtMin" value="67"/>
+    <fieldval field="racHtMax" value="72"/>
+    <fieldval field="racWtMin" value="110"/>
+    <fieldval field="racWtMax" value="170"/>
+    <fieldval field="racSpeed" value="6"/>
+    <fieldval field="racLang" value="1"/>
+    <fieldval field="racFort" value="1"/>
+    <usesource source="Dragon"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="Vision" tag="Lowlight"/>
+    <tag group="SkillBonus" tag="skAcrobati"/>
+    <tag group="SkillBonus" tag="skStealth"/>
+    <tag group="User" tag="StdRace"/>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="pRacShaJau"></bootstrap>
+    <bootstrap thing="fRShShaOri"></bootstrap>
+    <bootstrap thing="fRShWinter"></bootstrap>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrInt"/>
+      <autotag group="RaceBonus" tag="attrWis"/>
+      </bootstrap>
+    </thing>
+  <thing id="rShade" name="Shade" description="{b}Fragile Mortality{/b}: You have one fewer healing surge than normal.{br}{b}Master of Shadows{/b}: When your class grants you a utility power after 1st level, you can forgo taking that power. Instead, you can take a shade utility power of the same level or lower.{br}{b}One with Shadow{/b}: You have the one with shadow power.{br}{b}Practiced Sneak{/b}: You have training in Stealth.{br}{b}Shadow Origin{/b}: The Shadowfell has left its mark on you, so you are considered a shadow creature for the purpose of effects that relate to creature origin." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Seekers of power willing to trade their souls to the darkness"/>
+    <fieldval field="racCha" value="2"/>
+    <fieldval field="racHtMin" value="66"/>
+    <fieldval field="racHtMax" value="74"/>
+    <fieldval field="racWtMin" value="100"/>
+    <fieldval field="racWtMax" value="160"/>
+    <fieldval field="racSpeed" value="6"/>
+    <fieldval field="racLang" value="1"/>
+    <usesource source="PlEsShadow"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="Vision" tag="Darkvision"/>
+    <tag group="SkillBonus" tag="skArcana"/>
+    <tag group="SkillBonus" tag="skStealth"/>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrDex"/>
+      <autotag group="RaceBonus" tag="attrInt"/>
+      </bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="pRacOnewit"></bootstrap>
+    <bootstrap thing="fRShFraMor"></bootstrap>
+    <bootstrap thing="fRShMasSha"></bootstrap>
+    <bootstrap thing="fRShPraSne"></bootstrap>
+    </thing>
+  <thing id="rShardmind" name="Shardmind" description="{b}Crystalline Mind{/b}: You have resist 5 psychic. The resistance increases to 10 at 11th level and 15 at 21st level.{br}{b}Immortal Origin{/b}: Your spirit is native to the Astral Sea, so you are considered an immortal creature for the purpose of effects that relate to creature origin.{br}{b}Living Construct{/b}: You are a living construct. You do not need to eat, drink, breathe, or sleep. You never make Endurance checks to resist the effect of starvation, thirst, or suffocation. All other conditions and effects affect you normally.{br}{b}Shard Swarm{/b}: You have the shard swarm power.{br}{b}Telepathy{/b}: You can communicate telepathically with any creature within 5 squares of you that has a language." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Raw psionic energy barely contained in a body of gleaming crystalline shards"/>
+    <fieldval field="racInt" value="2"/>
+    <fieldval field="racHtMin" value="69"/>
+    <fieldval field="racHtMax" value="74"/>
+    <fieldval field="racWtMin" value="180"/>
+    <fieldval field="racWtMax" value="230"/>
+    <fieldval field="racSpeed" value="6"/>
+    <fieldval field="racLang" value="1"/>
+    <usesource source="PHB3"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="SkillBonus" tag="skArcana"/>
+    <tag group="SkillBonus" tag="skEnduranc"/>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrCha"/>
+      <autotag group="RaceBonus" tag="attrWis"/>
+      </bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="lanDeepSpe"></bootstrap>
+    <bootstrap thing="pRacShaSwa"></bootstrap>
+    <bootstrap thing="fRShCryMin"></bootstrap>
+    <bootstrap thing="fRShImmOri"></bootstrap>
+    <bootstrap thing="fRShLivCon"></bootstrap>
+    <bootstrap thing="fRShTelepa"></bootstrap>
+    </thing>
+  <thing id="rShieldDwa" name="Shield Dwarf" description="A long history of internecine war has made the once clannish society of shield dwarves more open. Shield dwarves actively seek out friends and forge alliances against enemies. They judge others by their skill and bravery, not merely the honor of a bloodline or the number of beard hairs gone gray. Tradition, respect for elders, and the bonds of kinship are strong forces in shield dwarf culture. However, no shield dwarf would be thought dishonorable for seeking his or her own destiny, whether doing so involves battling orcs alongside elf allies or becoming a master crafter in a human city.{br}The history of the shield dwarves can be traced back through millennia. The sons of Taark Shanat the Crusader founded eight kingdoms, which fought, made alliances, rose to greatness as one nation, and then fell into separate states before vanishing from the face of the world. The last great dwarven kingdom of the North was Delzoun, and few are the shield dwarves who do not claim a connection to the bloodline of that realm.{br}{br}Roleplaying a Shield DwarfEven mountains change. Although you honor the past and strive to see the good of the present preserved, you know that nothing lasts forever. This impermanency is a reminder that one should never be too complacent or too proud. The ruins of cultures that fell to false pride litter the North. Only those who develop and guard a true greatness can maintain that greatness.{br}Even the strongest steel can break. Among the dwarves, it is said that allies are like axes - despite their strength, both can fail when you need them most. Though you strive to make alliances and return friendship in kind, you always remain wary of others. Your closest comrades are noteworthy exceptions, but you remain on the lookout for disloyalty, greed, and cowardice, particularly from other races.{br}A stout shield can both guard and smash. The clan cannot defend itself by hiding in the mountains. Neither can the warrior win merely by blocking attacks. When you face a foe, you must strike out at it. Never fear a challenge so much that you shy away from it.{br}{br}Shield Dwarf Benefits{b}Shield Dwarf Weapon Proficiency: {/b}Shield dwarves spend more time aboveground and in forested areas than their gold dwarf cousins. This has led to them relying on axes as tools and weapons.{br}{i}Benefits: {/i}You gain proficiency with the handaxe and the battleaxe. This benefit replaces Dwarven Weapon Proficiency.{br}{b}Shield Proficiency: {/b}Besieged by numerous threats such as orcs and goblins, the shield dwarves take the name of their people seriously. Many are trained to use a shield regardless of duty or station.{br}{i}Benefits: {/i}You gain proficiency with the light shield. This benefit replaces Dwarven Weapon Proficiency.{br}Published in Neverwinter Campaign Setting, page(s) 47." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Stout warriors, master artisans, lords of the mountain peaks"/>
+    <fieldval field="racCon" value="2"/>
+    <fieldval field="racHtMin" value="51"/>
+    <fieldval field="racHtMax" value="57"/>
+    <fieldval field="racWtMin" value="160"/>
+    <fieldval field="racWtMax" value="220"/>
+    <fieldval field="racSpeed" value="5"/>
+    <usesource source="NeverCamp"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="Vision" tag="Lowlight"/>
+    <tag group="SkillBonus" tag="skDungeone"/>
+    <tag group="SkillBonus" tag="skEnduranc"/>
+    <tag group="Race" tag="rDwarf"/>
+    <tag group="WeaponProf" tag="wpBattleax"/>
+    <tag group="WeaponProf" tag="wpHandaxe"/>
+    <tag group="ArmorProf" tag="apShieldLg"/>
+    <bootstrap thing="fRShShiPro"></bootstrap>
+    <bootstrap thing="pRacDwaRes"></bootstrap>
+    <bootstrap thing="fRDwCasSto"></bootstrap>
+    <bootstrap thing="fRDwEncSpe"></bootstrap>
+    <bootstrap thing="fRDwStaYou"></bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="lanDwarven"></bootstrap>
+    <bootstrap thing="fRShShiDwa"></bootstrap>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrStr"/>
+      <autotag group="RaceBonus" tag="attrWis"/>
+      </bootstrap>
+    </thing>
+  <thing id="rSunElf" name="Sun Elf (Eladrin)" description="The sun elves have lived apart from the events of the world for thousands of years. Despite the recent turmoil of the Spellplague, they see little reason to change. Indeed, the dangers of the modern age and the proven frailties of those gods not associated with the elves drives many sun elves to depend more than ever on their traditional insularity, closing ranks against outsiders that would spread chaos and doom.{br}Taking advantage of the renewed connection to the Feywild represents an exception for some sun elves, but for others it merely proves the point. The elves of Faerie might look and act like the elves of the world, but to many sun elves, they represent as  much of a potential threat as any worldly nation.{br}Sun elves mimic the aloof (some might say haughty) nature of their society in their personal interactions as well. They are slow to smile, quick to disparage, and always ready to demonstrate their superior knowledge and skill. These barriers break down over time in the dealings between a sun elf and his or her closest allies, but many sun elves remain forever withdrawn in the company of people who speak plainly and show emotion openly.{br}{br}Roleplaying a Sun Elf (Eladrin)Patience solves many problems. Sun elves live long lives, and so can afford to wait for time to take its toll on their enemies and the problems of shorter-lived races. Their long-term plans can take centuries to realize. As a sun elf, you are far more concerned with what might be ahead rather than the troubles of the moment.{br}A calm mind remains clear. Maintaining an inner and outward serenity allows you to think more clearly. In dire situations, a solemn outlook helps to keep peril at a distance and allows you to make the most well-reasoned choices.{br}Creatures are as they are born. Just as the deer cannot help but be hunted by the wolf, the wolf cannot fail to hunt lest it die. So too must the dwarf grub for gold and the halfling avoid home and responsibility. The rabbit cannot fly any more than the fox can graze to survive. Do not expect others to rise to your level or to change their ways to suit you.{br}{br}Moon Elf (Eladrin) Benefits{b}Elf Weapon Proficiency: {/b}Elves and eladrin of all stripes take time to learn the traditional weapons of their people.{br}{i}Benefits: {/i}You gain proficiency with the longbow and the shortbow. This benefit replaces Eladrin Education.{br}{b}Sun Elf Skill Bonuses: {/b}The complex intrigues of sun elf courts require a subtlety and discernment that sun elves find useful in their relationships.{br}{i}Benefits: {/i}You gain a +2 bonus to Bluff checks and Insight checks. This benefit replaces the normal eladrin skill bonuses to Arcana and History.{br}{b}Wizard Implement Proficiency: {/b}The legendary magical skill of sun elves comes from a devotion to the use of arcane magic that extends as far back as the Crown Wars. Many eladrin learn to use the tools of arcane casters, employing those devices for aid in the use of their own magic.{br}{i}Benefits: {/i}You gain proficiency with the orb, the staff, and the wand as implements. This benefit replaces Eladrin Weapon Proficiency.{br}Published in Neverwinter Campaign Setting, page(s) 50." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Powerful wizards, haughty courtiers, creatures of the mysterious Feywild"/>
+    <fieldval field="racInt" value="2"/>
+    <fieldval field="racHtMin" value="65"/>
+    <fieldval field="racHtMax" value="73"/>
+    <fieldval field="racWtMin" value="130"/>
+    <fieldval field="racWtMax" value="180"/>
+    <fieldval field="racSpeed" value="6"/>
+    <fieldval field="racWill" value="1"/>
+    <usesource source="NeverCamp"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="Vision" tag="Lowlight"/>
+    <tag group="Race" tag="rEladrin"/>
+    <tag group="SkillBonus" tag="skInsight"/>
+    <tag group="SkillBonus" tag="skBluff"/>
+    <tag group="WeaponProf" tag="wpLongbow"/>
+    <tag group="WeaponProf" tag="wpShortbow"/>
+    <tag group="ImplemType" tag="itOrb"/>
+    <tag group="ImplemType" tag="itStaff"/>
+    <tag group="ImplemType" tag="itWand"/>
+    <tag group="User" tag="StdRace"/>
+    <bootstrap thing="fRElTrance"></bootstrap>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrCha"/>
+      <autotag group="RaceBonus" tag="attrDex"/>
+      </bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="lanElven"></bootstrap>
+    <bootstrap thing="fRSuWizImp"></bootstrap>
+    <bootstrap thing="fRSuSunElf"></bootstrap>
+    <bootstrap thing="fRSuElfWea"></bootstrap>
+    <bootstrap thing="pRacFeySte"></bootstrap>
+    <bootstrap thing="fRElElaWil"></bootstrap>
+    <bootstrap thing="fRElFeyOri"></bootstrap>
+    </thing>
+  <thing id="rSvirfnebl" name="Svirfneblin" description="{b}Earth Walk{/b}: You ignore difficult terrain that is rubble, uneven stone, or an earthen construction.{br}{b}Fey Origin{/b}: Your ancestors were native to the Feywild, so you are considered a fey creature for the purpose of effects that relate to creature origin.{br}{b}Stone Camouflage{/b}: You have the stone camouflage power.{br}{b}Under-dweller{/b}: Dungeoneering is always a class skill for you." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Subterranean gnomes dedicated to community who make strong bonds of friendship"/>
+    <fieldval field="racWis" value="2"/>
+    <fieldval field="racHtMin" value="38"/>
+    <fieldval field="racHtMax" value="42"/>
+    <fieldval field="racWtMin" value="55"/>
+    <fieldval field="racWtMax" value="80"/>
+    <fieldval field="racSpeed" value="5"/>
+    <usesource source="IntoUnknow"/>
+    <tag group="Size" tag="Small"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="Vision" tag="Darkvision"/>
+    <tag group="SkillBonus" tag="skDungeone"/>
+    <tag group="SkillBonus" tag="skPercepti"/>
+    <bootstrap thing="lanElven"></bootstrap>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrCon"/>
+      <autotag group="RaceBonus" tag="attrStr"/>
+      </bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="lanDeepSpe"></bootstrap>
+    <bootstrap thing="pRacStoCam"></bootstrap>
+    <bootstrap thing="fRSvEarWal"></bootstrap>
+    <bootstrap thing="fRSvFeyOri"></bootstrap>
+    <bootstrap thing="fRSvUnderd"></bootstrap>
+    </thing>
+  <thing id="rThriKreen" name="Thri-Kreen" description="{b}Multiple Arms{/b}: Once per turn, you can draw or sheathe a weapon (or retrieve or stow an item stored on your person) as a free action instead of a minor action.{br}{b}Natural Jumper{/b}: A thri-kreen is always considered to have a running start when jumping.{br}{b}Thri-kreen Claws{/b}: You have the thri-kreen claws power.{br}{b}Torpor{/b}: Rather than sleep, thri-kreen enter a torpid state. In this state, you remain aware of your surroundings, and you require only 4 hours of torpor (rather than 6 hours of sleep) to gain the benefit of an extended rest." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Alien to most people of Athas, these desert-dwelling creatures live for the thrill of the hunt"/>
+    <fieldval field="racDex" value="2"/>
+    <fieldval field="racHtMin" value="64"/>
+    <fieldval field="racHtMax" value="78"/>
+    <fieldval field="racWtMin" value="180"/>
+    <fieldval field="racWtMax" value="240"/>
+    <fieldval field="racSpeed" value="7"/>
+    <usesource source="DarkSun"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="Vision" tag="Lowlight"/>
+    <tag group="SkillBonus" tag="skAthletic"/>
+    <tag group="SkillBonus" tag="skNature"/>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrStr"/>
+      <autotag group="RaceBonus" tag="attrWis"/>
+      </bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="lanThrikre"></bootstrap>
+    <bootstrap thing="pRacThrCla"></bootstrap>
+    <bootstrap thing="fRThMulArm"></bootstrap>
+    <bootstrap thing="fRThNatJum"></bootstrap>
+    <bootstrap thing="fRThTorpor"></bootstrap>
+    </thing>
+  <thing id="rTiefling" name="Tiefling" description="{b}Bloodhunt{/b}: You gain a +1 racial bonus to attack rolls against bloodied enemies.{br}{b}Fire Resistance{/b}: You have fire resistance equal to 5 + one-half your level.{br}{b}Infernal Wrath{/b}: You have the infernal wrath power." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Cursed heirs of a shattered empire who live in the shadows, but do not fear the dark."/>
+    <fieldval field="racCha" value="2"/>
+    <fieldval field="racHtMin" value="66"/>
+    <fieldval field="racHtMax" value="74"/>
+    <fieldval field="racWtMin" value="140"/>
+    <fieldval field="racWtMax" value="230"/>
+    <fieldval field="racSpeed" value="6"/>
+    <fieldval field="racLang" value="1"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="Vision" tag="Lowlight"/>
+    <tag group="SkillBonus" tag="skBluff"/>
+    <tag group="SkillBonus" tag="skStealth"/>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrCon"/>
+      <autotag group="RaceBonus" tag="attrInt"/>
+      </bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="pRacInfWra"></bootstrap>
+    <bootstrap thing="fRTiBloodh"></bootstrap>
+    <bootstrap thing="fRTiFirRes"></bootstrap>
+    </thing>
+  <thing id="rVryloka" name="Vryloka" description="{b}Blood Dependency{/b}: When you are bloodied, your healing surge value drops by 2.{br}{b}Human Heritage{/b}: You gain a +5 racial bonus to Bluff checks made to pass as a human.{br}{b}Lifeblood{/b}: You have the lifeblood power.{br}{b}Living Dead{/b}: Because your soul is tainted by undeath, you are both living and undead. If a power has different effects on living creatures and undead creatures, you choose which effect applies to you.{br}{b}Necrotic Resistance{/b}: You have necrotic resistance equal to 5 + one-half your level.{br}{b}Vampiric Heritage{/b}: When your class grants you a utility power after 1st level, you can forgo taking that power. Instead, you gain a vryloka utility power of the same level or lower." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Elegant aristocrat whose beauty conceals a secret thirst"/>
+    <fieldval field="racCha" value="2"/>
+    <fieldval field="racHtMin" value="64"/>
+    <fieldval field="racHtMax" value="74"/>
+    <fieldval field="racWtMin" value="110"/>
+    <fieldval field="racWtMax" value="200"/>
+    <fieldval field="racSpeed" value="7"/>
+    <fieldval field="racLang" value="1"/>
+    <usesource source="PlEsShadow"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="Vision" tag="Lowlight"/>
+    <tag group="SkillBonus" tag="skPercepti"/>
+    <tag group="SkillBonus" tag="skStealth"/>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrDex"/>
+      <autotag group="RaceBonus" tag="attrStr"/>
+      </bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="pRacLifebl"></bootstrap>
+    <bootstrap thing="fRVrBloDep"></bootstrap>
+    <bootstrap thing="fRVrHumHer"></bootstrap>
+    <bootstrap thing="fRVrLivDea"></bootstrap>
+    <bootstrap thing="fRVrNecRes"></bootstrap>
+    <bootstrap thing="fRVrVamHer"></bootstrap>
+    </thing>
+  <thing id="rWarforged" name="Warforged" description="{b}Living Construct{/b}: You are a living construct. You do not need to eat, drink, breathe, or sleep. You never make Endurance checks to resist the effect of starvation, thirst, or suffocation. All other conditions and effects affect you normally.{br}{b}Unsleeping Watcher{/b}: You do not sleep and instead enter a state of inactivity for 4 hours to gain the benefits of an extended rest. While in this state, you are fully aware of your surroundings and notice approaching enemies and other events as normal.{br}{b}Warforged Mind{/b}: You have a +1 racial bonus to your Will.{br}{b}Warforged Resilience{/b}: You have a +2 racial bonus to saving throws against ongoing damage. Also, when you make a death saving throw, you can take the better result of your die roll or 10.{br}{b}Warforged Resolve{/b}: You have the warforged resolve power." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Built for a war that has ended, searching for purpose"/>
+    <fieldval field="racCon" value="2"/>
+    <fieldval field="racHtMin" value="72"/>
+    <fieldval field="racHtMax" value="78"/>
+    <fieldval field="racWtMin" value="270"/>
+    <fieldval field="racWtMax" value="300"/>
+    <fieldval field="racSpeed" value="6"/>
+    <fieldval field="racWill" value="1"/>
+    <usesource source="EbPG"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="SkillBonus" tag="skEnduranc"/>
+    <tag group="SkillBonus" tag="skIntimida"/>
+    <tag group="Size" tag="Medium"/>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="pRacWarRes"></bootstrap>
+    <bootstrap thing="fRWaLivCon"></bootstrap>
+    <bootstrap thing="fRWaUnsWat"></bootstrap>
+    <bootstrap thing="fRWaWarMin"></bootstrap>
+    <bootstrap thing="fRWaWarRes"></bootstrap>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrInt"/>
+      <autotag group="RaceBonus" tag="attrStr"/>
+      </bootstrap>
+    </thing>
+  <thing id="rWildElf" name="Wild Elf" description="Of all the fey folk of the world, wild elves live most closely with nature. Indeed, many wild elves see themselves as the only true examples of their race, since they are the only ones living as their ancient ancestors did. At first glance, because of their body paint and beadwork, wild elves can easily be mistaken for primitive hunter-gatherers. Their culture, however, contains complex and intricate traditions that have survived largely unchanged from the time of the Crown Wars.{br}Wild elves are more isolationist than their sun elf cousins - often violently so. Those wild elves who do interact with members of other races are sometimes seen as tainted from that contact. As such, wild elves who choose to forge strong bonds with others must often forsake close ties with their kin.{br}{br}Roleplaying a Wild ElfAll other cultures are wrong. You might have left your people by your own choice, but that decision has not changed how you view the world. Among your kind, all ways but those of the wild elves represent corruption and iniquity. Though you might be more open to the customs of other folk than most of your kind, it is hard for you to entirely set aside your distrust of those people.{br}The world knows more than any elf. You view the natural world and its primal spirits as cousins and friends. You see portents in the change of the weather, the flight paths of birds, and the health of plants. Those places where the world cannot display its natural order - cities, dungeons, magical terrain - seem dangerous to you, because you cannot depend on signs you cannot read.{br}Birds fly because they have wings. Wild elves are nomads who must constantly wander. Corellon placed that wanderlust in the souls of your people - the impetus that brought the first elves to the world. Just as a bird must fly when its wings are strong enough, so too must you move on when the spirit takes you.{br}{br}Wild Elf Benefits{b}Subtle Step: {/b}Wild elves train for battle from the time they can walk, and their teachers place early emphasis on evasion and escape. By the time wild elves are of warrior age, those childhood lessons allow them to move deeper into battle as well as to break free of it.{br}{i}Benefits: {/i}Once per encounter, you can shift up to your speed as a move action. This benefit replaces elven accuracy.{br}{b}Wild Elf Weapon Proficiency: {/b}Though eladrin might devote themselves to the longsword, wild elves have for millennia relied on the spears that are their traditional hunting weapons.{br}{i}Benefits: {/i}You gain proficiency with the javelin, the spear, and the longspear. This benefit replaces Group Awareness.{br}Published in Neverwinter Campaign Setting, page(s) 51." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Unmatched archers, cunning explorers, protectors of the wild forests"/>
+    <fieldval field="racDex" value="2"/>
+    <fieldval field="racHtMin" value="64"/>
+    <fieldval field="racHtMax" value="72"/>
+    <fieldval field="racWtMin" value="130"/>
+    <fieldval field="racWtMax" value="170"/>
+    <fieldval field="racSpeed" value="7"/>
+    <usesource source="NeverCamp"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="Vision" tag="Lowlight"/>
+    <tag group="SkillBonus" tag="skNature"/>
+    <tag group="SkillBonus" tag="skPercepti"/>
+    <tag group="Race" tag="rElf"/>
+    <tag group="WeaponProf" tag="wpLongbow"/>
+    <tag group="WeaponProf" tag="wpShortbow"/>
+    <tag group="WeaponProf" tag="wpJavelin"/>
+    <tag group="WeaponProf" tag="wpSpear"/>
+    <tag group="WeaponProf" tag="wpLongspea"/>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="lanElven"></bootstrap>
+    <bootstrap thing="fRWiSubSte"></bootstrap>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrInt"/>
+      <autotag group="RaceBonus" tag="attrWis"/>
+      </bootstrap>
+    <bootstrap thing="fRWiWilElf"></bootstrap>
+    <bootstrap thing="fRElElvWea"></bootstrap>
+    </thing>
+  <thing id="rWilden" name="Wilden" description="{b}Fey Origin{/b}: Your ancestors were native to the Feywild, so you are considered a fey creature for the purpose of effects that relate to creature origin.{br}{b}Hardy Form{/b}: Choose Fortitude, Reflex, or Will defense. You gain a +1 racial bonus to your chosen defense.{br}{b}Nature&apos;s Aspect{/b}: Whenever you complete an extended rest, choose one of the following aspects of nature.{br}{i}Aspect Of The Ancients{/i}: You can use the voyage of the ancients power while you are in this aspect.{br}{i}Aspect Of The Destroyer{/i}: You can use the wrath of the destroyer power while you are in this aspect.{br}{i}Aspect Of The Hunter{/i}: You can use the pursuit of the hunter power while you are in this aspect." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Nature&apos;s guardians - hunters and destroyers, keepers of ancient knowledge"/>
+    <fieldval field="racWis" value="2"/>
+    <fieldval field="racHtMin" value="66"/>
+    <fieldval field="racHtMax" value="69"/>
+    <fieldval field="racWtMin" value="140"/>
+    <fieldval field="racWtMax" value="170"/>
+    <fieldval field="racSpeed" value="6"/>
+    <usesource source="PHB3"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="Vision" tag="Lowlight"/>
+    <tag group="SkillBonus" tag="skNature"/>
+    <tag group="SkillBonus" tag="skStealth"/>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrCon"/>
+      <autotag group="RaceBonus" tag="attrDex"/>
+      </bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="lanElven"></bootstrap>
+    <bootstrap thing="fRWiFeyOri"></bootstrap>
+    <bootstrap thing="fRWiHarFor"></bootstrap>
+    <bootstrap thing="fRWiNatAsp"></bootstrap>
+    <bootstrap thing="fRWiAspAnc"></bootstrap>
+    <bootstrap thing="fRWiAspDes"></bootstrap>
+    <bootstrap thing="fRWiAspHun"></bootstrap>
+    </thing>
+  <thing id="rWoodElf" name="Wood Elf" description="Wood elves resemble moon elves in that they are friendly to other races. However, like wild elves, they prefer to live hidden in the wilderness. Wanderlust has no place in their lives, and they consider themselves the solemn caretakers of ancient empires. Wood elves prefer to build modest settlements, viewing the urban and urbane lifestyles both of the ancient elves and their sun elf descendants to be mistakes.{br}After fleeing the destruction of the Crown Wars, the wood elves sought to keep their distance from any conflicts that they believed brought ruin upon their people. However, unlike the wild elves and the sun elves, they did not want to detach themselves from the world. The lesson they learned from the destruction of the past was to be compassionate, both toward other elves and the other races that would come to prominence as their own race waned.{br}{br}Roleplaying a Wood ElfIt is wise to be compassionate, but not all compassion is wise. You seek to help others, but you must guard yourself against deception and hidden dangers. Be ruthless when the situation calls for ruthlessness. Like the bow, you are supple and harmless when danger is not at hand, but you can turn deadly in a heartbeat.{br}Do not waste emotion. Humans, moon elves, and others can easily find themselves swept away by emotion, which interferes with their thinking and prompts them to commit foolish acts. Sun elves, at the other extreme, wall themselves away from their hearts so much that they are often unable to feel anything at all. You choose the middle path, which is to use emotion as your ally in achieving your aims. When you are in the right, feel the righteousness of your actions. When you have cause for wrath, let it give you focus.{br}Avoid what troubles you can. If your presence would provoke a needless battle, let peace reign in your absence. Whereas a wild elf might confront or kill a trespasser without a thought, you are content to allow the trespass as long as no real harm is done. Wait, watch, and learn. Then act only when inaction would be the greater evil.{br}{br}Wood Elf Benefits{b}Sense Threat: {/b}Wood elves hone their senses against the most subtle perils, whether in the wilderness or at the negotiating table.{br}{i}Benefits: {/i}When you roll initiative, you can make a Perception check and use its result for your initiative check. When you do so, allies within 10 squares of you who have a lower initiative than yours gain a +2 racial bonus to their initiative. This benefit replaces elven accuracy.{br}{b}Wood Elf Reactive Stealth: {/b}Wood elf clans focus on avoiding trouble by hiding from the world. As a result, many wood elves develop the instinct to fade from sight at the first sign of danger.{br}{i}Benefits: {/i}If you have any cover or concealment when you roll initiative, you can make a Stealth check to hide at the same time. This benefit replaces Group Awareness.{br}Published in Neverwinter Campaign Setting, page(s) 52." compset="Race" uniqueness="unique">
+    <fieldval field="racFlavor" value="Unmatched archers, cunning explorers, protectors of the wild forests"/>
+    <fieldval field="racDex" value="2"/>
+    <fieldval field="racHtMin" value="64"/>
+    <fieldval field="racHtMax" value="72"/>
+    <fieldval field="racWtMin" value="130"/>
+    <fieldval field="racWtMax" value="170"/>
+    <fieldval field="racSpeed" value="7"/>
+    <usesource source="NeverCamp"/>
+    <tag group="User" tag="StdRace"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="Vision" tag="Lowlight"/>
+    <tag group="SkillBonus" tag="skNature"/>
+    <tag group="SkillBonus" tag="skPercepti"/>
+    <tag group="Race" tag="rElf"/>
+    <tag group="WeaponProf" tag="wpLongbow"/>
+    <tag group="WeaponProf" tag="wpShortbow"/>
+    <bootstrap thing="fRPlusAb">
+      <autotag group="RaceBonus" tag="attrInt"/>
+      <autotag group="RaceBonus" tag="attrWis"/>
+      </bootstrap>
+    <bootstrap thing="fRWoWooElf"></bootstrap>
+    <bootstrap thing="fRElElvWea"></bootstrap>
+    <bootstrap thing="lanCommon"></bootstrap>
+    <bootstrap thing="lanElven"></bootstrap>
+    <bootstrap thing="fRWoSenThr"></bootstrap>
+    </thing>
+  <thing id="fRBlAciRes" name="Acid Resistance" description="You have resist acid 5 + one-half your level." compset="RaceFeat">
+    <tag group="Hide" tag="Special"/>
+    <eval phase="Traits" priority="1000"><![CDATA[
+      ~resist Fire 5 + half level
+      var bonus as number
+      bonus = 5 + round(hero.tagvalue[Level.?] / 2, 0, -1)
+      #traitmodify[rsAcid,rsTotal,bonus,""]]]></eval>
+    </thing>
+  <thing id="fRBuOversi" name="Oversized" description="You can use weapons of your size or one size larger than you as if they were your size." compset="RaceFeat">
+    <eval phase="Setup" priority="10000">perform hero.assign[Hero.Oversized]</eval>
+    </thing>
+  <thing id="fRBuRanAir" name="Rancid Air" description="(Poison) aura 2: Any enemy that spends a healing surge within the aura is weakened until the end of its next turn." compset="RaceFeat"></thing>
+  <thing id="fRBuSwaWal" name="Swamp Walk" description="A creature that has swamp walk ignores difficult terrain that is mud or shallow water." compset="RaceFeat"></thing>
+  <thing id="fRChChaSha" name="Change Shape" description="You have the changeling disguise power." compset="RaceFeat"></thing>
+  <thing id="fRChMenDef" name="Mental Defense" description="You have a +1 racial bonus to Will." compset="RaceFeat"></thing>
+  <thing id="fRChShapec" name="Shapechanger" description="You have the shapechanger subtype; you can alter your appearance. As such, you are subject to effects and conditions that affect shapechangers." compset="RaceFeat"></thing>
+  <thing id="fRDeAstMaj" name="Astral Majesty" description="You have a +1 bonus to all defenses against attacks made by bloodied creatures." compset="RaceFeat"></thing>
+  <thing id="fRDeAstRes" name="Astral Resistance" description="You have resistance to necrotic damage and radiant damage equal to 5 + one-half your level." compset="RaceFeat">
+    <tag group="Hide" tag="Special"/>
+    <eval phase="Traits" priority="1000"><![CDATA[
+      ~resist Necrotic / Radiant 5 + half level
+      var bonus as number
+      bonus = 5 + round(hero.tagvalue[Level.?] / 2, 0, -1)
+      #traitmodify[rsNecrotic,rsTotal,bonus,""]
+      #traitmodify[rsRadiant,rsTotal,bonus,""]]]></eval>
+    </thing>
+  <thing id="fRDeImmOri" name="Immortal Origin" description="Your spirit is native to the Astral Sea, so you are considered an immortal creature for the purpose of effects that relate to creature origin." compset="RaceFeat"></thing>
+  <thing id="fRDrDraHer" name="Draconic Heritage" description="Your healing surge value is equal to one-quarter of your maximum hit points + your Constitution modifier." compset="RaceFeat">
+    <eval phase="Traits" priority="10000"><![CDATA[
+      var bonus as number
+      bonus = #attrbasebonus[attrCon]
+      #traitmodify[trSurgeVal,trtBonus,bonus,""]]]>
+      <before name="Derived trtFinal"/>
+      <after name="Calc attrBonus"/>
+      </eval>
+    </thing>
+  <thing id="fRDrDraFur" name="Dragonborn Fury" description="While you are bloodied, you gain a +1 racial bonus to attack rolls." compset="RaceFeat"></thing>
+  <thing id="fRDrDraRac" name="Dragonborn Racial Power" description="When you select dragonborn as your character&apos;s race, choose one of the following powers. Your dragonborn character gains that power." compset="RaceFeat">
+    <fieldval field="usrCandid1" value="thingid.pRacDraBre | thingid.pRacDragon"/>
+    <tag group="Hide" tag="Special"/>
+    </thing>
+  <thing id="fRDrFeyOri" name="Fey Origin" description="Your ancestors were native to the Feywild, so you are considered a fey creature for the purpose of effects that relate to creature origin." compset="RaceFeat"></thing>
+  <thing id="fRDrLoltht" name="Lolthtouched" description="You have your choice of either the cloud of darkness or darkfire power." compset="RaceFeat"></thing>
+  <thing id="fRDrTraDro" name="Trance (Drow)" description="Rather than sleep, drow enter a meditative state known as trance. You need to spend 4 hours in this state to gain the same benefits other races gain from taking a 6-hour extended rest. While in a trance, you are fully aware of your surroundings and notice approaching enemies and other events as normal." compset="RaceFeat"></thing>
+  <thing id="fRDwCasSto" name="Cast-Iron Stomach" description="You have a +5 racial bonus to saving throws against poison." compset="RaceFeat"></thing>
+  <thing id="fRDwDwaWea" name="Dwarven Weapon Proficiency" description="You gain proficiency with the throwing hammer and the warhammer." compset="RaceFeat"></thing>
+  <thing id="fRDwEncSpe" name="Encumbered Speed" description="You move at your normal speed even when it would be reduced by armor or a heavy load. Other effects that limit speed (such as difficult terrain or magic) affect you normally." compset="RaceFeat">
+    <eval phase="Traits" priority="1000">perform hero.assign[Hero.NoArmorSpd]
+      perform hero.assign[Hero.NoEncumSpd]
+      <before name="Armor effects final"/>
+      </eval>
+    </thing>
+  <thing id="fRDwStaYou" name="Stand Your Ground" description="When an effect forces you to move - through a pull, a push, or a slide - you can move 1 square less than the effect specifies. This means an effect that normally pulls, pushes, or slides a target 1 square does not force you to move unless you want to." compset="RaceFeat"></thing>
+  <thing id="fRElElaEdu" name="Eladrin Education" description="You gain training in one skill of your choice." compset="RaceFeat">
+    <fieldval field="usrCandid1" value="component.Skill"/>
+    <eval phase="Traits" priority="1000">perform field[usrChosen1].chosen.assign[Helper.TrainedAut]
+      <before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+  <thing id="fRElElaWea" name="Eladrin Weapon Proficiency" description="You gain proficiency with the longsword." compset="RaceFeat"></thing>
+  <thing id="fRElElaWil" name="Eladrin Will" description="You gain a +1 racial bonus to Will. In addition, you gain a +5 racial bonus to saving throws against charm effects." compset="RaceFeat"></thing>
+  <thing id="fRElFeyOri" name="Fey Origin" description="Your ancestors were native to the Feywild, so you are considered a fey creature for the purpose of effects that relate to creature origin." compset="RaceFeat"></thing>
+  <thing id="fRElTrance" name="Trance" description="Rather than sleep, you enter a meditative state known as trance. You need to spend 4 hours in this state to gain the same benefits other races gain from taking a 6-hour extended rest. While in a trance, you are fully aware of your surroundings and notice approaching enemies and other events as normal." compset="RaceFeat"></thing>
+  <thing id="fRElElvWea" name="Elven Weapon Proficiency" description="You gain proficiency with the longbow and the shortbow." compset="RaceFeat"></thing>
+  <thing id="fRGeEleMan" name="Elemental Manifestation" description="Choose one manifestation. That manifestation is part of your nature. Each manifestation offers particular benefits and provides an associated encounter power. Your appearance changes based on the element you are manifesting." compset="RaceFeat">
+    <fieldval field="usrCandid1" value="User.GenasiMan"/>
+    <tag group="Hide" tag="Special"/>
+    </thing>
+  <thing id="fRGeEleOri" name="Elemental Origins" description="Your ancestors were native to the Elemental Chaos, so you are considered an elemental creature for the purpose of effects that relate to creature origin." compset="RaceFeat"></thing>
+  <thing id="fRGiDanSen" name="Danger Sense" description="You have a +2 racial bonus to initiative checks." compset="RaceFeat"></thing>
+  <thing id="fRGiGitWil" name="Githyanki Willpower" description="You gain a +1 bonus to your Will defense, and a +2 bonus to saving throws against charm effects." compset="RaceFeat"></thing>
+  <thing id="fRGnBloFur" name="Blood Fury" description="While you&apos;re bloodied, you gain a +2 bonus to damage rolls. This increases to a +4 bonus at 21st level." compset="RaceFeat"></thing>
+  <thing id="fRGnPacAtt" name="Pack Attack" description="You deal an extra 2 damage on melee attacks against an enemy that has two or more of your allies adjacent to it." compset="RaceFeat"></thing>
+  <thing id="fRGnFeyOri" name="Fey Origin" description="Your ancestors were native to the Feywild, so you are considered a fey creature for the purpose of effects that relate to creature origin." compset="RaceFeat"></thing>
+  <thing id="fRGnMasTri" name="Master Trickster" description="Once per encounter, you can use the wizard cantrip ghost sound as a minor action." compset="RaceFeat">
+    <bootstrap thing="pWizGhoSou">
+      <autotag group="PowerOver" tag="Encounter"/>
+      <autotag group="thing" tag="skipprereq"/>
+      </bootstrap>
+    </thing>
+  <thing id="fRGnReaSte" name="Reactive Stealth" description="If you have any cover or concealment when you make an initiative check, you can make a Stealth check." compset="RaceFeat"></thing>
+  <thing id="fRGnTriCun" name="Trickster&apos;s Cunning" description="You have a +5 racial bonus to saving throws against illusions." compset="RaceFeat"></thing>
+  <thing id="fRGoGobRef" name="Goblin Reflexes" description="You gain a +1 racial bonus to Reflex." compset="RaceFeat"></thing>
+  <thing id="fRGoCasMin" name="Cast-Iron Mind" description="Gold dwarves have developed a resistance to protect against the depredations of aberrant creatures from the Underdark.{br}{i}Benefits: {/i}You have a +5 racial bonus to saving throws against ongoing psychic damage. This benefit replaces Cast-Iron Stomach." compset="RaceFeat"></thing>
+  <thing id="fRGoGolDwa" name="Gold Dwarf Weapon Proficiency" description="Though gold dwarves rely on the hammer as a tool as much as do any of their kin, carving their homes from the living rock requires other specialized implements. Such tools have been adapted for use as the traditional weapons of the gold dwarves for as long as anyone remembers.{br}{i}Benefits: {/i}You gain proficiency with the war pick and the maul. This benefit replaces Dwarven Weapon Proficiency." compset="RaceFeat">
+    <tag group="Hide" tag="Special"/>
+    </thing>
+  <thing id="fRGoMouTen" name="Mountain&apos;s Tenacity" description="You have a +1 racial bonus to Will." compset="RaceFeat"></thing>
+  <thing id="fRGoPowAth" name="Powerful Athlete" description="When you make an Athletics check to jump or climb, roll twice and use either result." compset="RaceFeat"></thing>
+  <thing id="fRHaDuaHer" name="Dual Heritage" description="You can take feats that have either elf or human as a prerequisite (as well as those specifically for half-elves), as long as you meet any other requirements." compset="RaceFeat"></thing>
+  <thing id="fRHaGroDip" name="Group Diplomacy" description="You grant allies within 10 squares of you a +1 racial bonus to Diplomacy checks." compset="RaceFeat"></thing>
+  <thing id="fRHaHalPow" name="Half-Elf Power Selection" description="Select an option for your half-elf character." compset="RaceFeat">
+    <fieldval field="usrCandid1" value="thingid.pRacKnaSuc | thingid.fRHaDilett"/>
+    <tag group="Hide" tag="Special"/>
+    </thing>
+  <thing id="fRHaHalRes" name="Half-Orc Resilience" description="The first time you are bloodied during an encounter, you gain 5 temporary hit points. The temporary hit points increase to 10 at 11th level and to 15 at 21st level." compset="RaceFeat"></thing>
+  <thing id="fRHaSwiCha" name="Swift Charge" description="You gain a +2 bonus to speed when charging." compset="RaceFeat"></thing>
+  <thing id="fRHaBold" name="Bold" description="You gain a +5 racial bonus to saving throws against fear." compset="RaceFeat"></thing>
+  <thing id="fRHaNimRea" name="Nimble Reaction" description="You gain a +2 racial bonus to AC against opportunity attacks." compset="RaceFeat"></thing>
+  <thing id="fRHaFemOnl" name="Female Only" description="All hamadryads are female." compset="RaceFeat"></thing>
+  <thing id="fRHaFeyOri" name="Fey Origin" description="Your ancestors were native to the Feywild, so you are considered a fey creature for the purpose of effects that relate to creature origin." compset="RaceFeat"></thing>
+  <thing id="fRHaForWal" name="Forest Walk (Hamadryad)" description="You ignore difficult terrain if that terrain is the result of trees, underbrush, plants, or natural growth." compset="RaceFeat"></thing>
+  <thing id="fRHaOakVit" name="Oaken Vitality" description="Your tree heritage grants you a +5 racial bonus to Endurance checks to resist the effects of starvation, thirst, or suffocation, and you can survive for twice the normal time period before you are required to make such checks. You do not require sleep, but you must meditate at least four hours each day to absorb light (even from as small a source as a candle), soak in water, or connect with the earth beneath your feet. This meditation grants you the benefits that other races receive from an extended rest. While meditating, you are fully aware of your surroundings and notice approaching enemies and other events as normal." compset="RaceFeat"></thing>
+  <thing id="fRHaTreMin" name="Tree Mind" description="You gain a +2 racial bonus to saving throws against effects that daze, dominate, or stun." compset="RaceFeat"></thing>
+  <thing id="fRHeAniFor" name="Animal Form" description="Select your animal form and gain +2 to a skill determined by your animal form: badger (Endurance), carp (Endurance), cat (Acrobatics), crab (Intimidate), crane (Nature), dog (Insight), fox (Stealth), hare (Athletics), monkey (Athletics), raccoon dog (Stealth), rat (Thievery), or sparrow (Perception)." compset="RaceFeat"></thing>
+  <thing id="fRHeBeaNat" name="Beast Nature" description="You are considered both a magical beast and a humanoid for the purpose of effects that relate to creature type." compset="RaceFeat"></thing>
+  <thing id="fRHeElusiv" name="Elusive" description="You have a +2 racial bonus to checks made to escape a grab and to saving throws against effects that immobilize, restrain, or slow you." compset="RaceFeat"></thing>
+  <thing id="fRHeFeyOri" name="Fey Origin" description="Your ancestors were native to the Feywild, so you are considered a fey creature for the purpose of effects that relate to creature origin." compset="RaceFeat"></thing>
+  <thing id="fRHeLanBea" name="Language of Beasts" description="While you are in animal or hybrid form, you can communicate with any natural or fey beasts that share your animal form or a form that is closely related (for example, a dog hengeyokai can communicate with a wolf). In human form, you can understand these beasts but cannot directly communicate with them." compset="RaceFeat"></thing>
+  <thing id="fRHeShapec" name="Shapechanger" description="You have the shapechanger subtype; you can alter your appearance. As such, you are subject to effects and conditions that affect shapechangers." compset="RaceFeat"></thing>
+  <thing id="fRHoBatRea" name="Battle Ready" description="You gain a +2 bonus to initiative checks." compset="RaceFeat"></thing>
+  <thing id="fRHuBonFea" name="Bonus Feat" description="You gain a bonus feat at 1st level. You must meet the feat&apos;s prerequisites." compset="RaceFeat">
+    <tag group="Hide" tag="Special"/>
+    </thing>
+  <thing id="fRHuBonSki" name="Bonus Skill" description="You gain training in one additional skill from your class skills list." compset="RaceFeat">
+    <tag group="Hide" tag="Special"/>
+    </thing>
+  <thing id="fRHuHumDef" name="Human Defense Bonuses" description="You gain a +1 racial bonus to Fortitude, Reflex, and Will." compset="RaceFeat">
+    <tag group="Hide" tag="Special"/>
+    </thing>
+  <thing id="fRHuHumPow" name="Human Power Selection" description="Choose an option for your human character." compset="RaceFeat">
+    <fieldval field="usrCandid1" value="thingid.pRacHerEff | thingid.fRHuBonAtW"/>
+    <tag group="Hide" tag="Special"/>
+    </thing>
+  <thing id="fRKaDuaSou" name="Dual Soul" description="At the start of your turn, you can make a saving throw against each effect currently rendering you dazed or dominated. If you fail the saving throw, you do not make a saving throw against the effect at the end of your turn." compset="RaceFeat"></thing>
+  <thing id="fRKaTel5" name="Telepathy 5" description="You can communicate with any other creature that has a language and is within line of sight and within 5 squares of you; this allows for two-way communication" compset="RaceFeat"></thing>
+  <thing id="fRKeFloEff" name="Flock Effect" description="When you have combat advantage against a creature as a result of flanking it, you gain a +3 bonus to attack rolls against it, rather than the normal +2." compset="RaceFeat"></thing>
+  <thing id="fRKeMimicr" name="Mimicry" description="You can imitate sounds and voices you have heard, even sounds that cannot normally be made by humanoids. Each time you attempt to mimic a sound, you must succeed on a Bluff check to fool those who hear the sound into believing it is genuine." compset="RaceFeat"></thing>
+  <thing id="fRKoReptil" name="Reptile" description="You are considered a reptile for the purpose of effects that relate to the reptile keyword." compset="RaceFeat"></thing>
+  <thing id="fRKoTraSen" name="Trap Sense" description="You gain a +2 racial bonus to all defenses against attacks from traps." compset="RaceFeat"></thing>
+  <thing id="fRLlHisIns" name="Historical Insight" description="Armed with a voracious appetite for studying the antiquity of humanoid culture, you have an uncanny ability to discern the intent of individuals based solely on the historical exploits of their kind.{br}{i}Benefits: {/i}You gain a +2 bonus to Insight checks. This benefit replaces the normal eladrin skill bonus to Arcana." compset="RaceFeat"></thing>
+  <thing id="fRLlElfWea" name="Elf Weapon Proficiency (Llewyrr Elf)" description="Elves and eladrin of all stripes take time to learn the traditional weapons of their people.{br}{i}Benefits: {/i}You gain proficiency with the longbow and the shortbow. This benefit replaces Eladrin Weapon Proficiency." compset="RaceFeat"></thing>
+  <thing id="fRMiFeroci" name="Ferocity" description="When you drop to 0 hit points or fewer, you can make a melee basic attack as an immediate interrupt." compset="RaceFeat"></thing>
+  <thing id="fRMiHeeCha" name="Heedless Charge" description="You have a +2 racial bonus to AC against opportunity attacks you provoke during a charge." compset="RaceFeat"></thing>
+  <thing id="fRMiVitali" name="Vitality" description="You have one additional healing surge." compset="RaceFeat">
+    <eval phase="Traits" priority="10000"><![CDATA[
+      #traitmodify[trSurges,trtBonus,1,""]]]>
+      <before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+  <thing id="fRMoMooElf" name="Moon Elf Skill Bonuses" description="Moon elves usually devote themselves to the study of magic and history. However, some find that their travels make understanding others and learning the lay of the social landscape more useful in their daily lives.{br}{i}Benefits: {/i}You gain a +2 bonus to Insight checks and Streetwise checks. This benefit replaces the normal eladrin skill bonuses to Arcana and History." compset="RaceFeat">
+    <tag group="Hide" tag="Special"/>
+    </thing>
+  <thing id="fRMoElfWea" name="Elf Weapon Proficiency" description="Elves and eladrin of all stripes take time to learn the traditional weapons of their people.{br}{i}Benefits: {/i}You gain proficiency with the longbow and the shortbow. This benefit replaces Eladrin Education." compset="RaceFeat">
+    <tag group="Hide" tag="Special"/>
+    </thing>
+  <thing id="fRMuBorTwo" name="Born of Two Races" description="Select either human or dwarf. You can take feats that have your choice as a prerequisite (as well as those specifically for muls), as long as you meet any other requirements." compset="RaceFeat">
+    <fieldval field="usrCandid1" value="component.Race &amp; (thingid.rHuman | thingid.rDwarf)"/>
+    <tag group="ChooseSrc1" tag="Thing"/>
+    <tag group="Hide" tag="Special"/>
+    <eval phase="Traits" priority="1000">perform field[usrChosen1].chosen.forward[Race.?]
+      <before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+  <thing id="fRMuMulVit" name="Mul Vitality" description="Increase your number of healing surges by one." compset="RaceFeat">
+    <eval phase="Traits" priority="10000"><![CDATA[
+      #traitmodify[trSurges,trtBonus,1,""]]]>
+      <before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+  <thing id="fRMuTirele" name="Tireless" description="You need to sleep 6 hours in a 72-hour period (instead of a 24-hour period) to gain the benefit of an extended rest." compset="RaceFeat"></thing>
+  <thing id="fROrRunCha" name="Running Charge" description="When you charge, add 2 to your speed." compset="RaceFeat"></thing>
+  <thing id="fRPiFeyOri" name="Fey Origin" description="Your ancestors were native to the Feywild, so you are considered a fey creature for the purpose of effects that relate to creature origin." compset="RaceFeat"></thing>
+  <thing id="fRPiPixMag" name="Pixie Magic" description="You have the pixie dust and shrink powers." compset="RaceFeat"></thing>
+  <thing id="fRPiSpewit" name="Speak with Beasts" description="You can communicate with natural beasts and fey beasts." compset="RaceFeat"></thing>
+  <thing id="fRPiWeeWar" name="Wee Warrior" description="You have a reach of 1, rather than the reach of 0 that is typical for a Tiny creature. You also take a -5 penalty to Strength checks to break or force open objects. When wielding a weapon of your size, you follow the same rules that Small creatures do." compset="RaceFeat"></thing>
+  <thing id="fRRePaslif" name="Past life" description="Select a race other than revenant. You are also considered a member of that race for the purpose of meeting prerequisites, such as feat or paragon path prerequisites." compset="RaceFeat">
+    <fieldval field="usrCandid1" value="component.Race"/>
+    <tag group="ChooseSrc1" tag="Thing"/>
+    <tag group="Hide" tag="Special"/>
+    <eval phase="Traits" priority="1000">perform field[usrChosen1].chosen.forward[Race.?]
+      <before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+  <thing id="fRReUndead" name="Undead" description="You are considered an undead creature for the purpose of effects that relate to the undead keyword. You are also considered a living creature." compset="RaceFeat"></thing>
+  <thing id="fRReUnnVit" name="Unnatural Vitality" description="When you drop to 0 hit points or fewer and are subjected to the dying condition, you can choose to be dazed, instead of falling unconscious. You make death saving throws as normal, and if you fail one, you fall unconscious instead of being dazed." compset="RaceFeat"></thing>
+  <thing id="fRSaFeyOri" name="Fey Origin" description="Your ancestors were native to the Feywild, so you are considered a fey creature for the purpose of effects that relate to creature origin." compset="RaceFeat"></thing>
+  <thing id="fRSaLigHea" name="Light of Heart" description="You can make saving throws both at the start of your turn and the end of your turn against fear effects that a save can end." compset="RaceFeat"></thing>
+  <thing id="fRSaMalOnl" name="Male Only" description="All satyrs are male." compset="RaceFeat"></thing>
+  <thing id="fRSaPleRec" name="Pleasant Recovery" description="You regain 1d8 additional hit points for each healing surge you spend during a short rest." compset="RaceFeat"></thing>
+  <thing id="fRSaSlyWor" name="Sly Words" description="Bluff is always a class skill for you." compset="RaceFeat"></thing>
+  <thing id="fRShShaOri" name="Shadow Origin" description="The Shadowfell has left its mark on you, so you are considered a shadow creature for the purpose of effects that relate to creature origin." compset="RaceFeat"></thing>
+  <thing id="fRShWinter" name="Winterkin" description="Due to your connection to the Raven Queen, you gain a +1 racial bonus to your Fortitude defense. You also gain a +2 racial bonus to death saving throws and saving throws against the unconscious condition." compset="RaceFeat"></thing>
+  <thing id="fRShFraMor" name="Fragile Mortality" description="You have one fewer healing surge than normal." compset="RaceFeat">
+    <tag group="Hide" tag="Special"/>
+    <eval phase="Traits" priority="10000"><![CDATA[
+      #traitmodify[trSurges,trtBonus,-1,""]]]>
+      <before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+  <thing id="fRShMasSha" name="Master of Shadows" description="When your class grants you a utility power after 1st level, you can forgo taking that power. Instead, you can take a shade utility power of the same level or lower." compset="RaceFeat"></thing>
+  <thing id="fRShPraSne" name="Practiced Sneak" description="You have training in Stealth." compset="RaceFeat">
+    <tag group="Hide" tag="Special"/>
+    <eval phase="Traits" priority="1000">perform hero.child[skStealth].assign[Helper.TrainedAut]
+      <before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+  <thing id="fRShCryMin" name="Crystalline Mind" description="You have resist 5 psychic. The resistance increases to 10 at 11th level and 15 at 21st level." compset="RaceFeat">
+    <eval phase="Traits" priority="10000"><![CDATA[
+      ~resist Psychic 5/10/15
+      var bonus as number
+      if (hero.tagvalue[Level.?] <= 10) then
+        bonus = 5
+      elseif (hero.tagvalue[Level.?] <= 20) then
+        bonus = 10
+      else
+        bonus = 15
+        endif
+
+      ~+int/wis modifier if we have Guarded Mind
+      if (hero.tagis[Feat.ftGuardMin] <> 0) then
+        bonus += maximum(#attrbasebonus[attrInt],#attrbasebonus[attrWis])
+        endif
+
+      #traitmodify[rsPsychic,rsTotal,bonus,""]]]>
+      <after name="Calc attrBnBase"/>
+      </eval>
+    </thing>
+  <thing id="fRShImmOri" name="Immortal Origin" description="Your spirit is native to the Astral Sea, so you are considered an immortal creature for the purpose of effects that relate to creature origin." compset="RaceFeat"></thing>
+  <thing id="fRShLivCon" name="Living Construct" description="You are a living construct. You do not need to eat, drink, breathe, or sleep. You never make Endurance checks to resist the effect of starvation, thirst, or suffocation. All other conditions and effects affect you normally." compset="RaceFeat"></thing>
+  <thing id="fRShTelepa" name="Telepathy" description="You can communicate telepathically with any creature within 5 squares of you that has a language." compset="RaceFeat"></thing>
+  <thing id="fRShShiDwa" name="Shield Dwarf Weapon Proficiency" description="Shield dwarves spend more time aboveground and in forested areas than their gold dwarf cousins. This has led to them relying on axes as tools and weapons.{br}{i}Benefits: {/i}You gain proficiency with the handaxe and the battleaxe. This benefit replaces Dwarven Weapon Proficiency." compset="RaceFeat">
+    <tag group="Hide" tag="Special"/>
+    </thing>
+  <thing id="fRShShiPro" name="Shield Proficiency" description="Besieged by numerous threats such as orcs and goblins, the shield dwarves take the name of their people seriously. Many are trained to use a shield regardless of duty or station.{br}{i}Benefits: {/i}You gain proficiency with the light shield. This benefit replaces Dwarven Weapon Proficiency." compset="RaceFeat">
+    <tag group="Hide" tag="Special"/>
+    </thing>
+  <thing id="fRSuElfWea" name="Elf Weapon Proficiency" description="Elves and eladrin of all stripes take time to learn the traditional weapons of their people.{br}{i}Benefits: {/i}You gain proficiency with the longbow and the shortbow. This benefit replaces Eladrin Education." compset="RaceFeat">
+    <tag group="Hide" tag="Special"/>
+    </thing>
+  <thing id="fRSuSunElf" name="Sun Elf Skill Bonuses" description="The complex intrigues of sun elf courts require a subtlety and discernment that sun elves find useful in their relationships.{br}{i}Benefits: {/i}You gain a +2 bonus to Bluff checks and Insight checks. This benefit replaces the normal eladrin skill bonuses to Arcana and History." compset="RaceFeat">
+    <tag group="Hide" tag="Special"/>
+    </thing>
+  <thing id="fRSuWizImp" name="Wizard Implement Proficiency" description="The legendary magical skill of sun elves comes from a devotion to the use of arcane magic that extends as far back as the Crown Wars. Many eladrin learn to use the tools of arcane casters, employing those devices for aid in the use of their own magic.{br}{i}Benefits: {/i}You gain proficiency with the orb, the staff, and the wand as implements. This benefit replaces Eladrin Weapon Proficiency." compset="RaceFeat">
+    <tag group="Hide" tag="Special"/>
+    </thing>
+  <thing id="fRSvEarWal" name="Earth Walk" description="You ignore difficult terrain that is rubble, uneven stone, or an earthen construction." compset="RaceFeat"></thing>
+  <thing id="fRSvFeyOri" name="Fey Origin" description="Your ancestors were native to the Feywild, so you are considered a fey creature for the purpose of effects that relate to creature origin." compset="RaceFeat"></thing>
+  <thing id="fRSvUnderd" name="Under-dweller" description="Dungeoneering is always a class skill for you." compset="RaceFeat"></thing>
+  <thing id="fRThMulArm" name="Multiple Arms" description="Once per turn, you can draw or sheathe a weapon (or retrieve or stow an item stored on your person) as a free action instead of a minor action." compset="RaceFeat"></thing>
+  <thing id="fRThNatJum" name="Natural Jumper" description="A thri-kreen is always considered to have a running start when jumping." compset="RaceFeat"></thing>
+  <thing id="fRThTorpor" name="Torpor" description="Rather than sleep, thri-kreen enter a torpid state. In this state, you remain aware of your surroundings, and you require only 4 hours of torpor (rather than 6 hours of sleep) to gain the benefit of an extended rest." compset="RaceFeat"></thing>
+  <thing id="fRTiBloodh" name="Bloodhunt" description="You gain a +1 racial bonus to attack rolls against bloodied enemies." compset="RaceFeat"></thing>
+  <thing id="fRTiFirRes" name="Fire Resistance" description="You have fire resistance equal to 5 + one-half your level." compset="RaceFeat">
+    <tag group="Hide" tag="Special"/>
+    <eval phase="Traits" priority="1000"><![CDATA[
+      ~resist Fire 5 + half level
+      var bonus as number
+      bonus = 5 + round(hero.tagvalue[Level.?] / 2, 0, -1)
+      #traitmodify[rsFire,rsTotal,bonus,""]]]></eval>
+    </thing>
+  <thing id="fRVrBloDep" name="Blood Dependency" description="When you are bloodied, your healing surge value drops by 2." compset="RaceFeat"></thing>
+  <thing id="fRVrHumHer" name="Human Heritage" description="You gain a +5 racial bonus to Bluff checks made to pass as a human." compset="RaceFeat"></thing>
+  <thing id="fRVrLivDea" name="Living Dead" description="Because your soul is tainted by undeath, you are both living and undead. If a power has different effects on living creatures and undead creatures, you choose which effect applies to you." compset="RaceFeat"></thing>
+  <thing id="fRVrNecRes" name="Necrotic Resistance" description="You have necrotic resistance equal to 5 + one-half your level." compset="RaceFeat">
+    <tag group="Hide" tag="Special"/>
+    <eval phase="Traits" priority="1000"><![CDATA[
+      ~resist Necrotic 5 + half level
+      var bonus as number
+      bonus = 5 + #halflevel[]
+      #traitmodify[rsNecrotic,rsTotal,bonus,""]]]></eval>
+    </thing>
+  <thing id="fRVrVamHer" name="Vampiric Heritage" description="When your class grants you a utility power after 1st level, you can forgo taking that power. Instead, you gain a vryloka utility power of the same level or lower." compset="RaceFeat"></thing>
+  <thing id="fRWaLivCon" name="Living Construct" description="You are a living construct. You do not need to eat, drink, breathe, or sleep. You never make Endurance checks to resist the effect of starvation, thirst, or suffocation. All other conditions and effects affect you normally." compset="RaceFeat"></thing>
+  <thing id="fRWaUnsWat" name="Unsleeping Watcher" description="You do not sleep and instead enter a state of inactivity for 4 hours to gain the benefits of an extended rest. While in this state, you are fully aware of your surroundings and notice approaching enemies and other events as normal." compset="RaceFeat"></thing>
+  <thing id="fRWaWarMin" name="Warforged Mind" description="You have a +1 racial bonus to your Will." compset="RaceFeat"></thing>
+  <thing id="fRWaWarRes" name="Warforged Resilience" description="You have a +2 racial bonus to saving throws against ongoing damage. Also, when you make a death saving throw, you can take the better result of your die roll or 10." compset="RaceFeat"></thing>
+  <thing id="fRWiSubSte" name="Subtle Step" description="Wild elves train for battle from the time they can walk, and their teachers place early emphasis on evasion and escape. By the time wild elves are of warrior age, those childhood lessons allow them to move deeper into battle as well as to break free of it.{br}{i}Benefits: {/i}Once per encounter, you can shift up to your speed as a move action. This benefit replaces elven accuracy." compset="RaceFeat">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+  <thing id="fRWiWilElf" name="Wild Elf Weapon Proficiency" description="Though eladrin might devote themselves to the longsword, wild elves have for millennia relied on the spears that are their traditional hunting weapons.{br}{i}Benefits: {/i}You gain proficiency with the javelin, the spear, and the longspear. This benefit replaces Group Awareness." compset="RaceFeat">
+    <tag group="Hide" tag="Special"/>
+    </thing>
+  <thing id="fRWiFeyOri" name="Fey Origin" description="Your ancestors were native to the Feywild, so you are considered a fey creature for the purpose of effects that relate to creature origin." compset="RaceFeat"></thing>
+  <thing id="fRWiHarFor" name="Hardy Form" description="Choose Fortitude, Reflex, or Will defense. You gain a +1 racial bonus to your chosen defense." compset="RaceFeat">
+    <fieldval field="usrCandid1" value="component.Defense &amp; !thingid.defAC"/>
+    <tag group="Hide" tag="Special"/>
+    <eval phase="PreTraits" priority="5000"><![CDATA[
+      perform field[usrChosen1].chosen.field[trtRacial].modify[+,1,""]]]>
+      <before name="Calc trtFinal"/>
+      </eval>
+    </thing>
+  <thing id="fRWiNatAsp" name="Nature&apos;s Aspect" description="Whenever you complete an extended rest, choose one of the following aspects of nature." compset="RaceFeat">
+    <fieldval field="usrCandid1" value="User.WildenAsp"/>
+    </thing>
+  <thing id="fRWoSenThr" name="Sense Threat" description="Wood elves hone their senses against the most subtle perils, whether in the wilderness or at the negotiating table.{br}{i}Benefits: {/i}When you roll initiative, you can make a Perception check and use its result for your initiative check. When you do so, allies within 10 squares of you who have a lower initiative than yours gain a +2 racial bonus to their initiative. This benefit replaces elven accuracy." compset="RaceFeat"></thing>
+  <thing id="fRWoWooElf" name="Wood Elf Reactive Stealth" description="Wood elf clans focus on avoiding trouble by hiding from the world. As a result, many wood elves develop the instinct to fade from sight at the first sign of danger.{br}{i}Benefits: {/i}If you have any cover or concealment when you roll initiative, you can make a Stealth check to hide at the same time. This benefit replaces Group Awareness." compset="RaceFeat"></thing>
+  <thing id="chnPlusAb" name="+2 to Ability" description="Gives a +2 bonus to the selected ability score." compset="RaceFeat">
+    <fieldval field="usrCandid1" value="component.Attribute &amp; (thingid.attrDex | thingid.attrInt)"/>
+    <tag group="Hide" tag="Special"/>
+    <eval phase="PreTraits" priority="5000"><![CDATA[
+      perform field[usrChosen1].chosen.field[trtRacial].modify[+,2,"Changeling"]]]>
+      <before name="Calc trtFinal"/>
+      </eval>
+    </thing>
+  <thing id="drgBrthTyp" name="Breath Type" description="Choose the type of damage your breath weapon causes." compset="RaceFeat">
+    <fieldval field="usrSelect" value="Fire"/>
+    <arrayval field="usrArray" index="0" value="Acid"/>
+    <arrayval field="usrArray" index="1" value="Cold"/>
+    <arrayval field="usrArray" index="2" value="Fire"/>
+    <arrayval field="usrArray" index="3" value="Lightning"/>
+    <arrayval field="usrArray" index="4" value="Poison"/>
+    <tag group="Hide" tag="Special"/>
+    <eval phase="Setup" priority="10000"><![CDATA[
+~set our dragon breath power as the focus, for convenience
+perform hero.childfound[pRacDraBre].setfocus
+doneif (state.isfocus = 0)
+
+~delete all keywords in our list
+var i as number
+for i = 0 to 4
+  perform focus.deletestr["DamageType." & field[usrArray].arraytext[i]]
+  next
+
+~assign the new keyword
+perform focus.assignstr["DamageType." & field[usrSelect].text]]]></eval>
+    </thing>
+  <thing id="fRGeFiresl" name="Firesoul" description="You gain +1 Reflex defense, resist 5 fire and the firepulse power. At 11th level, the resistance improves to 10 fire. At 21st level, the resistance improves to 15 fire." compset="BuildOpt">
+    <tag group="User" tag="GenasiMan"/>
+    <bootstrap thing="pRacFirepu">
+      <containerreq phase="Setup" priority="500"><![CDATA[fieldval:boActive <> 0]]>
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <eval phase="PreTraits" priority="5000"><![CDATA[
+      doneif (activated = 0)
+      #traitmodify[defRef,trtRacial,1,""]
+
+      ~resist Fire 5/10/15
+      var bonus as number
+      if (hero.tagvalue[Level.?] <= 10) then
+        bonus = 5
+      elseif (hero.tagvalue[Level.?] <= 20) then
+        bonus = 10
+      else
+        bonus = 15
+        endif
+      #traitmodify[rsFire,rsTotal,bonus,""]]]>
+      <before name="Calc trtFinal"/>
+      </eval>
+    </thing>
+  <thing id="fRGeEartsl" name="Earthsoul" description="You gain a +1 racial bonus to your Fortitude defense, a +1 racial bonus to saving throws, and the earthshock power." compset="BuildOpt">
+    <tag group="User" tag="GenasiMan"/>
+    <bootstrap thing="pRacEarths">
+      <containerreq phase="Setup" priority="500"><![CDATA[fieldval:boActive <> 0]]>
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <eval phase="PreTraits" priority="5000"><![CDATA[
+      doneif (activated = 0)
+      #traitmodify[defFort,trtRacial,1,""]
+      #traitmodify[trSave,trtBonus,1,""]]]>
+      <before name="Calc trtFinal"/>
+      </eval>
+    </thing>
+  <thing id="fRGeStorsl" name="Stormsoul" description="You gain a +1 racial bonus to your Fortitude defense, resist 5 lightning, and the promise of storm power. At 11th level, the resistance improves to 10 lightning. At 21st level, the resistance improves to 15 lightning." compset="BuildOpt">
+    <tag group="User" tag="GenasiMan"/>
+    <bootstrap thing="pRacProSto">
+      <containerreq phase="Setup" priority="500"><![CDATA[fieldval:boActive <> 0]]>
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <eval phase="PreTraits" priority="5000"><![CDATA[
+      doneif (activated = 0)
+      #traitmodify[defFort,trtRacial,1,""]
+
+      ~resist Lightning 5/10/15
+      var bonus as number
+      if (hero.tagvalue[Level.?] <= 10) then
+        bonus = 5
+      elseif (hero.tagvalue[Level.?] <= 20) then
+        bonus = 10
+      else
+        bonus = 15
+        endif
+      #traitmodify[rsLightn,rsTotal,bonus,""]]]>
+      <before name="Calc trtFinal"/>
+      </eval>
+    </thing>
+  <thing id="fRGeWatesl" name="Watersoul" description="You can breathe underwater. You also gain a +2 racial bonus to saving throws against ongoing damage and the swiftcurrent power." compset="BuildOpt">
+    <tag group="User" tag="GenasiMan"/>
+    <bootstrap thing="pRacSwiftc">
+      <containerreq phase="Setup" priority="500"><![CDATA[fieldval:boActive <> 0]]>
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    </thing>
+  <thing id="fRGeWindsl" name="Windsoul" description="You gain resist 5 cold and the windwalker power. At 11th level, the resistance improves to 10 cold. At 21st level, the resistance improves to 15 cold." compset="BuildOpt">
+    <tag group="User" tag="GenasiMan"/>
+    <bootstrap thing="pRacWindwa">
+      <containerreq phase="Setup" priority="500"><![CDATA[fieldval:boActive <> 0]]>
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <eval phase="PreTraits" priority="5000"><![CDATA[
+      doneif (activated = 0)
+
+      ~resist Cold 5/10/15
+      var bonus as number
+      if (hero.tagvalue[Level.?] <= 10) then
+        bonus = 5
+      elseif (hero.tagvalue[Level.?] <= 20) then
+        bonus = 10
+      else
+        bonus = 15
+        endif
+      #traitmodify[rsCold,rsTotal,bonus,""]]]>
+      <before name="Calc trtFinal"/>
+      </eval>
+    </thing>
+  <thing id="fRGeCaussl" name="Causticsoul" description="You can breathe underwater. You also gain resist 5 acid and the acid surge power. At 11th level, the resistance improves to 10 acid. At 21st level, the resistance improves to 15 acid." compset="BuildOpt">
+    <tag group="User" tag="GenasiMan"/>
+    <bootstrap thing="pRacAciSur">
+      <containerreq phase="Setup" priority="500"><![CDATA[fieldval:boActive <> 0]]>
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <eval phase="PreTraits" priority="5000"><![CDATA[
+      doneif (activated = 0)
+
+      ~resist Acid 5/10/15
+      var bonus as number
+      if (hero.tagvalue[Level.?] <= 10) then
+        bonus = 5
+      elseif (hero.tagvalue[Level.?] <= 20) then
+        bonus = 10
+      else
+        bonus = 15
+        endif
+      #traitmodify[rsAcid,rsTotal,bonus,""]]]>
+      <before name="Calc trtFinal"/>
+      </eval>
+    </thing>
+  <thing id="fRGeCindsl" name="Cindersoul" description="You gain a +1 racial bonus to Fortitude, resist 5 fire, and the firedeath power. At 11th level, the resistance improves to 10 fire. At 21st level, the resistance improves to 15 fire." compset="BuildOpt">
+    <tag group="User" tag="GenasiMan"/>
+    <bootstrap thing="pRacFirede">
+      <containerreq phase="Setup" priority="500"><![CDATA[fieldval:boActive <> 0]]>
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <eval phase="PreTraits" priority="5000"><![CDATA[
+      doneif (activated = 0)
+      #traitmodify[defFort,trtRacial,1,""]
+
+      ~resist Fire 5/10/15
+      var bonus as number
+      if (hero.tagvalue[Level.?] <= 10) then
+        bonus = 5
+      elseif (hero.tagvalue[Level.?] <= 20) then
+        bonus = 10
+      else
+        bonus = 15
+        endif
+      #traitmodify[rsFire,rsTotal,bonus,""]]]>
+      <before name="Calc trtFinal"/>
+      </eval>
+    </thing>
+  <thing id="fRGePlagsl" name="Plaguesoul" description="You gain resist 5 poison, a +5 racial bonus to saving throws against disease, and the plaguebearer power. At 11th level, the resistance improves to 10 poison. At 21st level, the resistance improves to 15 poison." compset="BuildOpt">
+    <tag group="User" tag="GenasiMan"/>
+    <bootstrap thing="pRacPlague">
+      <containerreq phase="Setup" priority="500"><![CDATA[fieldval:boActive <> 0]]>
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <eval phase="PreTraits" priority="5000"><![CDATA[
+      doneif (activated = 0)
+
+      ~resist Poison 5/10/15
+      var bonus as number
+      if (hero.tagvalue[Level.?] <= 10) then
+        bonus = 5
+      elseif (hero.tagvalue[Level.?] <= 20) then
+        bonus = 10
+      else
+        bonus = 15
+        endif
+      #traitmodify[rsPoison,rsTotal,bonus,""]]]>
+      <before name="Calc trtFinal"/>
+      </eval>
+    </thing>
+  <thing id="fRGeVoidsl" name="Voidsoul" description="You gain resist 5 psychic, a +1 racial bonus to Will, and the void assumption power. At 11th level, the resistance improves to 10 psychic. At 21st level, the resistance improves to 15 psychic." compset="BuildOpt">
+    <tag group="User" tag="GenasiMan"/>
+    <bootstrap thing="pRacVoiAss">
+      <containerreq phase="Setup" priority="500"><![CDATA[fieldval:boActive <> 0]]>
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <eval phase="PreTraits" priority="5000"><![CDATA[
+      doneif (activated = 0)
+      #traitmodify[defWill,trtRacial,1,""]
+
+      ~resist Psychic 5/10/15
+      var bonus as number
+      if (hero.tagvalue[Level.?] <= 10) then
+        bonus = 5
+      elseif (hero.tagvalue[Level.?] <= 20) then
+        bonus = 10
+      else
+        bonus = 15
+        endif
+      #traitmodify[rsPsychic,rsTotal,bonus,""]]]>
+      <before name="Calc trtFinal"/>
+      </eval>
+    </thing>
+  <thing id="fRGeEmbesl" name="Embersoul" description="You have a +1 racial bonus to Reflex and a +2 racial bonus to saving throws against ongoing fire damage. In addition, you have the ashfall evasion power." compset="BuildOpt">
+    <tag group="User" tag="GenasiMan"/>
+    <bootstrap thing="pRacAshEva">
+      <containerreq phase="Setup" priority="500"><![CDATA[fieldval:boActive <> 0]]>
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <eval phase="PreTraits" priority="5000"><![CDATA[
+      doneif (activated = 0)
+      #traitmodify[defRef,trtRacial,1,""]]]>
+      <before name="Calc trtFinal"/>
+      </eval>
+    </thing>
+  <thing id="fRGeMagmsl" name="Magmasoul" description="You have a +1 racial bonus to Fortitude. Whenever you take fire damage, your melee attacks deal 1d6 extra fire damage until the end of your next turn. In addition, you have the flowing magma power." compset="BuildOpt">
+    <tag group="User" tag="GenasiMan"/>
+    <bootstrap thing="pRacFloMag">
+      <containerreq phase="Setup" priority="500"><![CDATA[fieldval:boActive <> 0]]>
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    <eval phase="PreTraits" priority="5000"><![CDATA[
+      doneif (activated = 0)
+      #traitmodify[defFort,trtRacial,1,""]]]>
+      <before name="Calc trtFinal"/>
+      </eval>
+    </thing>
+  <thing id="fRGeSandsl" name="Sandsoul" description="You have a +4 racial bonus to Acrobatics checks and Athletics checks made when taking the escape action. You also have a +2 racial bonus to saving throws against effects that immobilize, restrain, or slow you. In addition, you have the sandslide power." compset="BuildOpt">
+    <tag group="User" tag="GenasiMan"/>
+    <bootstrap thing="pRacSandsl">
+      <containerreq phase="Setup" priority="500"><![CDATA[fieldval:boActive <> 0]]>
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    </thing>
+  <thing id="fRGeSunsl" name="Sunsoul" description="You have a +2 racial bonus to saving throws against ongoing damage that includes fire or radiant damage. You and your equipment suffer no ill effect from ambient temperatures between -50 and 140 degrees Fahrenheit, and you are immune to sun sickness. In addition, you have the sun flare power." compset="BuildOpt">
+    <tag group="User" tag="GenasiMan"/>
+    <bootstrap thing="pRacSunFla">
+      <containerreq phase="Setup" priority="500"><![CDATA[fieldval:boActive <> 0]]>
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    </thing>
+  <thing id="fRHaDilett" name="Dilettante" description="At 1st level, you choose a 1st-level at-will attack power from a class different from yours. You can use that power as an encounter power." compset="RaceFeat">
+    <eval phase="Setup" priority="250" name="Dilettante power chosen"><![CDATA[
+      doneif (tagis[Helper.ChosenOpt] = 0)
+
+      hero.child[RaceCh1st].field[opcTitle].text = "Bonus Power"
+
+      ~we need to set up a tag expression that lets us choose an extra at-will power
+      ~that we can use as an encounter power.
+      ~if we don't have a class yet, just set it to 'false' and get out.
+      if (hero.tagis[Class.?] = 0) then
+        hero.child[RaceCh1st].field[opcExpr].text = "FALSE"
+        done
+        endif
+
+      var expr as string
+      expr = replace(hero.tagids[Class.?, "|"], "Class.", "PowerClass.", 0)
+      expr = "!(" & expr & ") & PowerType.AtWill & !PowerClass.MagicItem & !PowerClass.Race"
+      hero.child[RaceCh1st].field[opcExpr].text = expr
+
+      ~try and find the power that was added like such, and change it to an encounter
+      ~power
+      perform hero.findchild[Power,"OptChoose.RaceCh1st & !thingid.RaceCh1st"].setfocus
+      doneif (state.isfocus = 0)
+      perform focus.assign[PowerOver.Encounter]
+
+      ~this power is not allowed to be augmentable
+      perform focus.delete[EffectType.Augment]
+
+      ~ignore any errors about requiring other classes
+      perform focus.assign[thing.skipprereq]]]>
+      <before name="opcExpr must be final"/>
+      <after name="Build option activated"/>
+      <after name="Class tag final"/>
+      </eval>
+    </thing>
+  <thing id="humPlusAb" name="+2 to Ability" description="Gives a +2 bonus to the selected ability score." compset="RaceFeat">
+    <fieldval field="usrCandid1" value="component.Attribute"/>
+    <tag group="Hide" tag="Special"/>
+    <eval phase="PreTraits" priority="5000"><![CDATA[
+      perform field[usrChosen1].chosen.field[trtRacial].modify[+,2,"Human"]]]>
+      <before name="Calc trtFinal"/>
+      </eval>
+    </thing>
+  <thing id="fRHuBonAtW" name="Bonus At-Will Power" description="You know one extra 1st level at-will attack power from your class." compset="RaceFeat">
+    <tag group="User" tag="NeedChosen"/>
+    <tag group="Hide" tag="Special"/>
+    <eval phase="Setup" priority="250"><![CDATA[
+      doneif (tagis[Helper.ChosenOpt] = 0)
+
+      hero.child[RaceCh1st].field[opcTitle].text = "Bonus At-Will Power"
+
+      ~we need to set up a tag expression that lets us choose an extra at-will power.
+      ~if we don't have a class yet, just set it to 'false' and get out.
+      if (hero.tagis[Class.?] = 0) then
+        hero.child[RaceCh1st].field[opcExpr].text = "FALSE"
+        done
+        endif
+
+      ~start with a tag expression of 'all at will powers from the right class'
+      var expr as string
+      expr = replace(hero.tagids[Class.?, "|"], "Class.", "PowerClass.", 0)
+      expr = "(" & expr & ") & PowerType.AtWill"
+
+      ~now add exceptions for all the powers we already have - we can't take them
+      ~again
+      foreach pick in hero from Power where "Helper.PwrClass & PowerType.AtWill"
+        expr &= " & !thingid." & eachpick.idstring
+        nexteach
+
+      hero.child[RaceCh1st].field[opcExpr].text = expr
+
+      ~try and find the power that was added like such, and make sure it's not
+      ~augmentable
+      perform hero.findchild[Power,"OptChoose.RaceCh1st & !thingid.RaceCh1st"].setfocus
+      doneif (state.isfocus = 0)
+      perform focus.delete[EffectType.Augment]]]>
+      <before name="opcExpr must be final"/>
+      <after name="Class tag final"/>
+      <after name="Build option activated"/>
+      </eval>
+    </thing>
+  <thing id="fRKalSkill" name="Skill Bonus" description="Gives a +2 bonus to the selected skill." compset="RaceFeat">
+    <fieldval field="usrCandid1" value="component.Skill &amp; !thingid.skInsight"/>
+    <tag group="Hide" tag="Special"/>
+    <eval phase="Traits" priority="1000"><![CDATA[
+      perform field[usrChosen1].chosen.field[trtRacial].modify[+,2,"Kalashtar"]]]>
+      <before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+  <thing id="fRWiAspAnc" name="Aspect of the Ancients" compset="BuildOpt">
+    <tag group="User" tag="WildenAsp"/>
+    <tag group="Hide" tag="Special"/>
+    <bootstrap thing="pRacVoyAnc">
+      <containerreq phase="Setup" priority="500"><![CDATA[fieldval:boActive <> 0]]>
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    </thing>
+  <thing id="fRWiAspDes" name="Aspect of the Destroyer" compset="BuildOpt">
+    <tag group="User" tag="WildenAsp"/>
+    <tag group="Hide" tag="Special"/>
+    <bootstrap thing="pRacWraDes">
+      <containerreq phase="Setup" priority="500"><![CDATA[fieldval:boActive <> 0]]>
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    </thing>
+  <thing id="fRWiAspHun" name="Aspect of the Hunter" compset="BuildOpt">
+    <tag group="User" tag="WildenAsp"/>
+    <tag group="Hide" tag="Special"/>
+    <bootstrap thing="pRacPurHun">
+      <containerreq phase="Setup" priority="500"><![CDATA[fieldval:boActive <> 0]]>
+        <after name="Build option final"/>
+        </containerreq>
+      </bootstrap>
+    </thing>
+  </document>

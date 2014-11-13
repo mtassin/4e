@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<document signature="Hero Lab Data">
+
+  <thing
+    id="dtyAmaunat"
+    name=""
+    compset="">
+    <tag group="Deity" tag="dtyPelor"/>
+    </thing>
+
+  <thing
+    id="dtyAsmoFor"
+    name=""
+    compset="">
+    <tag group="Deity" tag="dtyAsmodeu"/>
+    </thing>
+
+  <thing
+    id="dtyBahaFor"
+    name=""
+    compset="">
+    <tag group="Deity" tag="dtyBahamut"/>
+    </thing>
+
+  <thing
+    id="dtyBaneFor"
+    name=""
+    compset="">
+    <tag group="Deity" tag="dtyBane"/>
+    </thing>
+
+  <thing
+    id="dtyGond"
+    name=""
+    compset="">
+    <tag group="Deity" tag="dtyErathis"/>
+    </thing>
+
+  <thing
+    id="dtyGruuFor"
+    name=""
+    compset="">
+    <tag group="Deity" tag="dtyGruumsh"/>
+    </thing>
+
+  <thing
+    id="dtyKelemvo"
+    name=""
+    compset="">
+    <tag group="Deity" tag="dtyRaveQue"/>
+    </thing>
+
+  <thing
+    id="dtyLoltFor"
+    name=""
+    compset="">
+    <tag group="Deity" tag="dtyLolth"/>
+    </thing>
+
+  <thing
+    id="dtyOghma"
+    name=""
+    compset="">
+    <tag group="Deity" tag="dtyIoun"/>
+    </thing>
+
+  <thing
+    id="dtySelune"
+    name=""
+    compset="">
+    <tag group="Deity" tag="dtySehanin"/>
+    </thing>
+
+  <thing
+    id="dtySilvanus"
+    name=""
+    compset="">
+    <tag group="Deity" tag="dtyMelora"/>
+    </thing>
+
+  <thing
+    id="dtyTiamFor"
+    name=""
+    compset="">
+    <tag group="Deity" tag="dtyTiamat"/>
+    </thing>
+
+  <thing
+    id="dtyTempus"
+    name=""
+    compset="">
+    <tag group="Deity" tag="dtyKord"/>
+    </thing>
+
+  <thing
+    id="dtyTymora"
+    name=""
+    compset="">
+    <tag group="Deity" tag="dtyAvandra"/>
+    </thing>
+
+  </document>

@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the definition of the "Special" tab panel. This tab is where
+      the user can view a summary of all the special aspects of the character.
+
+      All public visual elements used with this tab panel start with the prefix "sp"
+      to associate them with the tab.
+-->
+
+<document signature="Hero Lab Data">
+
+
+  <!-- spEquip portal
+        Presents a fixed table allowing the user to select up to 3 items that
+        are currently equipped. Each power can then show the effects of the
+        power with these individual items equipped.
+
+        We use a "headertitle" script to place a suitable title above the table.
+  -->
+  <portal
+    id="spEquip"
+    style="tblInvis">
+    <table_fixed
+      component="ChooseEqp"
+      showtemplate="spChooseEq"
+      showsortset="explicit"
+      columns="3"
+      scrollable="no"
+      showgapx="10">
+      <list></list>
+      <headertitle><![CDATA[
+        @text = "Choose Equipped Items"
+        ]]></headertitle>
+      </table_fixed>
+    </portal>
+
+
+  <!-- spSpecial portal
+        Presents a fixed table consisting of all special traits for the character.
+
+        The "list" element excludes all items that are designated as "hidden".
+
+        The "update" attribute is required so that the contents of this table are
+        updated whenever changes are made elsewhere within the character that don't
+        explicitly impact this table. For example, a special ability conferred by a
+        race selection can be made at the top, and Hero Lab will normally assume
+        the new race has no impact on the contents of this table. However, if the
+        new race confers a special ability that needs to appear in this table, HL
+        will assume there's no connection and not update this table. Using "update"
+        forces HL to always update the table after any change to the character. This
+        is expensive and should generally be avoided, so it should only be used in a
+        situation like this where it is truly needed.
+  -->
+  <portal
+    id="spSpecial"
+    style="tblInvis">
+    <table_fixed
+      component="SpecialTab"
+      showtemplate="spSpecial"
+      showsortset="SpecialTab"
+      alwaysupdate="yes">
+      <list><![CDATA[
+        !Hide.Special
+        ]]></list>
+      </table_fixed>
+    </portal>
+
+
+  <!-- spChooseEq template
+        Displays a menu that allows the user to select an equipped weapon.
+  -->
+  <template
+    id="spChooseEq"
+    name="Choose Equipment"
+    compset="ChooseEqp"
+    marginhorz="3"
+    marginvert="3">
+
+    <portal
+      id="index"
+      style="lblNormal">
+      <label>
+        <labeltext><![CDATA[
+          @text = "{font Wingdings}{/b}{size 56}"
+          var index as number
+          index = tagvalue[explicit.?]
+          if (index <= 10) then
+            @text &= #circlenum[index]
+          else
+            @text &= "???"
+            endif
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <portal
+      id="menusel"
+      style="menuNormal">
+      <menu_things
+        field="chqMenuSel"
+        component="none"
+        candidatefield="chqExpr"
+        usepicks="hero"
+        maxvisible="10">
+        </menu_things>
+      </portal>
+
+    <portal
+      id="menuhow"
+      style="menuNormal"
+      showinvalid="yes">
+      <menu_literal
+        field="chqMenuHow">
+        <choice value="0" display="Main Hand"/>
+        <choice value="1" display="Both Hands"/>
+        <choice value="2" display="Off-Hand"/>
+        </menu_literal>
+      </portal>
+
+    <position><![CDATA[
+      ~set up our height based on our tallest portal
+      height = portal[menusel].height + 5 + portal[menuhow].height
+
+      ~if this is a "sizing" calculation, we're done
+      doneif (issizing <> 0)
+
+      portal[menusel].width = width - portal[index].width - 6
+      portal[menusel].left = portal[index].right + 6
+
+      perform portal[index].centeron[vert,menusel]
+
+      ~show our 'how is this equipped' portal only if something is chosen that
+      ~isn't the "no selection" item
+      portal[menuhow].left = portal[menusel].left
+      portal[menuhow].top = portal[menusel].bottom + 5
+      portal[menuhow].width = portal[menusel].width
+      if (field[chqMenuSel].ischosen = 0) then
+        portal[menuhow].visible = 0
+      elseif (tagis[Helper.Eqp?] = 0) then
+        portal[menuhow].visible = 0
+        endif
+      ]]></position>
+
+    </template>
+
+
+
+
+  <!-- spSpecial template
+        Display a pick within the special tab, allowing the user to promote items to
+        the top via a checkbox next to the name. Next to the name, the nature of the
+        pick is also shown.
+  -->
+  <template
+    id="spSpecial"
+    name="Special Tab Pick"
+    compset="SpecialTab"
+    marginhorz="3"
+    marginvert="3">
+
+    <portal
+      id="promote"
+      style="chkPromote"
+      tiptext="Click to promote a frequently referenced entry to the group at the top or to return an entry to the main group below">
+      <checkbox
+        field="spcPromote">
+        </checkbox>
+      </portal>
+
+    <portal
+      id="name"
+      style="lblLeft">
+      <label>
+        <labeltext><![CDATA[
+          ~if we have a custom name to display, use it; otherwise, use the base name
+          if (field[spcName].isempty = 0) then
+            @text = field[spcName].text
+          else
+            @text = field[name].text
+            endif
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <portal
+      id="reset"
+      style="actReset"
+      tiptext="Click here to reset the 'used' status of all of these powers.">
+      <action
+        action="trigger"
+        buttontext=""
+        confirm="Are you sure you want to reset these powers to an unused state?">
+        <trigger><![CDATA[
+          ~get the right type of power to operate on - encounter or daily
+          var expr as string
+          if (tagis[thingid.pwSepEnc] <> 0) then
+            expr = "PowerUse.Encounter"
+          else
+            expr = "PowerUse.Daily?"
+            endif
+
+          ~reset all powers of the appropriate type
+          foreach pick in hero from SpecialTab where expr
+            eachpick.field[spcUsed].value = 0
+            nexteach
+          ]]></trigger>
+        </action>
+      </portal>
+
+    <portal
+      id="chkname"
+      style="chkNormal"
+      showinvalid="yes">
+      <checkbox
+        field="spcUsed"
+        dynamicfield="name">
+        </checkbox>
+      <mouseinfo><![CDATA[
+        @text = "Check this to indicate that the power has been used."
+
+        ~ If we're exhausted or exceeding our limits, include a note as to why
+        if (tagis[Helper.ExPwrItem] <> 0) then
+          if (tagis[PowerLink.?] <> 0) then
+            @text &= "{br}{br}This power may not be used because too many "
+            @text &= tagnames[PowerLink.?, "???"]
+            @text &= " powers have already been used."
+            endif
+        elseif (tagis[Helper.ExPwrParEq] <> 0) then
+          @text &= "{br}{br}This power may not be used because its parent item is not equipped."
+          endif
+        ]]></mouseinfo>
+      </portal>
+
+    <portal
+      id="incrused"
+      style="incrSimple">
+      <incrementer
+        field="spcUsed">
+        </incrementer>
+      </portal>
+
+    <portal
+      id="powerlink"
+      style="imgNormal"
+      showinvalid="yes">
+      <image_literal
+        image="link.bmp"
+        istransparent="yes">
+        </image_literal>
+      <mouseinfo><![CDATA[
+        @text = "This power is linked to other " & tagnames[PowerLink.?, "???"] & " powers.{br}"
+        @text &= "(These powers can only be used a total of " & field[pwLinkUses].value & " times"
+        if (tagis[PowerLink.ItemDailyX] <> 0) then
+          @text &= ".)"
+        else
+          @text &= ", not " & field[pwLinkUses].value & " times each.)"
+          endif
+        ]]></mouseinfo>
+      </portal>
+
+    <portal
+      id="dailysurge"
+      style="imgNormal"
+      showinvalid="yes">
+      <image_literal
+        image="dailysurge.bmp"
+        istransparent="yes">
+        </image_literal>
+      <mouseinfo><![CDATA[
+        @text = "This power can be renewed by spending a healing surge."
+        ]]></mouseinfo>
+      </portal>
+
+    <portal
+      id="title"
+      style="lblTitle">
+      <label
+        istitle="yes">
+        <labeltext><![CDATA[
+          @text = field[name].text
+
+          ~if this is the title for encounter powers or daily powers, move it
+          ~a few pixels rightwards so it looks correct
+          if (tagis[PowerUse.Encounter] + tagis[PowerUse.Daily?] <> 0) then
+            @text = "{horz 65}" & @text
+            endif
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <portal
+      id="titleend"
+      style="lblTitle">
+      <label
+        istitle="yes"
+        text=" ">
+        </label>
+      </portal>
+
+    <portal
+      id="source"
+      style="lblSecond">
+      <label>
+        <labeltext><![CDATA[
+          ~determine the source type
+          var source as string
+          source = tagnames[SpecialTab.?,","]
+          if (length(source) = 0) then
+            source = "????"
+            endif
+
+          ~piece the source together
+          @text = "(" & source & ")"
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <portal
+      id="notes"
+      style="lblSecond">
+      <label
+        field="spcNotes">
+        </label>
+      </portal>
+
+    <portal
+      id="shortnotes"
+      style="lblSecond">
+      <label
+        field="spcShort">
+        </label>
+      </portal>
+
+    <portal
+      id="print"
+      style="chkPrint"
+      tiptext="Click to toggle whether this power is included on the power cards sheet.">
+      <checkbox
+        field="spcPrint">
+        </checkbox>
+      </portal>
+
+    <portal
+      id="info"
+      style="actInfo">
+      <action
+        action="info"
+        buttontext="">
+        </action>
+      <mouseinfo/>
+      </portal>
+
+    <position><![CDATA[
+      ~set up our height based on our tallest portal
+      height = portal[info].height
+
+      ~if this is a "sizing" calculation, we're done
+      doneif (issizing <> 0)
+
+      ~if we're a separator, hide our normal controls
+      if (tagis[Separator.Yes] <> 0) then
+        portal[promote].visible = 0
+        portal[source].visible = 0
+        portal[info].visible = 0
+        portal[print].visible = 0
+        portal[name].visible = 0
+        portal[chkname].visible = 0
+        portal[incrused].visible = 0
+        portal[powerlink].visible = 0
+        portal[dailysurge].visible = 0
+
+        ~ Only show the reset button for encounter and daily powers
+        if (tagis[PowerUse.Encounter] + tagis[PowerUse.Daily?] = 0) then
+          portal[reset].visible = 0
+          endif
+
+        ~center our title
+        if (portal[reset].visible <> 0) then
+          perform portal[reset].alignedge[right,-40]
+          portal[title].width = portal[reset].left - 5
+          portal[titleend].left = portal[reset].right + 5
+          portal[titleend].width = width - portal[titleend].left
+        else
+          portal[title].width = width
+          portal[titleend].visible = 0
+          endif
+        done
+        endif
+
+      ~our title label and reset buttons are hidden for everything else
+      portal[title].visible = 0
+      portal[titleend].visible = 0
+      portal[reset].visible = 0
+
+      ~hide our incrementer if we only have 1 use
+      if (field[spcMax].value <= 1) then
+        portal[incrused].visible = 0
+        endif
+
+      ~center the portals vertically, except for the source, which should share the
+      ~same baseline as the name for proper visual alignment
+      perform portal[promote].centervert
+      perform portal[name].centervert
+      perform portal[chkname].centervert
+      perform portal[powerlink].centervert
+      perform portal[dailysurge].centervert
+      perform portal[source].alignrel[btob,name,0]
+      perform portal[notes].alignrel[btob,name,0]
+      perform portal[shortnotes].alignrel[ttot,notes,0]
+
+      ~position the various portals horizontally
+      perform portal[info].alignedge[right,0]
+      perform portal[print].alignrel[rtol,info,-5]
+      perform portal[chkname].alignrel[ltor,promote,10]
+      perform portal[incrused].alignrel[ltor,promote,10]
+      if (portal[incrused].visible = 0) then
+        perform portal[name].alignrel[ltor,promote,10]
+      else
+        perform portal[name].alignrel[ltor,incrused,5]
+        endif
+
+      var nextleft as number
+      nextleft = portal[name].right
+
+      ~if this is a encounter or daily power with a use limit of 1, or a
+      ~consumable, hide our normal name
+      if (tagis[PowerUse.Daily?] + tagis[PowerUse.Encounter] + tagis[PowerUse.Consumable] <> 0) then
+        if (field[spcMax].value = 1) then
+          portal[name].visible = 0
+          nextleft = portal[chkname].right
+          endif
+        endif
+
+      ~position our power link icon next to our name
+      portal[powerlink].left = nextleft + 5
+      portal[powerlink].visible = tagis[PowerLink.?]
+      if (portal[powerlink].visible <> 0) then
+        nextleft = portal[powerlink].right
+        endif
+
+      ~position our daily surge icon next to our name
+      portal[dailysurge].left = nextleft + 5
+      portal[dailysurge].visible = tagis[PowerUse.DailySurge]
+      if (portal[dailysurge].visible <> 0) then
+        nextleft = portal[dailysurge].right
+        endif
+
+      ~otherwise, hide the checkbox name
+      if (portal[name].visible <> 0) then
+        portal[chkname].visible = 0
+        endif
+      portal[source].left = nextleft + 10
+
+      if (tagis[SpecialTab.Power] <> 0) then
+        portal[source].visible = 0
+      else
+        nextleft = portal[source].right
+        endif
+
+      ~position our notes label
+      portal[notes].left = nextleft + 10
+      portal[shortnotes].left = portal[notes].left
+
+      ~if our notes label is too wide, show the short notes instead
+      if (portal[notes].right < portal[print].left - 5) then
+        portal[shortnotes].visible = 0
+      else
+        portal[notes].visible = 0
+        portal[shortnotes].width = portal[print].left - 5 - portal[shortnotes].left
+        endif
+
+      ~if our power is exceeded, change the names to red
+      if (tagis[Helper.Exceeded] <> 0) then
+        perform portal[chkname].setstyle[chkWarning]
+        perform portal[name].setstyle[lblWarning]
+
+      ~if our power is exhausted, change the name styles
+      elseif (tagis[Helper.Exhausted] <> 0) then
+        perform portal[chkname].setstyle[chkDisable]
+        perform portal[name].setstyle[lblDisable]
+        endif
+
+      ~hide our print checkbox if this won't be in the power cards list
+      portal[print].visible = tagis[component.PowerCard]
+      ]]></position>
+
+    </template>
+
+
+  <!-- special layout
+        This layout orchestrates the display of the visual elements that comprise
+        the "Special" tab. This amounts to a title and a table that displays the
+        itemsto the user.
+
+        The logic for this layout is similar to preceeding tabs, so please refer
+        to those tabs for more details.
+  -->
+  <layout
+    id="special">
+    <portalref portal="spEquip" taborder="10"/>
+    <portalref portal="spSpecial" taborder="20"/>
+
+    <!-- This script sizes and positions the layout and its child visual elements. -->
+    <position><![CDATA[
+      ~position and size the table to span the full layout
+      perform portal[spEquip].autoplace
+      perform portal[spSpecial].autoplace[8]
+      ]]></position>
+
+    </layout>
+
+
+  <!-- special panel
+        This is the "Special" panel shown within Hero Lab. Since we want this panel
+        to appear second within the fourth grouping (in-play), we assign it an
+        "order" of 420.
+
+        The logic for this panel is similar to the logic for the preceeding panels,
+        so please refer to those panels for more details.
+  -->
+  <panel
+    id="special"
+    name="Special"
+    marginhorz="5"
+    marginvert="5"
+    order="420">
+    <live>!HideTab.special</live>
+    <layoutref layout="special"/>
+    <position><![CDATA[
+      ]]></position>
+    </panel>
+
+
+  </document>

@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<document signature="Hero Lab Data">
+
+  <thing
+    id="mgMooSph23"
+    name=""
+    compset="">
+    <eval index="2" phase="Traits" priority="1000"><![CDATA[
+doneif (tagis[Equipped.Equipped] = 0)
+#traitmodify[skArcana,trtItem,2,""]]]><before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+
+  <thing
+    id="mgBooFiv28"
+    name=""
+    compset="">
+    <eval index="2" phase="Traits" priority="1000"><![CDATA[
+doneif (tagis[Equipped.Equipped] = 0)
+#traitmodify[skInsight,trtItem,6,""]
+#traitmodify[skPercepti,trtItem,6,""]
+perform hero.assign[Vision.Darkvision]]]><before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+
+  <thing
+    id="mgFaceBap"
+    name=""
+    compset="">
+    <eval index="2" phase="Traits" priority="1000"><![CDATA[
+doneif (tagis[Equipped.Equipped] = 0)
+perform hero.assign[Vision.Darkvision]]]><before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+
+  <thing
+    id="mgIronArm6"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Weapon proficiencies final"/>
+      <![CDATA[
+      doneif (tagis[Equipped.Equipped] = 0)
+
+      foreach pick in hero from WeapMelee
+        perform eachpick.field[wpDamage].modify[+,2,""]
+        nexteach
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="mgIroArm16"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Weapon proficiencies final"/>
+      <![CDATA[
+      doneif (tagis[Equipped.Equipped] = 0)
+
+      foreach pick in hero from WeapMelee
+        perform eachpick.field[wpDamage].modify[+,4,""]
+        nexteach
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="mgIroArm26"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Weapon proficiencies final"/>
+      <![CDATA[
+      doneif (tagis[Equipped.Equipped] = 0)
+
+      foreach pick in hero from WeapMelee
+        perform eachpick.field[wpDamage].modify[+,6,""]
+        nexteach
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="mgStafRui1"
+    name=""
+    compset="">
+    <fieldval field="mgItemDam" value="1"/>
+    </thing>
+  <thing
+    id="mgStafRui2"
+    name=""
+    compset="">
+    <fieldval field="mgItemDam" value="2"/>
+    </thing>
+  <thing
+    id="mgStafRui3"
+    name=""
+    compset="">
+    <fieldval field="mgItemDam" value="3"/>
+    </thing>
+  <thing
+    id="mgStafRui4"
+    name=""
+    compset="">
+    <fieldval field="mgItemDam" value="4"/>
+    </thing>
+  <thing
+    id="mgStafRui5"
+    name=""
+    compset="">
+    <fieldval field="mgItemDam" value="5"/>
+    </thing>
+  <thing
+    id="mgStafRui6"
+    name=""
+    compset="">
+    <fieldval field="mgItemDam" value="6"/>
+    </thing>
+  <thing
+    id="mgDemiSta2"
+    name=""
+    compset="">
+    <fieldval field="mgItemDam" value="2"/>
+    </thing>
+
+  <thing
+    id="mgArrowFat"
+    name=""
+    compset="">
+    <tag group="ImplemType" tag="itRod"/>
+    <tag group="ImplemType" tag="itStaff"/>
+    <tag group="ImplemType" tag="itWand"/>
+    </thing>
+
+  <thing
+    id="mgCrysEbo6"
+    name=""
+    compset="">
+    <tag group="ImplemType" tag="itRod"/>
+    <tag group="ImplemType" tag="itStaff"/>
+    <tag group="ImplemType" tag="itWand"/>
+    <tag group="ImplemType" tag="itOrb"/>
+    <tag group="ImplemType" tag="itTome"/>
+    <tag group="ImplemType" tag="itKiFocus"/>
+    </thing>
+
+  <thing
+    id="mgWoundpa3"
+    name=""
+    compset="">
+    <bootstrap thing="pMIWoundp3"></bootstrap>
+    <bootstrap thing="pMIWoundpa" phase="***DELETE***"></bootstrap>
+    </thing>
+
+  <thing
+    id="mgWoundp13"
+    name=""
+    compset="">
+    <bootstrap thing="pMIWound13"></bootstrap>
+    <bootstrap thing="pMIWoundpa" phase="***DELETE***"></bootstrap>
+    </thing>
+
+  <thing
+    id="mgWoundp23"
+    name=""
+    compset="">
+    <bootstrap thing="pMIWound23"></bootstrap>
+    <bootstrap thing="pMIWoundpa" phase="***DELETE***"></bootstrap>
+    </thing>
+
+  <thing
+    id="mgAnkBra19"
+    name=""
+    compset="">
+    <tag group="PowerUse" tag="Encounter"/>
+    </thing>
+
+  <thing id="mgAmulHea1" name="" compset="">
+    <eval phase="Traits" priority="1000"><![CDATA[
+doneif (tagis[Equipped.Equipped] = 0)
+#traitmodify[rsPoison,rsTotal,2,""]
+
+      ]]>
+      <before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+
+  <thing id="mgAmulHea2" name="" compset="">
+    <eval phase="Traits" priority="1000"><![CDATA[
+doneif (tagis[Equipped.Equipped] = 0)
+#traitmodify[rsPoison,rsTotal,4,""]
+
+      ]]>
+      <before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+
+  <thing id="mgAmulHea3" name="" compset="">
+    <eval phase="Traits" priority="1000"><![CDATA[
+doneif (tagis[Equipped.Equipped] = 0)
+#traitmodify[rsPoison,rsTotal,6,""]
+
+      ]]>
+      <before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+
+  <thing id="mgAmulHea4" name="" compset="">
+    <eval phase="Traits" priority="1000"><![CDATA[
+doneif (tagis[Equipped.Equipped] = 0)
+#traitmodify[rsPoison,rsTotal,8,""]
+
+      ]]>
+      <before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+
+  <thing id="mgAmulHea5" name="" compset="">
+    <eval phase="Traits" priority="1000"><![CDATA[
+doneif (tagis[Equipped.Equipped] = 0)
+#traitmodify[rsPoison,rsTotal,10,""]
+
+      ]]>
+      <before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+
+  <thing id="mgAmulHea6" name="" compset="">
+    <eval phase="Traits" priority="1000"><![CDATA[
+doneif (tagis[Equipped.Equipped] = 0)
+#traitmodify[rsPoison,rsTotal,12,""]
+
+      ]]>
+      <before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+
+  <thing
+    id="mgIounRev3"
+    name=""
+    compset="">
+    <eval index="2" phase="Traits" priority="1000"><![CDATA[
+doneif (tagis[Equipped.Equipped] = 0)
+foreach pick in hero from Skill
+  perform eachpick.field[trtItem].modify[+,2,""]
+  nexteach
+  ]]><before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+
+  <thing
+    id="mgIounRev8"
+    name=""
+    compset="">
+    <eval index="2" phase="Traits" priority="1000"><![CDATA[
+doneif (tagis[Equipped.Equipped] = 0)
+foreach pick in hero from Skill
+  perform eachpick.field[trtItem].modify[+,2,""]
+  nexteach
+  ]]><before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+
+  <thing
+    id="mgIouRev13"
+    name=""
+    compset="">
+    <eval index="2" phase="Traits" priority="1000"><![CDATA[
+doneif (tagis[Equipped.Equipped] = 0)
+foreach pick in hero from Skill
+  perform eachpick.field[trtItem].modify[+,2,""]
+  nexteach
+  ]]><before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+
+  <thing
+    id="mgIouRev18"
+    name=""
+    compset="">
+    <eval index="2" phase="Traits" priority="1000"><![CDATA[
+doneif (tagis[Equipped.Equipped] = 0)
+foreach pick in hero from Skill
+  perform eachpick.field[trtItem].modify[+,2,""]
+  nexteach
+  ]]><before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+
+  <thing
+    id="mgIouRev23"
+    name=""
+    compset="">
+    <eval index="2" phase="Traits" priority="1000"><![CDATA[
+doneif (tagis[Equipped.Equipped] = 0)
+foreach pick in hero from Skill
+  perform eachpick.field[trtItem].modify[+,2,""]
+  nexteach
+  ]]><before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+
+  <thing
+    id="mgIouRev28"
+    name=""
+    compset="">
+    <eval index="2" phase="Traits" priority="1000"><![CDATA[
+doneif (tagis[Equipped.Equipped] = 0)
+foreach pick in hero from Skill
+  perform eachpick.field[trtItem].modify[+,2,""]
+  nexteach
+  ]]><before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+
+  <thing
+    id="mgBagHol5"
+    name=""
+    compset="">
+    <tag group="thing" tag="holder_top"/>
+    </thing>
+
+  </document>

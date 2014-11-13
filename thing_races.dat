@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the assortment of races for the game system. The special
+      advantages of each race are conferred through a combination of scripts and
+      automatic assignment of special abilities. All special abilities are assigned
+      via the bootstrapping of the ability, resulting in the ability being
+      automatically assigned to the actor whenever the race is selected. If an ability
+      is both user-selected AND conferred by a race, the ability only appears a single
+      time because it all abilities are "unique".
+-->
+
+<document signature="Hero Lab Data">
+
+  <thing id="rSample" name="Sample Race" description="A sample race." compset="Race" isunique="yes">
+    <fieldval field="racFlavor" value="A sample race."/>
+    <fieldval field="racStr" value="2"/>
+    <fieldval field="racWis" value="2"/>
+    <fieldval field="racAC" value="1"/>
+    <usesource source="Sample"/>
+    <tag group="Size" tag="Medium"/>
+    <tag group="SkillBonus" tag="skSample"/>
+    <tag group="User" tag="StdRace"/>
+    <bootstrap thing="lanSample"></bootstrap>
+    </thing>
+
+  <!-- Any race can bootstrap this, adding RaceBonus.attrid tags as necessary -->
+  <thing
+    id="fRPlusAb"
+    name="+2 to Ability"
+    compset="RaceFeat"
+    description="Gives a +2 bonus to the selected ability score.">
+    <fieldval field="usrCandid1" value="component.Attribute"/>
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="PreTraits" priority="5000">
+      <before name="Calc trtFinal"/><![CDATA[
+      ~build the candidate expression out of our RaceBonus tags
+      if (tagis[RaceBonus.?] <> 0) then
+        field[usrCandid1].text &= " & (" & tagids[RaceBonus.?, " | "] & ")"
+        endif
+
+      perform field[usrChosen1].chosen.field[trtRacial].modify[+,2,"Racial"]
+      ]]></eval>
+    </thing>
+
+  </document>

@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document signature="Hero Lab Data">
+
+
+  <!-- Define all facets of the "Skills" tab for the game system. All public
+        visual elements used on the Skills tab start with the prefix 'sk' to
+        associate them with the Skills tab.
+  -->
+
+  <portal
+    id="skTitle"
+    style="lblTitle">
+    <label
+      istitle="yes">
+      <labeltext><![CDATA[
+        @text = "Skills"
+        if (hero.tagis[Hero.Monster] = 0) then
+          @text &= ": " & hero.child[resSkills].field[resSummary].text
+          endif
+        ]]></labeltext>
+      </label>
+    </portal>
+
+  <!-- skSkill portal
+        Presents a fixed table consisting of all skills for the character, which
+        are shown in alphabetical order (the default).
+  -->
+  <portal
+    id="skSkill"
+    style="tblInvis">
+    <table_fixed
+      component="Skill"
+      showtemplate="skSklPick"
+      headertemplate="skSklPick">
+      </table_fixed>
+    </portal>
+
+
+  <!-- skSklPick template
+        Displays one skill within the table of skills. This template is very
+        similar to the one used for attributes. The key differences are that this
+        template is tied to skills and has slightly different margins for closer
+        grouping of the items in the table.
+  -->
+  <template
+    id="skSklPick"
+    name="Skill Pick"
+    compset="Skill">
+
+    <portal
+      id="name"
+      style="lblNormal"
+      showinvalid="yes">
+      <label
+        field="name">
+        </label>
+      </portal>
+
+    <portal
+      id="value"
+      style="lblXLarge">
+      <label
+        field="sklRoll">
+        </label>
+      <live>!Hero.Monster</live>
+      <mouseinfo><![CDATA[
+        var traithist as string
+        call TraitHist
+        @text = traithist
+        ]]></mouseinfo>
+      </portal>
+
+    <portal
+      id="incr"
+      style="incrSimple">
+      <incrementer
+        field="trtUser">
+        </incrementer>
+      <live>Hero.Monster</live>
+      <mouseinfo><![CDATA[
+        var traithist as string
+        call TraitHist
+        @text = traithist
+        ]]></mouseinfo>
+      </portal>
+
+    <portal
+      id="chktrained"
+      style="chkNormal">
+      <checkbox
+        field="sklUserTrn">
+        </checkbox>
+      <mouseinfo><![CDATA[
+        @text = "Check this box to train the '" & field[name].text & "' skill."
+        ]]></mouseinfo>
+      </portal>
+
+    <portal
+      id="lbltrained"
+      style="lblXLrgDis">
+      <label
+        field="sklTrained">
+        </label>
+      <mouseinfo><![CDATA[
+        @text = "This skill has been automatically trained by another source, and does not count against your limit of trained skills."
+        ]]></mouseinfo>
+      </portal>
+
+    <portal
+      id="attr"
+      style="lblSkill">
+      <label>
+        <labeltext><![CDATA[
+          if (islinkage[attribute] = 0) then
+            @text = "-"
+            done
+            endif
+          var attrabbr as string
+          attrabbr = left(linkage[attribute].field[name].text,3)
+          attrabbr = uppercase(attrabbr)
+          @text = field[sklAttr].text
+          @text &= " {size 40}(" & attrabbr & ")"
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <portal
+      id="other"
+      style="lblSkill">
+      <label>
+        <labeltext><![CDATA[
+          if (field[trtFinal].value = 0) then
+            @text = "-"
+          else
+            @text = signed(field[trtFinal].value)
+            endif
+          ]]></labeltext>
+        </label>
+      <mouseinfo><![CDATA[
+        var traithist as string
+        var traitonly as number
+        traitonly = 1
+        call TraitHist
+        @text = traithist
+        ]]></mouseinfo>
+      </portal>
+
+    <portal
+      id="info"
+      style="actInfo">
+      <action
+        action="info">
+        </action>
+      </portal>
+
+    <!-- Header Portals -->
+    <portal
+      id="hdrTotal"
+      style="lblHeader"
+      isheader="yes">
+      <label
+        text="Total">
+        </label>
+      </portal>
+
+    <portal
+      id="hdrTrained"
+      style="lblHeader"
+      isheader="yes">
+      <label
+        text="Trained?">
+        </label>
+      </portal>
+
+    <portal
+      id="hdrAttr"
+      style="lblHeader"
+      isheader="yes">
+      <label
+        text="Attribute">
+        </label>
+      </portal>
+
+    <portal
+      id="hdrOther"
+      style="lblHeader"
+      isheader="yes">
+      <label
+        text="Other">
+        </label>
+      </portal>
+
+    <position><![CDATA[
+      ~set up our height; our width is pre-initialized for us
+      height = portal[info].height + 5
+
+      ~if this is a "sizing" calculation, we're done
+      doneif (issizing <> 0)
+
+      ~center our tallest portal
+      perform portal[info].centervert
+
+      ~center the other portals on the tallest one
+      perform portal[name].centeron[vert,info]
+      perform portal[value].centeron[vert,info]
+      perform portal[incr].centeron[vert,info]
+      perform portal[lbltrained].centeron[vert,info]
+      perform portal[attr].centeron[vert,info]
+      perform portal[other].centeron[vert,info]
+
+      ~position the info portal on the far right
+      perform portal[info].alignedge[right,-23]
+
+      ~center the numbers in a specific place
+      var numleft as number
+      numleft = 175
+      portal[value].left = numleft - (portal[value].width / 2)
+      perform portal[incr].centeron[horz,value]
+      portal[lbltrained].left = numleft + 60 - (portal[lbltrained].width / 2)
+      portal[attr].left = numleft + 135 - (portal[attr].width / 2)
+      portal[other].left = numleft + 210 - (portal[other].width / 2)
+
+      ~by default, show our 'trained' checkbox. Always show it if our trained
+      ~field is set, since we need to give the user the chance to uncheck it.
+      var ischeckbox as number
+      ischeckbox = 1
+      if (field[sklUserTrn].value = 0) then
+
+        ~if we can train unlimited skills, just show everything
+        if (hero.child[resSkills].tagis[User.ResUnlim] <> 0) then
+          ~ do nothing, checkbox already visible
+        else
+
+          ~don't show it if we're not a class skill
+          if (tagis[Skill.?] <> 0) then
+            if (hero.isidentity[Skill] = 0) then
+              ischeckbox = 0
+              endif
+            endif
+
+          ~don't show it if we're automatically trained
+          if (tagis[Helper.TrainedAut] <> 0) then
+            ischeckbox = 0
+            endif
+          endif
+        endif
+
+      ~center our trained checkbox on the label, and show it instead if this is
+      ~a class skill
+      perform portal[chktrained].centeron[horz,lbltrained]
+      perform portal[chktrained].centeron[vert,lbltrained]
+      portal[chktrained].visible = ischeckbox
+      portal[lbltrained].visible = !portal[chktrained].visible
+
+      ~position the name on the left and make sure its width does not exceed the available space
+      portal[name].left = 23
+      portal[name].width = minimum(portal[name].width,portal[value].left - portal[name].left - 10)
+      ]]></position>
+
+    <header><![CDATA[
+      ~set up our height; our width is pre-initialized for us
+      height = portal[hdrTotal].height + 5
+
+      ~if this is a "sizing" calculation, we're done
+      doneif (issizing <> 0)
+
+      ~position the title portals above the appropriate numbers
+      perform portal[hdrTotal].centeron[horz,value]
+      perform portal[hdrTrained].centeron[horz,lbltrained]
+      perform portal[hdrAttr].centeron[horz,attr]
+      perform portal[hdrOther].centeron[horz,other]
+      ]]></header>
+
+    </template>
+
+
+  <!-- skills layout
+        This layout orchestrates the display of the visual elements that comprise
+        the Skills tab. This amounts to a title at the top and a dynamic table
+        below where the user can add the special skills he wants.
+
+        The logic for this layout is similar to (albeit much simpler than) the
+        logic for the Basics tab. So please refer to the Basics tab for more details.
+  -->
+  <layout
+    id="skills">
+    <portalref portal="skTitle"/>
+    <portalref portal="skSkill" taborder="10"/>
+
+    <!-- This script sizes and positions the layout and its child visual elements. -->
+    <position><![CDATA[
+      portal[skTitle].width = width
+      portal[skTitle].height = portal[skTitle].fontheight + 4
+
+      ~size and position the table at the top, spanning the full layout width
+      portal[skSkill].left = 0
+      portal[skSkill].top = portal[skTitle].bottom + 5
+      portal[skSkill].width = width
+
+      ~set the height of the table to the full height of the layout; the table
+      ~will actually only use the vertical space it needs if it's smaller
+      portal[skSkill].height = height - portal[skSkill].top
+      ]]></position>
+
+    </layout>
+
+
+  <!-- skills panel
+        This is the "Skills" panel shown within Hero Lab. This should be after the
+        core panel, but before abilities.
+
+        The logic for this panel is similar to the logic for the Basics panel, so
+        please refer to the Basics panel for more details.
+  -->
+  <panel
+    id="skills"
+    name="Skills"
+    marginhorz="5"
+    marginvert="5"
+    order="150">
+    <live>!HideTab.skills</live>
+    <layoutref layout="skills"/>
+    <position><![CDATA[
+      ]]></position>
+    </panel>
+  </document>

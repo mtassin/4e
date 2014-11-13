@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the definition of the "static" form for the game system.
+      The "static" form represents the region at the top of the main window that
+      is always visible for every actor (hence the term "static"). It's an area of
+      limited vertical height that spans the entire width of the main window, less
+      the region needed for the validation button and the dashboard (if visible).
+
+      In general, the "static" form should contain the character's name and core
+      aspects of the character that the user will often want to refer to. However,
+      there are no hard requirements for what is placed in the "static" form.
+
+      NOTE! The unique id of the "static" form is specially recognized by Hero Lab
+      as the form to be used across the top of the main window. A form with the
+      id "static" is required within your data files.
+-->
+
+<document signature="Hero Lab Data">
+
+
+  <!-- stName template
+        This template displays the character name and a label to prefix it.
+  -->
+  <template
+    id="stName"
+    name="Static Panel Name"
+    compset="useredit">
+
+    <portal
+      id="master"
+      style="actMaster"
+      tiptext="Click this button to activate this ally's Master.">
+      <action
+        action="master">
+        </action>
+      </portal>
+
+    <portal
+      id="label"
+      style="lblStatic">
+      <label
+        text="Name:">
+        </label>
+      </portal>
+
+    <portal
+      id="edit"
+      style="editNormal">
+      <edit
+        field="useredit">
+        </edit>
+      </portal>
+
+    <position><![CDATA[
+      ~only show the master button if the actor is a minion
+      portal[master].visible = hero.isminion
+      if (portal[master].visible <> 0) then
+        perform portal[label].alignrel[ltor,master,8]
+        endif
+
+      ~center the label veritcally on the edit portal
+      perform portal[label].centeron[vert,edit]
+
+      ~size and position the edit portal next to the label
+      perform portal[edit].alignrel[ltor,label,6]
+      portal[edit].width = 175
+
+      ~our dimensions are the extent of our portals
+      height = portal[edit].bottom
+      width = portal[edit].right
+      ]]></position>
+
+    </template>
+
+
+  <!-- stActor template
+        This template displays all the basic state information for the actor, such
+        as health, power, character points, and cash.
+  -->
+  <template
+    id="stActor"
+    name="Static Actor"
+    compset="Actor">
+
+    <portal
+      id="raceclass"
+      style="lblStatic">
+      <label>
+        <labeltext><![CDATA[
+          if (hero.tagis[Hero.Monster] <> 0) then
+            @text = "Monster"
+          else
+            @text = herofield[acRace].text & " " & herofield[acClass].text
+            endif
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <portal
+      id="hp"
+      style="lblStatic">
+      <label>
+        <labeltext><![CDATA[
+          @text = "HP: " & herofield[acHPSumm].text
+          if (hero.tagis[Hero.Bloodied] <> 0) then
+            @text &= " (Bloodied)"
+            endif
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <portal
+      id="surges"
+      style="lblStatic">
+      <label>
+        <labeltext><![CDATA[
+          @text = "Surges: " & herofield[acSurgSumm].text
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <portal
+      id="cash"
+      style="lblStatic">
+      <label>
+        <labeltext><![CDATA[
+          @text = "Cash: " & herofield[acCashNet].text
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <position><![CDATA[
+      ~all portals are text in the same style, and we set the template height based
+      ~on the height of one of the portals, so vertical alignment can be ignored
+
+      ~position the class portals horizontally
+      portal[raceclass].left = 0
+
+      ~position the HP portals horizontally
+      perform portal[hp].alignrel[ltor,raceclass,10]
+
+      ~position the Power portals horizontally
+      perform portal[surges].alignrel[ltor,hp,10]
+
+      ~position the cash portals horizontally
+      perform portal[cash].alignrel[ltor,surges,10]
+
+      ~hide any portals that don't fully fit within the visible horizontal space
+      if (portal[surges].right > width) then
+        portal[surges].visible = 0
+        endif
+      if (portal[cash].right > width) then
+        portal[cash].visible = 0
+        endif
+
+      ~our height is the bottommost extent of our portals
+      height = portal[cash].bottom
+      ]]></position>
+
+    </template>
+
+
+  <!-- static layout
+        This layout consists of the character's name, race, and status info, which
+        are laid out in a ribbon across the top.
+  -->
+  <layout
+    id="static">
+    <templateref template="stName" thing="heroname" taborder="10"/>
+    <templateref template="stActor" thing="actor"/>
+
+    <!-- This script sizes and positions the layout and its child visual elements. -->
+    <position><![CDATA[
+      ~position the name template on the left, with a little margin, then render it
+      ~to generate the appropriate dimensions
+      template[stName].left = 10
+      perform template[stName].render
+
+      ~position the actor template a little to the right of the name
+      template[stActor].left = template[stName].right + 20
+
+      ~limit the width of the actor template to the remaining space available and
+      ~then render the template
+      template[stActor].width = width - template[stActor].left
+      perform template[stActor].render
+
+      ~center all visual elements vertically
+      ~Note: We can't do this until after we've calculated the heights for both
+      ~       templates, which is done when we render them.
+      template[stName].top = (height - template[stName].height) / 2
+      template[stActor].top = (height - template[stActor].height) / 2
+      ]]></position>
+
+    </layout>
+
+
+  <!-- static form
+        This is the "static" form shown at the top of the main window within Hero
+        Lab.
+
+        NOTE! The unique id of this form is specially recognized by Hero Lab as
+        the form to be used across the top of the main window. A form with this
+        id is required within your data files.
+
+        NOTE! By default, this form is 40 pixels in height, and it must always be
+        set to be at least 40 pixels in height.
+  -->
+  <form
+    id="static"
+    name="Static">
+    <layoutref layout="static"/>
+    <position><![CDATA[
+      ~we only want to use 20 pixels of height and we want it centered vertically
+      layout[static].height = 20
+      layout[static].top = (height - layout[static].height) / 2
+      ]]></position>
+    </form>
+
+  </document>

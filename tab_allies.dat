@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the definition of the "Allies" tab panel. This tab is where
+      the user selects and accesses the allies for the character.
+
+      All public visual elements used with this tab panel start with the prefix "al"
+      to associate them with the tab.
+-->
+
+<document signature="Hero Lab Data">
+
+
+  <!-- alAllies portal
+        Presents a dynamic table where the user can add and access allies for the
+        character.
+
+        We use a custom template for showing the selected allies to show useful
+        details about each ally.
+
+        We need to specify an "autothing", since this table automatically adds a
+        new pick based on the same thing every time. The user is never prompted to
+        select anything.
+
+        We use an "additem" script to prompt the user to add new allies.
+
+        We use a "headertitle" script to place a suitable title above the table.
+  -->
+  <portal
+    id="alAllies"
+    style="tblNormal">
+    <table_dynamic
+      component="Gear"
+      showtemplate="alPick"
+      choosetemplate="grGrThing"
+      buytemplate="BuyCash"
+      selltemplate="SellCash">
+      <list>component.Ally</list>
+      <headertitle><![CDATA[
+        @text = "Allies Associated with Hero"
+        ]]></headertitle>
+      <additem><![CDATA[
+        @text = "Add a New Ally to the Hero"
+        ]]></additem>
+      </table_dynamic>
+    </portal>
+
+
+  <!-- alPick template
+        Displays an ally within the table of allies. In addition to the name, an
+        edit portal is shown where the user can specify details about the ally.
+        To the left of the name, we'll provide a button that allows the user to
+        directly access the contents of the ally. Allies can also be deleted and
+        have a mouse-over info icon.
+  -->
+  <template
+    id="alPick"
+    name="Ally Pick"
+    compset="Equipment"
+    marginhorz="3"
+    marginvert="2">
+
+    <portal
+      id="load"
+      style="actLoad"
+      tiptext="Click here to make this the active character.">
+      <action
+        action="minion">
+        </action>
+      </portal>
+
+    <portal
+      id="name"
+      style="lblNormal"
+      showinvalid="yes">
+      <label
+        field="name">
+        </label>
+      </portal>
+<!--
+    <portal
+      id="summary"
+      style="editNormal">
+      <edit
+        field="alySummary">
+        </edit>
+      </portal>
+
+    <portal
+      id="recap"
+      style="lblNotes">
+      <label
+        ismultiline="yes">
+        <labeltext><![CDATA[
+          ~output the recap field, but squeeze the line spacing a little bit
+          @text = "{leading -1}" & minion.herofield[acRecap].text
+          ]]></labeltext>
+        </label>
+      </portal>
+-->
+    <portal
+      id="info"
+      style="actInfo">
+      <action
+        action="info">
+        </action>
+      <mouseinfo><![CDATA[
+        var mouseinfo as string
+        call MouseInfo
+        @text = mouseinfo
+        ]]></mouseinfo>
+      </portal>
+
+    <portal
+      id="delete"
+      style="actDelete"
+      tiptext="Click to delete this item">
+      <action
+        action="delete">
+        </action>
+      </portal>
+
+    <position><![CDATA[
+      ~set up our height based on our full extent
+~      height = portal[summary].height + 5 + portal[recap].fontheight * 3
+height = portal[info].height
+
+      ~if this is a "sizing" calculation, we're done
+      doneif (issizing <> 0)
+
+      ~position our tallest portal at the top and center other portals on it
+      portal[info].top = 0
+      perform portal[name].centeron[vert,info]
+      perform portal[delete].centeron[vert,info]
+      perform portal[load].centeron[vert,info]
+
+~      perform portal[summary].alignrel[btob,name,2]
+
+      ~position the recap portal beneath the top line and limit it to 3 lines
+~      perform portal[recap].alignrel[ttob,summary,3]
+~      portal[recap].lineheight = 3
+
+      ~position the delete and info portals on the far right
+      perform portal[delete].alignedge[right,0]
+      perform portal[info].alignrel[rtol,delete,-8]
+
+      ~position the load portal on the left, with the name and summary adjacent
+      portal[load].left = 0
+      perform portal[name].alignrel[ltor,load,8]
+~      perform portal[summary].alignrel[ltor,name,10]
+~      portal[summary].width = portal[info].left - 10 - portal[summary].left
+
+      ~position and size the recap horizontally
+~      perform portal[recap].alignrel[ltol,name,0]
+~      portal[recap].width = portal[delete].left - 10 - portal[recap].left
+
+      ~resize the contents of the recap portal if needed and ensure a 3-line height
+~      perform portal[recap].sizetofit[30]
+~      portal[recap].lineheight = 3
+      ]]></position>
+
+    </template>
+
+
+  <!-- allies layout
+        This layout orchestrates the display of the visual elements that comprise
+        the Allies tab. This amounts to a title at the top and a table below where
+        the user can add and access the allies he wants.
+  -->
+  <layout
+    id="allies">
+    <portalref portal="alAllies" taborder="10"/>
+
+    <!-- This script sizes and positions the layout and its child visual elements. -->
+    <position><![CDATA[
+      ~position and size the table to span the full layout; it will only use the
+      ~vertical space that it actually needs
+      perform portal[alAllies].autoplace
+      ]]></position>
+
+    </layout>
+
+
+  <!-- allies panel
+        This is the "Allies" panel shown within Hero Lab. Since we want this panel
+        to appear after Rituals and within the gear grouping, we assign it an
+        "order" of 250.
+  -->
+  <panel
+    id="allies"
+    name="Allies"
+    marginhorz="5"
+    marginvert="5"
+    order="250">
+    <live>!HideTab.allies</live>
+    <layoutref layout="allies"/>
+    <position><![CDATA[
+      ]]></position>
+    </panel>
+
+
+  </document>

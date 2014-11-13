@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the definition of the "mgWeapon" form for the game system.
+      The "mgWeapon" form represents the form where the user can choose magic
+      weapons.
+-->
+
+<document signature="Hero Lab Data">
+
+
+  <portal
+    id="mgwTitle"
+    style="lblTitle">
+    <label
+      istitle="yes"
+      text="Create Magic Weapon">
+      </label>
+    </portal>
+
+  <portal
+    id="mgwLblWep"
+    style="lblNormal">
+    <label
+      text="Choose Weapon:">
+      </label>
+    </portal>
+  <portal
+    id="mgwWeapon"
+    style="chsNormal"
+    width="200">
+    <chooser_table
+      component="WeaponBase"
+      choosetemplate="arWpnThing"
+      showupdate="yes"
+      candidatefield="mghEqExpr"
+      candidatepick="MagicHelp">
+      <!-- Candidate expression generated using field -->
+      <chosen><![CDATA[
+        if (@ispick = 0) then
+          @text = "{text ff0000}Select Weapon"
+        else
+          @text = field[name].text
+
+          ~if our choice isn't valid, prepend the name with red
+          if (prereqok = 0) then
+            @text = "{text ff0000}" & @text
+          elseif (valid = 0) then
+            @text = "{text ff0000}" & @text
+            endif
+          endif
+        ]]></chosen>
+      <titlebar><![CDATA[
+        @text = "Choose the type of weapon"
+        ]]></titlebar>
+      </chooser_table>
+    </portal>
+
+  <portal
+    id="mgwLblMag"
+    style="lblNormal">
+    <label
+      text="Choose Magic:">
+      </label>
+    </portal>
+  <portal
+    id="mgwMagic"
+    style="chsNormal"
+    width="200">
+    <chooser_table
+      component="MagicWep"
+      choosetemplate="mgcWpThing"
+      showupdate="yes"
+      descwidth="350">
+      <candidate></candidate>
+      <chosen><![CDATA[
+        if (@ispick = 0) then
+          @text = "{text ff0000}Select Magic Effect"
+        else
+          @text = field[name].text
+
+          ~if our choice isn't valid, prepend the name with red
+          if (prereqok = 0) then
+            @text = "{text ff0000}" & @text
+          elseif (valid = 0) then
+            @text = "{text ff0000}" & @text
+            endif
+          endif
+        ]]></chosen>
+      <titlebar><![CDATA[
+        @text = "Choose the magic effect"
+        ]]></titlebar>
+      </chooser_table>
+    </portal>
+
+
+  <!-- mgwWeapon template
+        Shows important details of a selected magic weapon.
+  -->
+  <template
+    id="mgwWeapon"
+    name="Chosen Magic Weapon Pick"
+    compset="MagicHelp">
+
+    <portal
+      id="name"
+      style="lblNormal">
+      <label>
+        <labeltext><![CDATA[
+          ~get the selected weapon
+          perform container.findchild[WeaponBase].setfocus
+          if (state.isfocus = 0) then
+            @text = "(No weapon selected)"
+            done
+            endif
+
+          ~append the name of our parent
+          @text = parent.field[name].text
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <portal
+      id="attack"
+      style="lblLarge">
+      <label>
+        <labeltext><![CDATA[
+          ~append the proficiency bonus of our parent
+          @text = parent.field[wpProf].text
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <portal
+      id="damage"
+      style="lblLarge">
+      <label>
+        <labeltext><![CDATA[
+          ~append the damage details of our parent
+          @text = parent.field[wpDamage].text
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <portal
+      id="range"
+      style="lblDisable">
+      <label>
+        <labeltext><![CDATA[
+          ~append the range details of our parent
+          if (parent.tagis[component.WeapRange] <> 0) then
+            @text = parent.field[wpRange].text
+          else
+            @text = ""
+            endif
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <portal
+      id="summary"
+      style="lblSecond">
+      <label>
+        <labeltext><![CDATA[
+          ~append the summary details of our parent weapon
+          @text = parent.field[wpSummary].text
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <portal
+      id="cost"
+      style="lblNormal">
+      <label>
+        <labeltext><![CDATA[
+          @text = "Cost: " & field[mghCost].text
+          ]]></labeltext>
+        </label>
+      </portal>
+
+
+    <portal
+      id="set100"
+      style="actSmall">
+      <action
+        action="trigger"
+        buttontext="100%">
+        <trigger><![CDATA[
+          ~set our gold field to 100% of the cost of our item
+          trustme
+          hero.transact.field[xactGP].value = field[mghCost].value
+          ]]></trigger>
+        </action>
+      </portal>
+
+    <portal
+      id="size"
+      style="menuNormal">
+      <menu_literal
+        field="mghSize">
+        <choice value="0" display="Medium"/>
+        <choice value="1" display="Large"/>
+        <choice value="2" display="Huge"/>
+        <choice value="3" display="Gargantuan"/>
+        </menu_literal>
+      </portal>
+
+    <position><![CDATA[
+      ~determine the center point position for our range column
+      var center as number
+      center = 360
+
+      ~position the range portal to the left of the delete button; we want the
+      ~damage to be centered in its own column relative to a centerpoint position
+      portal[range].left = center - portal[range].width / 2
+
+      ~determine the center point position for our damage column
+      center = 280
+
+      ~position the damage portal to the left of the range column; we want the
+      ~damage to be centered in its own column relative to a centerpoint position
+      portal[damage].left = center - portal[damage].width / 2
+
+      ~determine the center point position for our attack column
+      center = 210
+
+      ~position the attack portal to the left of damage column; we want the
+      ~attack to be centered in its own column relative to a centerpoint position
+      portal[attack].left = center - portal[attack].width / 2
+
+      ~position the name on the left and let it use all available space
+      var limit as number
+      limit = center - 20
+      portal[name].left = 0
+      portal[name].width = minimum(portal[name].width,limit)
+
+      ~position the summary under the name
+      portal[summary].left = 7
+      portal[summary].top = portal[name].bottom + 7
+      portal[summary].width = width - portal[summary].left - 5
+
+      portal[cost].top = portal[summary].bottom + 10
+
+      portal[set100].left = portal[cost].right + 20
+      perform portal[set100].centeron[vert,cost]
+      portal[set100].visible = hero.istransact
+
+      ~if this is not a ranged weapon, hide the range portal
+      if (container.tagis[component.WeapRange] = 0) then
+        portal[range].visible = 0
+        endif
+
+      portal[size].width = 100
+      perform portal[size].alignedge[right,-40]
+      perform portal[size].centeron[vert,cost]
+      ]]></position>
+
+    </template>
+
+
+  <template
+    id="mgcWpThing"
+    name="Magic Weapon Thing"
+    compset="MagicWep"
+    marginhorz="3"
+    marginvert="2">
+
+    <portal
+      id="name"
+      style="lblNormal"
+      showinvalid="yes">
+      <label>
+        <labeltext><![CDATA[
+          @text = field[name].text
+          if (field[mgBonus].value <> 0) then
+            @text &= " " & signed(field[mgBonus].text)
+            endif
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <portal
+      id="cost"
+      style="lblNormal">
+      <label>
+        <labeltext><![CDATA[
+          @text = field[mgCost].text
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <position><![CDATA[
+      ~set up our height based on our tallest portal
+      width = 300
+      height = portal[name].height
+
+      ~if this is a "sizing" calculation, we're done
+      doneif (issizing <> 0)
+
+      ~our cost appears on the right
+      perform portal[cost].alignedge[right,0]
+
+      ~position the name on the left and let it use all available space
+      portal[name].left = 0
+      if (portal[name].right > portal[cost].left) then
+        portal[name].width = portal[cost].left - 5 - portal[name].left
+        endif
+      ]]></position>
+
+    </template>
+
+
+  <!-- mgWeapon layout
+        This layout consists of a chooser to pick a type of magic item and a
+        weapon or armor to make magical, with a template below showing a
+        summary thereof.
+  -->
+  <layout
+    id="mgWeapon"
+    marginhorz="5"
+    marginvert="5">
+    <portalref portal="mgwTitle"/>
+    <portalref portal="mgwLblMag"/>
+    <portalref portal="mgwMagic" taborder="10"/>
+    <portalref portal="mgwLblWep"/>
+    <portalref portal="mgwWeapon" taborder="20"/>
+    <templateref template="mgwWeapon" thing="MagicHelp" taborder="50"/>
+    <position><![CDATA[
+      portal[mgwTitle].width = width
+
+      portal[mgwLblMag].top = portal[mgwTitle].bottom + 15
+
+      perform portal[mgwMagic].centeron[vert,mgwLblMag]
+      portal[mgwMagic].left = scenevalue[chooseleft]
+
+      portal[mgwLblWep].top = portal[mgwLblMag].bottom + 15
+
+      perform portal[mgwWeapon].centeron[vert,mgwLblWep]
+      portal[mgwWeapon].left = scenevalue[chooseleft]
+
+      template[mgwWeapon].top = portal[mgwWeapon].bottom + 8
+      template[mgwWeapon].height = height - template[mgwWeapon].top
+      template[mgwWeapon].width = width
+      ]]></position>
+    </layout>
+
+
+  <!-- mgWeapon form
+  -->
+  <form
+    id="mgWeapon"
+    name="Create Magic Weapon"
+    showbutton="no">
+    <layoutref layout="mgWeapon"/>
+    <position><![CDATA[
+      scenevalue[chooseleft] = 155
+
+      width = 400
+      height = 175
+      layout[mgWeapon].width = width
+      layout[mgWeapon].height = height
+      ]]></position>
+    </form>
+
+
+  </document>

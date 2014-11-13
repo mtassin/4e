@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document signature="Hero Lab Data">
+  <thing id="skAcrobati" name="Acrobatics" description="Creatures typically use the Acrobatics skill to maintain their balance while walking on narrow or unstable surfaces, to slip free of a grab or restraints, and to take less damage from a fall.{br}Moving across a surface that is slippery doesn&apos;t usually require an Acrobatics check; that surface is instead treated as difficult terrain. If a surface is extremely slippery, the DM might require an Acrobatics check to cross it." compset="Skill" uniqueness="unique">
+    <link linkage="attribute" thing="attrDex"/>
+    </thing>
+  <thing id="skArcana" name="Arcana" description="The Arcana skill encompasses knowledge about magic-related lore and magical effects. Training in this skill represents academic study, either formalized or as a hobby. This knowledge can touch on any source of magical power - whether arcane, divine, primal, or another one - and extends to information about the following planes of existence, including the creatures native to those planes: the Elemental Chaos, the Feywild, and the Shadowfell. Those that have training in Arcana also have a chance to know something about the mysterious Far Realm, but not about its creatures (such knowledge falls under the Dungeoneering skill). A creature can sometimes use its knowledge of magic to interact with or manipulate magical phenomena." compset="Skill" uniqueness="unique">
+    <link linkage="attribute" thing="attrInt"/>
+    </thing>
+  <thing id="skAthletic" name="Athletics" description="Make an Athletics check to attempt physical activities that rely on muscular strength, including climbing, escaping from a grab, jumping, and swimming." compset="Skill" uniqueness="unique">
+    <link linkage="attribute" thing="attrStr"/>
+    </thing>
+  <thing id="skBluff" name="Bluff" description="Characters use the Bluff skill to make what&apos;s false seem true, what&apos;s outrageous seem plausible, and what&apos;s suspicious seem ordinary. A character makes a Bluff check to fast-talk a guard, con a merchant, gamble, pass off a disguise, fake a piece of documentation, or mislead in some other way." compset="Skill" uniqueness="unique">
+    <link linkage="attribute" thing="attrCha"/>
+    </thing>
+  <thing id="skDiplomac" name="Diplomacy" description="Creatures use the Diplomacy skill to influence others using tact, subtlety, and social grace. (Monsters rarely make Diplomacy checks.) Make a  diplomacy check to change opinions, inspire good will, haggle with a merchant, demonstrate proper etiquette and decorum, or negotiate a deal in good faith." compset="Skill" uniqueness="unique">
+    <link linkage="attribute" thing="attrCha"/>
+    </thing>
+  <thing id="skDungeone" name="Dungeoneering" description="The Dungeoneering skill represents knowledge and skills related to dungeon exploration, including finding one&apos;s way through underground complexes, navigating winding caverns, recognizing subterranean hazards, and foraging for food in the Underdark.{br}Training in this skill represents formalized study or extensive experience. Those that have training in the skill can also identify creatures of the Far Realm." compset="Skill" uniqueness="unique">
+    <link linkage="attribute" thing="attrWis"/>
+    </thing>
+  <thing id="skEnduranc" name="Endurance" description="The Endurance skill is used to stave off ill effects and to push beyond normal physical limits. A creature that has training in Endurance can hold its breath for long periods of time, forestall the debilitating effects of hunger and thirst, and swim or tread water for extended periods. Some hazards - including extreme temperatures, violent weather, and diseases - require creatures to make Endurance checks to resist or delay debilitating effects.{br}Characters rarely use Endurance actively; the DM directs players to use it in response to certain hazards. Using the skill in that way requires no action, unless otherwise noted. See &quot;Environmental Dangers&quot; and &quot;Disease&quot; for some of the situations that require Endurance checks." compset="Skill" uniqueness="unique">
+    <link linkage="attribute" thing="attrCon"/>
+    </thing>
+  <thing id="skHeal" name="Heal" description="The Heal skill is used to help others recover from wounds or debilitating conditions, including disease." compset="Skill" uniqueness="unique">
+    <link linkage="attribute" thing="attrWis"/>
+    </thing>
+  <thing id="skHistory" name="History" description="The History skill encompasses knowledge related to the history of a region and beyond, including the chronological record of significant events and an explanation of their causes. This knowledge includes information pertaining to royalty and other leaders, wars, legends, important personalities, laws, customs, traditions, and memorable events.{br}Training in this skill represents academic study, either formalized or as a hobby. Those that have training in the skill are likely to know esoteric historical information.{br}Make a History check to remember a relevant piece of historical lore or to recognize a historical clue (see &quot;Knowledge Checks&quot;)." compset="Skill" uniqueness="unique">
+    <link linkage="attribute" thing="attrInt"/>
+    </thing>
+  <thing id="skInsight" name="Insight" description="The Insight skill is used to discern intent and decipher body language during social interactions. Characters use the skill to comprehend motives, to read between the lines, to get a sense of moods and attitudes, and to determine how truthful someone is being. (Monsters rarely use Insight.){br}Insight is used to oppose Bluff checks and as the social counterpart to the Perception skill. The skill can also be used to gain clues, to figure out how well a social situation is going, and to determine if someone is under the influence of an outside force.{br}When a creature uses Insight, it is making a best guess about another creature&apos;s motives and truthfulness. Insight is not an exact science or a supernatural power; it represents the ability to get a sense of how a person is behaving." compset="Skill" uniqueness="unique">
+    <tag group="User" tag="PassSense"/>
+    <link linkage="attribute" thing="attrWis"/>
+    </thing>
+  <thing id="skIntimida" name="Intimidate" description="An adventurer can make an Intimidate check to influence others through hostile actions, overt threats, or deadly persuasion. (Monsters can&apos;t intimidate adventurers.)" compset="Skill" uniqueness="unique">
+    <link linkage="attribute" thing="attrCha"/>
+    </thing>
+  <thing id="skNature" name="Nature" description="The Nature skill encompasses knowledge and skills related to nature, including finding ways through wilderness, recognizing natural hazards, dealing with and identifying natural creatures, and living off the land. {br}Training in this skill represents formalized study or extensive experience. Those that have training in the skill are likely to know esoteric information in the field of study." compset="Skill" uniqueness="unique">
+    <link linkage="attribute" thing="attrWis"/>
+    </thing>
+  <thing id="skPercepti" name="Perception" description="The Perception skill encompasses perceiving things, most often by sight or sound. Make a Perception check to notice a clue, detect a secret door, find a trap, follow tracks, listen for sounds behind a closed door, or locate a hidden object.{br}In most situations, the DM uses passive Perception to determine if a creature notices things. A creature that has fallen asleep naturally (as opposed to being knocked unconscious by a power or other effect) is unconscious, but not totally deprived of awareness; it can use its passive Perception to hear things, but with a -5 penalty." compset="Skill" uniqueness="unique">
+    <tag group="User" tag="PassSense"/>
+    <link linkage="attribute" thing="attrWis"/>
+    </thing>
+  <thing id="skReligion" name="Religion" description="The Religion skill encompasses knowledge about gods, sacred writings, religious ceremonies, holy symbols, and theology. This knowledge extends to information about the undead and about the Astral Sea, including the creatures of that plane.{br}Training in this skill represents academic study, either formalized or as a hobby. Those that have training in the skill are likely to know esoteric information in the field of study." compset="Skill" uniqueness="unique">
+    <link linkage="attribute" thing="attrInt"/>
+    </thing>
+  <thing id="skStealth" name="Stealth" description="Creatures use the Stealth skill to conceal themselves from enemies, slink past guards, slip away without being noticed, and sneak up on others without being detected." compset="Skill" uniqueness="unique">
+    <link linkage="attribute" thing="attrDex"/>
+    </thing>
+  <thing id="skStreetwi" name="Streetwise" description="The Streetwise skill encompasses knowledge of the ins and outs of life in a settlement (a village, a town, or a city), whether on its main streets or in its back alleys. This knowledge is gleaned from talking to people and observing them as they go about their lives, rather than from studying tomes or maps. A character who has training in this skill is especially adept at getting information out of people living in settlements.{br}When in a settlement, make a Streetwise check to find out what&apos;s going on, who the movers and shakers are, where to get the best deals, and where the dangers are." compset="Skill" uniqueness="unique">
+    <link linkage="attribute" thing="attrCha"/>
+    </thing>
+  <thing id="skThievery" name="Thievery" description="The Thievery skill encompasses various abilities that require nerves of steel and a steady hand: disabling traps, opening locks, picking pockets, and sleight of hand.{br}The DM might decide that some uses of this skill are so specialized that a creature is required to have training in Thievery to have a chance of succeeding." compset="Skill" uniqueness="unique">
+    <link linkage="attribute" thing="attrDex"/>
+    </thing>
+  </document>

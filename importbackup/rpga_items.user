@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document signature="Hero Lab Data">
+  <thing id="mgAmuPas2" name="Amulet of Passage" description="{b}Property{/b}: You gain a +2 item bonus to Acrobatics and Athletics checks to escape, and to Thievery checks to open locks.{br}{br}{b}Power (At-Will):{/b} Standard Action. You attune an ally to the Amulet. While attuned and within 10 squares of you, an ally can use the Amulet&apos;s powers (but not its enhancement bonus or properties) as if he or she were wearing it.{br}{br}{b}Power (Daily * Teleportation):{/b} Move Action. You and each attuned ally can each use this power once per day. You teleport a number of squares equal to your speed." compset="MagicItem">
+    <fieldval field="mgFlavor" value="This fine silver chain is unassuming, bearing a single arrowhead- shaped jewel. While you wear this amulet, it stirs thoughts of legendary battles and heroic deeds."/>
+    <fieldval field="mgBonus" value="2"/>
+    <fieldval field="mgLevel" value="7"/>
+    <fieldval field="mgEnhance" value="+2 Fortitude, Reflex, and Will"/>
+    <usesource source="DMG2" parent="Supplement" name="Dungeon Master&apos;s Guide 2"/>
+    <tag group="Rarity" tag="Rare" name="Rare" abbrev="Rare"/>
+    <tag group="ItemSlot" tag="isNeck" name="Neck" abbrev="Neck"/>
+    <bootstrap thing="pMIAmuPas2"></bootstrap>
+    <bootstrap thing="pMIAmuPas1"></bootstrap>
+    </thing>
+  <thing id="mgAmulPas3" name="Amulet of Passage" description="{b}Property{/b}: You gain a +3 item bonus to Acrobatics and Athletics checks to escape, and to Thievery checks to open locks.\n\n{b}Power (At-Will):{/b} Standard Action. You attune an ally to the Amulet. While attuned and within 10 squares of you, an ally can use the Amulet&apos;s powers (but not its enhancement bonus or properties) as if he or she were wearing it.\n\n{b}Power (Daily * Teleportation):{/b} Move Action. You and each attuned ally can each use this power once per day. You teleport a number of squares equal to your speed." compset="MagicItem">
+    <fieldval field="mgFlavor" value="This fine silver chain is unassuming, bearing a single arrowhead- shaped jewel. While you wear this amulet, it stirs thoughts of legendary battles and heroic deeds."/>
+    <fieldval field="mgBonus" value="3"/>
+    <fieldval field="mgLevel" value="11"/>
+    <fieldval field="mgEnhance" value="+3 Fortitude, Reflex, and Will"/>
+    <usesource source="DMG2" parent="Supplement" name="Dungeon Master&apos;s Guide 2"/>
+    <tag group="Rarity" tag="Rare" name="Rare" abbrev="Rare"/>
+    <tag group="ItemSlot" tag="isNeck" name="Neck" abbrev="Neck"/>
+    <bootstrap thing="pMIAmuPas2"></bootstrap>
+    <bootstrap thing="pMIAmuPas1"></bootstrap>
+    </thing>
+  <thing id="mgAmulPas4" name="Amulet of Passage" description="{b}Property{/b}: You gain a +4 item bonus to Acrobatics and Athletics checks to escape, and to Thievery checks to open locks.\n\n{b}Power (At-Will):{/b} Standard Action. You attune an ally to the Amulet. While attuned and within 10 squares of you, an ally can use the Amulet&apos;s powers (but not its enhancement bonus or properties) as if he or she were wearing it.\n\n{b}Power (Daily * Teleportation):{/b} Move Action. You and each attuned ally can each use this power once per day. You teleport a number of squares equal to your speed." compset="MagicItem">
+    <fieldval field="mgFlavor" value="This fine silver chain is unassuming, bearing a single arrowhead- shaped jewel. While you wear this amulet, it stirs thoughts of legendary battles and heroic deeds."/>
+    <fieldval field="mgBonus" value="4"/>
+    <fieldval field="mgLevel" value="16"/>
+    <fieldval field="mgEnhance" value="+4 Fortitude, Reflex, and Will"/>
+    <usesource source="DMG2" parent="Supplement" name="Dungeon Master&apos;s Guide 2"/>
+    <tag group="Rarity" tag="Rare" name="Rare" abbrev="Rare"/>
+    <tag group="ItemSlot" tag="isNeck" name="Neck" abbrev="Neck"/>
+    <bootstrap thing="pMIAmuPas2"></bootstrap>
+    <bootstrap thing="pMIAmuPas1"></bootstrap>
+    </thing>
+  <thing id="mgAmulPas5" name="Amulet of Passage" description="{b}Property{/b}: You gain a +5 item bonus to Acrobatics and Athletics checks to escape, and to Thievery checks to open locks.\n\n{b}Power (At-Will):{/b} Standard Action. You attune an ally to the Amulet. While attuned and within 10 squares of you, an ally can use the Amulet&apos;s powers (but not its enhancement bonus or properties) as if he or she were wearing it.\n\n{b}Power (Daily * Teleportation):{/b} Move Action. You and each attuned ally can each use this power once per day. You teleport a number of squares equal to your speed." compset="MagicItem">
+    <fieldval field="mgFlavor" value="This fine silver chain is unassuming, bearing a single arrowhead- shaped jewel. While you wear this amulet, it stirs thoughts of legendary battles and heroic deeds."/>
+    <fieldval field="mgBonus" value="5"/>
+    <fieldval field="mgLevel" value="21"/>
+    <fieldval field="mgEnhance" value="+2 Fortitude, Reflex, and Will"/>
+    <usesource source="DMG2" parent="Supplement" name="Dungeon Master&apos;s Guide 2"/>
+    <tag group="Rarity" tag="Rare" name="Rare" abbrev="Rare"/>
+    <tag group="ItemSlot" tag="isNeck" name="Neck" abbrev="Neck"/>
+    <bootstrap thing="pMIAmuPas2"></bootstrap>
+    <bootstrap thing="pMIAmuPas1"></bootstrap>
+    </thing>
+  <thing id="mgAmulPas6" name="Amulet of Passage" description="{b}Property{/b}: You gain a +6 item bonus to Acrobatics and Athletics checks to escape, and to Thievery checks to open locks.\n\n{b}Power (At-Will):{/b} Standard Action. You attune an ally to the Amulet. While attuned and within 10 squares of you, an ally can use the Amulet&apos;s powers (but not its enhancement bonus or properties) as if he or she were wearing it.\n\n{b}Power (Daily * Teleportation):{/b} Move Action. You and each attuned ally can each use this power once per day. You teleport a number of squares equal to your speed." compset="MagicItem">
+    <fieldval field="mgFlavor" value="This fine silver chain is unassuming, bearing a single arrowhead- shaped jewel. While you wear this amulet, it stirs thoughts of legendary battles and heroic deeds."/>
+    <fieldval field="mgBonus" value="6"/>
+    <fieldval field="mgLevel" value="26"/>
+    <fieldval field="mgEnhance" value="+6 Fortitude, Reflex, and Will"/>
+    <usesource source="DMG2" parent="Supplement" name="Dungeon Master&apos;s Guide 2"/>
+    <tag group="Rarity" tag="Rare" name="Rare" abbrev="Rare"/>
+    <tag group="ItemSlot" tag="isNeck" name="Neck" abbrev="Neck"/>
+    <bootstrap thing="pMIAmuPas2"></bootstrap>
+    <bootstrap thing="pMIAmuPas1"></bootstrap>
+    </thing>
+  <thing id="mwLesSB3" name="Lesser ShadowBane" description="{b}Property{/b}: You gain resist 10 necrotic.\n{b}Property{/b}: You are immune to fear. (This means you ignore the non-damaging effects of powers witht he fear keyword.\n{b}Power (Encounter): Minor Action.{/b} The next attack you make with Lesser Shadowbane before the end of your next turn ignores all forms of cover and concealment.\n{b}Power (Daily &#183; Radiant, Weapon): Standard Action.{/b}\n{b}Attack: {/b}Close burst 3 (creatures with the shadow origin in the burst);\nYour highest ability modifier vs. Reflex: \nHit: 1d8 radiant damage per plus, and the target cannot benefit from concealment or total concealment (save ends).\nEffect: The target loses the insubstantial and/or phasing qualities until the end of your next turn." compset="MagicWep">
+    <fieldval field="mgLevel" value="14"/>
+    <fieldval field="mgCrit" value="+1d6 Radiant per plus, +1d12 radiant per plus vs shadow creatures"/>
+    <fieldval field="mgBonus" value="3"/>
+    <fieldval field="mgEnhance" value="3"/>
+    <tag group="ReqWep" tag="AnyMelee"/>
+    <tag group="Rarity" tag="Rare" name="Rare" abbrev="Rare"/>
+    <bootstrap thing="pwLsSBDay"></bootstrap>
+    <bootstrap thing="pwLsSBEnc"></bootstrap>
+    </thing>
+  <thing id="pwLsSBEnc" name="Lesser Shadowbane (Encounter)" description="The next attack you make with {i}Lesser Shadowbane{/i} before the end of your next turn ignores all forms of cover and concealment." compset="Power">
+    <tag group="PowerType" tag="Encounter"/>
+    <tag group="ActionType" tag="Minor"/>
+    <tag group="PowerClass" tag="MagicItem"/>
+    </thing>
+  <thing id="pwLsSBDay" name="Lesser Shadowbane (Daily)" description="{b}Attack:{/b} Close Burst 3 (creatures with the shadow origin in the burst)\n\nHighest Ability Modifier vs Reflex:\nHit: 1d8 Radiant damage per plus, and the target cannot benefit from concealment or total concealment (save ends).\n\nEffect: The target loses the insubstantial or phasing qualities until the end of your next turn." compset="Power">
+    <tag group="PowerType" tag="Daily"/>
+    <tag group="ActionType" tag="Standard"/>
+    <tag group="PowerLink" tag="ItemDailyX"/>
+    <tag group="PowerClass" tag="MagicItem"/>
+    </thing>
+  <thing id="mwLesSB4" name="Lesser ShadowBane" description="{b}Property{/b}: You gain resist 10 necrotic.\n{b}Property{/b}: You are immune to fear. (This means you ignore the non-damaging effects of powers witht he fear keyword." compset="MagicWep">
+    <fieldval field="mgLevel" value="19"/>
+    <fieldval field="mgCrit" value="+1d6 Radiant per plus, +1d12 radiant per plus vs shadow creatures"/>
+    <fieldval field="mgBonus" value="4"/>
+    <fieldval field="mgEnhance" value="4"/>
+    <tag group="ReqWep" tag="AnyMelee" name="Any Melee" abbrev="Any Melee"/>
+    <tag group="Rarity" tag="Rare" name="Rare" abbrev="Rare"/>
+    </thing>
+  <thing id="mwLesSB5" name="Lesser ShadowBane" description="{b}Property{/b}: You gain resist 10 necrotic.\n{b}Property{/b}: You are immune to fear. (This means you ignore the non-damaging effects of powers witht he fear keyword." compset="MagicWep">
+    <fieldval field="mgLevel" value="24"/>
+    <fieldval field="mgCrit" value="+1d6 Radiant per plus, +1d12 radiant per plus vs shadow creatures"/>
+    <fieldval field="mgBonus" value="5"/>
+    <fieldval field="mgEnhance" value="5"/>
+    <tag group="ReqWep" tag="AnyMelee" name="Any Melee" abbrev="Any Melee"/>
+    <tag group="Rarity" tag="Rare" name="Rare" abbrev="Rare"/>
+    </thing>
+  <thing id="mwLesSB6" name="Lesser ShadowBane" description="{b}Property{/b}: You gain resist 10 necrotic.\n{b}Property{/b}: You are immune to fear. (This means you ignore the non-damaging effects of powers witht he fear keyword." compset="MagicWep">
+    <fieldval field="mgLevel" value="29"/>
+    <fieldval field="mgCrit" value="+1d6 Radiant per plus, +1d12 radiant per plus vs shadow creatures"/>
+    <fieldval field="mgBonus" value="6"/>
+    <fieldval field="mgEnhance" value="6"/>
+    <tag group="ReqWep" tag="AnyMelee" name="Any Melee" abbrev="Any Melee"/>
+    <tag group="Rarity" tag="Rare" name="Rare" abbrev="Rare"/>
+    </thing>
+  <thing id="pwmaglmp1" name="Magic Lamp: Wish for Luck" description="{i}Requirement: You must have at least one unspent wish.{/i}\n{b}Effect:{/b} Reroll one die that you just rolled and use either the original roll or the new roll as your result (whichever you prefer). This power may only be used once on any die roll." compset="Power">
+    <tag group="PowerSrc" tag="None" name="None" abbrev="None"/>
+    <tag group="PowerAcc" tag="Implement"/>
+    <tag group="PowerType" tag="AtWill"/>
+    <tag group="ActionType" tag="None"/>
+    </thing>
+  <thing id="pwmaglmp2" name="Magic Lamp: Wish for Power" description="{i}Requirement: You must have at least one unspent wish.{/i}\n{b}Effect:{/b} One instantaneous effect approved by the DM. As a general guideline, the power level of this effect should be no greater than the benefit of a level-appropriate ritual (there is no component cost, but the casting time of the ritual is unchanged so most rituals cannot be wished for during a combat encounter), to recharge an expended encounter power, or for an automatic success during a skill challenge" compset="Power">
+    <tag group="PowerSrc" tag="None" name="None" abbrev="None"/>
+    <tag group="PowerAcc" tag="Implement"/>
+    <tag group="PowerType" tag="AtWill"/>
+    <tag group="ActionType" tag="Standard"/>
+    </thing>
+  <thing id="pwmaglmp3" name="Magic Lamp: Wish for Life" description="{i}Requirement: You must have at least two unspent wishes.{/i}\n{b}Target:{/b} You, or one living or dead ally that you can see \n{b}Effect:{/b} The target regains hit points equal to its bloodied value without spending healing surges. If the target died within the\nlast hour (and is not undead), it is first restored to life and then regains the hit points. The target does not recover any other resources, such as healing surges or expended powers. The target does not suffer the death penalty for being raised." compset="Power">
+    <tag group="PowerSrc" tag="None" name="None" abbrev="None"/>
+    <tag group="PowerAcc" tag="Implement"/>
+    <tag group="PowerType" tag="AtWill"/>
+    <tag group="ActionType" tag="Standard"/>
+    </thing>
+  <thing id="pwmaglmp4" name="Magic Lamp: Wish for Wealth" description="{i}Requirement:{/i} You must have at least three unspent wishes.\n{b}Effect:{/b} You gain one Common or Uncommon magic item of your choice from a player resource with an item level no\ngreater than your character level + 3, or an amount of gold pieces equal to the market price of a magic item of that level.  If you gain an item, it does not cost a found-item slot." compset="Power">
+    <tag group="PowerSrc" tag="None" name="None" abbrev="None"/>
+    <tag group="PowerAcc" tag="Implement"/>
+    <tag group="PowerType" tag="AtWill"/>
+    <tag group="ActionType" tag="Standard"/>
+    </thing>
+  <thing id="mgmaglamp" name="Magic Lamp" description="You rub the lamp, and your wish is fulfilled!\nWondrous Item\nProperty\nTo activate one of the lamp&#146;s powers, you must void the number of wishes specified by that power. Multiple characters with magic lamps may not pool their unspent wishes." compset="MagicItem">
+    <usesource source="LFRItem" parent="UserParent" name="Living Forgotten Realms Item"/>
+    <tag group="ItemSlot" tag="isWondrous"/>
+    <bootstrap thing="pwmaglmp1"></bootstrap>
+    <bootstrap thing="pwmaglmp2"></bootstrap>
+    <bootstrap thing="pwmaglmp3"></bootstrap>
+    <bootstrap thing="pwmaglmp4"></bootstrap>
+    </thing>
+  <thing id="mgStdSpx13" name="Student of the Sphinx" description="{b}Divine Boon{/b}{br}{br}Property: Gain a +2 item bonus to skill checks.{br}{br}Power * Daily (Minor Action): Until the end of the encounter, you and your allies gain a +1 bonus to skill checks with a single skill of your choice.{br}{br}{i}Level 8:{/i} gain a +2 bonus to skill checks.{br}{br}{i}Level 13:{/i} gain a +3 bonus to skill checks.{br}{br}{i}Level 18:{/i} gain a +4 bonus to skill checks.{br}{br}{i}Level 23:{/i} gain a +5 bonus to skill checks.{br}{br}{i}Level 28:{/i} gain a +6 bonus to skill checks." compset="MagicItem">
+    <fieldval field="mgFlavor" value="Ioun rewards study and the relentless pursuit of knowledge. Supporters who earn her favor gain the ability to master any task, no matter how daunting."/>
+    <fieldval field="mgLevel" value="13"/>
+    <usesource source="DMG2" parent="Supplement" name="Dungeon Master&apos;s Guide 2"/>
+    <tag group="Rarity" tag="Uncommon" name="Uncommon" abbrev="Uncommon"/>
+    <bootstrap thing="pMIIounRev"></bootstrap>
+    <eval phase="Traits" priority="1000" index="2"><![CDATA[
+doneif (tagis[Equipped.Equipped] = 0)
+foreach pick in hero from Skill
+  perform eachpick.field[trtItem].modify[+,2,""]
+  nexteach]]>
+      <before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+  <thing id="mgStdSpx18" name="Student of the Sphinx" description="{b}Divine Boon{/b}{br}{br}Property: Gain a +2 item bonus to skill checks.{br}{br}Power * Daily (Minor Action): Until the end of the encounter, you and your allies gain a +1 bonus to skill checks with a single skill of your choice.{br}{br}{i}Level 8:{/i} gain a +2 bonus to skill checks.{br}{br}{i}Level 13:{/i} gain a +3 bonus to skill checks.{br}{br}{i}Level 18:{/i} gain a +4 bonus to skill checks.{br}{br}{i}Level 23:{/i} gain a +5 bonus to skill checks.{br}{br}{i}Level 28:{/i} gain a +6 bonus to skill checks." compset="MagicItem">
+    <fieldval field="mgFlavor" value="Ioun rewards study and the relentless pursuit of knowledge. Supporters who earn her favor gain the ability to master any task, no matter how daunting."/>
+    <fieldval field="mgLevel" value="18"/>
+    <usesource source="DMG2" parent="Supplement" name="Dungeon Master&apos;s Guide 2"/>
+    <tag group="Rarity" tag="Uncommon" name="Uncommon" abbrev="Uncommon"/>
+    <bootstrap thing="pMIIounRev"></bootstrap>
+    <eval phase="Traits" priority="1000" index="2"><![CDATA[
+doneif (tagis[Equipped.Equipped] = 0)
+foreach pick in hero from Skill
+  perform eachpick.field[trtItem].modify[+,2,""]
+  nexteach]]>
+      <before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+  <thing id="pwtchchaos" name="Touched by Chaos" description="MINOR ACTION (CONSUMABLE)\n{b}Effect:{/b} Roll a d6 to determine the benefit:\n1. Gain a +2 power bonus to hit. The bonus lasts for the rest of the encounter or until you miss with an attack.\n2. Gain +2 power bonus to all defenses. The bonus lasts for the rest of the encounter or until you are hit by an attack.\n3. Gain a +2 bonus to speed until the end of your next turn.\n4. Gain a +5 power bonus to damage rolls until the end of your next turn.\n5. Gain 20 temporary hit points.\n6. Gain an extra standard action this turn." compset="Power">
+    <tag group="PowerSrc" tag="Martial"/>
+    <tag group="PowerAcc" tag="Weapon"/>
+    <tag group="PowerType" tag="Encounter"/>
+    <tag group="ActionType" tag="Standard"/>
+    </thing>
+  <thing id="mgtchchaos" name="Touched by Chaos" description="You have come into contact with Spellplague energy from the  Plain of Stone Spiders. You gain the following consumable power. Void this Story Award once you use the power." compset="MagicItem">
+    <tag group="ItemSlot" tag="isConsumab" name="Consumable" abbrev="Consumable"/>
+    <bootstrap thing="pwtchchaos"></bootstrap>
+    </thing>
+  </document>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the definition of the "Abilities" tab panel. This tab is where
+      the user selects the special abilities for the character.
+
+      All public visual elements used with this tab panel start with the prefix "ab"
+      to associate them with the tab.
+-->
+
+<document signature="Hero Lab Data">
+
+
+  <portal
+    id="edHelp"
+    style="lblDisable">
+    <label
+      ismultiline="yes"
+      text="You can choose an Epic Destiny at level 21. Once you've chosen a destiny, you can view the destiny features and powers on this tab.">
+      </label>
+    </portal>
+
+  <!-- Epic destiny title label, chooser and info button -->
+  <portal
+    id="edTitle"
+    style="lblNormal">
+    <label
+      text="Choose Epic Destiny:">
+      </label>
+    </portal>
+  <portal
+    id="edDestiny"
+    style="chsNormal">
+    <chooser_table
+      component="EpicDest"
+      choosetemplate="LargeItem"
+      showupdate="yes"
+      descwidth="450"
+      selectnone="yes"
+      candidatepick="actor"
+      candidatefield="acDestExp">
+      <candidate></candidate>
+      <chosen><![CDATA[
+        if (@ispick = 0) then
+          if (hero.tagvalue[Level.?] >= 11) then
+            @text = "{text ff0000}Select Epic Destiny"
+          else
+            @text = "{text a0a0a0}Not until level 21"
+            endif
+        else
+          @text = field[name].text
+          if (valid = 0) then
+            @text = "{text ff0000}" & @text
+            endif
+          endif
+        ]]></chosen>
+      <titlebar><![CDATA[
+        @text = "Choose the epic destiny for your character"
+        ]]></titlebar>
+      </chooser_table>
+    </portal>
+  <portal
+    id="edInfo"
+    style="actInfo">
+    <action
+      action="info">
+      </action>
+    <mouseinfo><![CDATA[
+      ~ Get our currently selected epic destiny
+      perform hero.findchild[EpicDest].setfocus
+      if (state.isfocus = 0) then
+        @text = "No epic destiny selected."
+        done
+        endif
+
+      ~ Append epic destiny info
+      @text = "{b}" & focus.field[name].text & "{/b}{br}{br}"
+      @text &= focus.field[descript].text
+      ]]></mouseinfo>
+    </portal>
+
+  <!-- edFeatures portal
+        Presents a fixed table where the user can inspect and configure epic destiny
+        path features.
+  -->
+  <portal
+    id="edFeatures"
+    style="tblNormal">
+    <table_fixed
+      component="UserSelect"
+      showtemplate="MenuSlPick"
+      showsortset="ReqLevel">
+      <list><![CDATA[
+        PowerDest.? | ConfSource.EpicDest | (component.Power & User.DestFeat)
+        ]]></list>
+      <headertitle><![CDATA[
+        @text = "Epic Destiny Features"
+        ]]></headertitle>
+      </table_fixed>
+    </portal>
+
+
+  <!-- epic destiny layout
+        This layout orchestrates the display of the visual elements that comprise
+        the Epic destiny tab. This amounts to a title at the top and a dynamic table
+        below where the user can add the special abilities he wants.
+
+        The logic for this layout is similar to (albeit much simpler than) the
+        logic for the Basics tab. So please refer to the Basics tab for more details.
+  -->
+  <layout
+    id="epicdest">
+    <portalref portal="edTitle"/>
+    <portalref portal="edDestiny" taborder="10"/>
+    <portalref portal="edHelp"/>
+    <portalref portal="edInfo" taborder="20"/>
+    <portalref portal="edFeatures" taborder="40"/>
+
+    <!-- This script sizes and positions the layout and its child visual elements. -->
+    <position><![CDATA[
+      portal[edDestiny].width = 200
+
+      ~position the path selection portals at the top of the panel,
+      ~horizontally centered
+      var space as number
+      space = 10
+      var total as number
+      total = portal[edTitle].width + space + portal[edDestiny].width + space + portal[edInfo].width
+      portal[edTitle].left = (width - total) / 2
+      portal[edDestiny].left = portal[edTitle].right + space
+      portal[edInfo].left = portal[edDestiny].right + space
+
+      ~center the controls vertically within the path chooser
+      portal[edDestiny].top = 3
+      perform portal[edTitle].centeron[vert,edDestiny]
+      perform portal[edInfo].centeron[vert,edDestiny]
+
+      ~if we don't have a epic destiny, hide all our tables and show the help label
+      if (hero.tagis[EpicDest.?] = 0) then
+        portal[edFeatures].visible = 0
+      else
+        portal[edHelp].visible = 0
+        endif
+
+      ~position our help label under the 'choose' chooser.
+      portal[edHelp].width = width * 2 / 3
+      portal[edHelp].height = portal[edHelp].textheight
+      perform portal[edHelp].centerhorz
+      portal[edHelp].top = portal[edDestiny].bottom + 50
+
+      ~position the epic destiny features table under the epic destiny chooser, taking up
+      ~the rest of the tab
+      portal[edFeatures].width = width * 4 / 5
+      perform portal[edFeatures].centerhorz
+      portal[edFeatures].top = portal[edDestiny].bottom + 20
+      portal[edFeatures].height = height - portal[edFeatures].top
+      ]]></position>
+
+    </layout>
+
+
+  <!-- epic destiny panel
+        This is the "Epic destiny" panel shown within Hero Lab. Since we want this
+        panel to appear just the paragon path tab, we assign it an "order" of 330.
+
+        The logic for this panel is similar to the logic for the Basics panel, so
+        please refer to the Basics panel for more details.
+  -->
+  <panel
+    id="epicdest"
+    name="Epic"
+    marginhorz="5"
+    marginvert="5"
+    order="330">
+    <live>!HideTab.epicdest</live>
+    <layoutref layout="epicdest"/>
+    <position><![CDATA[
+      ]]></position>
+    </panel>
+  </document>

@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<document signature="Hero Lab Data">
+
+  <thing
+    id="mwPactBla1"
+    name=""
+    compset="">
+    <tag group="ImplemType" tag="itPactBlad"/>
+    </thing>
+  <thing
+    id="mwPactBla2"
+    name=""
+    compset="">
+    <tag group="ImplemType" tag="itPactBlad"/>
+    </thing>
+  <thing
+    id="mwPactBla3"
+    name=""
+    compset="">
+    <tag group="ImplemType" tag="itPactBlad"/>
+    </thing>
+  <thing
+    id="mwPactBla4"
+    name=""
+    compset="">
+    <tag group="ImplemType" tag="itPactBlad"/>
+    </thing>
+  <thing
+    id="mwPactBla5"
+    name=""
+    compset="">
+    <tag group="ImplemType" tag="itPactBlad"/>
+    </thing>
+  <thing
+    id="mwPactBla6"
+    name=""
+    compset="">
+    <tag group="ImplemType" tag="itPactBlad"/>
+    </thing>
+
+  <thing
+    id="mwDisrWea2"
+    name=""
+    compset="">
+    <tag group="ImplemType" tag="itHolySym"/>
+    </thing>
+  <thing
+    id="mwDisrWea3"
+    name=""
+    compset="">
+    <tag group="ImplemType" tag="itHolySym"/>
+    </thing>
+  <thing
+    id="mwDisrWea4"
+    name=""
+    compset="">
+    <tag group="ImplemType" tag="itHolySym"/>
+    </thing>
+  <thing
+    id="mwDisrWea5"
+    name=""
+    compset="">
+    <tag group="ImplemType" tag="itHolySym"/>
+    </thing>
+  <thing
+    id="mwDisrWea6"
+    name=""
+    compset="">
+    <tag group="ImplemType" tag="itHolySym"/>
+    </thing>
+
+  <thing
+    id="mwScepBan1"
+    name=""
+    compset="">
+    <tag group="ImplemType" tag="itHolySym"/>
+    </thing>
+  <thing
+    id="mwScepBan2"
+    name=""
+    compset="">
+    <tag group="ImplemType" tag="itHolySym"/>
+    </thing>
+  <thing
+    id="mwScepBan3"
+    name=""
+    compset="">
+    <tag group="ImplemType" tag="itHolySym"/>
+    </thing>
+  <thing
+    id="mwScepBan4"
+    name=""
+    compset="">
+    <tag group="ImplemType" tag="itHolySym"/>
+    </thing>
+  <thing
+    id="mwScepBan5"
+    name=""
+    compset="">
+    <tag group="ImplemType" tag="itHolySym"/>
+    </thing>
+  <thing
+    id="mwScepBan6"
+    name=""
+    compset="">
+    <tag group="ImplemType" tag="itHolySym"/>
+    </thing>
+
+  <thing id="mwDwarThr1" name="" compset="">
+    <eval phase="Setup" priority="200">
+      <after name="Magic Weapon Copy"/><![CDATA[
+      parent.field[wpShort].value = maximum(6, parent.field[wpShort].value)
+      parent.field[wpLong].value = maximum(12, parent.field[wpLong].value)
+      if (parent.tagis[WepProp.HeavyThrow] = 0) then
+        perform parent.assign[WepProp.HeavyThrow]
+        endif
+      ]]></eval>
+    </thing>
+
+  <thing id="mwDwarThr2" name="" compset="">
+    <eval phase="Setup" priority="200">
+      <after name="Magic Weapon Copy"/><![CDATA[
+      parent.field[wpShort].value = maximum(6, parent.field[wpShort].value)
+      parent.field[wpLong].value = maximum(12, parent.field[wpLong].value)
+      if (parent.tagis[WepProp.HeavyThrow] = 0) then
+        perform parent.assign[WepProp.HeavyThrow]
+        endif
+      ]]></eval>
+    </thing>
+
+  <thing id="mwDwarThr3" name="" compset="">
+    <eval phase="Setup" priority="200">
+      <after name="Magic Weapon Copy"/><![CDATA[
+      parent.field[wpShort].value = maximum(6, parent.field[wpShort].value)
+      parent.field[wpLong].value = maximum(12, parent.field[wpLong].value)
+      if (parent.tagis[WepProp.HeavyThrow] = 0) then
+        perform parent.assign[WepProp.HeavyThrow]
+        endif
+      ]]></eval>
+    </thing>
+
+  <thing id="mwDwarThr4" name="" compset="">
+    <eval phase="Setup" priority="200">
+      <after name="Magic Weapon Copy"/><![CDATA[
+      parent.field[wpShort].value = maximum(6, parent.field[wpShort].value)
+      parent.field[wpLong].value = maximum(12, parent.field[wpLong].value)
+      if (parent.tagis[WepProp.HeavyThrow] = 0) then
+        perform parent.assign[WepProp.HeavyThrow]
+        endif
+      ]]></eval>
+    </thing>
+
+  <thing id="mwDwarThr5" name="" compset="">
+    <eval phase="Setup" priority="200">
+      <after name="Magic Weapon Copy"/><![CDATA[
+      parent.field[wpShort].value = maximum(6, parent.field[wpShort].value)
+      parent.field[wpLong].value = maximum(12, parent.field[wpLong].value)
+      if (parent.tagis[WepProp.HeavyThrow] = 0) then
+        perform parent.assign[WepProp.HeavyThrow]
+        endif
+      ]]></eval>
+    </thing>
+
+  <thing id="mwDwarThr6" name="" compset="">
+    <eval phase="Setup" priority="200">
+      <after name="Magic Weapon Copy"/><![CDATA[
+      parent.field[wpShort].value = maximum(6, parent.field[wpShort].value)
+      parent.field[wpLong].value = maximum(12, parent.field[wpLong].value)
+      if (parent.tagis[WepProp.HeavyThrow] = 0) then
+        perform parent.assign[WepProp.HeavyThrow]
+        endif
+      ]]></eval>
+    </thing>
+
+  <thing id="mwHellWea2" name="" compset="">
+    <eval phase="Traits" priority="10000"><![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[rsFire,rsExtraPre,5,""]
+      ]]>
+      <before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+
+  <thing id="mwHellWea3" name="" compset="">
+    <eval phase="Traits" priority="10000"><![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[rsFire,rsExtraPre,5,""]
+      ]]>
+      <before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+
+  <thing id="mwHellWea4" name="" compset="">
+    <eval phase="Traits" priority="10000"><![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[rsFire,rsExtraPre,5,""]
+      ]]>
+      <before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+
+  <thing id="mwHellWea5" name="" compset="">
+    <eval phase="Traits" priority="10000"><![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[rsFire,rsExtraPre,5,""]
+      ]]>
+      <before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+
+  <thing id="mwHellWea6" name="" compset="">
+    <eval phase="Traits" priority="10000"><![CDATA[
+      doneif (activated = 0)
+
+      #traitmodify[rsFire,rsExtraPre,5,""]
+      ]]>
+      <before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+
+  <thing
+    id="mwBladSta3"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform hero.assign[Vision.Darkvision]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="mwBladSta4"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform hero.assign[Vision.Darkvision]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="mwBladSta5"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform hero.assign[Vision.Darkvision]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="mwBladSta6"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      doneif (activated = 0)
+
+      perform hero.assign[Vision.Darkvision]
+      ]]></eval>
+    </thing>
+
+  <thing id="mwHearSpe4" name="" compset="">
+    <eval phase="Setup" priority="200">
+      <after name="Magic Weapon Copy"/><![CDATA[
+      parent.field[wpShort].value = maximum(10, parent.field[wpShort].value)
+      parent.field[wpLong].value = maximum(20, parent.field[wpLong].value)
+      if (parent.tagis[WepProp.HeavyThrow] = 0) then
+        perform parent.assign[WepProp.HeavyThrow]
+        endif
+      ]]></eval>
+    </thing>
+
+  </document>

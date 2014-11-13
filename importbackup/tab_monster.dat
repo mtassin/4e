@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document signature="Hero Lab Data">
+
+
+  <!-- Define all facets of the "Feats" tab for the game system. All public
+        visual elements used on the Feats tab start with the prefix 'ft' to
+        associate them with the Feats tab.
+  -->
+
+
+  <!-- ftFeats portal
+        Presents a dynamic table where the user can add feats for the
+        character.
+
+        We use the "SimpleItem" template for both selecting and showing the special
+        abilities, since all we need is basic information.
+
+        We use an "additem" script to highlight whether more abilities need to be
+        selected. This requires that we specify the "addpick" referenced in the
+        script, which is the resource for tracking abilities. We also add some
+        extra vertical spacing above and below the "add" item.
+
+        We use a "candidate" tag expression to limit the choices the user can make.
+        If omitted, all things derived from the "Ability" component will be shown
+        to the user for selection. Using this tagexpr allows us to omit all abilities
+        that have the "Hide.Ability" tag. For example, the Flight ability needs to
+        behave as a normal ability, but we only want it available to characters that
+        select the "Avian" race. By assigning it the "Hide.Ability" tag and using
+        the candidate tagexpr to omit those abilities, Flight cannot be chosen by
+        non-Avian characters but it will also appear in the selected list if the
+        character choosed the Avian race.
+
+        We use a "titlebar" script to replace the default title on the choose form
+        with something more useful. Just like we did on the title portal above, we
+        include the summary information as helpful feedback to the user.
+  -->
+
+  <portal
+    id="monTitle"
+    style="lblTitle">
+    <label
+      istitle="yes"
+      text="Monster Details">
+      </label>
+    </portal>
+
+  <portal
+    id="monOptions"
+    style="tblNormal">
+    <table_dynamic
+      component="MonsterOpt"
+      showtemplate="monOptions"
+      choosetemplate="SimpleItem"
+      columns="2"
+      showsortset="_PickSeq_">
+      <secondary>
+        Hero.Monster
+        </secondary>
+      <titlebar><![CDATA[
+        @text = "Add a New Option"
+        ]]></titlebar>
+      <headertitle><![CDATA[
+        @text = "Monster Options"
+        ]]></headertitle>
+      <additem><![CDATA[
+        @text &= "Add New Monster Option"
+        ]]></additem>
+      </table_dynamic>
+    </portal>
+
+  <portal
+    id="monPowers"
+    style="tblNormal">
+    <table_auto
+      component="PowerUser"
+      showtemplate="puSimple"
+      autothing="puPower"
+      columns="2"
+      showsortset="_PickSeq_">
+      <secondary>
+        Hero.Monster
+        </secondary>
+      <headertitle><![CDATA[
+        @text = "Monster Powers"
+        ]]></headertitle>
+      <additem><![CDATA[
+        @text &= "Add New Power"
+        ]]></additem>
+      </table_auto>
+    </portal>
+
+  <!-- monInfo template
+        This template displays all monster info.
+  -->
+  <template
+    id="monInfo"
+    name="Monster"
+    compset="Actor">
+
+    <portal
+      id="lbllevel"
+      style="lblNormal">
+      <label
+        text="Level:">
+        </label>
+      </portal>
+
+    <portal
+      id="level"
+      style="incrSimple">
+      <incrementer
+        field="acStartLev">
+        </incrementer>
+      </portal>
+
+    <portal
+      id="role"
+      style="menuNormal">
+      <menu_things
+        field="acMonRole"
+        component="MonstRole"
+        maxvisible="10">
+        </menu_things>
+      </portal>
+
+    <portal
+      id="elite"
+      style="chkNormal">
+      <checkbox
+        field="acMonElite"
+        message=" Is Elite?">
+        </checkbox>
+      </portal>
+
+    <portal
+      id="leader"
+      style="chkNormal">
+      <checkbox
+        field="acMonLead"
+        message=" Is Leader?">
+        </checkbox>
+      </portal>
+
+    <portal
+      id="origin"
+      style="menuNormal">
+      <menu_things
+        field="acMonOrig"
+        component="MonstOrig"
+        maxvisible="10">
+        </menu_things>
+      </portal>
+
+    <portal
+      id="type"
+      style="menuNormal">
+      <menu_things
+        field="acMonType"
+        component="MonstType"
+        maxvisible="10">
+        </menu_things>
+      </portal>
+
+    <portal
+      id="lblxp"
+      style="lblNormal">
+      <label
+        text="XP Award:">
+        </label>
+      </portal>
+
+    <portal
+      id="xp"
+      style="incrXWide">
+      <incrementer
+        field="acMonXP">
+        </incrementer>
+      </portal>
+
+    <position><![CDATA[
+      portal[lbllevel].left = 10
+      perform portal[level].alignrel[ltor,lbllevel,10]
+
+      perform portal[role].alignrel[ltor,level,25]
+      portal[role].width = 115
+
+      perform portal[elite].alignrel[ltor,role,15]
+
+      perform portal[leader].alignrel[ltor,elite,15]
+
+      perform portal[origin].alignrel[ltol,lbllevel,0]
+      perform portal[origin].alignrel[ttob,lbllevel,15]
+      portal[origin].width = 115
+
+      perform portal[type].alignrel[ttot,origin,0]
+      perform portal[type].alignrel[ltor,origin,9]
+      portal[type].width = 115
+
+      perform portal[lblxp].alignrel[ttot,type,0]
+      perform portal[lblxp].alignrel[ltor,type,20]
+
+      perform portal[xp].alignrel[ttot,lblxp,0]
+      perform portal[xp].alignrel[ltor,lblxp,10]
+
+      height = portal[xp].bottom
+      ]]></position>
+
+    </template>
+
+
+
+  <!-- monOptions template
+        Displays information about a monster option. -->
+  <template
+    id="monOptions"
+    name="RPGA Found Item"
+    compset="MonsterOpt"
+    marginhorz="5"
+    marginvert="3">
+
+    <portal
+      id="label"
+      style="lblNormal">
+      <label
+        field="monLabel">
+        </label>
+      </portal>
+
+    <portal
+      id="thinglist"
+      style="menuSmall">
+      <menu_things
+        field="monChosen"
+        component="none"
+        maxvisible="10"
+        candidatefield="monExpr">
+        </menu_things>
+      </portal>
+
+    <portal
+      id="incr"
+      style="incrSimple">
+      <incrementer
+        field="monValue">
+        </incrementer>
+      </portal>
+
+    <portal
+      id="edit"
+      style="editNormal">
+      <edit
+        field="monText">
+        </edit>
+      </portal>
+
+    <portal
+      id="delete"
+      style="actDelete"
+      tiptext="Click to delete this entry">
+      <action
+        action="delete">
+        </action>
+      </portal>
+
+    <position><![CDATA[
+      ~set up our height; our width is pre-initialized for us
+      height = portal[incr].height
+
+      ~if this is a "sizing" calculation, we're done
+      doneif (issizing <> 0)
+
+      perform portal[label].centervert
+      perform portal[incr].centervert
+      perform portal[edit].centervert
+      perform portal[thinglist].centervert
+      perform portal[delete].centervert
+
+      perform portal[delete].alignedge[right,0]
+
+      portal[thinglist].left = portal[label].right + 10
+      portal[edit].left = portal[thinglist].left
+
+      ~if we don't have a tag expression, show our edit control
+      if (field[monExpr].isempty <> 0) then
+        perform portal[incr].alignrel[rtol,delete,-5]
+        portal[edit].width = portal[delete].left - portal[thinglist].left - 5
+        portal[incr].visible = 0
+        portal[thinglist].visible = 0
+
+      ~if we don't need an incrementer, our menu can take up the whole space
+      elseif (tagis[User.MonOptIncr] = 0) then
+        portal[thinglist].width = portal[delete].left - portal[thinglist].left - 10
+        portal[incr].visible = 0
+        portal[edit].visible = 0
+
+      ~otherwise, show the incrementer
+      else
+        perform portal[incr].alignrel[rtol,delete,-5]
+        portal[thinglist].width = portal[incr].left - portal[thinglist].left - 5
+        portal[edit].visible = 0
+        endif
+
+      if (field[monChosen].ischosen = 0) then
+        perform portal[thinglist].setstyle[menuErrSm]
+        endif
+      ]]></position>
+
+    </template>
+
+  <!-- puSimple template
+        Displays information about a simple power for the user to edit. -->
+  <template
+    id="puSimple"
+    name="Simple Power"
+    compset="PowerUser"
+    marginhorz="5"
+    marginvert="3">
+
+    <portal
+      id="name"
+      style="editNormal">
+      <edit
+        field="username">
+        </edit>
+      </portal>
+
+    <portal
+      id="type"
+      style="menuSmall">
+      <menu_literal
+        field="puType">
+        <choice value="AtWill" display="At-Will"/>
+        <choice value="Encounter" display="Encounter"/>
+        <choice value="Daily" display="Daily"/>
+        <choice value="Feature" display="Feature"/>
+        <choice value="Aura" display="Aura"/>
+        </menu_literal>
+      </portal>
+
+    <portal
+      id="lblattack"
+      style="lblNormal">
+      <label
+        text="Attack:">
+        </label>
+      </portal>
+
+    <portal
+      id="attack"
+      style="editNormal">
+      <edit
+        field="puAttack">
+        </edit>
+      </portal>
+
+    <portal
+      id="details"
+      style="editNormal">
+      <edit
+        field="puDetails"
+        ismultiline="yes">
+        </edit>
+      </portal>
+
+    <portal
+      id="delete"
+      style="actDelete"
+      tiptext="Click to delete this entry">
+      <action
+        action="delete">
+        </action>
+      </portal>
+
+    <position><![CDATA[
+      ~set up our height; our width is pre-initialized for us
+      height = 95
+
+      ~if this is a "sizing" calculation, we're done
+      doneif (issizing <> 0)
+
+      perform portal[delete].alignedge[right,0]
+
+      portal[type].width = 70
+      perform portal[type].alignrel[rtol,delete,-5]
+
+      portal[name].width = portal[type].left - portal[name].left - 5
+
+      perform portal[delete].centeron[vert,name]
+
+      perform portal[lblattack].alignrel[ltol,name,0]
+      perform portal[lblattack].alignrel[ttob,name,5]
+
+      perform portal[attack].alignrel[ttot,lblattack,0]
+      perform portal[attack].alignrel[ltor,lblattack,5]
+      portal[attack].width = width - portal[attack].left
+
+      portal[details].width = width
+      portal[details].top = portal[attack].bottom + 5
+      portal[details].height = height - portal[details].top
+      ]]></position>
+
+    </template>
+
+  <!-- monster layout
+        This layout shows a title, template with the RPGA details, and a table
+        of 'found magic items'.
+
+        The logic for this layout is similar to (albeit much simpler than) the
+        logic for the Basics tab. So please refer to the Basics tab for more details.
+  -->
+  <layout
+    id="monster">
+    <portalref portal="monTitle"/>
+    <portalref portal="monOptions" taborder="20"/>
+    <portalref portal="monPowers" taborder="30"/>
+    <templateref template="monInfo" taborder="10" thing="actor" ispick="yes"/>
+
+    <!-- This script sizes and positions the layout and its child visual elements. -->
+    <position><![CDATA[
+      ~position and size the table to span the full layout; it will only use the
+      ~vertical space that it actually needs
+      perform portal[monTitle].autoplace[5]
+      perform template[monInfo].autoplace[5]
+      perform portal[monOptions].autoplace[15]
+      portal[monOptions].maxrows = 3
+      autotop = portal[monOptions].bottom
+      perform portal[monPowers].autoplace[15]
+      ]]></position>
+
+    </layout>
+
+
+  <!-- monster panel
+        This is the "Monster" panel shown within Hero Lab. This needs to appear
+        before the Abilities tab, but only for monsters.
+  -->
+  <panel
+    id="monster"
+    name="Monster"
+    marginhorz="5"
+    marginvert="5"
+    order="100">
+    <live><![CDATA[
+      Hero.Monster
+      ]]></live>
+    <layoutref layout="monster"/>
+    <position><![CDATA[
+      ]]></position>
+    </panel>
+  </document>

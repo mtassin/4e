@@ -1,0 +1,682 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the assortment of derived traits for the game system. Derived
+      traits are calculated via scripts and based on the attributes from which they
+      are derived.
+
+      Since derived traits are based upon other traits, we have a "chicken-and-egg"
+      situation with respect to script evaluation timing. The "Trait" component
+      auto-calculates the final value for the traits derived FROM, while the "Derived"
+      component provides a second calculation after that to incorporate the results of
+      the special calculation for each derived trait. Each derived trait must then
+      calculate the new derived value between those two times, which is what we
+      accomplish below within the eval script for each derived trait. The script is
+      timed to occur at Traits/4000 to splice it between the two other scripts that
+      mentioned above and performed by the component.
+
+      We calculate the derived value as a "bonus" for the trait, allowing it to be
+      added in appropriately by the component script. Trait bonuses can arise from
+      multiple sources, so we need to ADD our calculated amount instead of setting the
+      amount.
+
+      All trait values are rounded down, so we apply the proper rounding as needed.
+      Rounding must be performed BEFORE we add the adjustment.
+
+      Appropriate tags are assigned to each derived trait to control where the trait
+      is displayed to the user and the order in which the traits are displayed.
+-->
+
+<document signature="Hero Lab Data">
+
+  <!-- Traits shown on the narrow table on the basics panel -->
+
+  <!-- Level Trait - this is only a trait to make it display easily on the
+      abilities tab. -->
+  <thing
+    id="trLevel"
+    name="Level"
+    compset="Trait"
+    isunique="yes">
+    <fieldval field="trtAbbrev" value="Level"/>
+    <tag group="explicit" tag="3"/>
+    <tag group="User" tag="BasicsNarr"/>
+
+    <!-- Calculate the Level trait as appropriate -->
+    <eval index="1" phase="Traits" priority="4000">
+      <before name="Derived trtFinal"/>
+      <after name="Calc trtFinal"/><![CDATA[
+      field[trtBonus].value = #level[]
+      ]]></eval>
+    </thing>
+
+  <!-- Initiative Trait -->
+  <thing
+    id="trInit"
+    name="Initiative"
+    compset="Trait"
+    isunique="yes">
+    <fieldval field="trtAbbrev" value="Init"/>
+    <tag group="explicit" tag="6"/>
+    <tag group="User" tag="BasicsNarr"/>
+    <tag group="DashTacCon" tag="Combat"/>
+    <tag group="DashTacCon" tag="Traits"/>
+    <tag group="User" tag="CanAdjust"/>
+    <tag group="LinkAttr" tag="attrDex"/>
+
+    <!-- Calculate the Initiative trait as appropriate -->
+    <eval index="1" phase="Traits" priority="4000">
+      <before name="Derived trtFinal"/>
+      <after name="Calc attrBonus"/><![CDATA[
+      var bonus as number
+      var attrname as string
+      foreach pick in hero from Attribute where tagids[LinkAttr.?, " | "]
+        if (eachpick.field[attrBonus].value > bonus) then
+          bonus = eachpick.field[attrBonus].value
+          attrname = eachpick.field[name].text
+          endif
+        nexteach
+
+      doneif (bonus = 0)
+      perform field[trtBonus].modify[+,bonus,attrname]
+      ]]></eval>
+
+    <!-- Prepend with a + if non-negative -->
+    <eval index="2" phase="Final" priority="10000">
+      <after name="Derived trtFinal"/><![CDATA[
+      if (field[trtFinal].value >= 0) then
+        field[trtText].text = "+" & field[trtFinal].value
+        endif
+      ]]></eval>
+    </thing>
+
+  <!-- Speed Trait -->
+  <thing
+    id="trSpeed"
+    name="Speed"
+    compset="Trait"
+    isunique="yes">
+    <fieldval field="trtAbbrev" value="Speed"/>
+    <tag group="explicit" tag="9"/>
+    <tag group="DashTacCon" tag="Combat"/>
+    <tag group="DashTacCon" tag="Traits"/>
+    <tag group="User" tag="BasicsNarr"/>
+    <tag group="User" tag="CanAdjust"/>
+
+    <eval index="1" phase="Render" priority="10000"><![CDATA[
+      field[trtText].text = field[trtFinal].value & " squares"
+      ]]></eval>
+    </thing>
+
+  <!-- Traits shown on the wide table on the basics panel -->
+
+  <!-- Size Trait -->
+  <thing
+    id="trSize"
+    name="Size"
+    compset="Trait"
+    isunique="yes">
+    <fieldval field="trtAbbrev" value="Size"/>
+    <fieldval field="trtMinimum" value="-2"/>
+    <fieldval field="trtMaximum" value="3"/>
+    <tag group="explicit" tag="12"/>
+    <tag group="User" tag="BasicsWide"/>
+    <tag group="User" tag="CanAdjust"/>
+
+    <eval index="1" phase="Traits" priority="4000" name="Size final">
+      <after name="Race tag final"/>
+      <after name="Calc trtFinal"/>
+      <![CDATA[
+      var sizenum as number
+      var sizetext as string
+      sizenum = field[trtFinal].value
+      call SizeText
+      field[trtText].text = sizetext
+      perform hero.assignstr["Size." & sizetext]
+      ]]></eval>
+    </thing>
+
+  <!-- Senses Trait -->
+  <thing
+    id="trSenses"
+    name="Senses"
+    compset="Trait"
+    isunique="yes">
+    <fieldval field="trtAbbrev" value="Sense"/>
+    <tag group="explicit" tag="15"/>
+    <tag group="User" tag="BasicsWide"/>
+
+    <eval index="1" phase="Render" priority="10000"><![CDATA[
+      if (hero.tagis[Vision.?] = 0) then
+        field[trtText].text = "Normal"
+      else
+        field[trtText].text = hero.tagnames[Vision.?, ", "]
+        endif
+
+      ~monsters edit this another way
+      if (hero.tagis[Hero.Monster] <> 0) then
+        perform delete[User.BasicsWide]
+        endif
+      ]]></eval>
+    </thing>
+
+  <!-- Differet types of senses -->
+  <thing
+    id="Lowlight"
+    name="Low-light"
+    compset="SenseType">
+    </thing>
+  <thing
+    id="Darkvision"
+    name="Darkvision"
+    compset="SenseType">
+    </thing>
+  <thing
+    id="Blindsight"
+    name="Blindsight"
+    compset="SenseType">
+    </thing>
+
+  <!-- Monster roles -->
+  <thing
+    id="mrArtiller"
+    name="Artillery"
+    compset="MonstRole">
+    </thing>
+  <thing
+    id="mrBrute"
+    name="Brute"
+    compset="MonstRole">
+    </thing>
+  <thing
+    id="mrControll"
+    name="Controller"
+    compset="MonstRole">
+    </thing>
+  <thing
+    id="mrMinion"
+    name="Minion"
+    compset="MonstRole">
+    </thing>
+  <thing
+    id="mrLurker"
+    name="Lurker"
+    compset="MonstRole">
+    </thing>
+  <thing
+    id="mrSkirmish"
+    name="Skirmisher"
+    compset="MonstRole">
+    </thing>
+  <thing
+    id="mkSoldier"
+    name="Soldier"
+    compset="MonstRole">
+    </thing>
+
+  <!-- Monster origins -->
+  <thing
+    id="moAberrant"
+    name="Aberrant"
+    compset="MonstOrig">
+    </thing>
+  <thing
+    id="moElementa"
+    name="Elemental"
+    compset="MonstOrig">
+    </thing>
+  <thing
+    id="moFey"
+    name="Fey"
+    compset="MonstOrig">
+    </thing>
+  <thing
+    id="moImmortal"
+    name="Immortal"
+    compset="MonstOrig">
+    </thing>
+  <thing
+    id="moNatural"
+    name="Natural"
+    compset="MonstOrig">
+    </thing>
+  <thing
+    id="moShadow"
+    name="Shadow"
+    compset="MonstOrig">
+    </thing>
+
+  <!-- Monster types -->
+  <thing
+    id="mtAnimate"
+    name="Animate"
+    compset="MonstType">
+    </thing>
+  <thing
+    id="mtBeast"
+    name="Beast"
+    compset="MonstType">
+    </thing>
+  <thing
+    id="mtHumanoid"
+    name="Humanoid"
+    compset="MonstType">
+    </thing>
+  <thing
+    id="mtMagBeast"
+    name="Magical Beast"
+    compset="MonstType">
+    </thing>
+
+  <!-- Monster keywords -->
+  <thing
+    id="mkAngel"
+    name="Angel"
+    compset="MonstKey">
+    </thing>
+  <thing
+    id="mkDemon"
+    name="Demon"
+    compset="MonstKey">
+    </thing>
+  <thing
+    id="mkDevil"
+    name="Devil"
+    compset="MonstKey">
+    </thing>
+  <thing
+    id="mkDragon"
+    name="Dragon"
+    compset="MonstKey">
+    </thing>
+  <thing
+    id="mkUndead"
+    name="Undead"
+    compset="MonstKey">
+    </thing>
+  <thing
+    id="mkAir"
+    name="Air"
+    compset="MonstKey">
+    </thing>
+  <thing
+    id="mkCold"
+    name="Cold"
+    compset="MonstKey">
+    </thing>
+  <thing
+    id="mkEarth"
+    name="Earth"
+    compset="MonstKey">
+    </thing>
+  <thing
+    id="mkFire"
+    name="Fire"
+    compset="MonstKey">
+    </thing>
+  <thing
+    id="mkWater"
+    name="Water"
+    compset="MonstKey">
+    </thing>
+
+  <!-- HP Trait -->
+  <thing
+    id="trHealth"
+    name="Hit Points"
+    compset="Trait"
+    isunique="yes">
+    <tag group="explicit" tag="18"/>
+    <tag group="User" tag="BasicsWide"/>
+    <tag group="User" tag="TrtHealth"/>
+    <tag group="User" tag="CanAdjust"/>
+    <tag group="LinkAttr" tag="attrCon"/>
+
+    <eval index="1" phase="Traits" priority="5000" name="Class HP final">
+      <before name="trSurges final"/>
+      <after name="Calc attrBonus"/>
+      <![CDATA[
+      var total as number
+      total = -9999
+      var expr as string
+      if (tagis[Helper.BestAbil] <> 0) then
+        expr = "TRUE"
+      else
+        expr = tagids[LinkAttr.?, " | "]
+        endif
+      foreach pick in hero from Attribute where expr
+        if (eachpick.field[trtFinal].value > total) then
+          total = eachpick.field[trtFinal].value
+          perform eachpick.setfocus
+          endif
+        nexteach
+      doneif (state.isfocus = 0)
+      perform field[trtClass].modify[+,total,focus.field[name].text]
+      ]]></eval>
+    </thing>
+
+  <!-- Healing Surges trait (folded into HP on basics panel) -->
+  <thing
+    id="trSurges"
+    name="Healing Surges"
+    compset="Trait"
+    isunique="yes">
+    <fieldval field="trtAbbrev" value="Surge"/>
+    <tag group="explicit" tag="21"/>
+    <tag group="User" tag="TrtHealth"/>
+    <tag group="LinkAttr" tag="attrCon"/>
+
+    <!-- Add a task that does nothing to mark the final place our healing
+        surges value can be adjusted -->
+    <eval index="1" phase="Final" priority="250" name="trSurges final"><![CDATA[
+      ~ do nothing - we're just here to make a task
+      ]]></eval>
+
+    <eval index="2" phase="Setup" priority="1000"><![CDATA[
+      ~monsters have to be able to edit this
+      if (hero.tagis[Hero.Monster] <> 0) then
+        perform assign[User.BasicsWide]
+        perform assign[User.CanAdjust]
+
+        ~if we're a monster, we have healing surges based on our level -
+        ~1, 2 or 3
+        if (#level[] <= 10) then
+          perform field[trtBonus].modify[+,1,"Level"]
+        elseif (#level[] <= 20) then
+          perform field[trtBonus].modify[+,2,"Level"]
+        else
+          perform field[trtBonus].modify[+,3,"Level"]
+          endif
+        endif
+      ]]></eval>
+
+    <eval index="3" phase="Traits" priority="5000" name="Class HP final">
+      <before name="trSurges final"/>
+      <after name="Calc attrBonus"/>
+      <![CDATA[
+      var bonus as number
+      bonus = -9999
+      foreach pick in hero from Attribute where tagids[LinkAttr.?, " | "]
+        if (eachpick.field[attrBnBase].value > bonus) then
+          bonus = eachpick.field[attrBnBase].value
+          perform eachpick.setfocus
+          endif
+        nexteach
+      doneif (state.isfocus = 0)
+      perform field[trtClass].modify[+,bonus,focus.field[name].text]
+      ]]></eval>
+    </thing>
+
+  <!-- Healing Surges hp value (folded into HP on basics panel) -->
+  <thing
+    id="trSurgeVal"
+    name="Surge Value"
+    compset="Trait"
+    isunique="yes">
+    <fieldval field="trtAbbrev" value="Heal"/>
+    <tag group="explicit" tag="24"/>
+    <tag group="User" tag="TrtHealth"/>
+
+    <!-- Our final value is based on another derived trait, our HP, so we need
+        to modify both the bonus and the final value. -->
+    <eval index="1" phase="Traits" priority="26000" name="trSurgeVal final">
+      <after name="Derived trtFinal"/>
+      <![CDATA[
+      var hp as number
+      hp = #trait[trHealth]
+      hp = round(hp / 4, 0, -1)
+      perform field[trtBonus].modify[+,hp,"1/4 hit points"]
+      field[trtFinal].value += hp
+
+      field[trtText].text = field[trtFinal].value & " hp"
+      ]]></eval>
+
+    <eval index="2" phase="Setup" priority="1000"><![CDATA[
+      ~monsters have to be able to edit this
+      if (hero.tagis[Hero.Monster] <> 0) then
+        perform assign[User.BasicsWide]
+        perform assign[User.CanAdjust]
+        endif
+      ]]></eval>
+    </thing>
+
+  <!-- Saving throw target -->
+  <thing
+    id="trSave"
+    name="Saving Throw"
+    compset="Trait"
+    isunique="yes">
+    <fieldval field="trtBonus" value="-10"/>
+    <fieldval field="trtAbbrev" value="Save"/>
+    <tag group="User" tag="Invert"/>
+    <tag group="explicit" tag="27"/>
+
+    <eval index="1" phase="Traits" priority="26000">
+      <after name="Derived trtFinal"/>
+      <![CDATA[
+      field[trtText].text = field[trtFinal].value & "+"
+      ]]></eval>
+    </thing>
+
+  <!-- Saving throw bonus, used for monster -->
+  <thing
+    id="trSaveBon"
+    name="Saving Throw Bonus"
+    compset="Trait"
+    isunique="yes">
+    <fieldval field="trtBonus" value="0"/>
+    <fieldval field="trtAbbrev" value="SvBon"/>
+    <tag group="User" tag="BasicsWide"/>
+    <tag group="User" tag="CanAdjust"/>
+    <tag group="explicit" tag="27"/>
+    <tag group="HideTab" tag="smBasics"/>
+    <containerreq phase="Initialize" priority="10">Hero.Monster</containerreq>
+
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Derived trtFinal"/>
+      <![CDATA[
+      ~this is kinda hacky, but we don't care since this pick shouldn't be
+      ~modified - we only want to get a user value to modify the saving
+      ~throw pick.
+      field[trtText].text = "+" & field[trtUser].value
+      perform hero.child[trSave].field[trtBonus].modify[+,field[trtUser].value,""]
+      ]]></eval>
+    </thing>
+
+  <!-- Allows you to select trained skills from the restricted lists for your
+        class -->
+  <thing
+    id="conTrainS1"
+    name="Bonus Skill"
+    compset="UserSelect"
+    description="Select a skill to train.">
+    <tag group="ConfSource" tag="ClassSkill"/>
+    <tag group="explicit" tag="1"/>
+    <tag group="AtLevel" tag="1"/>
+    <eval index="1" phase="PreTraits" priority="5000">
+      <before name="Calc trtFinal"/><![CDATA[
+      ~set up the expression field with the list of possible trained skills
+      ~from our parent class
+      var expr as string
+      expr = root.tagids[Skill1.?, " | "]
+
+      ~set the expression into the field that lets us select skills
+      field[usrCandid1].text = "component.Skill & (" & expr & ")"
+
+      ~if we chose a skill, add the trained tag
+      if (field[usrChosen1].ischosen <> 0) then
+        perform field[usrChosen1].chosen.assign[Helper.TrainedAut]
+        endif
+      ]]></eval>
+
+    <!-- Report a validation error if no selection has been made for a menu selection -->
+    <evalrule
+      phase="Validate"
+      priority="10000"
+      message="Choose a skill!"
+      summary="Choose!"><![CDATA[
+      @valid = field[usrChosen1].ischosen
+      if (@valid = 0) then
+        hero.panelvalid[class] = 0
+        endif
+      ]]></evalrule>
+    </thing>
+  <thing
+    id="conTrainS2"
+    name="Bonus Skill"
+    compset="UserSelect"
+    description="Select a skill to train.">
+    <tag group="ConfSource" tag="ClassSkill"/>
+    <tag group="explicit" tag="2"/>
+    <eval index="1" phase="PreTraits" priority="5000">
+      <before name="Calc trtFinal"/>
+      <before name="Calc sklTrained"/><![CDATA[
+      ~set up the expression field with the list of possible trained skills
+      ~from our parent class
+      var expr as string
+      expr = root.tagids[Skill2.?, " | "]
+
+      ~set the expression into the field that lets us select skills
+      field[usrCandid1].text = "component.Skill & (" & expr & ")"
+
+      ~if we chose a skill, add the trained tag
+      if (field[usrChosen1].ischosen <> 0) then
+        perform field[usrChosen1].chosen.assign[Helper.TrainedAut]
+        endif
+      ]]></eval>
+
+    <!-- Report a validation error if no selection has been made for a menu selection -->
+    <evalrule
+      phase="Validate"
+      priority="10000"
+      message="Choose a skill!"
+      summary="Choose!"><![CDATA[
+      @valid = field[usrChosen1].ischosen
+      if (@valid = 0) then
+        hero.panelvalid[class] = 0
+        endif
+      ]]></evalrule>
+    </thing>
+  <thing
+    id="conTrainS3"
+    name="Bonus Skill"
+    compset="UserSelect"
+    description="Select a skill to train.">
+    <tag group="ConfSource" tag="ClassSkill"/>
+    <tag group="explicit" tag="3"/>
+    <eval index="1" phase="PreTraits" priority="5000">
+      <before name="Calc trtFinal"/><![CDATA[
+      ~set up the expression field with the list of possible trained skills
+      ~from our parent class
+      var expr as string
+      expr = root.tagids[Skill3.?, " | "]
+
+      ~set the expression into the field that lets us select skills
+      field[usrCandid1].text = "component.Skill & (" & expr & ")"
+
+      ~if we chose a skill, add the trained tag
+      if (field[usrChosen1].ischosen <> 0) then
+        perform field[usrChosen1].chosen.assign[Helper.TrainedAut]
+        endif
+      ]]></eval>
+
+    <!-- Report a validation error if no selection has been made for a menu selection -->
+    <evalrule
+      phase="Validate"
+      priority="10000"
+      message="Choose a skill!"
+      summary="Choose!"><![CDATA[
+      @valid = field[usrChosen1].ischosen
+      if (@valid = 0) then
+        hero.panelvalid[class] = 0
+        endif
+      ]]></evalrule>
+    </thing>
+
+  <!-- Various resistances -->
+  <thing
+    id="rsAcid"
+    name="Acid"
+    compset="Resistance"
+    isunique="yes">
+    </thing>
+  <thing
+    id="rsCold"
+    name="Cold"
+    compset="Resistance"
+    isunique="yes">
+    </thing>
+  <thing
+    id="rsFire"
+    name="Fire"
+    compset="Resistance"
+    isunique="yes">
+    </thing>
+  <thing
+    id="rsForce"
+    name="Force"
+    compset="Resistance"
+    isunique="yes">
+    </thing>
+  <thing
+    id="rsLightn"
+    name="Lightning"
+    compset="Resistance"
+    isunique="yes">
+    </thing>
+  <thing
+    id="rsNecrotic"
+    name="Necrotic"
+    compset="Resistance"
+    isunique="yes">
+    </thing>
+  <thing
+    id="rsPoison"
+    name="Poison"
+    compset="Resistance"
+    isunique="yes">
+    </thing>
+  <thing
+    id="rsPsychic"
+    name="Psychic"
+    compset="Resistance"
+    isunique="yes">
+    </thing>
+  <thing
+    id="rsRadiant"
+    name="Radiant"
+    compset="Resistance"
+    isunique="yes">
+    </thing>
+  <thing
+    id="rsThunder"
+    name="Thunder"
+    compset="Resistance"
+    isunique="yes">
+    </thing>
+  <thing
+    id="rsOngoing"
+    name="Ongoing Damage"
+    compset="Resistance"
+    isunique="yes">
+    </thing>
+  <thing
+    id="rsAll"
+    name="All"
+    compset="Resistance"
+    isunique="yes">
+    </thing>
+
+  <!-- Weapon proficiency helper for backgrounds -->
+  <thing id="fBgSmWep" name="Background Weapon" description="Proficiency with a simple or military weapon" compset="RaceFeat">
+    <fieldval field="usrCandid1" value="component.WeaponBase &amp; !Equipment.Natural &amp; !component.MagicItem &amp; !thingid.wpMagic? &amp; (WepCat.wcSimple | WepCat.wcMilitary)"/>
+    <tag group="Hide" tag="Special"/>
+    <tag group="ConfSource" tag="Race"/>
+    <tag group="ChooseSrc1" tag="Thing"/>
+    <eval phase="Traits" priority="1000"><![CDATA[
+      perform field[usrChosen1].chosen.forward[WeaponProf.?]
+      ]]>
+      <before name="Derived trtFinal"/>
+      </eval>
+    </thing>
+
+  </document>

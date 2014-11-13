@@ -1,0 +1,188 @@
+                     Readme File for Public XML Support
+                     ----------------------------------
+
+Overview
+--------
+
+This file outlines the various facets of the Public XML support
+componentry. Several Lone Wolf Development products save files that contain
+all of the information that normally appears in a standard deck printout.
+Through the use of these saved files, users can now create their own custom
+printouts and write their own viewers for other platforms (such as a viewer
+for the Palm Pilot and/or Windows CE systems).
+
+
+What's Included
+---------------
+
+There are a number of support components for managing XML saved files. Each of
+these components is identified here:
+
+XML Source - Full source code that enables you to read and write basic XML
+    files. This is NOT a full XML library, although it provides plenty of
+    functionality to handle all of the standard XML file behaviors, including
+    those used by Lone Wolf Development products.
+
+Tool Source - Full source code for a few memory management mechanisms that are
+    utilized internally by the XML objects.
+
+API Manual - Documentation for each of the public functions that are exported by
+    the provided API.
+
+
+File List
+---------
+
+This package includes the following set of files:
+
+readme      - This file
+xmlapi.htm  - HTML file containing the public API
+pubxml.h    - Header file containing the public API, constants, and types
+xmlcont.cpp - Source code for XML content management
+xmlelem.cpp - source code dealing with construction and parsing of xml elements
+xmlhelp.cpp - source code for xml helper functions
+xmlparse.cpp- Source code for parsing an XML stream
+xmlwrap.cpp - Source code for C wrapper API
+private.h   - Non-public header file used by the "xml*.cpp" source files
+napkin.cpp  - Source code for internally used data management mechanism
+pool.cpp    - Source code for internally used data management mechanism
+tools.h     - Header file for internally used data management mechanisms
+makefile    - Makefile to build object files for everything under MS Visual C++
+
+
+About the Source Code and API
+-----------------------------
+
+The source code provided is written in C++ and has a C wrapper API placed
+around it. A lot more people are familiar with C than with C++ at this point
+in time, so the C wrapper has been provided. If you are comfortable with C++,
+then there is really no reason for you to utilize the C-based API aside from
+convenience. You can just as easily use the methods exported by the C++
+classes, using the C functions as a guide for calling conventions used.
+However, the C-based API provides a clean and simple interface to the
+functionality, so you might find it easiest to use that API.
+
+Another advantage to the C API is that the code can be packaged up as a DLL
+that can then be utilized from other languages. With a C API, it is easy to
+create a DLL that can be readily used from any language. For example, the DLL
+can be used by Visual Basic programmers - and there are LOTS of VB programmers
+in the world.
+
+The source code provided does not do extensive error checking and reporting.
+Basically, errors are trapped properly and then a simple failure code is
+reported back to the caller. There is usually no additional information
+provided. If you are planning to use this code to access XML saved files, then
+valid files should always work properly and extensive error reporting is not
+necessary.
+
+The XML engine is written using three C++ classes. The XML engine itself
+should simply be compiled for whatever platform and toolset you are using.
+There should be no reason to delve into the bowels of the code if your
+objective is to read and write XML saved files. Consequently, no documentation
+is provided for the XML engine source code, aside from the reasonably good
+inline documentation provided within the source files.
+
+
+XML - A 60-Second Primer
+------------------------
+
+XML provides a formalized syntax for describing a document. A typical textbook
+might have chapters, sections, drawings, appendices, etc. XML allows the
+structure of that textbook to be described, along with all of its content. Just
+like the textbook contents can be viewed as a hierarchy, XML defines the
+contents as a hierarchy - or a tree. Each node in the resulting tree would
+correspond to a particular chapter, section, etc. Each node would possibly have
+child nodes beneath it, just like a chapter might contain sections in a book.
+The rules for which children may be possessed by each node, and how many of
+each child may exist, are stipulated by the DTD that is defined for each
+document - DTD stands for "Document Type Definition". If you currently have the
+node for "Chapter Two", you can then access the nodes for each of the sections
+in that chapter. However, if you want to access the node for a section in
+Chapter Three, you have to obtain the node for Chapter Three to get to it.
+
+Basically, you can think of a any XML document as a tree that contains nodes
+at each level. Nodes can contain other nodes, following well-defined rules.
+Each node can have attributes specified for it, where an attribute is simply
+a named entity that has a value of some sort. Nodes can also contain a block of
+free-form text, which is referred to as "PCDATA".
+
+If you are familiar with the basics of HTML, the syntax of XML is somewhat
+similar, although the rules for XML are MUCH more rigorous. Since the goal of
+this API is to hide all of the nasty details of XML from view, the above
+explanation should be all that is necessary to use the API. If you are
+interested in learning more about XML, then you are encouraged to investigate
+the topic further on your own. There is a wealth of information available on
+the Internet, and there are literally dozens of books available on the topic.
+
+
+Data Structures and Their Use
+-----------------------------
+
+The public API is extremely simple. There are only two important elements that
+you need to be aware of. When you read in an XML file, you are provided with a
+document handle (T_XML_Document). This document handle contains the entire XML
+file contents, properly parsed and ready to be navigated through. The document
+contains a hierarchy of nodes, where each node corresponds to a tag within the
+XML definition provided by the DTD. The majority of the API deals with the
+handling of these nodes, and these nodes are the second major element that you
+need to be familiar with (T_XML_Node). Once you have your document object, the
+first thing you'll need to do is obtain the node that corresponds to the root
+of that document. From that one root node, you can then access the entire
+contents of the document via the API functions, retrieving the children of
+various nodes until you get to the specific node you are interested in.
+
+As mentioned earlier, nodes in XML are named. When you have a particular node,
+the way to access a particular child node is to simply specify it by its name.
+If a node can have multiple child nodes with the same name (e.g. a book would
+likely have multiple chapters), then you can iterate through the children, one
+at a time, until you reach the child node you are interested in (e.g. Chapter
+Three). Attributes are also named within XML, so accessing the value of a
+particular attribute requires that you specify the name of the attribute that
+you want.
+
+The underlying XML engine uses a number of more complex data structures. In a
+nutshell, the XML engine relies on a hierarchy of these data strutures to
+define the overall tree that corresponds to a particular DTD. The hierarchy for
+any of the saved file formats will be included with the product that generates
+them, as a DTD file. If you only intend to use this API for accessing these
+saved files, then the details of this hierarchy definition are unnecessary.
+
+
+Porting Issues
+--------------
+
+The source code is written in very standard C++, and there seems to be a decent
+C++ compiler available for every platform in existence now. However, there are
+two issues that could come up. First of all, the source code utilizes the C++
+Standard Template Library for the "string" template. If you do not have access
+to an implementation of the "string" template, then that will pose a problem.
+Fortunately, though, there are a number FREE implementations of "string" that
+are available on the Internet, so this should not pose anything more than a
+slight inconvenience to go obtain one of these implementations.
+
+The other possible porting issue is with characters (i.e. the "char" type).
+There are some platforms (notably Windows CE) that require everything to be
+handled in Unicode. To accommodate this, all of the provided source code uses a
+type of "T_Glyph" in place of "char". Within the file "xml.h", there is a
+"typedef" that maps "T_Glyph" to "char". However, if you need a different type
+name, you should simply change this "typedef" to whatever you need. If you also
+need to wrap all literal strings in special macros (this is probably NOT
+required), then you will have to perform those changes yourself.
+
+If you want to trace through the parsing logic, you can turn on debug tracing
+output. This can be done by modifying the call to "Parse_Document" within the
+"XML_Read_Document" function so that "true" is passed in as the last parameter.
+Turning this on will result in a trace of all nodes, attributes, and PCDATA
+that are processed during the parsing of the XML file contents.
+
+
+User Support for These Components
+---------------------------------
+
+Support provided for the XML saved file tools will be minimal. If you run into
+what you consider to be an honest bug in the source code, we will do our best
+to correct it. In addition, if you discover that deck information you would
+like is not included in the current XML file format, please let us know and
+we'll see what we can do to add it in the next release. However, if you have
+basic questions about XML, the source code, or the API, you will likely receive
+no support.

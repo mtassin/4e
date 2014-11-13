@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains all specifications pertaining to the operational control of
+      the data files. This includes usage pools, sources, sortsets, and other related
+      mechanisms.
+-->
+
+<document signature="Hero Lab Structure">
+
+
+  <!-- The "usagepool" elements allow the definition of usage pools that Hero Lab
+        will create and manage appropriately. Each usage pool can be tracked and
+        maintained uniquely for each actor, or can be associated with individual picks.
+  -->
+
+  <!-- Track up to 30 slots of damage adjustments applied
+        NOTE! We use the adjustments to enable undoing of each level -->
+  <usagepool
+    id="DmgAdjust"
+    name="Damage Adjustment"
+    abbrev="Dmg"
+    ishero="yes"
+    maximum="30"
+    persist="yes"/>
+
+  <!-- Track up to 30 slots of net damage sustained after each adjustment -->
+  <usagepool
+    id="DmgNet"
+    name="Net Damage Sustained"
+    abbrev="Dmg"
+    ishero="yes"
+    maximum="30"
+    persist="yes"/>
+
+  <!-- Track the total XP progression of the actor -->
+  <usagepool
+    id="TotalXP"
+    name="Total XP"
+    abbrev="XP"
+    ishero="yes"
+    persist="yes"/>
+
+  <!-- Track the total cash progression of the actor -->
+  <usagepool
+    id="TotalAD"
+    name="Total Astral Diamonds"
+    abbrev="AD"
+    ishero="yes"
+    persist="yes"/>
+  <usagepool
+    id="TotalPP"
+    name="Total PP"
+    abbrev="PP"
+    ishero="yes"
+    persist="yes"/>
+  <usagepool
+    id="TotalGP"
+    name="Total GP"
+    abbrev="GP"
+    ishero="yes"
+    persist="yes"/>
+  <usagepool
+    id="TotalSP"
+    name="Total SP"
+    abbrev="SP"
+    ishero="yes"
+    persist="yes"/>
+  <usagepool
+    id="TotalCP"
+    name="Total CP"
+    abbrev="CP"
+    ishero="yes"
+    persist="yes"/>
+
+  <!-- Track the XP adjustment associated with each entry in the journal -->
+  <usagepool
+    id="JrnlXP"
+    name="Journal Experience Points"
+    abbrev="XP"
+    ishero="no"
+    persist="no"/>
+
+  <!-- Track the cash adjustment associated with each entry in the journal -->
+  <usagepool
+    id="JrnlAD"
+    name="Journal AD"
+    abbrev="AD"
+    ishero="no"
+    persist="no"/>
+  <usagepool
+    id="JrnlPP"
+    name="Journal PP"
+    abbrev="PP"
+    ishero="no"
+    persist="no"/>
+  <usagepool
+    id="JrnlGP"
+    name="Journal GP"
+    abbrev="GP"
+    ishero="no"
+    persist="no"/>
+  <usagepool
+    id="JrnlSP"
+    name="Journal SP"
+    abbrev="SP"
+    ishero="no"
+    persist="no"/>
+  <usagepool
+    id="JrnlCP"
+    name="Journal CP"
+    abbrev="CP"
+    ishero="no"
+    persist="no"/>
+
+
+  <!-- The "source" elements define the assortment of user-configurable options for
+        each actor and their relative hierarchical structure. Each selectable source
+        automatically defines a "source" tag when enabled by the user, allowing the
+        data files to tailor behavior based on the presence (or not) of that tag.
+  -->
+
+  <source
+    id="Supplement"
+    name="Rules Supplements"
+    selectable="no"
+    description="Holds all optional rules supplements that can be enabled or disabled."
+    sortorder="100">
+    </source>
+  <source
+    id="Adventure"
+    name="Adventures"
+    selectable="no"
+    description="Holds all adventures, separating them from the main list of supplements."
+    parent="Supplement">
+    </source>
+  <source
+    id="Sample"
+    name="Sample Content"
+    description="Sample things that can be turned on to use as examples."
+    parent="Supplement">
+    </source>
+
+  <source
+    id="Optional"
+    name="Optional Rules"
+    selectable="no"
+    description="Collection of optional rules that can be turned on and off">
+    </source>
+  <source
+    id="HideBasic"
+    name="Hide Basic Attacks"
+    parent="Optional"
+    description="If selected, the melee and ranged basic attack at-will powers are not displayed.">
+    </source>
+  <source
+    id="HideHybrid"
+    name="Hide Hybrid Classes"
+    parent="Optional"
+    description="If selected, hybrid classes are not displayed.">
+    </source>
+  <source
+    id="HideStdRac"
+    name="Hide Standard Races"
+    parent="Optional"
+    description="If selected, the standard ('core') races are not displayed.">
+    </source>
+
+  <source
+    id="OptLang"
+    name="Language Options"
+    description="Select how languages work for this character."
+    selectable="no"
+    parent="Optional"
+    maxchoices="1"
+    minchoices="1"/>
+  <source
+    id="OptLNormal"
+    name="Normal Languages"
+    description="When a hero takes a language, he's able to both read and write that language for free."
+    parent="OptLang"
+    default="yes"
+    sortorder="10"/>
+  <source
+    id="OptLitFree"
+    name="Literacy Optional and Free"
+    description="Under this rule, literacy is optional, but doesn't cost anything more than taking the language normally."
+    parent="OptLang"
+    sortorder="20"/>
+  <source
+    id="OptLitCost"
+    name="Literacy Costs One Language Slot"
+    description="With this rule enabled, to be literate, you need to spend an extra language slot on literacy."
+    parent="OptLang"
+    sortorder="30"/>
+
+  <source
+    id="RPGA"
+    name="RPGA Rules"
+    description="Checking this option enables RPGA rules for the hero, and adds an RPGA tab to track your details and found magic items.">
+    </source>
+
+  <source
+    id="Output"
+    name="Output Options"
+    selectable="no"
+    description="Assortment of options governing how character sheet output is generated">
+    </source>
+
+  <source
+    id="Validation"
+    name="Include Validation Report on Sheet"
+    abbrev="Show Validation Report"
+    parent="Output"
+    default="yes"
+    description="Controls whether the validation report is included at the bottom of the standard character sheet">
+    </source>
+  <source
+    id="PowCardBW"
+    name="No Color on Power Cards"
+    abbrev="B&amp;W Power Cards"
+    parent="Output"
+    reportable="no"
+    description="If enabled, color is not used on power card printouts.">
+    </source>
+  <source
+    id="LongDescs"
+    name="Long Ability Descriptions"
+    parent="Output"
+    reportable="no"
+    description="If enabled, feat and feature descriptions use up to 10 lines, instead of up to 3. This displays more information on the printout, but takes up more space.">
+    </source>
+  <source
+    id="OutHidePrs"
+    name="Hide Personal Details"
+    parent="Output"
+    reportable="no"
+    description="Selecting this option prevents the Personal Details from being printed for the hero.">
+    </source>
+  <source
+    id="ShowTrackR"
+    name="Include Tracked Resources on Statblock"
+    abbrev="Show Tracked Resources"
+    parent="Output"
+    reportable="no"
+    description="Controls whether any tracked resources for the character are included in the text statblock">
+    </source>
+
+
+  <!-- Entities defining behavior for customizable magic weapons / armor -->
+  <entity
+    id="mgWeapon"
+    form="mgWeapon">
+    <bootstrap thing="MagicHelp"/>
+    </entity>
+  <entity
+    id="mgArmor"
+    form="mgArmor">
+    <bootstrap thing="MagicHelp"/>
+    </entity>
+
+
+  <!-- The "sortset" elements specify the various sort sequences to be used when
+        displaying or other operating on lists of picks and/or things.
+  -->
+
+  <!-- Define the sortset used when displaying stuff on the "Special" tab. -->
+  <sortset
+    id="SpecialTab"
+    name="Special Tab">
+    <sortkey isfield="no" id="PowerUse"/>
+    <sortkey isfield="no" id="Separator"/>
+    <sortkey isfield="no" id="Promote"/>
+    <sortkey isfield="no" id="_Name_"/>
+    </sortset>
+
+  <!-- Define the sortset used when displaying magic items on the printout. -->
+  <sortset
+    id="ItemSlot"
+    name="Magic Item Slot">
+    <sortkey isfield="yes" id="mgitSlot"/>
+    <sortkey isfield="no" id="_Name_"/>
+    </sortset>
+
+  <!-- Define the sortset used when outputting "special" picks without regard for "promote" behavior. -->
+  <sortset
+    id="SpecInfo"
+    name="Special Info">
+    <sortkey isfield="no" id="SpecialTab"/>
+    <sortkey isfield="no" id="_Name_"/>
+    </sortset>
+
+  <!-- Define a sortset for generalized handling of "promote" logic without involving the "Special" tab. -->
+  <sortset
+    id="Promote"
+    name="Promote to Top">
+    <sortkey isfield="no" id="Promote"/>
+    <sortkey isfield="no" id="_Name_"/>
+    </sortset>
+
+  <!-- Define a sortset for showing all weapons and armor appropriately, with equipped items appearing first. -->
+  <sortset
+    id="Armory"
+    name="Weapons and Armor">
+    <sortkey isfield="no" id="Equipped"/>
+    <sortkey isfield="no" id="Armory"/>
+    <sortkey isfield="no" id="_Name_"/>
+    </sortset>
+
+  <!-- Define a sortset that lists are equipped pieces of gear first. -->
+  <sortset
+    id="Equipped"
+    name="Equipped Items First">
+    <sortkey isfield="no" id="Equipped"/>
+    <sortkey isfield="no" id="_Name_"/>
+    </sortset>
+
+  <!-- Define a sortset that lists activated abilities, then temporary in-play adjustments. -->
+  <sortset
+    id="TacConSumm"
+    name="Activated abilities before temp adjustments">
+    <sortkey isfield="no" id="InPlay" isascend="no"/>
+    <sortkey isfield="yes" id="adjIndex" isascend="no"/>
+    <sortkey isfield="no" id="_Name_"/>
+    </sortset>
+
+  <!-- Define a sortset that lists attribute increases in reverse order. -->
+  <sortset
+    id="AttrIncr"
+    name="Attribute increases in reverse order">
+    <sortkey isfield="no" id="explicit" isascend="no"/>
+    </sortset>
+
+  <!-- Define a sortset that lists powers in order by level. -->
+  <sortset
+    id="ReqLevel"
+    name="Powers by Level">
+    <sortkey isfield="no" id="ReqLevel"/>
+    <sortkey isfield="no" id="PowerType"/>
+    <sortkey isfield="no" id="PowerUse"/> <!-- only needed for powers that don't have a type, like monster powers -->
+    <sortkey isfield="no" id="_Name_"/>
+    </sortset>
+
+  <!-- Define a sortset that lists equipped items in order. -->
+  <sortset
+    id="EquipIndex"
+    name="Equipped Items">
+    <sortkey isfield="no" id="EquipIndex"/>
+    </sortset>
+
+  <!-- Define a sortset that sorts powers. -->
+  <sortset
+    id="PowerLevel"
+    name="Powers by level then name">
+    <sortkey isfield="no" id="ReqLevel"/>
+    <sortkey isfield="no" id="_Name_"/>
+    </sortset>
+
+  <!-- Define a sortset that sorts build options last. -->
+  <sortset
+    id="BuildLast"
+    name="Build Options Last">
+    <sortkey isfield="no" id="AtLevel"/>
+    <sortkey isfield="no" id="BuildLast"/>
+    </sortset>
+
+  <!-- Sort set used for rpga found items -->
+  <sortset
+    id="RPGAFound"
+    name="RPGA Found Item">
+    <sortkey id="_CompSeq_" isascend="no"/>
+    </sortset>
+
+  <!-- Define a sortset that lists feats by tier. -->
+  <sortset
+    id="Feats"
+    name="Feats by Tier">
+    <sortkey isfield="no" id="Tier"/>
+    <sortkey isfield="no" id="_Name_"/>
+    </sortset>
+
+  <!-- Define a sortset that sorts magic items by level. -->
+  <sortset
+    id="MagicItems"
+    name="Magic items by level">
+    <sortkey isfield="yes" id="mgLevel"/>
+    <sortkey isfield="no" id="_Name_"/>
+    </sortset>
+
+  <!-- Define a sortset that sorts rituals by level. -->
+  <sortset
+    id="Rituals"
+    name="Rituals by level">
+    <sortkey isfield="no" id="ReqLevel"/>
+    <sortkey isfield="no" id="_Name_"/>
+    </sortset>
+
+  </document>

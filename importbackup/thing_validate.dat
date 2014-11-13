@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains an assortment of things used solely for validation reporting.
+      Each thing has one or more "evalrule" scripts that verify facets of each actor
+      and report appropriate error messages if not satisfied.
+
+     If you prefer, you could instead have a small number of things with numerous
+     "evalrule" scripts associated with each. The approach used below is to have lots
+     of things with scripts targeted at a narrow purpose, but there is no reason you
+     couldn't have a few things with lots of scripts targeted as a wide range of
+     purposes. By having lots of separate things, the name of each can be leveraged
+     for use within the validation error report, which can often improve the clarity
+     and usefulness of the validation messages.
+-->
+
+<document signature="Hero Lab Data">
+
+  <!-- Validate facets of the race -->
+  <thing
+    id="valRace"
+    name="Race"
+    compset="Simple">
+    <tag group="Helper" tag="Bootstrap"/>
+    <containerreq phase="Initialize" priority="10">!Hero.Monster</containerreq>
+
+    <!-- Make sure that we have a race selected -->
+    <evalrule index="1" phase="Validate" priority="8000" message="Must be selected"><![CDATA[
+      ~if we have a race selected, we're good
+      if (hero.tagis[Race.?] <> 0) then
+        @valid = 1
+        done
+        endif
+
+      hero.panelvalid[race] = 0
+      ]]></evalrule>
+
+    </thing>
+
+
+  <!-- Validate facets of the class -->
+  <thing
+    id="valClass"
+    name="Class"
+    compset="Simple">
+    <tag group="Helper" tag="Bootstrap"/>
+    <containerreq phase="Initialize" priority="10">!Hero.Monster</containerreq>
+
+    <!-- Make sure that we have a class selected -->
+    <evalrule index="1" phase="Validate" priority="8000" message="Must be selected"><![CDATA[
+      ~if we have a class selected, we're good
+      if (hero.tagis[Class.?] <> 0) then
+        @valid = 1
+        done
+        endif
+
+      hero.panelvalid[class] = 0
+      ]]></evalrule>
+
+    </thing>
+
+
+  <!-- Validate multiclass requirements -->
+  <thing
+    id="valMulti"
+    name="Multiclass"
+    compset="Simple">
+    <tag group="Helper" tag="Bootstrap"/>
+
+    <!-- Make sure that we have a class selected -->
+    <evalrule index="1" phase="Validate" priority="8000" message="Too many classes chosen"><![CDATA[
+      ~if we have 1 or less multiclasses selected, we're good
+      if (hero.tagunique[Multiclass.?] <= herofield[acMaxMulti].value) then
+        @valid = 1
+        done
+        endif
+
+      hero.panelvalid[feats] = 0
+      @message = "Too many multiclasses chosen (max " & herofield[acMaxMulti].value & ")"
+      ]]></evalrule>
+
+    </thing>
+
+
+  <!-- Validate facets of the paragon path -->
+  <thing
+    id="valPath"
+    name="Paragon Path"
+    compset="Simple">
+    <tag group="Helper" tag="Bootstrap"/>
+    <containerreq phase="Initialize" priority="10">!Hero.Monster</containerreq>
+
+    <!-- Make sure that we have a path selected if level 11+ -->
+    <evalrule index="1" phase="Validate" priority="8000" message="Must be selected"><![CDATA[
+      ~if we're under level 11, we're good
+      if (hero.tagvalue[Level.?] < 11) then
+        @valid = 1
+        done
+        endif
+
+      ~if we have a path selected, we're good
+      if (hero.tagis[Paragon.?] <> 0) then
+        @valid = 1
+        done
+        endif
+
+      hero.panelvalid[paragon] = 0
+      ]]></evalrule>
+
+    <!-- Make sure that we don't if under level 11 -->
+    <evalrule index="2" phase="Validate" priority="8000" message="Not permitted until level 11"><![CDATA[
+      ~if we're level 11+, we're good
+      if (hero.tagvalue[Level.?] >= 11) then
+        @valid = 1
+        done
+        endif
+
+      ~if we don't have a path selected, we're good
+      if (hero.tagis[Paragon.?] = 0) then
+        @valid = 1
+        done
+        endif
+
+      hero.panelvalid[paragon] = 0
+      ]]></evalrule>
+
+    </thing>
+
+
+  <!-- Validate facets of the epic destiny -->
+  <thing
+    id="valDestiny"
+    name="Epic Destiny"
+    compset="Simple">
+    <tag group="Helper" tag="Bootstrap"/>
+    <containerreq phase="Initialize" priority="10">!Hero.Monster</containerreq>
+
+    <!-- Make sure that we have a path selected if level 11+ -->
+    <evalrule index="1" phase="Validate" priority="8000" message="Must be selected"><![CDATA[
+      ~if we're under level 21, we're good
+      if (hero.tagvalue[Level.?] < 21) then
+        @valid = 1
+        done
+        endif
+
+      ~if we have a destiny selected, we're good
+      if (hero.tagis[EpicDest.?] <> 0) then
+        @valid = 1
+        done
+        endif
+
+      hero.panelvalid[epicdest] = 0
+      ]]></evalrule>
+
+    <!-- Make sure that we don't if under level 11 -->
+    <evalrule index="2" phase="Validate" priority="8000" message="Not permitted until level 21"><![CDATA[
+      ~if we're level 21+, we're good
+      if (hero.tagvalue[Level.?] >= 21) then
+        @valid = 1
+        done
+        endif
+
+      ~if we don't have a destiny selected, we're good
+      if (hero.tagis[EpicDest.?] = 0) then
+        @valid = 1
+        done
+        endif
+
+      hero.panelvalid[epicdest] = 0
+      ]]></evalrule>
+
+    </thing>
+
+
+  <!-- Character points thing for validation reporting -->
+  <thing
+    id="valAbilPts"
+    name="Character Points"
+    compset="Simple">
+    <tag group="Helper" tag="Bootstrap"/>
+
+    <!-- Make sure that we have all CPs spent -->
+    <evalrule index="1" phase="Validate" priority="8000" severity="warning" message="Unused CPs remain"><![CDATA[
+      ~if this is a monster, we're fine
+      if (hero.tagis[Hero.Monster] <> 0) then
+        @valid = 1
+        done
+        endif
+
+      ~if we're not using point buy for abilities, we're valid
+      if (hero.child[resAbilPts].field[resMax].value = 0) then
+        @valid = 1
+        done
+        endif
+
+      ~we have a negative or zero quantity left, we're good
+      if (#resleft[resAbilPts] <= 0) then
+        @valid = 1
+        done
+        endif
+
+      ~mark associated tabs as invalid
+      container.panelvalid[basics] = 0
+      ]]></evalrule>
+
+    <!-- Make sure that we don't have too many CPs spent -->
+    <evalrule index="2" phase="Validate" priority="8000" message="Too many CPs spent"><![CDATA[
+      ~if this is a monster, we're fine
+      if (hero.tagis[Hero.Monster] <> 0) then
+        @valid = 1
+        done
+        endif
+
+      ~if we're not using point buy for abilities, we're valid
+      if (hero.child[resAbilPts].field[resMax].value = 0) then
+        @valid = 1
+        done
+        endif
+
+      ~we have a positive or zero quantity left, we're good
+      if (#resleft[resAbilPts] >= 0) then
+        @valid = 1
+        done
+        endif
+
+      ~mark associated tabs as invalid
+      container.panelvalid[basics] = 0
+      ]]></evalrule>
+
+    </thing>
+
+
+  <!-- Make sure we have something equipped -->
+  <thing
+    id="valWeapon"
+    name="Weapon"
+    compset="Simple">
+    <tag group="Helper" tag="Bootstrap"/>
+
+    <!-- Make sure that we don't have too many hands worth of gear equipped -->
+    <evalrule index="1" phase="Validate" priority="8000" message="You must equip at least one weapon or implement"><![CDATA[
+      ~if this is a monster, we're fine
+      if (hero.tagis[Hero.Monster] <> 0) then
+        @valid = 1
+        done
+        endif
+
+      ~if we have at least one weapon or implement equipped, we're good
+      perform hero.findchild[none,"Equipped.Equipped & (component.WeaponBase | ImplemType.?)"].setfocus
+      if (state.isfocus <> 0) then
+        @valid = 1
+        done
+        endif
+
+      ~mark associated tabs as invalid
+      container.panelvalid[special] = 0
+      ]]></evalrule>
+
+    </thing>
+
+
+  <!-- Armor thing for validation reporting -->
+  <thing
+    id="valArmor"
+    name="Armor"
+    compset="Simple">
+    <tag group="Helper" tag="Bootstrap"/>
+
+    <!-- Make sure that we don't have multiple sets of armor equipped -->
+    <evalrule index="1" phase="Validate" priority="8000" message="Multiple suits of armor equipped"><![CDATA[
+      ~if we have no more than one set of armor equipped, we're good
+      if (hero.tagcount[Armor.?] <= 1) then
+        @valid = 1
+        done
+        endif
+
+      ~mark associaated tabs as invalid
+      container.panelvalid[armory] = 0
+      ]]></evalrule>
+
+    </thing>
+
+
+  <!-- Shield thing for validation reporting -->
+  <thing
+    id="valShields"
+    name="Shields"
+    compset="Simple">
+    <tag group="Helper" tag="Bootstrap"/>
+
+    <!-- Make sure that we don't have multiple shields equipped -->
+    <evalrule index="1" phase="Validate" priority="8000" message="Multiple shields equipped"><![CDATA[
+      ~if we have no more than one set of armor equipped, we're good
+      if (hero.tagcount[Shield.?] <= 1) then
+        @valid = 1
+        done
+        endif
+
+      ~mark associated tabs as invalid
+      container.panelvalid[armory] = 0
+      ]]></evalrule>
+
+    </thing>
+
+
+    </document>

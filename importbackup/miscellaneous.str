@@ -1,0 +1,734 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the definitions of components that don't really fit anywhere
+      else, such as resources, journal entries, etc.
+-->
+
+<document signature="Hero Lab Structure">
+
+  <!-- Resource component
+        Encapsulates management of script-controlled resource pools (e.g. XP, CP,
+        etc.). Resources track a minimum and maximum value, as well as a tally of
+        how much of the resource has been spent. Summaries of the resource usage
+        are auto-generated for display where appropriate.
+  -->
+  <component
+    id="Resource"
+    name="Resource">
+
+    <!-- Name of target object managed by resource (for display to user) -->
+    <field
+      id="resObject"
+      name="Managed Object"
+      type="static"
+      maxlength="50">
+      </field>
+
+    <!-- Minimum value for resource -->
+    <field
+      id="resMin"
+      name="Minimum Value"
+      type="derived">
+      </field>
+
+    <!-- Maximum value for resource -->
+    <field
+      id="resMax"
+      name="Maximum Value"
+      type="derived">
+      </field>
+
+    <!-- Quantity of resource that has been spent -->
+    <field
+      id="resSpent"
+      name="Quantity Spent"
+      type="derived">
+      </field>
+
+    <!-- Extra value for arbitrary use with a given resource -->
+    <field
+      id="resExtra"
+      name="Extra Value"
+      type="derived">
+      </field>
+
+    <!-- Quantity of resource leftover -->
+    <field
+      id="resLeft"
+      name="Quantity Remaining"
+      type="derived">
+      <!-- Calculate the amount unused from the maximum and amount spent -->
+      <calculate phase="Final" priority="1000" name="Calc resLeft"><![CDATA[
+        @value = field[resMax].value - field[resSpent].value
+        ]]></calculate>
+      </field>
+
+    <!-- Summary display of resource usage -->
+    <field
+      id="resSummary"
+      name="Summary"
+      type="derived"
+      maxlength="50">
+      </field>
+
+    <!-- Short summary display of resource usage -->
+    <field
+      id="resShort"
+      name="Short Summary"
+      type="derived"
+      maxlength="40">
+      </field>
+
+    <!-- Text to display within the "AddItem" script of a table portal using the resource -->
+    <field
+      id="resAddItem"
+      name="Add Item Text"
+      type="derived"
+      maxfinal="50">
+      <!-- Calculate a value that is based on all the fields referenced by the
+            "finalize" script. This ensures that the field always changes if any of
+            its pieces changes, which triggers the finalized value to be updated.
+      -->
+      <calculate phase="Render" priority="10000"><![CDATA[
+        @value = field[resLeft].value
+        ]]></calculate>
+      <!-- Final value for display shows the color-highlighted quantity left
+      -->
+      <finalize><![CDATA[
+        ~determine any color highlighting to be applied to the text
+        var unspent as number
+        unspent = field[resLeft].value
+        if (unspent = 0) then
+          @text = "{text a0a0a0}"
+        elseif (unspent < 0) then
+          @text = "{text ffff00}"
+        else
+          @text = ""
+          endif
+
+        ~append the managed object (or the resource name if no object given)
+        if (field[resObject].isempty = 0) then
+          @text &= "Add New " & field[resObject].text
+        else
+          @text &= "Add New " & field[name].text
+          endif
+        ]]></finalize>
+      </field>
+
+    <!-- Synthesize the "short" field for display, showing the quantity unspent
+          and total available, with color highlighting to indicate if underspent
+          or overspent
+    -->
+    <eval index="1" phase="Render" priority="9000"><![CDATA[
+      ~show the quantity unspent and the total available
+      var short as string
+      var unspent as number
+      unspent = field[resLeft].value
+      short = unspent & " (" & field[resMax].value & ")"
+
+      ~if we've overspent, put the text in red; if underspent, put the text in yellow
+      if (unspent < 0) then
+        short = "{text ff0000}" & short
+      elseif (unspent > 0) then
+        short = "{text ffff00}" & short
+        endif
+
+      ~put the result into the field
+      field[resShort].text = short
+      ]]></eval>
+
+    <!-- Synthesize the "summary" field for display, showing the quantity used and
+          the maximum, with an additional indication of how much is unused or over-used
+    -->
+    <eval index="2" phase="Render" priority="9000"><![CDATA[
+      ~start with the quantity used out of the quantity possessed
+      var summary as string
+      summary = field[resSpent].value & " of "
+      if (tagis[User.ResUnlim] <> 0) then
+        summary &= "(unlimited)"
+      else
+        summary &= field[resMax].value
+
+        ~if we've overspent, append the count and put the text in red
+        var unspent as number
+        unspent = field[resLeft].value
+        if (unspent < 0) then
+          unspent = -unspent
+          summary &= " (" & unspent & " Overspent)"
+          summary = "{text ff0000}" & summary
+
+        ~if we've got points left, append the count and put the text in yellow
+        elseif (unspent > 0) then
+          summary &= " (" & unspent & " Left)"
+          summary = "{text ffff00}" & summary
+          endif
+        endif
+
+      ~put the result into the field
+      field[resSummary].text = summary
+      ]]></eval>
+
+    <!-- If the resource is overspent, report a validation error -->
+    <evalrule index="1" phase="Validate" priority="8000" severity="warning" message="More required"><![CDATA[
+      ~if we don't care about checking the minimums, get out
+      if (tagis[User.ResChkMin] = 0) then
+        @valid = 1
+        done
+        endif
+
+      ~we have a negative or zero quantity left, we're good
+      if (field[resLeft].value <= 0) then
+        @valid = 1
+        done
+        endif
+
+      ~mark any associated tab as invalid
+      if (ispanel <> 0) then
+        linkvalid = 0
+        endif
+      ]]></evalrule>
+
+    <!-- If the resource is overspent, report a validation error -->
+    <evalrule index="2" phase="Validate" priority="10000" message="Resource overspent"><![CDATA[
+      ~if we don't care about checking the maximums, get out
+      if (!tagis[User.ResChkMax] + tagis[User.ResUnlim] <> 0) then
+        @valid = 1
+        done
+        endif
+
+      ~if we aren't overspent, we're valid
+      if (field[resLeft].value >= 0) then
+        @valid = 1
+        done
+        endif
+
+      ~mark any associated tab as invalid
+      if (ispanel <> 0) then
+        linkvalid = 0
+        endif
+      ]]></evalrule>
+
+    </component>
+
+
+  <!-- Transact component
+        Used for game-specific transaction info when buying/selling gear. Each
+        transaction needs to track the amount of cash to change hands, whether the
+        entire transaction is free, and whether the item being sold holds other
+        items that need to be dealt with properly.
+  -->
+  <component
+    id="Transact"
+    name="Buy/Sell Transaction Helper"
+    autocompset="no">
+
+    <!-- User-specified cost of the item in cash -->
+    <field
+      id="xactAD"
+      name="User AD Cost"
+      type="user">
+      </field>
+    <field
+      id="xactPP"
+      name="User PP Cost"
+      type="user">
+      </field>
+    <field
+      id="xactGP"
+      name="User GP Cost"
+      type="user">
+      </field>
+    <field
+      id="xactSP"
+      name="User SP Cost"
+      type="user">
+      </field>
+    <field
+      id="xactCP"
+      name="User CP Cost"
+      type="user">
+      </field>
+
+    <!-- Whether the purchase is being made for free (0=no, 1=yes) -->
+    <field
+      id="xactIsFree"
+      name="Buy for Free?"
+      type="user"
+      minvalue="0"
+      maxvalue="1">
+      </field>
+
+    <!-- Whether the item being sold holds other items (0=no, 1=yes) -->
+    <field
+      id="xactHolder"
+      name="Contains Gear?"
+      type="derived"
+      minvalue="0"
+      maxvalue="1">
+      </field>
+
+    <!-- Whether the item is being taken as a free bonus ritual (0=no, 1=yes) -->
+    <field
+      id="xactIsBRit"
+      name="Bonus Ritual?"
+      type="user"
+      minvalue="0"
+      maxvalue="1">
+      </field>
+
+    <!-- Size of the item - only used by weapons right now -->
+    <field
+      id="xactSize"
+      name="Size"
+      type="user"
+      minvalue="-2"
+      maxvalue="3">
+      </field>
+
+    <!-- Whether we're buying something from the 'create magic weapon / armor'
+        form - specify a transaction special symbol of "10" to set this field.
+        This hides the quantity field and moves stuff around to look more
+        appropriate for the layout on a magic item form. -->
+    <field
+      id="xactIsMgcF"
+      name="Show Quantity Field"
+      type="derived"
+      persistence="noreset"
+      minvalue="0"
+      maxvalue="1">
+      </field>
+
+    </component>
+
+
+  <!-- Journal component
+        Used for game-specific journal info. Each journal entry needs to track the
+        amount XP and cash awarded, which entails both a field and a usage pool for
+        each facet. A summary is also generated to properly display the award totals
+        for the entry.
+  -->
+  <component
+    id="Journal"
+    name="Journal"
+    autocompset="no">
+
+    <!-- User-specified XP quantity awarded -->
+    <field
+      id="jrnXP"
+      name="XP Awarded"
+      type="user">
+      </field>
+
+    <!-- User-specified cash amounts awarded -->
+    <field
+      id="jrnAD"
+      name="AD Awarded"
+      type="user">
+      </field>
+    <field
+      id="jrnPP"
+      name="PP Awarded"
+      type="user">
+      </field>
+    <field
+      id="jrnGP"
+      name="GP Awarded"
+      type="user">
+      </field>
+    <field
+      id="jrnSP"
+      name="SP Awarded"
+      type="user">
+      </field>
+    <field
+      id="jrnCP"
+      name="CP Awarded"
+      type="user">
+      </field>
+
+    <!-- Summary of the total XP and cash amount awarded -->
+    <field
+      id="jrnSummary"
+      name="Summary"
+      type="derived"
+      maxfinal="50"
+      nevercache="yes">
+      <!-- Final value for display shows the total cash and XP amounts awarded -->
+      <finalize><![CDATA[
+        var goldequiv as number
+        goldequiv = usagepool[JrnlAD].value * 10000 + usagepool[JrnlPP].value * 100
+        goldequiv += usagepool[JrnlGP].value + usagepool[JrnlSP].value / 10
+        goldequiv += usagepool[JrnlCP].value / 100
+        if (goldequiv < 1000) then
+          @text = goldequiv
+        elseif (goldequiv < 1000000) then
+          goldequiv = round(goldequiv / 1000, 1, 0)
+          @text = goldequiv & "k"
+        else
+          goldequiv = round(goldequiv / 1000000, 1, 0)
+          @text = goldequiv & "m"
+          endif
+        @text &=" GP " & usagepool[JrnlXP].value & " XP"
+        ]]></finalize>
+      </field>
+
+    <!-- Each journal entry makes use of usage pools to track the quantities awarded -->
+    <usage usagepool="JrnlXP"/>
+    <usage usagepool="JrnlAD"/>
+    <usage usagepool="JrnlPP"/>
+    <usage usagepool="JrnlGP"/>
+    <usage usagepool="JrnlSP"/>
+    <usage usagepool="JrnlCP"/>
+
+    <!-- If a journal entry is deleted, we must delete the awarded totals for the entry
+        out of our overall tracked pools for the actor -->
+    <deletion><![CDATA[
+      perform hero.usagepool[TotalXP].adjust[-usagepool[JrnlXP].value]
+      perform hero.usagepool[TotalAD].adjust[-usagepool[JrnlAD].value]
+      perform hero.usagepool[TotalPP].adjust[-usagepool[JrnlPP].value]
+      perform hero.usagepool[TotalGP].adjust[-usagepool[JrnlGP].value]
+      perform hero.usagepool[TotalSP].adjust[-usagepool[JrnlSP].value]
+      perform hero.usagepool[TotalCP].adjust[-usagepool[JrnlCP].value]
+      ]]></deletion>
+
+    </component>
+
+
+  <!-- Damage component
+        Used for tracking the application of damage to the actor. A single field is
+        needed so the user can specify the amount of damage or healing to apply to
+        the character.
+  -->
+  <component
+    id="Damage"
+    name="Damage Sustained">
+
+    <!-- Damage to be sustained or healed -->
+    <field
+      id="dmgDamage"
+      name="Damage"
+      type="user"
+      minvalue="0"
+      maxvalue="99">
+      </field>
+
+    </component>
+
+
+  <!-- UserImage component
+        Used for user-added images (i.e. on the Personal tab). A single field tracks
+        the image selected by the user.
+  -->
+  <component
+    id="UserImage"
+    name="User Image"
+    orderfield="uimgIndex">
+
+    <field
+      id="uimgImage"
+      name="Image"
+      type="user">
+      </field>
+
+    </component>
+
+
+  <!-- Simple component
+        Used for validation reporting and other similar stuff
+        NOTE! This component has no fields because validation rules don't necessarily
+              need any fields. The rules can simply access the fields they need to
+              test on other picks that have been added to the actor.
+  -->
+  <component
+    id="Simple"
+    name="Simple"
+    ispublic="no">
+
+    </component>
+
+
+  <!-- Mechanics component
+        Used for generic instrumentation mechanics added by other users
+        NOTE! See the documentation for more on how "mechanics" things are used.
+  -->
+  <component
+    id="Mechanics"
+    name="Mechanics">
+
+    <!-- Experience progression table - 31 rows so you can use 1-30 to hold XP
+          values required to level -->
+    <field
+      id="XPTable"
+      name="XP Required to level"
+      type="derived"
+      style="array"
+      arrayrows="31">
+      </field>
+
+    <!-- Power progression tables - 31 rows of 20 columns each.
+        Rows 1-30 indicate the level of the hero, while the columns record
+        what level of powers you can have. For example, if you can have level
+        3, 7, 11 and 13 encounter powers at level 13, row 13 of the encounter
+        matrix would be 3 / 7 / 11 / 13. -->
+    <field
+      id="ClPwrTable"
+      name="Powers per level"
+      type="derived"
+      style="matrix"
+      arrayrows="31"
+      matrixcolumns="20">
+      </field>
+
+    <!-- Feat progression table - 31 rows so you can use 1-30 to hold the
+        number of powers you get each level. -->
+    <field
+      id="FeatTable"
+      name="Feats per level"
+      type="derived"
+      style="array"
+      arrayrows="31">
+      </field>
+
+    <!-- One-handed and Two-handed damage progression table - 20 rows, although
+        the defaults don't need that much space. -->
+    <field
+      id="DamageDice"
+      name="Damage Dice Progression"
+      type="derived"
+      style="array"
+      maxlength="10"
+      arrayrows="20">
+      </field>
+
+    <!-- Magic item cost table - 31 rows so you can use 1-30 to hold the
+        cost of magic items for each level. -->
+    <field
+      id="ItemCost"
+      name="Magic Item Cost Progression"
+      type="derived"
+      style="array"
+      arrayrows="31">
+      </field>
+
+    <!-- Setup an identity tag group to identify all mechanics -->
+    <identity group="Mechanics"/>
+
+    </component>
+
+
+  <!-- DamageType component
+        Used for listing the possible damage types a hero can have.
+  -->
+  <component
+    id="DamageType"
+    name="DamageType">
+
+    </component>
+
+
+  <!-- OptChoose component
+        Used for generic instrumentation mechanics added by other users
+        NOTE! See the documentation for more on how "mechanics" things are used.
+  -->
+  <component
+    id="OptChoose"
+    name="Option Choose">
+
+    <!-- Holds tag expressions for race choosers - filled in by scripts on the
+        race -->
+    <field
+      id="opcExpr"
+      name="Option Choose Expr"
+      type="derived"
+      maxlength="500"
+      defvalue="FALSE">
+      </field>
+
+    <!-- Holds title for race choosers - filled in by scripts on the race -->
+    <field
+      id="opcTitle"
+      name="Option Choose Title"
+      type="derived"
+      maxlength="100"
+      defvalue="Choose Option">
+      </field>
+
+    <!-- Setup an identity tag group to identify each race choose added -->
+    <identity group="OptChoose"/>
+
+    <eval index="1" phase="Setup" priority="300" name="opcExpr must be final"><![CDATA[
+      ~add a tag to the hero if our tag expression is being used, since it
+      ~means the chooser must appear on the race tab
+      if (compare(field[opcExpr].text, "FALSE") <> 0) then
+        perform forward[OptChoose.?]
+        endif
+      ]]></eval>
+
+    </component>
+
+
+  <!-- MonsterOpt component
+        Used for different kinds of monster options.
+  -->
+  <component
+    id="MonsterOpt"
+    name="Monster Option"
+    autocompset="no">
+
+    <field
+      id="monLabel"
+      name="Label Text"
+      type="user"
+      maxlength="25">
+      </field>
+
+    <!-- Holds tag expressions for race choosers - filled in by scripts on the
+        race -->
+    <field
+      id="monExpr"
+      name="Monster Option Expr"
+      type="derived"
+      maxlength="500">
+      </field>
+    <field
+      id="monChosen"
+      name="Chosen Option"
+      type="user"
+      style="menu">
+      </field>
+
+    <field
+      id="monValue"
+      name="Value"
+      type="user"
+      minvalue="0">
+      </field>
+
+    <field
+      id="monText"
+      name="Text"
+      type="user"
+      maxlength="100">
+      </field>
+
+    <!-- Setup an identity tag group to identify each option type -->
+    <identity group="MonsterOpt"/>
+
+    <!-- All options get the same tag for sorting purposes -->
+    <tag group="SpecialTab" tag="RaceFeat"/>
+
+    </component>
+
+
+  <!-- RPGAFound component
+        Used to link "found magic items" with the adventures you found them in.
+  -->
+  <component
+    id="RPGAFound"
+    name="Found Magic Item"
+    orderfield="rpgaLevel">
+
+    <field
+      id="rpgaJourn"
+      name="Journal Pick"
+      type="user"
+      style="menu">
+      </field>
+
+    <field
+      id="rpgaItem"
+      name="Item Pick"
+      type="user"
+      style="menu">
+      </field>
+
+    <eval index="1" phase="Setup" priority="5000"><![CDATA[
+      hero.child[resRPGAItm].field[resSpent].value += 1
+
+      perform field[rpgaItem].chosen.assign[Helper.FoundItem]
+      ]]></eval>
+
+    <!-- Make sure we select an item and adventure -->
+    <evalrule index="1" phase="Validate" priority="10000" message="You must choose an item and an adventure it was gained in."><![CDATA[
+      if (field[rpgaJourn].ischosen + field[rpgaItem].ischosen = 2) then
+        @valid = 1
+        endif
+      ]]></evalrule>
+
+    <!-- Make sure the same item isn't found twice -->
+    <evalrule index="2" phase="Validate" priority="10000" message="The same magic item is selected multiple times."><![CDATA[
+      validif (field[rpgaItem].ischosen = 0)
+      validif (field[rpgaItem].chosen.tagcount[Helper.FoundItem] < 2)
+      validif (field[rpgaItem].chosen.tagis[thingid.RPGASoldIt] <> 0)
+      @message = "The same magic item (" & field[rpgaItem].chosen.field[name].text & ") is selected multiple times."
+      perform assign[Helper.FoundItmOv]
+      ]]></evalrule>
+
+    </component>
+
+
+  <!-- NPCInfo component
+        Used for specifying a type of information about an NPC. Displayed in
+        the tables on the NPC tab.
+  -->
+  <component
+    id="NPCInfo"
+    name="NPC Info">
+
+    <field
+      id="npcInfo"
+      name="Info Text"
+      type="user"
+      maxlength="10000">
+      </field>
+
+    <creation><![CDATA[
+      ~custom items need to pick a name
+      if (tagis[Helper.CustomItem] <> 0) then
+        field[username].text = "Enter Name"
+        endif
+      ]]></creation>
+
+    <!-- Make sure the choose template has enough width for our names -->
+    <tag group="SimpleItem" tag="width300"/>
+
+    </component>
+
+
+  <!-- Define various component sets associated with the components defined above.
+  -->
+
+  <!-- The "Resource" compset is auto-defined for the component -->
+  <!-- The "Damage" compset is auto-defined for the component -->
+  <!-- The "UserImage" compset is auto-defined for the component -->
+  <!-- The "Simple" compset is auto-defined for the component -->
+  <!-- The "Mechanics" compset is auto-defined for the component -->
+  <!-- The "OptChoose" compset is auto-defined for the component -->
+
+  <!-- MechHelp - for picks that need to use mechanics fields, but don't want
+      to be edited by the user - mechanics helper picks. -->
+  <compset
+    id="MechHelp">
+    <compref component="Mechanics"/>
+    </compset>
+
+  <!-- Journal - all journal entries are based on this compset -->
+  <compset
+    id="Journal">
+    <compref component="Journal"/>
+    </compset>
+
+  <!-- Transact - all transactions utilize this compset -->
+  <compset
+    id="Transact">
+    <compref component="Transact"/>
+    </compset>
+
+  <!-- MonsterOpt - monster options -->
+  <compset
+    id="MonsterOpt">
+    <compref component="MonsterOpt"/>
+    <compref component="SpecialTab"/>
+    </compset>
+
+  </document>

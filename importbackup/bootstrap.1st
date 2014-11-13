@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the specifications of all things that are automatically
+      added to every character in some way.
+-->
+
+<document signature="Hero Lab Structure">
+
+
+  <!-- The "enmasse" elements identify groups of things (identified via a tagexpr)
+        that should be automatically added to every new character by Hero Lab. For
+        example, every character starts with the standard set of attributes for the
+        game system, along with a variety of other behaviors, sometimes including
+        skills, resources, or whatever.
+  -->
+
+  <!-- Add all attributes to the actor -->
+  <enmasse><![CDATA[
+    component.Attribute
+    ]]></enmasse>
+
+  <!-- Add all defenses to the actor -->
+  <enmasse><![CDATA[
+    component.Defense
+    ]]></enmasse>
+
+  <!-- Add all skills to the actor -->
+  <enmasse><![CDATA[
+    component.Skill
+    ]]></enmasse>
+
+  <!-- Add all derived traits to the actor - make sure we don't try to
+      double-add skills and defenses, although they're unique, so it really
+      shouldn't matter -->
+  <enmasse><![CDATA[
+    component.Derived & !(component.Defense | component.Skill)
+    ]]></enmasse>
+
+  <!-- Add all mechanics things to the actor -->
+  <enmasse><![CDATA[
+    component.Mechanics & !User.NoBootMech
+    ]]></enmasse>
+
+  <!-- Add all things designated explicitly as a bootstrap to the actor -->
+  <enmasse><![CDATA[
+    Helper.Bootstrap
+    ]]></enmasse>
+
+
+  <!-- The "bootstrap" elements identify individual things that should be automatically
+        added to every new character by Hero Lab.
+  -->
+
+  <!-- And one personal info pick -->
+  <bootstrap index="10" thing="mscPerson"/>
+
+  <!-- Add the "unarmed attack" pick -->
+  <bootstrap index="20" thing="wpUnarmed"/>
+
+  <!-- Add three picks to allow the choice of equipped items -->
+  <bootstrap index="30" thing="ChooseEqp">
+    <autotag group="explicit" tag="1"/>
+    </bootstrap>
+  <bootstrap index="31" thing="ChooseEqp">
+    <autotag group="explicit" tag="2"/>
+    </bootstrap>
+  <bootstrap index="32" thing="ChooseEqp">
+    <autotag group="explicit" tag="3"/>
+    </bootstrap>
+
+
+  <!-- The "autoadd" elements identify individual things that should be automatically
+        added to every new character by Hero Lab. The key difference from "bootstrap"
+        entries is that each "autoadd" is added through a specified portal, thereby
+        allowing the selection to be subsequently changed or deleted by the user. This
+        is the ideal method for pre-selecting suitable defaults for choosers or
+        pre-populating a table with one or more options (e.g. auto-adding a journal
+        entry or character image for the user).
+  -->
+
+  <!-- Characters are unaligned by default -->
+  <autoadd thing="Unaligned" portal="raAlign"/>
+
+  <!-- We start with a single user image added -->
+  <autoadd thing="mscUserImg" portal="peImages"/>
+
+  <!-- And a single journal entry -->
+  <autoadd thing="journal" portal="journal"/>
+
+
+  </document>

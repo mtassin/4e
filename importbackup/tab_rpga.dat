@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document signature="Hero Lab Data">
+
+
+  <!-- Define all facets of the "Feats" tab for the game system. All public
+        visual elements used on the Feats tab start with the prefix 'ft' to
+        associate them with the Feats tab.
+  -->
+
+
+  <!-- ftFeats portal
+        Presents a dynamic table where the user can add feats for the
+        character.
+
+        We use the "SimpleItem" template for both selecting and showing the special
+        abilities, since all we need is basic information.
+
+        We use an "additem" script to highlight whether more abilities need to be
+        selected. This requires that we specify the "addpick" referenced in the
+        script, which is the resource for tracking abilities. We also add some
+        extra vertical spacing above and below the "add" item.
+
+        We use a "candidate" tag expression to limit the choices the user can make.
+        If omitted, all things derived from the "Ability" component will be shown
+        to the user for selection. Using this tagexpr allows us to omit all abilities
+        that have the "Hide.Ability" tag. For example, the Flight ability needs to
+        behave as a normal ability, but we only want it available to characters that
+        select the "Avian" race. By assigning it the "Hide.Ability" tag and using
+        the candidate tagexpr to omit those abilities, Flight cannot be chosen by
+        non-Avian characters but it will also appear in the selected list if the
+        character choosed the Avian race.
+
+        We use a "titlebar" script to replace the default title on the choose form
+        with something more useful. Just like we did on the title portal above, we
+        include the summary information as helpful feedback to the user.
+  -->
+
+  <portal
+    id="rpgaTitle"
+    style="lblTitle">
+    <label
+      istitle="yes"
+      text="RPGA Details">
+      </label>
+    </portal>
+
+  <portal
+    id="rpgaFound"
+    style="tblNormal">
+    <table_auto
+      component="RPGAFound"
+      showtemplate="rpgaFound"
+      allowuserorder="yes"
+      autothing="RPGAFound"
+      addpick="resRPGAItm"
+      showsortset="RPGAFound">
+      <headertitle><![CDATA[
+        @text = "Found Magic Items: " & hero.child[resRPGAItm].field[resSummary].text
+        ]]></headertitle>
+      <additem><![CDATA[
+        ~set the color based on whether the proper number of slots are allocated
+        if (field[resLeft].value = 0) then
+          @text = "{text a0a0a0}"
+        elseif (field[resLeft].value < 0) then
+          @text = "{text ff0000}"
+          endif
+        @text &= "Add New Found Item (maximum 1 per level)"
+        ]]></additem>
+      </table_auto>
+    </portal>
+
+  <!-- rpgaInfo template
+        This template displays all RPGA static info for the character.
+  -->
+  <template
+    id="rpgaInfo"
+    name="RPGA"
+    compset="Actor">
+
+    <portal
+      id="lblrpganum"
+      style="lblNormal">
+      <label
+        text="RPGA Number:">
+        </label>
+      </portal>
+
+    <portal
+      id="rpganum"
+      style="editNormal"
+      tiptext="Enter your 9- or 10-digit RPGA number here.">
+      <edit
+        field="acRPGANum">
+        </edit>
+      </portal>
+
+    <portal
+      id="lblcharnum"
+      style="lblNormal">
+      <label
+        text="Character Number:">
+        </label>
+      </portal>
+
+    <portal
+      id="charnum"
+      style="editNormal"
+      tiptext="Enter your RPGA character number for this character here. (Optional)">
+      <edit
+        field="acRPGAChar">
+        </edit>
+      </portal>
+
+    <portal
+      id="lblcompany"
+      style="lblNormal">
+      <label
+        text="Adventuring Company:">
+        </label>
+      </portal>
+
+    <portal
+      id="company"
+      style="editNormal"
+      tiptext="If you are part of an adventuring company, enter the name of the company here. (Optional)">
+      <edit
+        field="acRPGAComp">
+        </edit>
+      </portal>
+
+    <position><![CDATA[
+      portal[lblrpganum].left = 10
+      perform portal[rpganum].alignrel[ltor,lblrpganum,10]
+      portal[rpganum].width = 150
+
+      perform portal[lblcharnum].alignrel[ltor,rpganum,25]
+      perform portal[charnum].alignrel[ltor,lblcharnum,10]
+      portal[charnum].width = 50
+
+      perform portal[lblcompany].alignrel[ttob,lblrpganum,10]
+      portal[company].top = portal[lblcompany].top
+      portal[lblcompany].left = portal[lblrpganum].left
+      perform portal[company].alignrel[ltor,lblcompany,10]
+      portal[company].width = portal[charnum].right - portal[company].left
+
+      height = portal[company].bottom
+      ]]></position>
+
+    </template>
+
+
+
+  <!-- rpgaFound template
+        Displays information about an RPGA found magic item.
+  -->
+  <template
+    id="rpgaFound"
+    name="RPGA Found Item"
+    compset="RPGAFound"
+    marginhorz="5"
+    marginvert="3">
+
+    <portal
+      id="level"
+      style="lblSecond">
+      <label>
+        <labeltext><![CDATA[
+          @text = "Lvl " & field[rpgaLevel].value
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <portal
+      id="lbljournal"
+      style="lblNormal">
+      <label
+        text="Adventure:">
+        </label>
+      </portal>
+
+    <portal
+      id="journal"
+      style="menuSmall">
+      <menu_things
+        field="rpgaJourn"
+        component="Journal"
+        usepicks="hero"
+        maxvisible="10"
+        namefield="jrnTitle">
+        <candidate>TRUE</candidate>
+        </menu_things>
+      </portal>
+
+    <portal
+      id="lblitem"
+      style="lblNormal">
+      <label
+        text="Item:">
+        </label>
+      </portal>
+
+    <portal
+      id="item"
+      style="menuSmall">
+      <menu_things
+        field="rpgaItem"
+        component="none"
+        usepicks="hero"
+        maxvisible="10">
+        <candidate><![CDATA[
+          component.MagicItem | Helper.ConstrItem | thingid.RPGASoldIt
+          ]]></candidate>
+        </menu_things>
+      </portal>
+
+    <portal
+      id="delete"
+      style="actDelete"
+      tiptext="Click to delete this entry">
+      <action
+        action="delete">
+        </action>
+      </portal>
+
+    <position><![CDATA[
+      ~set up our height; our width is pre-initialized for us
+      height = portal[journal].height
+
+      ~if this is a "sizing" calculation, we're done
+      doneif (issizing <> 0)
+
+      perform portal[level].centervert
+      perform portal[lbljournal].centervert
+      perform portal[lblitem].centervert
+      perform portal[delete].centervert
+
+      perform portal[delete].alignedge[right,0]
+
+      portal[lbljournal].left = 40
+      perform portal[journal].alignrel[ltor,lbljournal,10]
+      portal[journal].width = 130
+
+      perform portal[lblitem].alignrel[ltor,journal,15]
+
+      perform portal[item].alignrel[ltor,lblitem,10]
+      portal[item].width = portal[journal].width
+
+      if (field[rpgaJourn].ischosen = 0) then
+        perform portal[journal].setstyle[menuErrSm]
+        endif
+      if (!field[rpgaItem].ischosen + tagis[Helper.FoundItmOv] <> 0) then
+        perform portal[item].setstyle[menuErrSm]
+        endif
+      ]]></position>
+
+    </template>
+
+  <!-- rpga layout
+        This layout shows a title, template with the RPGA details, and a table
+        of 'found magic items'.
+
+        The logic for this layout is similar to (albeit much simpler than) the
+        logic for the Basics tab. So please refer to the Basics tab for more details.
+  -->
+  <layout
+    id="rpga">
+    <portalref portal="rpgaTitle"/>
+    <portalref portal="rpgaFound" taborder="20"/>
+    <templateref template="rpgaInfo" taborder="10" thing="actor" ispick="yes"/>
+
+    <!-- This script sizes and positions the layout and its child visual elements. -->
+    <position><![CDATA[
+      ~position and size the table to span the full layout; it will only use the
+      ~vertical space that it actually needs
+      perform portal[rpgaTitle].autoplace[10]
+      perform template[rpgaInfo].autoplace[10]
+      perform portal[rpgaFound].autoplace[10]
+      ]]></position>
+
+    </layout>
+
+
+  <!-- rpga panel
+        This is the "RPGA" panel shown within Hero Lab. This needs to appear
+        between the Personal and Journal tabs.
+  -->
+  <panel
+    id="rpga"
+    name="RPGA"
+    marginhorz="5"
+    marginvert="5"
+    order="315">
+    <live><![CDATA[
+      !HideTab.rpga & source.RPGA
+      ]]></live>
+    <layoutref layout="rpga"/>
+    <position><![CDATA[
+      ]]></position>
+    </panel>
+  </document>

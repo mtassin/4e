@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the assortment of skills for the game system. Note that each
+      skill is linked to an associated attribute for the character. This linkage allows
+      the value of the skill to easily incorporate the effects of the linked attribute
+      via a script on the component.
+-->
+
+<document signature="Hero Lab Data">
+
+  <thing id="skSample" name="Sample Skill" description="A sample skill." compset="Skill" isunique="yes">
+    <usesource source="Sample"/>
+    <link linkage="attribute" thing="attrDex"/>
+    </thing>
+
+  </document>

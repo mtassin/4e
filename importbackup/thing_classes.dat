@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the assortment of classes for the game system. The special
+      advantages of each class are conferred through a combination of scripts and
+      automatic assignment of special abilities. All special abilities are assigned
+      via the bootstrapping of the ability, resulting in the ability being
+      automatically assigned to the actor whenever the class is selected.
+-->
+
+<document signature="Hero Lab Data">
+
+  <!-- Class Roles -->
+  <thing
+    id="Leader"
+    name="Leader"
+    compset="ClassRole">
+    </thing>
+  <thing
+    id="Striker"
+    name="Striker"
+    compset="ClassRole">
+    </thing>
+  <thing
+    id="Defender"
+    name="Defender"
+    compset="ClassRole">
+    </thing>
+  <thing
+    id="Controller"
+    name="Controller"
+    compset="ClassRole">
+    </thing>
+
+  <!-- Power Sources -->
+  <thing
+    id="Arcane"
+    name="Arcane"
+    compset="PowerSrc">
+    </thing>
+  <thing
+    id="Divine"
+    name="Divine"
+    compset="PowerSrc">
+    </thing>
+  <thing
+    id="Martial"
+    name="Martial"
+    compset="PowerSrc">
+    </thing>
+  <thing
+    id="Primal"
+    name="Primal"
+    compset="PowerSrc">
+    </thing>
+
+  <!-- Multiclass Paragon Path -->
+  <thing
+    id="ParaMulti"
+    name="- Multiclass -"
+    compset="Paragon"
+    isunique="yes">
+    <eval index="1" phase="Setup" priority="10000"><![CDATA[
+      var level as number
+      level = hero.tagvalue[Level.?]
+
+      ~at level 11, swap a class at-will power for a multiclass power
+      if (level >= 11) then
+        #resmax[resPMCAtW] += 1
+        #resmax[resAtWill] -= 1
+        endif
+
+      ~at level 11, gain a multiclass encounter power of level 7 or less
+      ~(this is checked in an eval rule)
+      if (level >= 11) then
+        #resmax[resPMCEnc] += 1
+        endif
+
+      ~at level 12, gain a multiclass utility power of level 10 or less
+      ~(this is checked in an eval rule)
+      if (level >= 12) then
+        #resmax[resPMCUtil] += 1
+        endif
+
+      ~at level 20, gain a multiclass daily power of level 19 or less
+      ~(this is checked in an eval rule)
+      if (level >= 20) then
+        #resmax[resPMCDai] += 1
+        endif
+      ]]></eval>
+    <evalrule index="1" phase="Validate" priority="10000"
+      message="Paragon Path multiclass encounter power must be level 7 or lower"><![CDATA[
+      ~if we're not level 11 yet, we're valid
+      var level as number
+      level = hero.tagvalue[Level.?]
+      if (level < 11) then
+        @valid = 1
+        done
+        endif
+
+      ~search for a multiclass encounter power - if we don't find one, the user
+      ~hasn't chosen any encounter powers yet, so we're valid
+      perform hero.findchild[Power,"Helper.PwrParMult & PowerType.Encounter"].setfocus
+      if (state.isfocus = 0) then
+        @valid = 1
+        done
+        endif
+
+      ~search for a level 7 or less multiclass encounter power - if we find one,
+      ~we're valid
+      ~NOTE - Clear the focus so we don't end up inheriting the focus from the
+      ~last call to findchild
+      perform state.clearfocus
+      perform hero.findchild[Power,"Helper.PwrParMult & PowerType.Encounter & (val:ReqLevel.? <= 7)"].setfocus
+      if (state.isfocus <> 0) then
+        @valid = 1
+        done
+        endif
+      ]]></evalrule>
+    <evalrule index="2" phase="Validate" priority="10000"
+      message="Paragon Path multiclass utility power must be level 10 or lower"><![CDATA[
+      ~if we're not level 12 yet, we're valid
+      var level as number
+      level = hero.tagvalue[Level.?]
+      if (level < 12) then
+        @valid = 1
+        done
+        endif
+
+      ~search for a multiclass utility power - if we don't find one, the user
+      ~hasn't chosen any utility powers yet, so we're valid
+      perform hero.findchild[Power,"Helper.PwrParMult & PowerType.Utility"].setfocus
+      if (state.isfocus = 0) then
+        @valid = 1
+        done
+        endif
+
+      ~search for a level 10 or less multiclass utility power - if we find one,
+      ~we're valid
+      ~NOTE - Clear the focus so we don't end up inheriting the focus from the
+      ~last call to findchild
+      perform state.clearfocus
+      perform hero.findchild[Power,"Helper.PwrParMult & PowerType.Utility & (val:ReqLevel.? <= 10)"].setfocus
+      if (state.isfocus <> 0) then
+        @valid = 1
+        done
+        endif
+      ]]></evalrule>
+    <evalrule index="3" phase="Validate" priority="10000"
+      message="Paragon Path multiclass daily power must be level 19 or lower"><![CDATA[
+      ~if we're not level 20 yet, we're valid
+      var level as number
+      level = hero.tagvalue[Level.?]
+      if (level < 20) then
+        @valid = 1
+        done
+        endif
+
+      ~search for a multiclass daily power - if we don't find one, the user
+      ~hasn't chosen any daily powers yet, so we're valid
+      perform hero.findchild[Power,"Helper.PwrParMult & PowerType.Daily"].setfocus
+      if (state.isfocus = 0) then
+        @valid = 1
+        done
+        endif
+
+      ~search for a level 19 or less multiclass daily power - if we find one,
+      ~we're valid
+      ~NOTE - Clear the focus so we don't end up inheriting the focus from the
+      ~last call to findchild
+      perform state.clearfocus
+      perform hero.findchild[Power,"Helper.PwrParMult & PowerType.Daily & (val:ReqLevel.? <= 19)"].setfocus
+      if (state.isfocus <> 0) then
+        @valid = 1
+        done
+        endif
+      ]]></evalrule>
+
+    <exprreq message="Requires multiclass feat"><![CDATA[
+      hero.tagis[Multiclass.?] <> 0
+      ]]></exprreq>
+    </thing>
+
+  <!-- Sample Class, Path and Destiny -->
+  <thing id="clsSample" name="Sample Class" compset="Class" isunique="yes">
+    <fieldval field="clsFlavor" value="This is a sample class."/>
+    <fieldval field="clsFort" value="1"/>
+    <fieldval field="clsAC" value="1"/>
+    <fieldval field="clsStartHP" value="15"/>
+    <fieldval field="clsHPLev" value="8"/>
+    <fieldval field="clsSurges" value="9"/>
+    <fieldval field="clsSkills" value="4"/>
+    <usesource source="Sample"/>
+    <tag group="KeyAbility" tag="attrStr"/>
+    <tag group="ClassRole" tag="Leader"/>
+    <tag group="PowerSrc" tag="Arcane"/>
+    <tag group="KeyAbility" tag="attrInt"/>
+    <tag group="Skill" tag="skSample"/>
+    <tag group="TrainSkill" tag="skSample"/>
+    <tag group="ArmorProf" tag="apChain"/>
+    <tag group="ArmorProf" tag="apCloth"/>
+    <tag group="ArmorProf" tag="apHide"/>
+    <tag group="ArmorProf" tag="apLeather"/>
+    <tag group="ArmorProf" tag="apShieldLg"/>
+    <tag group="ImplemType" tag="itOrb"/>
+    <tag group="WpCatRqMel" tag="wcSimple"/>
+    <tag group="WpCatRqRng" tag="wcSimple"/>
+    <tag group="WpGrpRqMil" tag="wgHammer"/>
+    <tag group="WpGrpRqMil" tag="wgHeavyBl"/>
+    </thing>
+  <thing id="ppSample" name="Sample Path" description="A sample paragon path." compset="Paragon" isunique="yes">
+    <fieldval field="reqCon" value="15"/>
+    <usesource source="Sample"/>
+    <tag group="Tier" tag="Paragon"/>
+    </thing>
+  <thing id="edSample" name="Sample Destiny" description="A sample Epic Destiny." compset="EpicDest" isunique="yes">
+    <usesource source="Sample"/>
+    <tag group="ReqClass" tag="clsSample"/>
+    <tag group="Tier" tag="Epic"/>
+    </thing>
+
+  </document>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<document signature="Hero Lab Data">
+
+  <!-- Perception and Insight are passive senses -->
+  <thing
+    id="skInsight"
+    name=""
+    compset="">
+    <tag group="User" tag="PassSense"/>
+    </thing>
+  <thing
+    id="skPercepti"
+    name=""
+    compset="">
+    <tag group="User" tag="PassSense"/>
+    </thing>
+
+  </document>

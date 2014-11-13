@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains magic items.
+-->
+
+<document signature="Hero Lab Data">
+
+  <!-- Magic item slots - we don't need one for weapons / armor -->
+  <thing
+    id="isArms"
+    name="Arms"
+    compset="ItemSlot">
+    </thing>
+  <thing
+    id="isFeet"
+    name="Feet"
+    compset="ItemSlot">
+    </thing>
+  <thing
+    id="isHands"
+    name="Hands"
+    compset="ItemSlot">
+    </thing>
+  <thing
+    id="isHead"
+    name="Head"
+    compset="ItemSlot">
+    </thing>
+  <thing
+    id="isNeck"
+    name="Neck"
+    compset="ItemSlot">
+    </thing>
+  <thing
+    id="isRing"
+    name="Ring"
+    compset="ItemSlot">
+    <fieldval field="isLimit" value="2"/>
+    </thing>
+  <thing
+    id="isWaist"
+    name="Waist"
+    compset="ItemSlot">
+    </thing>
+  <thing
+    id="isWondrous"
+    name="Wondrous Item"
+    compset="ItemSlot">
+    <fieldval field="isLimit" value="0"/> <!-- No limits on equipping wondrous items -->
+    </thing>
+  <thing
+    id="isPotion"
+    name="Potion"
+    compset="ItemSlot">
+    <tag group="User" tag="NoMgcEquip"/>
+    </thing>
+  <thing
+    id="isAlchemic"
+    name="Alchemical Item"
+    compset="ItemSlot">
+    <tag group="User" tag="NoMgcEquip"/>
+    </thing>
+  <thing
+    id="isAmmo"
+    name="Ammunition"
+    compset="ItemSlot">
+    <tag group="User" tag="NoMgcEquip"/>
+    </thing>
+
+
+  <!-- Magic Melee Weapon -->
+  <thing
+    id="wpMagic"
+    name=" &#150; Magic Weapon &#150;"
+    compset="Melee"
+    description="A configurable magic weapon."
+    isprivate="yes"
+    buytemplate="BuyCash"
+    xactspecial="10"> <!-- =10 configures template for special magic item handling -->
+
+    <!-- Grab all important details from the child weapon -->
+    <eval index="1" phase="Final" priority="1000" name="wpMagic copy">
+      <after name="mgCost final"/><![CDATA[
+      call MagicWep
+      ]]></eval>
+
+    <child entity="mgWeapon"/>
+    </thing>
+
+
+  <!-- Magic Ranged Weapon -->
+  <thing
+    id="wpMagicRng"
+    name=" &#150; Magic Weapon &#150;"
+    compset="Ranged"
+    description="A configurable magic weapon."
+    isprivate="yes"
+    buytemplate="BuyCash"
+    xactspecial="10"> <!-- =10 configures template for special magic item handling -->
+
+    <!-- Grab all important details from the child weapon -->
+    <eval index="1" phase="Final" priority="1000" name="wpMagic copy">
+      <after name="mgCost final"/><![CDATA[
+      call MagicWep
+      ]]></eval>
+
+    <child entity="mgWeapon"/>
+    </thing>
+
+
+  <!-- Magic Armor -->
+  <thing
+    id="arMagic"
+    name=" &#150; Magic Armor &#150;"
+    compset="Armor"
+    description="A configurable set of magic armor."
+    isprivate="yes"
+    buytemplate="BuyCash"
+    xactspecial="10"> <!-- =10 configures template for special magic item handling -->
+
+    <!-- Grab all important details from the child armor -->
+    <eval index="1" phase="Traits" priority="1000" name="arMagic copy">
+      <after name="mgCost final"/><![CDATA[
+      call MagicArmor
+      ]]></eval>
+
+    <child entity="mgArmor"/>
+    </thing>
+
+
+  <!-- Magic Shield -->
+  <thing
+    id="arMagicShl"
+    name=" &#150; Magic Shield &#150;"
+    compset="Shield"
+    description="A configurable magic shield."
+    isprivate="yes"
+    buytemplate="BuyCash"
+    xactspecial="10"> <!-- =10 configures template for special magic item handling -->
+
+    <!-- Grab all important details from the child armor -->
+    <eval index="1" phase="Traits" priority="1000" name="arMagic copy">
+      <after name="mgCost final"/><![CDATA[
+      call MagicArmor
+      ]]></eval>
+
+    <child entity="mgArmor"/>
+    </thing>
+
+  <!-- Sample magic weapons / armor -->
+  <thing id="mwSample" name="Sample Magic Weapon" description="A sample magic weapon." compset="MagicWep">
+    <fieldval field="mgBonus" value="2"/>
+    <fieldval field="mgLevel" value="5"/>
+    <fieldval field="mgEnhance" value="+2 enhancement bonus to attack."/>
+    <fieldval field="mgCrit" value="+1d6 fire damage."/>
+    <usesource source="Sample"/>
+    </thing>
+  <thing id="maSample" name="Sample Magic Armor" description="Sample Magic Armor." compset="MagicArmor">
+    <fieldval field="mgBonus" value="3"/>
+    <fieldval field="mgLevel" value="10"/>
+    <usesource source="Sample"/>
+    </thing>
+  <thing id="mgSample" name="Sample Magic Item" description="A sample magic item." compset="MagicItem">
+    <fieldval field="mgLevel" value="15"/>
+    <usesource source="Sample"/>
+    <tag group="ItemSlot" tag="isArms"/>
+    </thing>
+
+  </document>

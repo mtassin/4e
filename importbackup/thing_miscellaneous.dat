@@ -1,0 +1,1651 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the assortment of miscellaneous things that are required for
+      the game system. Miscellaneous things include the mechanisms for managing applied
+      damage, user images, and personal info for each actor. It also includes things
+      used to track resource pools, such as those used for managing the available
+      attribute points, skill points, etc.
+-->
+
+<document signature="Hero Lab Data">
+
+  <!-- Damage transaction handler for use when applying damage on the In-Play tab -->
+  <thing
+    id="mscDamage"
+    name="Damage"
+    compset="Damage">
+
+    <!-- Automatically add the damage transaction to every actor -->
+    <tag group="Helper" tag="Bootstrap"/>
+    </thing>
+
+
+  <!-- Personal information details used on the Personal tab -->
+  <thing
+    id="mscPerson"
+    name="Personal"
+    compset="Personal">
+    </thing>
+
+
+  <!-- Basic user-added image that is managed through the gallery on Personal tab -->
+  <thing
+    id="mscUserImg"
+    name="User Image"
+    compset="UserImage">
+    </thing>
+
+
+  <!-- Character point resource to track the pool of character points being spent -->
+  <thing
+    id="resAbilPts"
+    name="Character Points"
+    compset="Resource">
+
+    <!-- Automatically add the resource to every actor -->
+    <tag group="Helper" tag="Bootstrap"/>
+
+    <!-- Use the starting character points as our initial maximum -->
+    <eval index="1" phase="Setup" priority="1000"><![CDATA[
+      ~if we're a monster, we don't care about this
+      if (hero.tagis[Hero.Monster] <> 0) then
+        perform delete[User.ResChk?]
+        endif
+
+      field[resMax].value = herofield[acStartCP].value
+
+      ~if our maximum value is 0, we don't have anything else to do, since we're
+      ~not managing how many points the user can take - get out now
+      doneif (field[resMax].value = 0)
+
+      ~otherwise, subtract 2. we need to do this because we start with 22
+      ~points, but taking Charisma down to 8 immediately adds an extra 2.
+      field[resMax].value -= 2
+      ]]></eval>
+    </thing>
+
+
+  <!-- Skills -->
+  <thing
+    id="resSkills"
+    name="Skills"
+    compset="Resource"
+    panellink="skills">
+    <tag group="User" tag="ResChkMin"/>
+    <tag group="User" tag="ResChkMax"/>
+    <tag group="User" tag="ResNoMonst"/>
+    <tag group="Helper" tag="Bootstrap"/>
+    </thing>
+
+
+  <!-- Feats -->
+  <thing
+    id="resFeats"
+    name="Feats"
+    compset="Resource"
+    panellink="feats">
+    <tag group="User" tag="ResChkMin"/>
+    <tag group="User" tag="ResChkMax"/>
+    <tag group="User" tag="ResNoMonst"/>
+    <tag group="Helper" tag="Bootstrap"/>
+    </thing>
+
+
+  <!-- Rituals -->
+  <thing
+    id="resRituals"
+    name="Bonus Rituals"
+    compset="Resource"
+    panellink="rituals">
+    <tag group="User" tag="ResChkMin"/>
+    <tag group="User" tag="ResChkMax"/>
+    <tag group="User" tag="ResNoMonst"/>
+    <tag group="Helper" tag="Bootstrap"/>
+    </thing>
+
+
+  <!-- Starting Languages -->
+  <thing
+    id="resLangSta"
+    name="Languages"
+    compset="Resource"
+    panellink="race">
+    <tag group="User" tag="ResChkMin"/>
+    <tag group="User" tag="ResChkMax"/>
+    <tag group="User" tag="ResNoMonst"/>
+    <tag group="Helper" tag="Bootstrap"/>
+    </thing>
+
+
+  <!-- Extra Languages -->
+  <thing
+    id="resLangExt"
+    name="Languages"
+    compset="Resource"
+    panellink="personal">
+    <tag group="User" tag="ResChkMin"/>
+    <tag group="User" tag="ResChkMax"/>
+    <tag group="User" tag="ResNoMonst"/>
+    <tag group="Helper" tag="Bootstrap"/>
+    </thing>
+
+
+  <!-- Power slots from your class -->
+  <thing
+    id="resAtWill"
+    name="At-Will Powers"
+    compset="Resource"
+    panellink="class">
+    <tag group="User" tag="ResChkMin"/>
+    <tag group="User" tag="ResChkMax"/>
+    <tag group="User" tag="ResNoMonst"/>
+    <tag group="Helper" tag="Bootstrap"/>
+    </thing>
+  <thing
+    id="resEncount"
+    name="Encounter Powers"
+    compset="Resource"
+    panellink="class">
+    <tag group="User" tag="ResChkMin"/>
+    <tag group="User" tag="ResChkMax"/>
+    <tag group="User" tag="ResNoMonst"/>
+    <tag group="Helper" tag="Bootstrap"/>
+    </thing>
+  <thing
+    id="resDaily"
+    name="Daily Powers"
+    compset="Resource"
+    panellink="class">
+    <tag group="User" tag="ResChkMin"/>
+    <tag group="User" tag="ResChkMax"/>
+    <tag group="User" tag="ResNoMonst"/>
+    <tag group="Helper" tag="Bootstrap"/>
+    </thing>
+  <thing
+    id="resUtility"
+    name="Utility Powers"
+    compset="Resource"
+    panellink="class">
+    <tag group="User" tag="ResChkMin"/>
+    <tag group="User" tag="ResChkMax"/>
+    <tag group="User" tag="ResNoMonst"/>
+    <tag group="Helper" tag="Bootstrap"/>
+    </thing>
+
+
+  <!-- Power slots from your multiclass -->
+  <thing
+    id="resMCAtW"
+    name="Multiclass At-Will Powers"
+    compset="Resource"
+    panellink="multiclass">
+    <tag group="User" tag="ResChkMin"/>
+    <tag group="User" tag="ResChkMax"/>
+    <tag group="Helper" tag="Bootstrap"/>
+    </thing>
+  <thing
+    id="resMCEnc"
+    name="Multiclass Encounter Powers"
+    compset="Resource"
+    panellink="multiclass">
+    <tag group="User" tag="ResChkMin"/>
+    <tag group="User" tag="ResChkMax"/>
+    <tag group="Helper" tag="Bootstrap"/>
+    </thing>
+  <thing
+    id="resMCDai"
+    name="Multiclass Daily Powers"
+    compset="Resource"
+    panellink="multiclass">
+    <tag group="User" tag="ResChkMin"/>
+    <tag group="User" tag="ResChkMax"/>
+    <tag group="Helper" tag="Bootstrap"/>
+    </thing>
+  <thing
+    id="resMCUtil"
+    name="Multiclass Utility Powers"
+    compset="Resource"
+    panellink="multiclass">
+    <tag group="User" tag="ResChkMin"/>
+    <tag group="User" tag="ResChkMax"/>
+    <tag group="Helper" tag="Bootstrap"/>
+    </thing>
+
+
+  <!-- Power slots from your paragon multiclass -->
+  <thing
+    id="resPMCAtW"
+    name="Paragon Path Multiclass At-Will Powers"
+    compset="Resource"
+    panellink="paragon">
+    <tag group="User" tag="ResChkMin"/>
+    <tag group="User" tag="ResChkMax"/>
+    <tag group="Helper" tag="Bootstrap"/>
+    </thing>
+  <thing
+    id="resPMCEnc"
+    name="Paragon Path Multiclass Encounter Powers"
+    compset="Resource"
+    panellink="paragon">
+    <tag group="User" tag="ResChkMin"/>
+    <tag group="User" tag="ResChkMax"/>
+    <tag group="Helper" tag="Bootstrap"/>
+    </thing>
+  <thing
+    id="resPMCDai"
+    name="Paragon Path Multiclass Daily Powers"
+    compset="Resource"
+    panellink="paragon">
+    <tag group="User" tag="ResChkMin"/>
+    <tag group="User" tag="ResChkMax"/>
+    <tag group="Helper" tag="Bootstrap"/>
+    </thing>
+  <thing
+    id="resPMCUtil"
+    name="Paragon Path Multiclass Utility Powers"
+    compset="Resource"
+    panellink="paragon">
+    <tag group="User" tag="ResChkMin"/>
+    <tag group="User" tag="ResChkMax"/>
+    <tag group="Helper" tag="Bootstrap"/>
+    </thing>
+
+
+  <!-- Experience points resource to track the pool of XP accrued and spent -->
+  <thing
+    id="resXP"
+    name="Experience Points"
+    compset="Resource">
+
+    <!-- Automatically add the resource to every actor -->
+    <tag group="Helper" tag="Bootstrap"/>
+
+    <!-- Use the XP from the starting level plus the accrued XP as our maximum -->
+    <eval index="1" phase="Setup" priority="0"><![CDATA[
+      ~look up our 'starting level' in the XP table and get the appropriate XP
+      ~from that
+      var findmech as string
+      findmech = "XP"
+      call FindMech
+      if (state.isfocus = 0) then
+        notify "No XP table mechanics found!"
+      else
+        field[resMax].value += focus.field[XPTable].arrayvalue[herofield[acStartLev].value]
+        endif
+
+      ~add XP from journal entries
+      field[resMax].value += hero.usagepool[TotalXP].value
+      ]]></eval>
+
+    </thing>
+
+
+  <!-- Healing surges tracker so the user can manage the expenditure of healing surges -->
+  <thing
+    id="trkSurges"
+    name="Healing Surges"
+    compset="Tracker">
+
+    <!-- Automatically add the tracker to every actor -->
+    <tag group="Helper" tag="Bootstrap"/>
+
+    <!-- Get our maximum number from the 'healing surges' trait -->
+    <eval index="1" phase="Final" priority="500">
+      <before name="Calc trkLeft"/>
+      <after name="trSurges final"/>
+      <![CDATA[
+      field[trkMax].value = hero.child[trSurges].field[trtFinal].value
+      ]]></eval>
+    </thing>
+
+
+  <!-- Power points tracker so the user can manage the expenditure of power points -->
+  <thing
+    id="trkPower"
+    name="Power Points"
+    compset="Tracker">
+
+    <!-- Automatically add the tracker to every actor -->
+    <tag group="Helper" tag="Bootstrap"/>
+
+    <!-- If we don't have any power points, hide us, because we're not a Psionic
+        character -->
+    <eval index="1" phase="Final" priority="99999">
+      <![CDATA[
+      if (field[trkMax].value = 0) then
+        perform assign[Hide.Tracker]
+        endif
+      ]]></eval>
+    </thing>
+
+
+  <!-- Action points tracker -->
+  <thing
+    id="trkAction"
+    name="Action Points"
+    compset="Tracker">
+
+    <!-- We start with 1 action point -->
+    <fieldval field="trkUser" value="1"/>
+
+    <!-- We have no maximum number of action points -->
+    <tag group="Helper" tag="NoMaxBound"/>
+
+    <!-- Automatically add the tracker to every actor -->
+    <tag group="Helper" tag="Bootstrap"/>
+    </thing>
+
+
+  <!-- Things used as separators in the Special tab -->
+  <thing
+    id="pwSepAtW"
+    name="At-Will Powers"
+    compset="SpecialTab"
+    isunique="yes"
+    description="Description goes here">
+    <tag group="SpecialTab" tag="Power"/>
+    <tag group="PowerUse" tag="AtWill"/>
+    <tag group="Helper" tag="Bootstrap"/>
+    <tag group="Separator" tag="Yes"/>
+    </thing>
+  <thing
+    id="pwSepEnc"
+    name="Encounter Powers"
+    compset="SpecialTab"
+    isunique="yes"
+    description="Description goes here">
+    <tag group="SpecialTab" tag="Power"/>
+    <tag group="PowerUse" tag="Encounter"/>
+    <tag group="Helper" tag="Bootstrap"/>
+    <tag group="Separator" tag="Yes"/>
+    </thing>
+  <thing
+    id="pwSepDaily"
+    name="Daily Powers"
+    compset="SpecialTab"
+    isunique="yes"
+    description="Description goes here">
+    <tag group="SpecialTab" tag="Power"/>
+    <tag group="PowerUse" tag="Daily"/>
+    <tag group="Helper" tag="Bootstrap"/>
+    <tag group="Separator" tag="Yes"/>
+    </thing>
+  <thing
+    id="pwSepCons"
+    name="Consumables"
+    compset="SpecialTab"
+    isunique="yes"
+    description="Description goes here">
+    <tag group="SpecialTab" tag="Power"/>
+    <tag group="PowerUse" tag="Consumable"/>
+    <tag group="Helper" tag="Bootstrap"/>
+    <tag group="Separator" tag="Yes"/>
+    </thing>
+  <thing
+    id="pwSepFeat"
+    name="Feats &amp; Features"
+    compset="SpecialTab"
+    isunique="yes"
+    description="Description goes here">
+    <tag group="SpecialTab" tag="Power"/>
+    <tag group="PowerUse" tag="Feature"/>
+    <tag group="Helper" tag="Bootstrap"/>
+    <tag group="Separator" tag="Yes"/>
+    </thing>
+
+
+  <!-- Choose Equipment Helper -->
+  <thing
+    id="ChooseEqp"
+    name="Equipped Item"
+    compset="ChooseEqp"
+    description="Description goes here">
+    </thing>
+  <thing
+    id="chqNothing"
+    name="-No Selection-"
+    compset="Melee"
+    description="Nothing is selected">
+    <tag group="Helper" tag="Bootstrap"/>
+    <tag group="Hide" tag="Weapon"/>
+    </thing>
+
+
+  <!-- Magic Item Helper -->
+  <thing
+    id="MagicHelp"
+    name="Magic Item Helper"
+    compset="MagicHelp"
+    description="Description goes here">
+    </thing>
+
+
+  <!-- Race Choose Helper - auto-bootstrapped onto the hero to store tag expressions -->
+  <thing
+    id="RaceCh1st"
+    name="Race Choose Helper 1"
+    compset="OptChoose"
+    description="Description goes here">
+    <tag group="Helper" tag="Bootstrap"/>
+    </thing>
+
+
+  <!-- Multiclass Choose Helpers - auto-bootstrapped onto the hero to store tag expressions -->
+  <thing
+    id="MultiCh1st"
+    name="Multiclass Choose Helper 1"
+    compset="OptChoose"
+    description="Description goes here">
+    <tag group="Helper" tag="Bootstrap"/>
+    </thing>
+  <thing
+    id="MultiCh2nd"
+    name="Multiclass Choose Helper 2"
+    compset="OptChoose"
+    description="Description goes here">
+    <tag group="Helper" tag="Bootstrap"/>
+    </thing>
+  <thing
+    id="MultiCh3rd"
+    name="Multiclass Choose Helper 3"
+    compset="OptChoose"
+    description="Description goes here">
+    <tag group="Helper" tag="Bootstrap"/>
+    </thing>
+
+
+  <thing
+    id="AttrIncrs"
+    name="Attribute Increase Mechanics"
+    compset="Mechanics">
+
+    <!-- Bootstrapping attribute upgrades -->
+    <bootstrap thing="AttrIncSel">
+      <containerreq phase="Setup" priority="500">
+        val:Level.? >= 4
+        </containerreq>
+      <autotag group="explicit" tag="4"/>
+      </bootstrap>
+    <bootstrap thing="AttrIncSel">
+      <containerreq phase="Setup" priority="500">
+        val:Level.? >= 8
+        </containerreq>
+      <autotag group="explicit" tag="8"/>
+      </bootstrap>
+    <bootstrap thing="AttrIncSel">
+      <containerreq phase="Setup" priority="500">
+        val:Level.? >= 11
+        </containerreq>
+      <autotag group="explicit" tag="11"/>
+      <autotag group="User" tag="AllAttrs"/>
+      </bootstrap>
+    <bootstrap thing="AttrIncSel">
+      <containerreq phase="Setup" priority="500">
+        val:Level.? >= 14
+        </containerreq>
+      <autotag group="explicit" tag="14"/>
+      </bootstrap>
+    <bootstrap thing="AttrIncSel">
+      <containerreq phase="Setup" priority="500">
+        val:Level.? >= 18
+        </containerreq>
+      <autotag group="explicit" tag="18"/>
+      </bootstrap>
+    <bootstrap thing="AttrIncSel">
+      <containerreq phase="Setup" priority="500">
+        val:Level.? >= 21
+        </containerreq>
+      <autotag group="explicit" tag="21"/>
+      <autotag group="User" tag="AllAttrs"/>
+      </bootstrap>
+    <bootstrap thing="AttrIncSel">
+      <containerreq phase="Setup" priority="500">
+        val:Level.? >= 24
+        </containerreq>
+      <autotag group="explicit" tag="24"/>
+      </bootstrap>
+    <bootstrap thing="AttrIncSel">
+      <containerreq phase="Setup" priority="500">
+        val:Level.? >= 28
+        </containerreq>
+      <autotag group="explicit" tag="28"/>
+      </bootstrap>
+    </thing>
+  <thing
+    id="AttrIncSel"
+    name="Attribute Increase Selection"
+    compset="AttrIncr">
+    <containerreq phase="Setup" priority="1000">!Hero.Monster</containerreq>
+    </thing>
+
+
+  <thing
+    id="XP"
+    name="XP Table Mechanics"
+    compset="Mechanics">
+
+    <arrayval field="XPTable" index="1" value="0"/>
+    <arrayval field="XPTable" index="2" value="1000"/>
+    <arrayval field="XPTable" index="3" value="2250"/>
+    <arrayval field="XPTable" index="4" value="3750"/>
+    <arrayval field="XPTable" index="5" value="5500"/>
+    <arrayval field="XPTable" index="6" value="7500"/>
+    <arrayval field="XPTable" index="7" value="10000"/>
+    <arrayval field="XPTable" index="8" value="13000"/>
+    <arrayval field="XPTable" index="9" value="16500"/>
+    <arrayval field="XPTable" index="10" value="20500"/>
+    <arrayval field="XPTable" index="11" value="26000"/>
+    <arrayval field="XPTable" index="12" value="32000"/>
+    <arrayval field="XPTable" index="13" value="39000"/>
+    <arrayval field="XPTable" index="14" value="47000"/>
+    <arrayval field="XPTable" index="15" value="57000"/>
+    <arrayval field="XPTable" index="16" value="69000"/>
+    <arrayval field="XPTable" index="17" value="83000"/>
+    <arrayval field="XPTable" index="18" value="99000"/>
+    <arrayval field="XPTable" index="19" value="119000"/>
+    <arrayval field="XPTable" index="20" value="143000"/>
+    <arrayval field="XPTable" index="21" value="175000"/>
+    <arrayval field="XPTable" index="22" value="210000"/>
+    <arrayval field="XPTable" index="23" value="255000"/>
+    <arrayval field="XPTable" index="24" value="310000"/>
+    <arrayval field="XPTable" index="25" value="375000"/>
+    <arrayval field="XPTable" index="26" value="450000"/>
+    <arrayval field="XPTable" index="27" value="550000"/>
+    <arrayval field="XPTable" index="28" value="675000"/>
+    <arrayval field="XPTable" index="29" value="825000"/>
+    <arrayval field="XPTable" index="30" value="1000000"/>
+    </thing>
+
+  <thing
+    id="PwrAtWill"
+    name="At-Will Power Mechanics"
+    compset="Mechanics">
+
+    <arrayval field="ClPwrTable" index="1" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="1" column="1" value="1"/>
+
+    <arrayval field="ClPwrTable" index="2" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="2" column="1" value="1"/>
+
+    <arrayval field="ClPwrTable" index="3" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="3" column="1" value="1"/>
+
+    <arrayval field="ClPwrTable" index="4" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="4" column="1" value="1"/>
+
+    <arrayval field="ClPwrTable" index="5" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="5" column="1" value="1"/>
+
+    <arrayval field="ClPwrTable" index="6" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="6" column="1" value="1"/>
+
+    <arrayval field="ClPwrTable" index="7" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="7" column="1" value="1"/>
+
+    <arrayval field="ClPwrTable" index="8" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="8" column="1" value="1"/>
+
+    <arrayval field="ClPwrTable" index="9" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="9" column="1" value="1"/>
+
+    <arrayval field="ClPwrTable" index="10" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="10" column="1" value="1"/>
+
+    <arrayval field="ClPwrTable" index="11" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="11" column="1" value="1"/>
+
+    <arrayval field="ClPwrTable" index="12" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="12" column="1" value="1"/>
+
+    <arrayval field="ClPwrTable" index="13" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="13" column="1" value="1"/>
+
+    <arrayval field="ClPwrTable" index="14" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="14" column="1" value="1"/>
+
+    <arrayval field="ClPwrTable" index="15" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="15" column="1" value="1"/>
+
+    <arrayval field="ClPwrTable" index="16" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="16" column="1" value="1"/>
+
+    <arrayval field="ClPwrTable" index="17" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="17" column="1" value="1"/>
+
+    <arrayval field="ClPwrTable" index="18" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="18" column="1" value="1"/>
+
+    <arrayval field="ClPwrTable" index="19" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="19" column="1" value="1"/>
+
+    <arrayval field="ClPwrTable" index="20" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="20" column="1" value="1"/>
+
+    <arrayval field="ClPwrTable" index="21" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="21" column="1" value="1"/>
+
+    <arrayval field="ClPwrTable" index="22" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="22" column="1" value="1"/>
+
+    <arrayval field="ClPwrTable" index="23" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="23" column="1" value="1"/>
+
+    <arrayval field="ClPwrTable" index="24" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="24" column="1" value="1"/>
+
+    <arrayval field="ClPwrTable" index="25" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="25" column="1" value="1"/>
+
+    <arrayval field="ClPwrTable" index="26" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="26" column="1" value="1"/>
+
+    <arrayval field="ClPwrTable" index="27" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="27" column="1" value="1"/>
+
+    <arrayval field="ClPwrTable" index="28" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="28" column="1" value="1"/>
+
+    <arrayval field="ClPwrTable" index="29" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="29" column="1" value="1"/>
+
+    <arrayval field="ClPwrTable" index="30" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="30" column="1" value="1"/>
+    </thing>
+
+  <thing
+    id="PwrEncount"
+    name="Encounter Power Mechanics"
+    compset="Mechanics">
+
+    <arrayval field="ClPwrTable" index="1" column="0" value="1"/>
+
+    <arrayval field="ClPwrTable" index="2" column="0" value="1"/>
+
+    <arrayval field="ClPwrTable" index="3" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="3" column="1" value="3"/>
+
+    <arrayval field="ClPwrTable" index="4" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="4" column="1" value="3"/>
+
+    <arrayval field="ClPwrTable" index="5" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="5" column="1" value="3"/>
+
+    <arrayval field="ClPwrTable" index="6" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="6" column="1" value="3"/>
+
+    <arrayval field="ClPwrTable" index="7" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="7" column="1" value="3"/>
+    <arrayval field="ClPwrTable" index="7" column="2" value="7"/>
+
+    <arrayval field="ClPwrTable" index="8" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="8" column="1" value="3"/>
+    <arrayval field="ClPwrTable" index="8" column="2" value="7"/>
+
+    <arrayval field="ClPwrTable" index="9" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="9" column="1" value="3"/>
+    <arrayval field="ClPwrTable" index="9" column="2" value="7"/>
+
+    <arrayval field="ClPwrTable" index="10" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="10" column="1" value="3"/>
+    <arrayval field="ClPwrTable" index="10" column="2" value="7"/>
+
+    <arrayval field="ClPwrTable" index="11" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="11" column="1" value="3"/>
+    <arrayval field="ClPwrTable" index="11" column="2" value="7"/>
+
+    <arrayval field="ClPwrTable" index="12" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="12" column="1" value="3"/>
+    <arrayval field="ClPwrTable" index="12" column="2" value="7"/>
+
+    <arrayval field="ClPwrTable" index="13" column="0" value="3"/>
+    <arrayval field="ClPwrTable" index="13" column="1" value="7"/>
+    <arrayval field="ClPwrTable" index="13" column="2" value="13"/>
+
+    <arrayval field="ClPwrTable" index="14" column="0" value="3"/>
+    <arrayval field="ClPwrTable" index="14" column="1" value="7"/>
+    <arrayval field="ClPwrTable" index="14" column="2" value="13"/>
+
+    <arrayval field="ClPwrTable" index="15" column="0" value="3"/>
+    <arrayval field="ClPwrTable" index="15" column="1" value="7"/>
+    <arrayval field="ClPwrTable" index="15" column="2" value="13"/>
+
+    <arrayval field="ClPwrTable" index="16" column="0" value="3"/>
+    <arrayval field="ClPwrTable" index="16" column="1" value="7"/>
+    <arrayval field="ClPwrTable" index="16" column="2" value="13"/>
+
+    <arrayval field="ClPwrTable" index="17" column="0" value="7"/>
+    <arrayval field="ClPwrTable" index="17" column="1" value="13"/>
+    <arrayval field="ClPwrTable" index="17" column="2" value="17"/>
+
+    <arrayval field="ClPwrTable" index="18" column="0" value="7"/>
+    <arrayval field="ClPwrTable" index="18" column="1" value="13"/>
+    <arrayval field="ClPwrTable" index="18" column="2" value="17"/>
+
+    <arrayval field="ClPwrTable" index="19" column="0" value="7"/>
+    <arrayval field="ClPwrTable" index="19" column="1" value="13"/>
+    <arrayval field="ClPwrTable" index="19" column="2" value="17"/>
+
+    <arrayval field="ClPwrTable" index="20" column="0" value="7"/>
+    <arrayval field="ClPwrTable" index="20" column="1" value="13"/>
+    <arrayval field="ClPwrTable" index="20" column="2" value="17"/>
+
+    <arrayval field="ClPwrTable" index="21" column="0" value="7"/>
+    <arrayval field="ClPwrTable" index="21" column="1" value="13"/>
+    <arrayval field="ClPwrTable" index="21" column="2" value="17"/>
+
+    <arrayval field="ClPwrTable" index="22" column="0" value="7"/>
+    <arrayval field="ClPwrTable" index="22" column="1" value="13"/>
+    <arrayval field="ClPwrTable" index="22" column="2" value="17"/>
+
+    <arrayval field="ClPwrTable" index="23" column="0" value="13"/>
+    <arrayval field="ClPwrTable" index="23" column="1" value="17"/>
+    <arrayval field="ClPwrTable" index="23" column="2" value="23"/>
+
+    <arrayval field="ClPwrTable" index="24" column="0" value="13"/>
+    <arrayval field="ClPwrTable" index="24" column="1" value="17"/>
+    <arrayval field="ClPwrTable" index="24" column="2" value="23"/>
+
+    <arrayval field="ClPwrTable" index="25" column="0" value="13"/>
+    <arrayval field="ClPwrTable" index="25" column="1" value="17"/>
+    <arrayval field="ClPwrTable" index="25" column="2" value="23"/>
+
+    <arrayval field="ClPwrTable" index="26" column="0" value="13"/>
+    <arrayval field="ClPwrTable" index="26" column="1" value="17"/>
+    <arrayval field="ClPwrTable" index="26" column="2" value="23"/>
+
+    <arrayval field="ClPwrTable" index="27" column="0" value="17"/>
+    <arrayval field="ClPwrTable" index="27" column="1" value="23"/>
+    <arrayval field="ClPwrTable" index="27" column="2" value="27"/>
+
+    <arrayval field="ClPwrTable" index="28" column="0" value="17"/>
+    <arrayval field="ClPwrTable" index="28" column="1" value="23"/>
+    <arrayval field="ClPwrTable" index="28" column="2" value="27"/>
+
+    <arrayval field="ClPwrTable" index="29" column="0" value="17"/>
+    <arrayval field="ClPwrTable" index="29" column="1" value="23"/>
+    <arrayval field="ClPwrTable" index="29" column="2" value="27"/>
+
+    <arrayval field="ClPwrTable" index="30" column="0" value="17"/>
+    <arrayval field="ClPwrTable" index="30" column="1" value="23"/>
+    <arrayval field="ClPwrTable" index="30" column="2" value="27"/>
+    </thing>
+
+  <thing
+    id="PwrDaily"
+    name="Daily Power Mechanics"
+    compset="Mechanics">
+
+    <arrayval field="ClPwrTable" index="1" column="0" value="1"/>
+
+    <arrayval field="ClPwrTable" index="2" column="0" value="1"/>
+
+    <arrayval field="ClPwrTable" index="3" column="0" value="1"/>
+
+    <arrayval field="ClPwrTable" index="4" column="0" value="1"/>
+
+    <arrayval field="ClPwrTable" index="5" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="5" column="1" value="5"/>
+
+    <arrayval field="ClPwrTable" index="6" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="6" column="1" value="5"/>
+
+    <arrayval field="ClPwrTable" index="7" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="7" column="1" value="5"/>
+
+    <arrayval field="ClPwrTable" index="8" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="8" column="1" value="5"/>
+
+    <arrayval field="ClPwrTable" index="9" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="9" column="1" value="5"/>
+    <arrayval field="ClPwrTable" index="9" column="2" value="9"/>
+
+    <arrayval field="ClPwrTable" index="10" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="10" column="1" value="5"/>
+    <arrayval field="ClPwrTable" index="10" column="2" value="9"/>
+
+    <arrayval field="ClPwrTable" index="11" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="11" column="1" value="5"/>
+    <arrayval field="ClPwrTable" index="11" column="2" value="9"/>
+
+    <arrayval field="ClPwrTable" index="12" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="12" column="1" value="5"/>
+    <arrayval field="ClPwrTable" index="12" column="2" value="9"/>
+
+    <arrayval field="ClPwrTable" index="13" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="13" column="1" value="5"/>
+    <arrayval field="ClPwrTable" index="13" column="2" value="9"/>
+
+    <arrayval field="ClPwrTable" index="14" column="0" value="1"/>
+    <arrayval field="ClPwrTable" index="14" column="1" value="5"/>
+    <arrayval field="ClPwrTable" index="14" column="2" value="9"/>
+
+    <arrayval field="ClPwrTable" index="15" column="0" value="5"/>
+    <arrayval field="ClPwrTable" index="15" column="1" value="9"/>
+    <arrayval field="ClPwrTable" index="15" column="2" value="15"/>
+
+    <arrayval field="ClPwrTable" index="16" column="0" value="5"/>
+    <arrayval field="ClPwrTable" index="16" column="1" value="9"/>
+    <arrayval field="ClPwrTable" index="16" column="2" value="15"/>
+
+    <arrayval field="ClPwrTable" index="17" column="0" value="5"/>
+    <arrayval field="ClPwrTable" index="17" column="1" value="9"/>
+    <arrayval field="ClPwrTable" index="17" column="2" value="15"/>
+
+    <arrayval field="ClPwrTable" index="18" column="0" value="5"/>
+    <arrayval field="ClPwrTable" index="18" column="1" value="9"/>
+    <arrayval field="ClPwrTable" index="18" column="2" value="15"/>
+
+    <arrayval field="ClPwrTable" index="19" column="0" value="9"/>
+    <arrayval field="ClPwrTable" index="19" column="1" value="15"/>
+    <arrayval field="ClPwrTable" index="19" column="2" value="19"/>
+
+    <arrayval field="ClPwrTable" index="20" column="0" value="9"/>
+    <arrayval field="ClPwrTable" index="20" column="1" value="15"/>
+    <arrayval field="ClPwrTable" index="20" column="2" value="19"/>
+
+    <arrayval field="ClPwrTable" index="21" column="0" value="9"/>
+    <arrayval field="ClPwrTable" index="21" column="1" value="15"/>
+    <arrayval field="ClPwrTable" index="21" column="2" value="19"/>
+
+    <arrayval field="ClPwrTable" index="22" column="0" value="9"/>
+    <arrayval field="ClPwrTable" index="22" column="1" value="15"/>
+    <arrayval field="ClPwrTable" index="22" column="2" value="19"/>
+
+    <arrayval field="ClPwrTable" index="23" column="0" value="9"/>
+    <arrayval field="ClPwrTable" index="23" column="1" value="15"/>
+    <arrayval field="ClPwrTable" index="23" column="2" value="19"/>
+
+    <arrayval field="ClPwrTable" index="24" column="0" value="9"/>
+    <arrayval field="ClPwrTable" index="24" column="1" value="15"/>
+    <arrayval field="ClPwrTable" index="24" column="2" value="19"/>
+
+    <arrayval field="ClPwrTable" index="25" column="0" value="15"/>
+    <arrayval field="ClPwrTable" index="25" column="1" value="19"/>
+    <arrayval field="ClPwrTable" index="25" column="2" value="25"/>
+
+    <arrayval field="ClPwrTable" index="26" column="0" value="15"/>
+    <arrayval field="ClPwrTable" index="26" column="1" value="19"/>
+    <arrayval field="ClPwrTable" index="26" column="2" value="25"/>
+
+    <arrayval field="ClPwrTable" index="27" column="0" value="15"/>
+    <arrayval field="ClPwrTable" index="27" column="1" value="19"/>
+    <arrayval field="ClPwrTable" index="27" column="2" value="25"/>
+
+    <arrayval field="ClPwrTable" index="28" column="0" value="15"/>
+    <arrayval field="ClPwrTable" index="28" column="1" value="19"/>
+    <arrayval field="ClPwrTable" index="28" column="2" value="25"/>
+
+    <arrayval field="ClPwrTable" index="29" column="0" value="19"/>
+    <arrayval field="ClPwrTable" index="29" column="1" value="25"/>
+    <arrayval field="ClPwrTable" index="29" column="2" value="29"/>
+
+    <arrayval field="ClPwrTable" index="30" column="0" value="19"/>
+    <arrayval field="ClPwrTable" index="30" column="1" value="25"/>
+    <arrayval field="ClPwrTable" index="30" column="2" value="29"/>
+    </thing>
+
+  <thing
+    id="PwrUtility"
+    name="Utility Power Mechanics"
+    compset="Mechanics">
+
+    <arrayval field="ClPwrTable" index="1" column="0" value="0"/>
+
+    <arrayval field="ClPwrTable" index="2" column="0" value="2"/>
+
+    <arrayval field="ClPwrTable" index="3" column="0" value="2"/>
+
+    <arrayval field="ClPwrTable" index="4" column="0" value="2"/>
+
+    <arrayval field="ClPwrTable" index="5" column="0" value="2"/>
+
+    <arrayval field="ClPwrTable" index="6" column="0" value="2"/>
+    <arrayval field="ClPwrTable" index="6" column="1" value="6"/>
+
+    <arrayval field="ClPwrTable" index="7" column="0" value="2"/>
+    <arrayval field="ClPwrTable" index="7" column="1" value="6"/>
+
+    <arrayval field="ClPwrTable" index="8" column="0" value="2"/>
+    <arrayval field="ClPwrTable" index="8" column="1" value="6"/>
+
+    <arrayval field="ClPwrTable" index="9" column="0" value="2"/>
+    <arrayval field="ClPwrTable" index="9" column="1" value="6"/>
+
+    <arrayval field="ClPwrTable" index="10" column="0" value="2"/>
+    <arrayval field="ClPwrTable" index="10" column="1" value="6"/>
+    <arrayval field="ClPwrTable" index="10" column="2" value="10"/>
+
+    <arrayval field="ClPwrTable" index="11" column="0" value="2"/>
+    <arrayval field="ClPwrTable" index="11" column="1" value="6"/>
+    <arrayval field="ClPwrTable" index="11" column="2" value="10"/>
+
+    <arrayval field="ClPwrTable" index="12" column="0" value="2"/>
+    <arrayval field="ClPwrTable" index="12" column="1" value="6"/>
+    <arrayval field="ClPwrTable" index="12" column="2" value="10"/>
+
+    <arrayval field="ClPwrTable" index="13" column="0" value="2"/>
+    <arrayval field="ClPwrTable" index="13" column="1" value="6"/>
+    <arrayval field="ClPwrTable" index="13" column="2" value="10"/>
+
+    <arrayval field="ClPwrTable" index="14" column="0" value="2"/>
+    <arrayval field="ClPwrTable" index="14" column="1" value="6"/>
+    <arrayval field="ClPwrTable" index="14" column="2" value="10"/>
+
+    <arrayval field="ClPwrTable" index="15" column="0" value="2"/>
+    <arrayval field="ClPwrTable" index="15" column="1" value="6"/>
+    <arrayval field="ClPwrTable" index="15" column="2" value="10"/>
+
+    <arrayval field="ClPwrTable" index="16" column="0" value="2"/>
+    <arrayval field="ClPwrTable" index="16" column="1" value="6"/>
+    <arrayval field="ClPwrTable" index="16" column="2" value="10"/>
+    <arrayval field="ClPwrTable" index="16" column="3" value="16"/>
+
+    <arrayval field="ClPwrTable" index="17" column="0" value="2"/>
+    <arrayval field="ClPwrTable" index="17" column="1" value="6"/>
+    <arrayval field="ClPwrTable" index="17" column="2" value="10"/>
+    <arrayval field="ClPwrTable" index="17" column="3" value="16"/>
+
+    <arrayval field="ClPwrTable" index="18" column="0" value="2"/>
+    <arrayval field="ClPwrTable" index="18" column="1" value="6"/>
+    <arrayval field="ClPwrTable" index="18" column="2" value="10"/>
+    <arrayval field="ClPwrTable" index="18" column="3" value="16"/>
+
+    <arrayval field="ClPwrTable" index="19" column="0" value="2"/>
+    <arrayval field="ClPwrTable" index="19" column="1" value="6"/>
+    <arrayval field="ClPwrTable" index="19" column="2" value="10"/>
+    <arrayval field="ClPwrTable" index="19" column="3" value="16"/>
+
+    <arrayval field="ClPwrTable" index="20" column="0" value="2"/>
+    <arrayval field="ClPwrTable" index="20" column="1" value="6"/>
+    <arrayval field="ClPwrTable" index="20" column="2" value="10"/>
+    <arrayval field="ClPwrTable" index="20" column="3" value="16"/>
+
+    <arrayval field="ClPwrTable" index="21" column="0" value="2"/>
+    <arrayval field="ClPwrTable" index="21" column="1" value="6"/>
+    <arrayval field="ClPwrTable" index="21" column="2" value="10"/>
+    <arrayval field="ClPwrTable" index="21" column="3" value="16"/>
+
+    <arrayval field="ClPwrTable" index="22" column="0" value="2"/>
+    <arrayval field="ClPwrTable" index="22" column="1" value="6"/>
+    <arrayval field="ClPwrTable" index="22" column="2" value="10"/>
+    <arrayval field="ClPwrTable" index="22" column="3" value="16"/>
+    <arrayval field="ClPwrTable" index="22" column="4" value="22"/>
+
+    <arrayval field="ClPwrTable" index="23" column="0" value="2"/>
+    <arrayval field="ClPwrTable" index="23" column="1" value="6"/>
+    <arrayval field="ClPwrTable" index="23" column="2" value="10"/>
+    <arrayval field="ClPwrTable" index="23" column="3" value="16"/>
+    <arrayval field="ClPwrTable" index="23" column="4" value="22"/>
+
+    <arrayval field="ClPwrTable" index="24" column="0" value="2"/>
+    <arrayval field="ClPwrTable" index="24" column="1" value="6"/>
+    <arrayval field="ClPwrTable" index="24" column="2" value="10"/>
+    <arrayval field="ClPwrTable" index="24" column="3" value="16"/>
+    <arrayval field="ClPwrTable" index="24" column="4" value="22"/>
+
+    <arrayval field="ClPwrTable" index="25" column="0" value="2"/>
+    <arrayval field="ClPwrTable" index="25" column="1" value="6"/>
+    <arrayval field="ClPwrTable" index="25" column="2" value="10"/>
+    <arrayval field="ClPwrTable" index="25" column="3" value="16"/>
+    <arrayval field="ClPwrTable" index="25" column="4" value="22"/>
+
+    <arrayval field="ClPwrTable" index="26" column="0" value="2"/>
+    <arrayval field="ClPwrTable" index="26" column="1" value="6"/>
+    <arrayval field="ClPwrTable" index="26" column="2" value="10"/>
+    <arrayval field="ClPwrTable" index="26" column="3" value="16"/>
+    <arrayval field="ClPwrTable" index="26" column="4" value="22"/>
+
+    <arrayval field="ClPwrTable" index="27" column="0" value="2"/>
+    <arrayval field="ClPwrTable" index="27" column="1" value="6"/>
+    <arrayval field="ClPwrTable" index="27" column="2" value="10"/>
+    <arrayval field="ClPwrTable" index="27" column="3" value="16"/>
+    <arrayval field="ClPwrTable" index="27" column="4" value="22"/>
+
+    <arrayval field="ClPwrTable" index="28" column="0" value="2"/>
+    <arrayval field="ClPwrTable" index="28" column="1" value="6"/>
+    <arrayval field="ClPwrTable" index="28" column="2" value="10"/>
+    <arrayval field="ClPwrTable" index="28" column="3" value="16"/>
+    <arrayval field="ClPwrTable" index="28" column="4" value="22"/>
+
+    <arrayval field="ClPwrTable" index="29" column="0" value="2"/>
+    <arrayval field="ClPwrTable" index="29" column="1" value="6"/>
+    <arrayval field="ClPwrTable" index="29" column="2" value="10"/>
+    <arrayval field="ClPwrTable" index="29" column="3" value="16"/>
+    <arrayval field="ClPwrTable" index="29" column="4" value="22"/>
+
+    <arrayval field="ClPwrTable" index="30" column="0" value="2"/>
+    <arrayval field="ClPwrTable" index="30" column="1" value="6"/>
+    <arrayval field="ClPwrTable" index="30" column="2" value="10"/>
+    <arrayval field="ClPwrTable" index="30" column="3" value="16"/>
+    <arrayval field="ClPwrTable" index="30" column="4" value="22"/>
+    </thing>
+
+  <!-- Prepared power trackers - if a class that prepares daily or utility
+      powers is used, the number of prepared powers allowed is stored here
+      so that it can be checked later. -->
+  <thing
+    id="MemUtility"
+    name="Memorized Utility Powers"
+    compset="MechHelp">
+    <eval index="1" phase="Initialize" priority="0"><![CDATA[
+      ~before anything else has a chance to happen, copy all rows and columns
+      ~from our utility powers array
+      var findmech as string
+      findmech = "PwrUtility"
+      call FindMech
+      if (state.isfocus = 0) then
+        notify "No Utility Power Table mechanics found!"
+        done
+        endif
+
+      var level as number
+      var i as number
+      for level = 0 to focus.field[ClPwrTable].matrixrows - 1
+        for i = 0 to focus.field[ClPwrTable].matrixcols - 1
+          field[ClPwrTable].matrixvalue[level,i] = focus.field[ClPwrTable].matrixvalue[level,i]
+          next
+        next
+      ]]></eval>
+    </thing>
+  <thing
+    id="MemDaily"
+    name="Memorized Daily Powers"
+    compset="MechHelp">
+    <eval index="1" phase="Initialize" priority="0"><![CDATA[
+      ~before anything else has a chance to happen, copy all rows and columns
+      ~from our daily powers array
+      var findmech as string
+      findmech = "PwrDaily"
+      call FindMech
+      if (state.isfocus = 0) then
+        notify "No Daily Power Table mechanics found!"
+        done
+        endif
+
+      var level as number
+      var i as number
+      for level = 0 to focus.field[ClPwrTable].matrixrows - 1
+        for i = 0 to focus.field[ClPwrTable].matrixcols - 1
+          field[ClPwrTable].matrixvalue[level,i] = focus.field[ClPwrTable].matrixvalue[level,i]
+          next
+        next
+      ]]></eval>
+    </thing>
+  <thing
+    id="MemEncount"
+    name="Memorized Encounter Powers"
+    compset="MechHelp">
+    <eval index="1" phase="Initialize" priority="0"><![CDATA[
+      ~before anything else has a chance to happen, copy all rows and columns
+      ~from our daily powers array
+      var findmech as string
+      findmech = "PwrEncount"
+      call FindMech
+      if (state.isfocus = 0) then
+        notify "No Encounter Power Table mechanics found!"
+        done
+        endif
+
+      var level as number
+      var i as number
+      for level = 0 to focus.field[ClPwrTable].matrixrows - 1
+        for i = 0 to focus.field[ClPwrTable].matrixcols - 1
+          field[ClPwrTable].matrixvalue[level,i] = focus.field[ClPwrTable].matrixvalue[level,i]
+          next
+        next
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="Feat"
+    name="Feat Mechanics"
+    compset="Mechanics">
+
+    <arrayval field="FeatTable" index="1" value="1"/>
+    <arrayval field="FeatTable" index="2" value="2"/>
+    <arrayval field="FeatTable" index="3" value="2"/>
+    <arrayval field="FeatTable" index="4" value="3"/>
+    <arrayval field="FeatTable" index="5" value="3"/>
+    <arrayval field="FeatTable" index="6" value="4"/>
+    <arrayval field="FeatTable" index="7" value="4"/>
+    <arrayval field="FeatTable" index="8" value="5"/>
+    <arrayval field="FeatTable" index="9" value="5"/>
+    <arrayval field="FeatTable" index="10" value="6"/>
+    <arrayval field="FeatTable" index="11" value="7"/>
+    <arrayval field="FeatTable" index="12" value="8"/>
+    <arrayval field="FeatTable" index="13" value="8"/>
+    <arrayval field="FeatTable" index="14" value="9"/>
+    <arrayval field="FeatTable" index="15" value="9"/>
+    <arrayval field="FeatTable" index="16" value="10"/>
+    <arrayval field="FeatTable" index="17" value="10"/>
+    <arrayval field="FeatTable" index="18" value="11"/>
+    <arrayval field="FeatTable" index="19" value="11"/>
+    <arrayval field="FeatTable" index="20" value="12"/>
+    <arrayval field="FeatTable" index="21" value="13"/>
+    <arrayval field="FeatTable" index="22" value="14"/>
+    <arrayval field="FeatTable" index="23" value="14"/>
+    <arrayval field="FeatTable" index="24" value="15"/>
+    <arrayval field="FeatTable" index="25" value="15"/>
+    <arrayval field="FeatTable" index="26" value="16"/>
+    <arrayval field="FeatTable" index="27" value="16"/>
+    <arrayval field="FeatTable" index="28" value="17"/>
+    <arrayval field="FeatTable" index="29" value="17"/>
+    <arrayval field="FeatTable" index="30" value="18"/>
+    </thing>
+
+  <thing
+    id="1HDamage"
+    name="One-Handed Damage Mechanics"
+    compset="Mechanics">
+
+    <arrayval field="DamageDice" index="0" value="1d4"/>
+    <arrayval field="DamageDice" index="1" value="1d6"/>
+    <arrayval field="DamageDice" index="2" value="1d8"/>
+    <arrayval field="DamageDice" index="3" value="1d10"/>
+    <arrayval field="DamageDice" index="4" value="1d12"/>
+    <arrayval field="DamageDice" index="5" value="2d6"/>
+    <arrayval field="DamageDice" index="6" value="2d8"/>
+    <arrayval field="DamageDice" index="7" value="2d10"/>
+    </thing>
+
+  <thing
+    id="2HDamage"
+    name="Two-Handed Damage Mechanics"
+    compset="Mechanics">
+
+    <arrayval field="DamageDice" index="0" value="1d6"/>
+    <arrayval field="DamageDice" index="1" value="1d8"/>
+    <arrayval field="DamageDice" index="2" value="2d4"/>
+    <arrayval field="DamageDice" index="3" value="1d10"/>
+    <arrayval field="DamageDice" index="4" value="1d12"/>
+    <arrayval field="DamageDice" index="5" value="2d6"/>
+    <arrayval field="DamageDice" index="6" value="2d8"/>
+    <arrayval field="DamageDice" index="7" value="2d10"/>
+    </thing>
+
+  <thing
+    id="ItemCost"
+    name="Magic Item Cost Mechanics"
+    compset="Mechanics">
+
+    <arrayval field="ItemCost" index="1" value="360"/>
+    <arrayval field="ItemCost" index="2" value="520"/>
+    <arrayval field="ItemCost" index="3" value="680"/>
+    <arrayval field="ItemCost" index="4" value="840"/>
+    <arrayval field="ItemCost" index="5" value="1000"/>
+    <arrayval field="ItemCost" index="6" value="1800"/>
+    <arrayval field="ItemCost" index="7" value="2600"/>
+    <arrayval field="ItemCost" index="8" value="3400"/>
+    <arrayval field="ItemCost" index="9" value="4200"/>
+    <arrayval field="ItemCost" index="10" value="5000"/>
+    <arrayval field="ItemCost" index="11" value="9000"/>
+    <arrayval field="ItemCost" index="12" value="13000"/>
+    <arrayval field="ItemCost" index="13" value="17000"/>
+    <arrayval field="ItemCost" index="14" value="21000"/>
+    <arrayval field="ItemCost" index="15" value="25000"/>
+    <arrayval field="ItemCost" index="16" value="45000"/>
+    <arrayval field="ItemCost" index="17" value="65000"/>
+    <arrayval field="ItemCost" index="18" value="85000"/>
+    <arrayval field="ItemCost" index="19" value="105000"/>
+    <arrayval field="ItemCost" index="20" value="125000"/>
+    <arrayval field="ItemCost" index="21" value="225000"/>
+    <arrayval field="ItemCost" index="22" value="325000"/>
+    <arrayval field="ItemCost" index="23" value="425000"/>
+    <arrayval field="ItemCost" index="24" value="525000"/>
+    <arrayval field="ItemCost" index="25" value="625000"/>
+    <arrayval field="ItemCost" index="26" value="1125000"/>
+    <arrayval field="ItemCost" index="27" value="1625000"/>
+    <arrayval field="ItemCost" index="28" value="2125000"/>
+    <arrayval field="ItemCost" index="29" value="2625000"/>
+    <arrayval field="ItemCost" index="30" value="3125000"/>
+    </thing>
+
+  <thing
+    id="ConsumCost"
+    name="Consumable Cost Mechanics"
+    compset="Mechanics">
+
+    <arrayval field="ItemCost" index="1" value="10"/>
+    <arrayval field="ItemCost" index="2" value="20"/>
+    <arrayval field="ItemCost" index="3" value="30"/>
+    <arrayval field="ItemCost" index="4" value="40"/>
+    <arrayval field="ItemCost" index="5" value="50"/>
+    <arrayval field="ItemCost" index="6" value="75"/>
+    <arrayval field="ItemCost" index="7" value="100"/>
+    <arrayval field="ItemCost" index="8" value="125"/>
+    <arrayval field="ItemCost" index="9" value="160"/>
+    <arrayval field="ItemCost" index="10" value="200"/>
+    <arrayval field="ItemCost" index="11" value="350"/>
+    <arrayval field="ItemCost" index="12" value="500"/>
+    <arrayval field="ItemCost" index="13" value="650"/>
+    <arrayval field="ItemCost" index="14" value="800"/>
+    <arrayval field="ItemCost" index="15" value="1000"/>
+    <arrayval field="ItemCost" index="16" value="1800"/>
+    <arrayval field="ItemCost" index="17" value="2600"/>
+    <arrayval field="ItemCost" index="18" value="3400"/>
+    <arrayval field="ItemCost" index="19" value="4200"/>
+    <arrayval field="ItemCost" index="20" value="5000"/>
+    <arrayval field="ItemCost" index="21" value="9000"/>
+    <arrayval field="ItemCost" index="22" value="13000"/>
+    <arrayval field="ItemCost" index="23" value="17000"/>
+    <arrayval field="ItemCost" index="24" value="21000"/>
+    <arrayval field="ItemCost" index="25" value="25000"/>
+    <arrayval field="ItemCost" index="26" value="45000"/>
+    <arrayval field="ItemCost" index="27" value="65000"/>
+    <arrayval field="ItemCost" index="28" value="85000"/>
+    <arrayval field="ItemCost" index="29" value="105000"/>
+    <arrayval field="ItemCost" index="30" value="125000"/>
+    </thing>
+
+  <!-- Sample Ritual & Language -->
+  <thing id="rtSample" name="Sample Ritual" description="A sample ritual." compset="Ritual">
+    <fieldval field="ritCompCst" value="100"/>
+    <fieldval field="ritTime" value="5 minutes"/>
+    <fieldval field="ritLasts" value="2 hours"/>
+    <fieldval field="ritPrice" value="5000gp"/>
+    <usesource source="Sample"/>
+    <tag group="RitualSkl" tag="skSample"/>
+    <tag group="RitualSkl" tag="NoCheck"/>
+    <tag group="RitualCat" tag="Deception"/>
+    <tag group="ReqLevel" tag="1"/>
+    </thing>
+  <thing id="lanSample" name="Sample Language" description="A sample language." compset="Language" isunique="yes">
+    <usesource source="Sample"/>
+    </thing>
+
+  <!-- Customizable Ritual & Language -->
+  <thing
+    id="rtCustom"
+    name=" &#150; Custom Ritual &#150;"
+    compset="Ritual"
+    isprivate="yes"
+    description="This ritual can be customized to represent whatever you want."
+    summary="Custom Ritual.">
+    <fieldval field="UserName" value="(Enter Ritual Name)"/>
+    <tag group="Helper" tag="CustomItem"/>
+    <tag group="ReqLevel" tag="1"/>
+    </thing>
+  <thing
+    id="lanCustom"
+    name=" &#150; Custom Language &#150;"
+    compset="Language"
+    isprivate="yes"
+    description="This language can be customized to represent whatever you want.">
+    <fieldval field="UserName" value="(Enter Name)"/>
+    <tag group="Helper" tag="CustomItem"/>
+    </thing>
+
+  <!-- RPGA found item pick & resource -->
+  <thing
+    id="RPGAFound"
+    name="Found Item"
+    compset="RPGAFound"
+    maxlimit="30">
+    <containerreq phase="Initialize" priority="0">
+      source.RPGA
+      </containerreq>
+    </thing>
+  <thing
+    id="resRPGAItm"
+    name="Found Items"
+    compset="Resource"
+    panellink="rpga">
+    <tag group="User" tag="ResChkMax"/>
+    <tag group="Helper" tag="Bootstrap"/>
+    <containerreq phase="Initialize" priority="0">
+      source.RPGA
+      </containerreq>
+    <eval index="1" phase="Setup" priority="1000"><![CDATA[
+      field[resMax].value = #level[]
+      ]]></eval>
+    </thing>
+  <thing
+    id="RPGASoldIt"
+    name="(Item Sold)"
+    compset="Simple">
+    <tag group="Helper" tag="Bootstrap"/>
+    <containerreq phase="Initialize" priority="0">
+      source.RPGA
+      </containerreq>
+    </thing>
+
+  <!-- Hybrid Class Options -->
+  <thing
+    id="hcRep11"
+    name="Hybrid Option"
+    description="As a hybrid class, you can swap out paragon powers for extra class powers."
+    compset="UserSelect">
+    <fieldval field="usrChkText" value="Swap Encounter Power?"/>
+    <tag group="ConfSource" tag="Paragon"/>
+    <tag group="Helper" tag="Bootstrap"/>
+    <tag group="ReqLevel" tag="11"/>
+    <containerreq phase="Setup" priority="50">
+      <after name="Level final"/><![CDATA[
+      (val:Level.? >= 11) & Hero.Hybrid
+      ]]></containerreq>
+    <eval index="1" phase="Setup" priority="10000"><![CDATA[
+      doneif (field[usrIsCheck].value = 0)
+      doneif (#level[] < tagvalue[ReqLevel.?])
+
+      ~get rid of our level 11 paragon encounter attack power
+      perform hero.findchild[Power,"PowerType.Encounter & PowerPath.? & ReqLevel.11"].setfocus
+      perform focus.assign[Helper.Disable]
+
+      ~now insert a level 7 encounter power in the table
+      var findmech as string
+      findmech = "PwrEncount"
+      var extrapwlev as number
+      extrapwlev = 7
+      call PowerInsrt
+      #resmax[resEncount] += 1
+      ]]></eval>
+    </thing>
+  <thing
+    id="hcRep12"
+    name="Hybrid Option"
+    description="As a hybrid class, you can swap out paragon powers for extra class powers."
+    compset="UserSelect">
+    <fieldval field="usrChkText" value="Swap Utility Power?"/>
+    <tag group="ConfSource" tag="Paragon"/>
+    <tag group="Helper" tag="Bootstrap"/>
+    <tag group="ReqLevel" tag="12"/>
+    <containerreq phase="Setup" priority="50">
+      <after name="Level final"/><![CDATA[
+      (val:Level.? >= 11) & Hero.Hybrid
+      ]]></containerreq>
+    <eval index="1" phase="Setup" priority="10000"><![CDATA[
+      doneif (field[usrIsCheck].value = 0)
+      doneif (#level[] < tagvalue[ReqLevel.?])
+
+      ~get rid of our level 12 paragon utility power
+      perform hero.findchild[Power,"PowerType.Utility & PowerPath.? & ReqLevel.12"].setfocus
+      perform focus.assign[Helper.Disable]
+
+      ~now insert a level 10 utility power in the table
+      var findmech as string
+      findmech = "PwrUtility"
+      var extrapwlev as number
+      extrapwlev = 10
+      call PowerInsrt
+      #resmax[resUtility] += 1
+      ]]></eval>
+    </thing>
+  <thing
+    id="hcRep20"
+    name="Hybrid Option"
+    description="As a hybrid class, you can swap out paragon powers for extra class powers."
+    compset="UserSelect">
+    <fieldval field="usrChkText" value="Swap Daily Power?"/>
+    <tag group="ConfSource" tag="Paragon"/>
+    <tag group="Helper" tag="Bootstrap"/>
+    <tag group="ReqLevel" tag="20"/>
+    <containerreq phase="Setup" priority="50">
+      <after name="Level final"/><![CDATA[
+      (val:Level.? >= 11) & Hero.Hybrid
+      ]]></containerreq>
+    <eval index="1" phase="Setup" priority="10000"><![CDATA[
+      doneif (field[usrIsCheck].value = 0)
+      doneif (#level[] < tagvalue[ReqLevel.?])
+
+      ~get rid of our level 20 paragon daily power
+      perform hero.findchild[Power,"PowerType.Daily & PowerPath.? & ReqLevel.20"].setfocus
+      perform focus.assign[Helper.Disable]
+
+      ~now insert a level 7 encounter power in the table
+      var findmech as string
+      findmech = "PwrDaily"
+      var extrapwlev as number
+      extrapwlev = 19
+      call PowerInsrt
+      #resmax[resUtility] += 1
+      ]]></eval>
+    </thing>
+
+  <!-- Damage Types -->
+  <thing
+    id="dtAcid"
+    name="Acid"
+    compset="DamageType">
+    <tag group="DamageType" tag="Acid"/>
+    </thing>
+  <thing
+    id="dtCold"
+    name="Cold"
+    compset="DamageType">
+    <tag group="DamageType" tag="Cold"/>
+    </thing>
+  <thing
+    id="dtFire"
+    name="Fire"
+    compset="DamageType">
+    <tag group="DamageType" tag="Fire"/>
+    </thing>
+  <thing
+    id="dtForce"
+    name="Force"
+    compset="DamageType">
+    <tag group="DamageType" tag="Force"/>
+    </thing>
+  <thing
+    id="dtLightn"
+    name="Lightning"
+    compset="DamageType">
+    <tag group="DamageType" tag="Lightning"/>
+    </thing>
+  <thing
+    id="dtNecrotic"
+    name="Necrotic"
+    compset="DamageType">
+    <tag group="DamageType" tag="Necrotic"/>
+    </thing>
+  <thing
+    id="dtPoison"
+    name="Poison"
+    compset="DamageType">
+    <tag group="DamageType" tag="Poison"/>
+    </thing>
+  <thing
+    id="dtPsychic"
+    name="Psychic"
+    compset="DamageType">
+    <tag group="DamageType" tag="Psychic"/>
+    </thing>
+  <thing
+    id="dtRadiant"
+    name="Radiant"
+    compset="DamageType">
+    <tag group="DamageType" tag="Radiant"/>
+    </thing>
+  <thing
+    id="dtThunder"
+    name="Thunder"
+    compset="DamageType">
+    <tag group="DamageType" tag="Thunder"/>
+    </thing>
+
+  <!-- Monster Options -->
+  <thing
+    id="mopSense"
+    name="Sense Type"
+    description="Add a sense type to the monster."
+    compset="MonsterOpt">
+    <fieldval field="monLabel" value="Sense"/>
+    <fieldval field="monExpr" value="component.SenseType"/>
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Setup" priority="10000"><![CDATA[
+      ~forward the tag from the selected thing to the hero
+      perform field[monChosen].chosen.forward[Vision.?]
+      if (field[monChosen].ischosen <> 0) then
+        field[livename].text = "Sense: " & field[monChosen].chosen.field[name].text
+        endif
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="mopImmune"
+    name="Immunity"
+    description="The monster is immune to one damage type."
+    compset="MonsterOpt">
+    <fieldval field="monLabel" value="Immune to"/>
+    <fieldval field="monExpr" value="component.Resistance"/>
+    <eval index="1" phase="Setup" priority="10000"><![CDATA[
+      ~set up our name
+      if (field[monChosen].ischosen <> 0) then
+        field[livename].text = "Immune " & field[monChosen].chosen.field[name].text
+        endif
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="mopResist"
+    name="Resistance"
+    description="The monster is resistant to one damage type."
+    compset="MonsterOpt">
+    <fieldval field="monLabel" value="Resist"/>
+    <fieldval field="monExpr" value="component.Resistance"/>
+    <tag group="Hide" tag="Special"/>
+    <tag group="User" tag="MonOptIncr"/>
+    <eval index="1" phase="Setup" priority="10000"><![CDATA[
+      ~add to our resistance
+      if (field[monChosen].ischosen <> 0) then
+        field[livename].text = "Resist " & field[monChosen].chosen.field[name].text
+        field[livename].text &= " " & field[monValue].value
+        perform hero.findchild[Resistance,"thingid." & field[monChosen].chosen.idstring].setfocus
+        if (state.isfocus <> 0) then
+          perform focus.field[rsTotal].modify[+,field[monValue].value,"Monster"]
+          endif
+        endif
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="mopVuln"
+    name="Vulnerability"
+    description="The monster is vulnerable to one damage type."
+    compset="MonsterOpt">
+    <fieldval field="monLabel" value="Vuln."/>
+    <fieldval field="monExpr" value="component.Resistance"/>
+    <tag group="User" tag="MonOptIncr"/>
+    <eval index="1" phase="Setup" priority="10000"><![CDATA[
+      ~set up our name
+      if (field[monChosen].ischosen <> 0) then
+        field[livename].text = "Vulnerable " & field[monChosen].chosen.field[name].text
+        field[livename].text &= " " & field[monValue].value
+        endif
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="mopKeyword"
+    name="Keyword"
+    description="The monster has a keyword."
+    compset="MonsterOpt">
+    <fieldval field="monLabel" value="Keyword"/>
+    <fieldval field="monExpr" value="component.MonstKey"/>
+    <tag group="Hide" tag="Special"/>
+    <eval index="1" phase="Setup" priority="10000"><![CDATA[
+      ~set up our name
+      if (field[monChosen].ischosen <> 0) then
+        field[livename].text = "Keyword: " & field[monChosen].chosen.field[name].text
+        perform field[monChosen].chosen.forward[MonstKey.?]
+        endif
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="mopMove"
+    name="Alternate Movement"
+    description="The monster has an alternate movement type."
+    compset="MonsterOpt">
+    <fieldval field="monLabel" value="Movement"/>
+    <eval index="1" phase="Setup" priority="10000"><![CDATA[
+      ~set up our name
+      if (field[monText].isempty = 0) then
+        field[livename].text = field[monText].text
+        endif
+      ]]></eval>
+    </thing>
+
+
+  <!-- NPC Info to display on the NPC info tab - the final "Additional
+      Information" pick can be added multiple times and customised by the user. -->
+  <thing
+    id="npcDesc"
+    name="Description"
+    compset="NPCInfo"
+    uniqueness="unique">
+    <tag group="explicit" tag="5"/>
+    </thing>
+  <thing
+    id="npcGoals"
+    name="Motivations &amp; Goals"
+    compset="NPCInfo"
+    uniqueness="unique">
+    <tag group="explicit" tag="10"/>
+    </thing>
+  <thing
+    id="npcSchemes"
+    name="Schemes, Plots &amp; Adventure Hooks"
+    compset="NPCInfo"
+    uniqueness="unique">
+    <tag group="explicit" tag="15"/>
+    </thing>
+  <thing
+    id="npcTacBef"
+    name="Tactics - Before Combat"
+    compset="NPCInfo"
+    uniqueness="unique">
+    <tag group="explicit" tag="20"/>
+    </thing>
+  <thing
+    id="npcTacDur"
+    name="Tactics - During Combat"
+    compset="NPCInfo"
+    uniqueness="unique">
+    <tag group="explicit" tag="25"/>
+    </thing>
+  <thing
+    id="npcMorale"
+    name="Tactics - Morale"
+    compset="NPCInfo"
+    uniqueness="unique">
+    <tag group="explicit" tag="30"/>
+    </thing>
+  <thing
+    id="npcEnviron"
+    name="Ecology - Environment"
+    compset="NPCInfo"
+    uniqueness="unique">
+    <tag group="explicit" tag="35"/>
+    </thing>
+  <thing
+    id="npcOrganiz"
+    name="Ecology - Organization"
+    compset="NPCInfo"
+    uniqueness="unique">
+    <tag group="explicit" tag="40"/>
+    </thing>
+  <thing
+    id="npcTreas"
+    name="Ecology - Treasure"
+    compset="NPCInfo"
+    uniqueness="unique">
+    <tag group="explicit" tag="45"/>
+    </thing>
+  <thing
+    id="npcOther"
+    name="Additional Information"
+    compset="NPCInfo">
+    <tag group="Helper" tag="CustomItem"/>
+    <tag group="explicit" tag="50"/>
+    </thing>
+
+
+  <!-- Simple Power -->
+  <thing
+    id="puPower"
+    name="Power"
+    compset="PowerUser">
+    </thing>
+
+  </document>

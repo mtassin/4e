@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the definition of the "Basics" tab panel. This tab is where
+      the user configures that attributes and skills of the character.
+
+      All public visual elements used with this tab panel start with the prefix "ba"
+      to associate them with the tab.
+-->
+
+<document signature="Hero Lab Data">
+
+  <!-- Race title label, chooser, info button and table -->
+  <portal
+    id="raHelp"
+    style="lblDisable">
+    <label
+      ismultiline="yes"
+      text="Once you've chosen a race, you can configure it and view racial features on this tab.">
+      </label>
+    </portal>
+  <portal
+    id="raTitle"
+    style="lblNormal">
+    <label
+      text="Choose Race:">
+      </label>
+    </portal>
+  <portal
+    id="raRace"
+    style="chsNormal">
+    <chooser_table
+      component="Race"
+      choosetemplate="LargeItem"
+      empty="These data files provide the core mechanics for 4th edition Dungeons and Dragons support, but no game content. You can either enter game content yourself using the integrated editor, or use our automated downloader program to download it from the Compendium web. site For details on how to download content for this game system, go to the Help menu and select &quot;4th Edition Manual&quot;."
+      showupdate="yes"
+      descwidth="450">
+      <candidate></candidate>
+      <chosen><![CDATA[
+        if (@ispick = 0) then
+          @text = "{text ff0000}Select Race"
+        else
+          @text = field[name].text
+          endif
+        ]]></chosen>
+      <titlebar><![CDATA[
+        @text = "Choose the race for your character"
+        ]]></titlebar>
+      </chooser_table>
+    </portal>
+  <portal
+    id="raAlign"
+    style="chsNormal">
+    <chooser_table
+      component="Alignment"
+      choosetemplate="LargeItem"
+      choosesortset="explicit"
+      showupdate="yes"
+      descwidth="0">
+      <candidate></candidate>
+      <chosen><![CDATA[
+        if (@ispick = 0) then
+          @text = "{text ff0000}Select Alignment"
+        else
+          @text = field[name].text
+          endif
+        ]]></chosen>
+      <titlebar><![CDATA[
+        @text = "Choose your hero's alignment"
+        ]]></titlebar>
+      </chooser_table>
+    </portal>
+
+  <portal
+    id="raLblInfo"
+    style="lblNormal">
+    <label
+      text="More Information:">
+      </label>
+    </portal>
+  <portal
+    id="raInfo"
+    style="actInfo">
+    <action
+      action="info">
+      </action>
+    <mouseinfo><![CDATA[
+      ~ Get our currently selected race
+      perform hero.findchild[Race].setfocus
+      if (state.isfocus = 0) then
+        @text = "No race selected."
+        done
+        endif
+
+      ~ Append race info
+      @text = "{b}" & focus.field[name].text & "{/b}{br}{br}"
+      @text &= focus.field[descript].text
+      ]]></mouseinfo>
+    </portal>
+  <portal
+    id="raFeatures"
+    style="tblInvis">
+    <table_fixed
+      component="UserSelect"
+      showtemplate="MenuSlPick"
+      showsortset="BuildLast"
+      alwaysupdate="yes">
+      <list><![CDATA[
+        ConfSource.Race & (!User.NeedChosen | Helper.ChosenOpt)
+        ]]></list>
+      <headertitle><![CDATA[
+        @text = "Race Features"
+        ]]></headertitle>
+      </table_fixed>
+    </portal>
+  <portal
+    id="raInfoTbl"
+    style="tblInvis">
+    <table_fixed
+      component="Race"
+      showtemplate="raRaceInfo"
+      alwaysupdate="yes">
+      <list><![CDATA[
+        ]]></list>
+      </table_fixed>
+    </portal>
+
+
+  <!-- raLangs portal
+        Displays the table of all languages known by the hero at character
+        creation.
+   -->
+  <portal
+    id="raLangs"
+    style="tblNormal">
+    <table_dynamic
+      component="Language"
+      showtemplate="LangPick"
+      choosetemplate="SimpleItem"
+      showfixedlast="yes"
+      addpick="resLangSta"
+      alwaysupdate="yes">
+      <list><![CDATA[
+        !thing.user_added & !Hide.Language
+        ]]></list>
+      <candidate>TRUE</candidate>
+      <autotag group="Helper" tag="StartLang"/>
+      <titlebar><![CDATA[
+        @text = "Add a Language - " & hero.child[resLangSta].field[resSummary].text
+        ]]></titlebar>
+      <description/>
+      <headertitle><![CDATA[
+        @text = "Languages: " & hero.child[resLangSta].field[resSummary].text
+        ]]></headertitle>
+      <additem><![CDATA[
+        ~set the color based on whether the proper number of slots are allocated
+        if (field[resLeft].value = 0) then
+          @text = "{text a0a0a0}"
+        elseif (field[resLeft].value < 0) then
+          @text = "{text ff0000}"
+          endif
+        @text &= "Add New Language"
+        ]]></additem>
+      </table_dynamic>
+    </portal>
+
+
+  <!-- raChoose1 portal and raChTitle1 portal
+        Allows the race to configure a custom tag expression that lets the user
+        pick something from this chooser. This is used for e.g. humans getting a
+        bonus at-will power, half-elves getting a bonus at-will power as an
+        encounter power, etc.
+   -->
+  <portal
+    id="raChTitle1"
+    style="lblNormal">
+    <label>
+      <labeltext><![CDATA[
+        @text = hero.child[RaceCh1st].field[opcTitle].text
+        ]]></labeltext>
+      </label>
+    </portal>
+  <portal
+    id="raChoose1"
+    style="chsNormal"
+    width="110">
+    <chooser_table
+      component="none"
+      choosetemplate="SimpleItem"
+      showupdate="yes"
+      descwidth="450"
+      candidatepick="RaceCh1st"
+      candidatefield="opcExpr">
+      <!-- NOTE - must be after "opcExpr must be final" script (Setup/300) -->
+      <secondary phase="Setup" priority="400">
+        OptChoose.RaceCh1st
+        </secondary>
+      <autotag group="OptChoose" tag="RaceCh1st"/>
+      <chosen><![CDATA[
+        if (@ispick = 0) then
+          @text = "{text ff0000}Select Option"
+        else
+          @text = field[name].text
+          endif
+        ]]></chosen>
+      <titlebar><![CDATA[
+        @text = "Choose an Option"
+        ]]></titlebar>
+      </chooser_table>
+    </portal>
+
+
+  <!-- raRaceInfo template
+        Displays info for the current race in a large template area.
+  -->
+  <template
+    id="raRaceInfo"
+    name="Trait Pick"
+    compset="Trait">
+
+    <portal
+      id="details"
+      style="lblNormal">
+      <label
+        ismultiline="yes">
+        <labeltext><![CDATA[
+          var descript as string
+          var nodescript as number
+          nodescript = 1
+          call Descript
+          @text = "{align left}" & descript
+          ]]></labeltext>
+        </label>
+      </portal>
+
+    <position><![CDATA[
+      ~set up our height based on our tallest portal
+      portal[details].width = width
+      height = portal[details].textheight
+      ]]></position>
+
+    </template>
+
+
+  <!-- race layout
+        This layout orchestrates the display of all various visual elements that
+        comprise the Basics tab. We have titles above the attributes and skills,
+        the attributes and skills tables themselves, a horizontal separator, and
+        the table of derived traits.
+        Each of these portals and templates is identified as a "reference" by the
+        layout. Using references allows distinct instances of portals and templates
+        to be re-used within multiple layouts. You can even use the same template
+        multiple times within a single layout.
+        The visual elements used in the layout are all sized and positioned via
+        the "position" script. This script is invoked to setup the dimensions of
+        visual elements and trigger the positioning of the contents of those
+        elements via the "render" invocation.
+
+        The tab order between items is controlled via the optional "taborder" XML
+        attribute on the various portal and template references. Within a template,
+        the tab order is dictated by the order the portals are listed within the
+        XML. Within a table, the tab order is dictated by the item sequence. The
+        "taborder" attribute coordinates the relative sequence of portals and
+        templates within the layout. In this layout, the tab order will move down
+        the left column and then shift over to the right column.
+  -->
+  <layout
+    id="race">
+    <portalref portal="raTitle"/>
+    <portalref portal="raRace" taborder="10"/>
+    <portalref portal="raAlign" taborder="15"/>
+    <portalref portal="raHelp"/>
+    <portalref portal="raFeatures" taborder="30"/>
+    <portalref portal="raChTitle1"/>
+    <portalref portal="raChoose1" taborder="35"/>
+    <portalref portal="raLangs" taborder="40"/>
+    <portalref portal="Horizontal"/>
+    <portalref portal="raInfoTbl"/>
+    <portalref portal="raLblInfo"/>
+    <portalref portal="raInfo" taborder="50"/>
+
+    <!-- This script sizes and positions the layout and its child visual elements. -->
+    <position><![CDATA[
+      portal[raRace].width = 200
+      portal[raAlign].width = 110
+
+      ~position the race selection portals at the top of the panel,
+      ~horizontally centered
+      var space as number
+      space = 10
+      var total as number
+      total = portal[raTitle].width + space + portal[raRace].width + space + portal[raAlign].width
+      portal[raTitle].left = (width - total) / 2
+      portal[raRace].left = portal[raTitle].right + space
+      portal[raAlign].left = portal[raRace].right + space
+
+      ~center the controls vertically within the race chooser
+      portal[raRace].top = 3
+      perform portal[raTitle].centeron[vert,raRace]
+      perform portal[raAlign].centeron[vert,raRace]
+
+      ~if we don't have a race, hide all our tables and show the help label
+      if (hero.tagis[Race.?] = 0) then
+        portal[raFeatures].visible = 0
+        portal[raLangs].visible = 0
+        portal[Horizontal].visible = 0
+        portal[raInfoTbl].visible = 0
+        portal[raLblInfo].visible = 0
+        portal[raInfo].visible = 0
+        portal[raChoose1].visible = 0
+        portal[raChTitle1].visible = 0
+      else
+        portal[raHelp].visible = 0
+        endif
+
+      ~position our help label under the 'choose' chooser.
+      portal[raHelp].width = width * 2 / 3
+      portal[raHelp].height = portal[raHelp].textheight
+      perform portal[raHelp].centerhorz
+      portal[raHelp].top = portal[raRace].bottom + 50
+
+      var nexttop as number
+      nexttop = portal[raRace].bottom + 20
+
+      ~reserve a width of 185 pixels for our languages table
+      portal[raLangs].width = 185
+
+      ~the race features table takes up the rest of the horizontal space
+      portal[raFeatures].width = width - portal[raLangs].width - 15
+      portal[raFeatures].top = nexttop
+      portal[raFeatures].height = height - portal[raFeatures].top
+
+      ~the race chooser appears under the features table, or on top of it
+      ~(hiding the table) if there are no items in said table.
+      if (portal[raFeatures].itemcount = 0) then
+        portal[raFeatures].visible = 0
+        portal[raChoose1].top = portal[raFeatures].top
+      else
+        portal[raChoose1].top = portal[raFeatures].bottom + 7
+        endif
+
+      ~position the label as well
+      portal[raChTitle1].left = portal[raFeatures].left + 5
+      perform portal[raChTitle1].centeron[vert,raChoose1]
+
+      ~now position the chooser to the right of the label
+      portal[raChoose1].left = portal[raChTitle1].right + 10
+      portal[raChoose1].width = portal[raFeatures].right - portal[raChoose1].left
+      portal[raChoose1].width = maximum(portal[raChoose1].width, portal[raFeatures].width / 2)
+
+      ~hide our chooser and title if there's nothing for them to select.
+      portal[raChoose1].visible = hero.tagis[OptChoose.RaceCh1st]
+      portal[raChTitle1].visible = portal[raChoose1].visible
+
+      ~place the languages table beside it
+      portal[raLangs].left = width - portal[raLangs].width
+      portal[raLangs].top = portal[raFeatures].top
+      portal[raLangs].maxrows = 3
+
+      nexttop = maximum(portal[raFeatures].bottom, portal[raLangs].bottom)
+      if (portal[raChoose1].visible <> 0) then
+        nexttop = maximum(nexttop, portal[raChoose1].bottom)
+        endif
+      nexttop += 15
+
+      ~our separator goes under the race features - below here, we just show
+      ~race info
+      portal[Horizontal].width = width - 20
+      portal[Horizontal].top = nexttop
+      portal[Horizontal].left = (width - portal[Horizontal].width) / 2
+
+      ~fill the rest of the panel with our race info
+      portal[raInfoTbl].left = portal[Horizontal].left
+      portal[raInfoTbl].width = width - (portal[raInfoTbl].left * 2)
+      portal[raInfoTbl].top = portal[Horizontal].bottom + 20
+      portal[raInfoTbl].height = height - portal[raInfoTbl].top
+
+      portal[raLblInfo].top = portal[raInfoTbl].bottom + 20
+      portal[raLblInfo].left = portal[raInfoTbl].left
+
+      perform portal[raInfo].centeron[vert,raLblInfo]
+      portal[raInfo].left = portal[raLblInfo].right + 10
+      ]]></position>
+
+    </layout>
+
+
+  <!-- race panel
+        This is the "Race" panel shown within Hero Lab.
+
+        The "order" attribute dictates the sequence in which the various tabs will
+        be displayed. To keep everything well organized, We break the tabs up into
+        four logical groupings: (1) traits and creation details, (2) equipment,
+        (3) details, and (4) in-play support. Each of these groupings will have a
+        three-digit value that starts with the grouping number. Since the Basics
+        panel should appear first within the traits group, it has an order of "110".
+
+        As we assign order values, We'll leave gaps in the sequence (e.g. 110, 120,
+        etc.). This will allow us to easily change our minds and slip a new panel
+        inbetween two existing ones as the data files evolve, without having to go
+        through and re-number everything.
+
+        We setup a suitable margin around the edges of the panel. This ensures that
+        there is a little bit of spacing from the edges and eliminates the need for
+        our positioning scripts to make the appropriate adjustments.
+
+        Like with layouts, panels have a "position" script to setup the dimensions
+        of child elements and orchestrate the rendering of their contents. In many
+        cases, as with this panel, the default handling of panels will ensure that
+        the layouts are properly rendered.
+
+        The panel is assigned a "live" tagexpr so that its visibility can be
+        controlled for different types of characters. While not really useful in the
+        sample data files, this approach can be quite useful when the data files
+        expand to govern creation of widely varying characters, such as vampires vs.
+        ghosts vs. mortals in the World of Darkness game system.
+  -->
+  <panel
+    id="race"
+    name="Race"
+    marginhorz="5"
+    marginvert="5"
+    order="110">
+    <live>!HideTab.race</live>
+    <layoutref layout="race"/>
+    <position><![CDATA[
+      ]]></position>
+    </panel>
+  </document>

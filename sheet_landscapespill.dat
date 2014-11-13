@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the definition of the final page of the standard character
+      sheet for output. The final page is handled as a spillover sheet that will
+      output any details that didn't fit on the first or second pages. This is a
+      technique that you will likely use for whatever game system you choose to
+      support.
+
+      The first page of the character sheet will be found in "sheet_standard1.dat".
+-->
+
+<document signature="Hero Lab Data">
+
+
+  <!-- landspill sheet
+        This is the final (and optional) page of the landscape sheet. It is a
+        spillover sheet, so it is only printed when necessary and will continue to
+        print as long as it remains necessary.
+  -->
+  <sheet
+    id="landspill"
+    name="Landscape character sheet, spillover"
+    spillover="yes">
+    <layoutref layout="oSpillover" reference="spill1"/>
+    <layoutref layout="oSpillover" reference="spill2"/>
+    <layoutref layout="oSpillover" reference="spill3"/>
+    <layoutref layout="oSpillover" reference="spill4"/>
+    <position><![CDATA[
+      ~setup the gap to be used between the various sections of the character sheet
+      autogap = 20
+      scenevalue[sectiongap] = autogap
+
+      ~calculate the width of the 3 columns of the character sheet, leaving
+      ~suitable gaps between them
+      var colwidth as number
+      colwidth = (width - 60) / 4
+
+      ~position our spillover layouts
+      layout[spill1].width = colwidth
+      layout[spill1].height = height
+      perform layout[spill1].render
+
+      layout[spill2].width = colwidth
+      layout[spill2].left = colwidth + 15
+      layout[spill2].height = height
+      perform layout[spill2].render
+
+      layout[spill3].width = colwidth
+      layout[spill3].left = layout[spill2].left * 2
+      layout[spill3].height = height
+      perform layout[spill3].render
+
+      layout[spill4].width = colwidth
+      layout[spill4].left = width - layout[spill4].width
+      layout[spill4].height = height
+      perform layout[spill4].render
+      ]]></position>
+    </sheet>
+
+
+  </document>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the list of defenses each hero has.
+-->
+
+<document signature="Hero Lab Data">
+
+  <!-- Armor Class -->
+  <thing
+    id="defAC"
+    name="Armor Class"
+    compset="Defense"
+    isunique="yes">
+    <fieldval field="trtAbbrev" value="AC"/>
+    <fieldval field="trtBonus" value="10"/>
+    <tag group="explicit" tag="5"/>
+    <tag group="User" tag="NoAttHeavy"/>
+    <link linkage="defAttr1" thing="attrDex"/>
+    <link linkage="defAttr2" thing="attrInt"/>
+
+    <!-- If we are dual-wielding one or more Defensive weapons that we're
+          proficient with, that's +1 to AC -->
+    <eval index="1" phase="Traits" priority="15000">
+      <before name="Derived trtFinal"/>
+      <after name="Weapon proficiencies final"/><![CDATA[
+      var ismain as number
+      var isoff as number
+      var isdefprof as number
+      foreach pick in hero from WeaponBase where "Equipped.Equipped"
+        ismain += eachpick.tagis[Helper.EqpMain]
+        isoff += eachpick.tagis[Helper.EqpOff]
+        if (eachpick.tagis[WepProp.Defensive] + eachpick.tagis[Helper.Proficient] = 2) then
+          isdefprof += 1
+          endif
+        nexteach
+      if (ismain > 0) then
+        if (isoff > 0) then
+          if (isdefprof > 0) then
+            perform field[trtBonus].modify[+,1,"dual-wielding Defensive weapon"]
+            endif
+          endif
+        endif
+      ]]></eval>
+    </thing>
+
+  <!-- Fortitude -->
+  <thing
+    id="defFort"
+    name="Fortitude"
+    compset="Defense"
+    isunique="yes">
+    <fieldval field="trtAbbrev" value="Fort"/>
+    <fieldval field="trtBonus" value="10"/>
+    <tag group="explicit" tag="10"/>
+    <link linkage="defAttr1" thing="attrStr"/>
+    <link linkage="defAttr2" thing="attrCon"/>
+    </thing>
+
+  <!-- Reflex -->
+  <thing
+    id="defRef"
+    name="Reflex"
+    compset="Defense"
+    isunique="yes">
+    <fieldval field="trtAbbrev" value="Ref"/>
+    <fieldval field="trtBonus" value="10"/>
+    <tag group="explicit" tag="15"/>
+    <link linkage="defAttr1" thing="attrDex"/>
+    <link linkage="defAttr2" thing="attrInt"/>
+    </thing>
+
+  <!-- Will -->
+  <thing
+    id="defWill"
+    name="Will"
+    compset="Defense"
+    isunique="yes">
+    <fieldval field="trtAbbrev" value="Will"/>
+    <fieldval field="trtBonus" value="10"/>
+    <tag group="explicit" tag="20"/>
+    <link linkage="defAttr1" thing="attrWis"/>
+    <link linkage="defAttr2" thing="attrCha"/>
+    </thing>
+
+  </document>

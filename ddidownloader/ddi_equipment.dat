@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<document signature="Hero Lab Data">
+
+  <!-- Add proper tags to implements -->
+  <thing
+    id="eqOrb"
+    name=""
+    compset="">
+    <tag group="ImplemType" tag="itOrb"/>
+    </thing>
+  <thing
+    id="eqRod"
+    name=""
+    compset="">
+    <tag group="ImplemType" tag="itRod"/>
+    </thing>
+  <thing
+    id="eqStaff"
+    name=""
+    compset="">
+    <tag group="ImplemType" tag="itStaff"/>
+    </thing>
+  <thing
+    id="eqWand"
+    name=""
+    compset="">
+    <tag group="ImplemType" tag="itWand"/>
+    </thing>
+  <thing
+    id="eqHolySym"
+    name=""
+    compset="">
+    <tag group="ImplemType" tag="itHolySym"/>
+    </thing>
+  <thing
+    id="eqKiFoc"
+    name=""
+    compset="">
+    <tag group="ImplemType" tag="itKiFocus"/>
+    </thing>
+  <thing
+    id="eqTome"
+    name=""
+    compset="">
+    <tag group="ImplemType" tag="itTome"/>
+    </thing>
+  <thing
+    id="eqTotem"
+    name=""
+    compset="">
+    <tag group="ImplemType" tag="itTotem"/>
+    </thing>
+
+  <!-- Make the Adventurer's Kit bootstrap everything it contains -->
+  <thing
+    id="eqAdvenKit"
+    name=""
+    compset="">
+    <fieldval field="gearWeight" value="0"/>
+    <bootstrap thing="eqBackpack"/>
+    <bootstrap thing="eqBedroll"/>
+    <bootstrap thing="eqFlintSte"/>
+    <bootstrap thing="eqPouchBel"/>
+    </thing>
+
+  <!-- Make appropriate things holders -->
+  <thing
+    id="eqBackpack"
+    name=""
+    compset=""
+    stacking="solo">
+    <tag group="thing" tag="holder"/>
+    </thing>
+  <thing
+    id="eqPouchBel"
+    name=""
+    compset=""
+    stacking="solo">
+    <tag group="thing" tag="holder"/>
+    </thing>
+
+  <!-- Fix up all our ammunition types -->
+  <thing
+    id="eqArrows"
+    name=""
+    compset="Ammunition"
+    lotsize="30"
+    description="Arrows come in a quiver that holds 30.">
+    <fieldval field="grCost" value="0"/>
+    <fieldval field="grLotCost" value="1"/>
+    <fieldval field="gearWeight" value="0.1"/>
+    </thing>
+  <thing
+    id="eqCrossBol"
+    name=""
+    compset="Ammunition"
+    lotsize="20"
+    description="Crossbow Bolts come in a pouch that holds 20.">
+    <fieldval field="grCost" value="0"/>
+    <fieldval field="grLotCost" value="1"/>
+    <fieldval field="gearWeight" value="0.1"/>
+    </thing>
+  <thing
+    id="eqMagazine"
+    name=""
+    compset="Ammunition"
+    lotsize="10">
+    <fieldval field="gearWeight" value="0.1"/>
+    </thing>
+  <thing
+    id="eqSlingBul"
+    name="Sling Bullets"
+    compset="Ammunition"
+    lotsize="20"
+    description="Sling Bullets come in a pouch that holds 20.">
+    <fieldval field="grCost" value="0"/>
+    <fieldval field="grLotCost" value="1"/>
+    <fieldval field="gearWeight" value="5"/>
+    <fieldval field="gearWeight" value="0.25"/>
+    </thing>
+
+  <!-- Correct gear weight -->
+  <thing
+    id="eqCart"
+    name=""
+    compset="">
+    <fieldval field="gearWeight" value="2000"/>
+    </thing>
+  <thing
+    id="eqRowboat"
+    name=""
+    compset="">
+    <fieldval field="gearWeight" value="600"/>
+    </thing>
+  <thing
+    id="eqWagon"
+    name=""
+    compset="">
+    <fieldval field="gearWeight" value="2000"/>
+    </thing>
+
+  <!-- Fix up silly spelling mistakes -->
+  <thing
+    id="eqHippogri"
+    name="Hippogriff"
+    compset="">
+    </thing>
+
+  </document>

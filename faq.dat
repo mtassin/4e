@@ -1,0 +1,725 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the definitions all FAQ entries that comprise the built-in
+      FAQ associated with the data files for the game system.
+
+      The "order" attribute assigned to each entry controls the order in which the
+      entries are output in the generated FAQ, allowing you to control how everything
+      is sequenced.
+-->
+
+<document signature="Hero Lab Data">
+
+  <faq
+    id="latestinfo"
+    order="10"
+    topic="Where can I get the latest Hero Lab FAQ information?"><![CDATA[
+      You should be able to find the information you need at the <a target="_blank" href="http://www.wolflair.com/index.php?context=hero_lab">Hero Lab web site</a>.
+      The information there may be more up to date than this FAQ, so if your question isn't answered here, check there too.
+    ]]></faq>
+
+  <faq
+    id="editing"
+    order="200"
+    topic="I want to add my own custom game content. How do I do that?"><![CDATA[
+      Go to the "Tools" menu and select "Launch Editor".
+      A detailed manual that covers adding your own content should be available by clicking the "Help" menu within the Editor.
+    ]]></faq>
+<faq
+    id="v4p1"
+    order="944"
+    topic="What changed in version 4.1 of the data files?"><![CDATA[
+    <h3>Enhancements &amp; Changes</h3>
+    <ul>
+      <li>Added an "other" gender option, allowing you to enter a custom gender for the character.</li>
+      </ul>
+
+    <h3>Bug Fixes</h3>
+    <ul>
+      <li>-</li>
+      </ul>
+
+    <h3>Data File Authoring</h3>
+    <ul>
+      <li>-</li>
+      </ul>
+    ]]></faq>
+  <faq
+    id="v4p0"
+    order="945"
+    topic="What changed in version 4.0?"><![CDATA[
+    <ul>
+    <li>Added basic support for the new Encounter Builder.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v3p16"
+    order="946"
+    topic="What changed in version 3.16?"><![CDATA[
+    <ul>
+    <li>An error introduced by v3.15 meant that adjustments could no longer be added. Sorry!</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v3p15"
+    order="947"
+    topic="What changed in version 3.15?"><![CDATA[
+    <ul>
+    <li>Fixed some downloader issues caused by changes to the Compendium.</li>
+    <li>Part of the "Psionic Power Points" tracker was appearing on printed output for non-psionic characters.</li>
+    <li>Adjustments no longer appear in the wrong table when added.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v3p14"
+    order="948"
+    topic="What changed in version 3.14?"><![CDATA[
+    <ul>
+    <li>Added a Mac version of the downloader. See the manual for details on using it.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v3p13"
+    order="949"
+    topic="What changed in version 3.13?"><![CDATA[
+    <ul>
+    <li>Fixed a problem caused by changes in the format of the Compendium.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v3p12"
+    order="950"
+    topic="What changed in version 3.12?"><![CDATA[
+    <ul>
+    <li>Fixed crash bug with the downloader.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v3p11"
+    order="951"
+    topic="What changed in version 3.11?"><![CDATA[
+    <ul>
+    <li>The downloader now truncates the description text of some magic items that were too long, which was causing Hero Lab to crash.</li>
+    <li>Fixed a bug with the Strong-Arm Tactics feat.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v3p10"
+    order="952"
+    topic="What changed in version 3.10?"><![CDATA[
+    <ul>
+    <li>Updated the downloader to support the October compendium update.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v3p9"
+    order="953"
+    topic="What changed in version 3.9?"><![CDATA[
+    <ul>
+    <li>Updated the downloader to support the September compendium update.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v3p8"
+    order="954"
+    topic="What changed in version 3.8?"><![CDATA[
+    <ul>
+    <li>Fixed some broken links in the manual and authoring documentation.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v3p7"
+    order="955"
+    topic="What changed in version 3.7?"><![CDATA[
+    <ul>
+    <li>Updated the downloader to support the August compendium update.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v3p6"
+    order="956"
+    topic="What changed in version 3.6?"><![CDATA[
+    <ul>
+    <li>Updated the downloader to support the July compendium update.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v3p5"
+    order="957"
+    topic="What changed in version 3.5?"><![CDATA[
+    <ul>
+    <li>Updated the downloader to support the June compendium update.</li>
+    <li>Updated the manual to include the new location of the downloader under Hero Lab 3.7.</li>
+    <li>The downloader now allows associated languages to be picked as background options, instead of just skills.</li>
+    <li>The downloader now converts magic item rarity properly.</li>
+    <li>Fixed the Berserker's Fury feat.</li>
+    <li>The bag of holding is now a container.</li>
+    <li>Essentials class names now show the original class name beside them.</li>
+    <li>Added optional rules for language literacy, which can be found on the Configure Hero form.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v3p4"
+    order="958"
+    topic="What changed in version 3.4?"><![CDATA[
+    <ul>
+    <li>Updated for Hero Lab 3.7a.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v3p3"
+    order="959"
+    topic="What changed in version 3.3?"><![CDATA[
+    <ul>
+    <li>You can now export all heroes in the portfolio to d20pro, and exporting a hero to d20pro now includes images for that hero.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v3p2"
+    order="961"
+    topic="What changed in version 3.2?"><![CDATA[
+    <ul>
+    <li>Updated the downloader to support the May compendium update.</li>
+    <li>The downloader once again converts the D&D Essentials classes properly.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v3p1"
+    order="962"
+    topic="What changed in version 3.1?"><![CDATA[
+    <ul>
+    <li>Updated the downloader to support the April compendium update.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v3p0"
+    order="963"
+    topic="What changed in version 3.0?"><![CDATA[
+    <ul>
+    <li>The downloader now converts D&D Essentials classes properly!</li>
+    <li>Paladins can no longer take Lay on Hands and another Vow power.</li>
+    <li>Backgrounds with associated skills can now choose whether to assign a skill bonus, or make a skill a class skill.</li>
+    <li>Psionic power points are now printed on the character sheet, below Action Points.</li>
+    <li>In the editor, races now have an "Ability Bonus Choices" entry where you can add bonus options to the race. (Copy an existing race, like the Dwarf, to get an example of how this works.)</li>
+    <li>The d20pro exporter now includes details of which skills are trained.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v2p8"
+    order="964"
+    topic="What changed in version 2.8?"><![CDATA[
+    <ul>
+    <li>Updated the downloader to support the March compendium update.</li>
+    <li>The downloader now adds many (200+) powers, feats, etc. which were being incorrectly omitted before.</li>
+    <li>Fixed the Stormborn power of the Storm Sovereign epic destiny.</li>
+    <li>The Master Trickster gnome racial ability now adds Ghost Sound properly.</li>
+    <li>Superior daggers can now be used properly in magic weapons, and now have the correct damage listed.</li>
+    <li>Versatile weapons now add +1 to damage if wielded in both hands.</li>
+    <li>14th-level characters were giving an error if you took the correct number of encounter powers.</li>
+    <li>The character name now appears on titles in the journal printout.</li>
+    <li>The "Acolyte of Divine Secrets", "Versatile Master", and "Initiate of the Faith" feats, and "Ioun's Revelation" magic item, now correctly apply their effects.</li>
+    <li>Training a skill multiple times no longer gives a validation error if all the training was given automatically by classes, feats, etc.</li>
+    <li>You can now use the editor to create new alignments.</li>
+    <li>Paragon Paths for classes you multiclassed into now appear correctly in the list.</li>
+    <li>Magic weapon damage bonuses are now properly applied to implement powers the weapon is used with.</li>
+    <li>On the Magic tab, you can now choose to print magic items that are not printed by default (usually items with passive effects, like the Amulet of Protection).</li>
+    <li>Feats that require the Channel Divinity feature, weapon proficiencies, multiple classes, or multiple races now check for its presence properly.</li>
+    <li>The Paladin class now has to choose between the appropriate powers.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v2p7"
+    order="965"
+    topic="What changed in version 2.7?"><![CDATA[
+    <ul>
+    <li>Updated the downloader to support the January compendium update.</li>
+    <li>If you pick a background with Associated Skills, you can now select one to get the proper bonus.</li>
+    <li>Weights now display properly on the "Choose Gear" form.</li>
+    <li>The converter now parses certain implement lists more accurately.</li>
+    <li>Superior Dagger implements can now be selected properly by the "Superior Implement Training" feat.</li>
+    <li>Power Cards for some powers (like Heroic Effort) would sometimes be printed even if you didn't take the power.</li>
+    <li>Invoker's Blaze was only applying its bonus to Fire powers, not Radiant powers.</li>
+    <li>You can now add "Any Ranged" magic item powers to thrown weapons.</li>
+    <li>Swordmage Aegis powers are no longer all displayed on the hero, unless specifically selected.</li>
+    <li>Many magic item powers no longer have partial web site addresses in their description text.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v2p6"
+    order="966"
+    topic="What changed in version 2.6?"><![CDATA[
+    <ul>
+    <li>Updated the downloader to support the December compendium update.</li>
+    <li>Added an adjustment for ongoing damage.</li>
+    <li>Feats with a prereq of attribute X OR Y are now parsed correctly.</li>
+    <li>Magic Ammunition now shows the correct costs.</li>
+    <li>Unselected class features like Combat Agility are no longer shown on the printout.</li>
+    <li>Multiclass feats now correctly make you count as a member of that class for purposes of feats, paragon paths, etc.</li>
+    <li>Fixed several feats and powers that weren't adding bonuses correctly.</li>
+    <li>Accurate implements no longer add a +1 attack bonus to weapon attacks, only implement attacks.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v2p5"
+    order="967"
+    topic="What changed in version 2.5?"><![CDATA[
+    <ul>
+    <li>Updated the downloader to support the November compendium update.</li>
+    <li>Fixed an issue with ranger powers like Twin Strike not adding your full Dex bonus to attacks.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v2p4"
+    order="968"
+    topic="What changed in version 2.4?"><![CDATA[
+    <ul>
+    <li>Updated the downloader to support the October compendium update.</li>
+    <li>The downloader now imports all Backgrounds from the D&D Compendium!</li>
+    <li>The downloader now imports Skill Powers from the D&D Compendium!</li>
+    <li>Magic items from the Magic tab with properties should now appear at the bottom of the Special tab, and be printed as power cards.</li>
+    <li>Masterwork armor types that bestow resistances now work correctly.</li>
+    <li>Some magic armor wasn't giving the appropriate bonuses.</li>
+    <li>Weapons of more than one weapon group weren't being assigned to the second group.</li>
+    <li>Superior implements should now work correctly.</li>
+    <li>Corrected ammunition weights.</li>
+    <li>Added a setting to hide all the "standard" races, so you can use only your own custom races if you want.</li>
+    <li>Corrected the Shaman "At-Will" power count.</li>
+    <li>Some magic items with 2 powers weren't being parsed properly by the downloader.</li>
+    <li>The maximum and minimum height / weight for your hero are now displayed, instead of being used to limit the value you enter.</li>
+    <li>Fixed a variety of other minor bugs.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v2p3"
+    order="969"
+    topic="What changed in version 2.3?"><![CDATA[
+    <ul>
+    <li>Added a new "Dropped to Ground" location that's automatically added to the hero. Transferring items into this container indicates that you've dropped them on the ground.</li>
+    <li>Added print statblock output on the "Output Active Hero Summary" form.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v2p2"
+    order="970"
+    topic="What changed in version 2.2?"><![CDATA[
+    <ul>
+    <li>Updated the downloader to support the July compendium update.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v2p1"
+    order="971"
+    topic="What changed in version 2.1?"><![CDATA[
+    <ul>
+    <li>Added an exporter for d20pro! You can now export your heroes to d20pro format by going to the "File" menu, choosing "Output Extensions" and selecting "d20pro Output".</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v2p0"
+    order="972"
+    topic="What changed in version 2.0?"><![CDATA[
+    <ul>
+    <li>The converter now converts several missing hybrid classes properly.</li>
+    <li>The converter now converts class features that replace other features, such as the Warlord's Battlefront Leader and Canny Leader features, and optional features like the Archer Warlord feature. This affects the Artificer, Cleric, Ranger, Rogue and Warlord.</li>
+    <li>If a class bootstraps a feat, like the Ranger, that feat no longer disappears from the list of feats you can pick.</li>
+    <li>Feat bonuses to weapon damage no longer stack.</li>
+    <li>Resolved various issues with Multiclass feats, including allowing you to take up to 3 Multiclass feats that require you to select a power.</li>
+    <li>Fixed many feats that weren't working properly, including "Versatile Expertise" and "Fighter Weapon Specialization".</li>
+    <li>Changed how hybrid class features work. The Hybrid version of a feature now "counts as" the real version of the feature for the purpose of feat pre-requisites.</li>
+    <li>Power info within HL now includes a breakdown of the bonuses to attack and damage rolls for the power, so you can see exactly which modifiers are being applied. (Note that this doesn't include any bonuses for using specific weapons or implements.)</li>
+    <li>In the feats list, a star is now displayed beside every feat that matches your class or race. This lets you easily see which feats might be most appropriate for your hero.</li>
+    <li>Tables (like the table of bonus damage for Hunter's Quarry) are now converted in a more readable format.</li>
+    <li>Added a "Show Tracked Resources in Statblock" output option.</li>
+    <li>The converter now parses the "Requirement" line for powers, which is now displayed in power info text.</li>
+    <li>Fixed a bug that caused errors when you used the Warlock class.</li>
+    <li>Some of the White Lotus feats were not being correctly converted.</li>
+    <li>The Dwarven Durability feat now gives the correct bonus.</li>
+    <li>Dwarves no longer get a speed penalty for wearing armor.</li>
+    <li>Special armor like Drowmesh now adds its defense bonuses.</li>
+    <li>Added a new "Counter" temporary adjustment you can use to keep track of an arbitrary value.</li>
+    <li>Magic items now stack. Potions alchemical items, and ammunition default to "merge" stacking, so when you add them they create a "stack" of multiple potions.</li>
+    <li>Description text no longer includes errata, since it looked messy.</li>
+    <li>Pressing the "20%" or "100%" buttons on the Sell form wouldn't go smaller than 1gp.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v1p29"
+    order="973"
+    topic="What changed in version 1.29?"><![CDATA[
+    <ul>
+    <li>Fixed a bug that was preventing the downloader from working for new users.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v1p28"
+    order="974"
+    topic="What changed in version 1.28?"><![CDATA[
+    <ul>
+    <li>Updated the downloader to support the May compendium update.</li>
+    <li>Improved the downloader to better handle failed downloads.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v1p27"
+    order="975"
+    topic="What changed in version 1.27?"><![CDATA[
+    <ul>
+    <li>Updated the downloader to support the April compendium update.</li>
+    <li>Hybrid classes are no longer forbidden under RPGA rules.</li>
+    <li>Classes who can use a lot of implement types, like the Assassin, should no longer have problems selecting their implements on the Special tab.</li>
+    <li>Fixed a problem where incorrect entries (like "Assassin") would sometimes appear for selection in the weapons list on the Special tab.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v1p26"
+    order="976"
+    topic="What changed in version 1.26?"><![CDATA[
+    <ul>
+    <li>The Configure Hero form now allows easier access to the settings for the hero.</li>
+    <li>Added "wikitext" statblock output from the "File" -> "Output Active Hero Summary" menu item.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v1p25"
+    order="977"
+    topic="What changed in version 1.25?"><![CDATA[
+    <ul>
+    <li>Updated the downloader to support the March compendium update.</li>
+    <li>Some sources (Martial Power 2, Adventurer's Vault 2) were not being created properly.</li>
+    <li>Corrected bugs with Inspiring Word & Lay on Hands powers, Sorcerer class, Arcane Implement Proficiency feat.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v1p24"
+    order="978"
+    topic="What changed in version 1.24?"><![CDATA[
+    <ul>
+    <li>Updated the downloader to support the February compendium update.</li>
+    <li>The downloader no longer skips some Paragon Path features that were duplicated in other paths.</li>
+    <li>Improved the way the hero's background details are printed on the character sheet.</li>
+    <li>Added an "NPC" tab for monsters - details entered there will be noted on the monster statblock. Improved monster statblock output.</li>
+    <li>Different levels of Woundpatch now display correctly.</li>
+    <li>The Iron Armbands of Power and the Timeless Locket now apply their bonuses correctly.</li>
+    <li>Draconic Heritage now applies a healing surge value bonus for being Dragonborn.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v1p23"
+    order="979"
+    topic="What changed in version 1.23?"><![CDATA[
+    <ul>
+    <li>Updated the downloader to support the January compendium update.</li>
+    <li>Implemented the latest version of Hybrid Classes.</li>
+    <li>The Tempest Magic feat now correctly adds damage bonuses to all arcane powers.</li>
+    <li>Storm Magic (and other Sorcerer spell sources) no longer add too much damage to Arcane powers.</li>
+    <li>Your Background now appears in printed output.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v1p22"
+    order="980"
+    topic="What changed in version 1.22?"><![CDATA[
+    <ul>
+    <li>Fixed a bug introduced by v1.21 that caused crashes in certain circumstances.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v1p21"
+    order="981"
+    topic="What changed in version 1.21?"><![CDATA[
+    <ul>
+    <li>Updated the downloader to support the December compendium update. This includes the Practiced Study feat - Martial Practices can be added as Rituals.</li>
+    <li>Feats are now sorted into three categories in the "Choose Feat" table - heroic, paragon and epic. Rituals and Magic Items are now sorted by level.</li>
+    <li>Feats are now tagged with descriptors, allowing you to search for them more easily. For example, enter "tribal" into the search box and you'll see a list of all Tribal Feats.</li>
+    <li>Spellscarred powers are now properly listed on the Multiclass tab when you take the Student of the Plague feat.</li>
+    <li>The "Initiate of the Old Faith" feat now functions correctly.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v1p20"
+    order="982"
+    topic="What changed in version 1.20?"><![CDATA[
+    <ul>
+    <li>Fixed a bug where some items in tables would not be displayed correctly.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v1p19"
+    order="983"
+    topic="What changed in version 1.19?"><![CDATA[
+    <ul>
+    <li>Updated the downloader to support the November compendium update, including Primal Power.</li>
+    <li>Improved the downloader to put more information in power descriptions, and to break out some "Targets" entries that were not being broken out correctly.</li>
+    <li>Added an option to show up to 10 lines of description text in printed output for feats & features, instead of the current 3 lines.</li>
+    <li>Added entries for "Custom Feat", "Custom Ritual" and "Custom Language". You can add these and set whichever name you like for them, allowing you to easily represent custom entries without using the editor.</li>
+    <li>Added adjustments to add bonus feats and bonus rituals.</li>
+    <li>Fixed a bug where incorrect sell prices would be displayed for arrows (and other stuff like arrows).</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v1p18"
+    order="984"
+    topic="What changed in version 1.18?"><![CDATA[
+    <ul>
+    <li>Updated the downloader to support the October compendium update, including the Assassin and Seeker classes.</li>
+    <li>Journal output was truncating the length of entries prematurely.</li>
+    <li>Added the "Load move" property to weapons.</li>
+    <li>The "Staff of Ruin" now works correctly.</li>
+    <li>The "Implement Expertise" feat now works correctly.</li>
+    <li>The "Battle Harness Armor" magic armor now adds a bonus to initiative correctly.</li>
+    <li>Weapon training feats now count as a Multiclass feat.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v1p17"
+    order="985"
+    topic="What changed in version 1.17?"><![CDATA[
+    <ul>
+    <li>The "Durable" feat once again adds 2 healing surges.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v1p16"
+    order="986"
+    topic="What changed in version 1.16?"><![CDATA[
+    <ul>
+    <li>You can now re-order images on the Personal tab.</li>
+    <li>Armor Profiency feats no longer give validation errors when taken.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v1p15"
+    order="987"
+    topic="What changed in version 1.15?"><![CDATA[
+    <ul>
+    <li>Minor change to the downloader to fix a compile error that was occuring. If you already downloaded the new Compendium data for this month, you do not need to re-run the downloader.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v1p14"
+    order="988"
+    topic="What changed in version 1.14?"><![CDATA[
+    <ul>
+    <li>Updated the downloader to support the September compendium update.</li>
+    <li>The downloader now has improved handling for powers with secondary attacks, and now correctly parses some powers it did not before. It's also better at parsing out resistances on some armors.</li>
+    <li>Corrected the cost of magic potions and elixirs.</li>
+    <li>Shamans can now choose a spirit type.</li>
+    <li>Added initial support for Hybrid Classes. If you don't want to see them, enable the &quot;Hide Hybrid Classes&quot; setting.</li>
+    <li>All supplements are now enabled by default, and must be individually disabled.</li>
+    <li>Added a new adjustment to link an additional attribute to a defense.</li>
+    <li>Armor Proficiency feats are now disabled if you can already use the armor.</li>
+    <li>The Bardic Knowledge feat now applies its skill bonuses properly.</li>
+    <li>Fixed a bug where potions could be equipped, which could then cause errors.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v1p13"
+    order="989"
+    topic="What changed in version 1.13?"><![CDATA[
+    <ul>
+    <li>Updated the data files for compatability with Hero Lab 3.4.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v1p12"
+    order="990"
+    topic="What changed in version 1.12?"><![CDATA[
+    <ul>
+    <li>Updated the downloader to support the August compendium update, including Divine Power.</li>
+    <li>Staff magic items now check proficiencies correctly, and now add their enhancement bonus to damage.</li>
+    <li>The Greathorn feat now works properly.</li>
+    <li>Weapon Expertise and Implement Expertise now allow you to pick a weapon group / implement, although Implement Expertise does not add the bonus properly.</li>
+    <li>Healing Surges are now calculated based on your base constitution modifier, not your attribute score modified by level.</li>
+    <li>Your healing surge value is now rounded down instead of up.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v1p11"
+    order="991"
+    topic="What changed in version 1.11?"><![CDATA[
+    <ul>
+    <li>Added a "Re-roll initiative" button to the Tactical Console.</li>
+    <li>Fixed some issues caused by bug fixes to Hero Lab.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v1p9"
+    order="992"
+    topic="What changed in version 1.9 &amp; 1.10?"><![CDATA[
+    <ul>
+    <li>Updated the downloader to support the Psion class, more deities, and content from the Eberron Player's Guide.</li>
+    <li>Added Melee and Ranged Basic Attack powers. These can be disabled on the Settings form.</li>
+    <li>You can now edit Deities in the editor.</li>
+    <li>On the Special tab, powers now show their damage breakdown if no weapons / implements are selected. I.e. instead of seeing "[W] + Wis", you might now see "[W] +4 (Wis) + 1".</li>
+    <li>Ranger powers like Twin Strike, which use different attributes depending on whether you use a Melee weapon vs a Ranged weapon, should now display the correct range attack & damage bonuses.</li>
+
+    <li>The damage for the Furious Smash power now displays correctly when a weapon is selected.</li>
+    <li>Ranged powers no longer display their statistics for non-ranged (and non-thrown) weapons. Melee powers no longer display their statistics for non-melee weapons.</li>
+    <li>When creating powers in the editor, you can now pick an attribute that adds to power damage.</li>
+    <li>Rogue Weapon Talent and other similar powers, which should have added to magic weapon attack and damage bonuses, now do so properly.</li>
+    <li>Barbarian Agility now adds to your Reflex save.</li>
+    <li>Added "1d6" to the start of the two-handed weapon damage progression, so that the new Double Scimitar works.</li>
+    <li>Small heroes are now discouraged from taking, and forbidden from equipping, non-small two-handed weapons.</li>
+    <li>The Pact Initiate feat now correctly allows you to pick from the list of warlock pacts.</li>
+    <li>The Genasi racial powers can now select their linked attributes.</li>
+    <li>Weapon Focus now works with ranged weapons.</li>
+    <li>Fixed the Barbarian powers Devastating Strike and Rage Strike.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v1p8"
+    order="993"
+    topic="What changed in version 1.8?"><![CDATA[
+    <ul>
+    <li>Updated the downloader to support several new races and the Monk class.</li>
+    <li>You can now toggle the printing of individual powers on and off on the Power Cards sheet.</li>
+    <li>Total XP now appears in the character sheet header.</li>
+    <li>Fixed magic weapon bonuses being added to power damage twice.</li>
+    <li>Half your level is no longer added to power damage bonus, only power attack bonus.</li>
+    <li>The Weapon Proficiency feat now lets you choose from the list of all weapons, not just weapons that you own.</li>
+    <li>Printing power cards with a standard character sheet now works correctly again.</li>
+    <li>Corrected some bugs with generating magic armor names.</li>
+    <li>If you're using a class for which data was not downloaded, you can now train an unlimited number of skills.</li>
+    <li>Fey Pact and Infernal Pact warlocks are now assigned some missing powers.</li>
+    <li>Automatically chosen Warlock at-will powers now appear in the At-Will Powers table on the Class tab.</li>
+    <li>Invokers now get the correct bonus rituals.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v1p7"
+    order="994"
+    topic="What changed in version 1.7?"><![CDATA[
+    <ul>
+    <li>Fixed a bug in the downloader that would cause crashes if certain unexpected data was returned from the server.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v1p6"
+    order="995"
+    topic="What changed in version 1.6?"><![CDATA[
+    <ul>
+    <li>Added support for RPGA rules. To enable this, enable the "RPGA Rules" option on the Settings form (click the clipboard button on the Configure Hero form). When you do this, an RPGA tab will appear just before the Journal tab, allowing you to track RPGA data there.</li>
+    <li>Added support for monsters. Change the Hero Type to Monster on the "Configure Hero" form and you can specify all the details for a monster you can then use in encounters with the PCs.</li>
+
+    <li>The downloader now outputs the missing power Torturous Strike.</li>
+    <li>The downloader is now smarter at parsing certain details (like the attribute used for attack and damage) out of powers.</li>
+    <li>The downloader is now smarter at parsing certain details (like paragon multiclasses required) out of feats.</li>
+    <li>The downloader now downloads certain backgrounds from the wizards web site.</li>
+    <li>The downloader now correctly flags items from the PHB2 as being a member of that source.</li>
+    <li>The downloader now handles new data from D&D Compendium, including Arcane Power.</li>
+
+    <li>Bard rituals now require you to be a Bard to take them.</li>
+    <li>Class build options added in supplements (e.g. Tome of Binding from Arcane Power) now require that supplement to be enabled to take them.</li>
+    <li>Sorcerer and Avenger class features now work properly.</li>
+    <li>You can now wield implements in your off-hand, for the Dual Implement Spellcaster feat.</li>
+    <li>Fixed bug where ammunition was not having its quantity setup properly for tracking on the In-Play tab.</li>
+    <li>The Multiclass tab now shows class features that were added by your multiclass feats.</li>
+    <li>Warlocks must now choose the attribute their Eldritch Blast / Strike uses.</li>
+    <li>On the rules form, the list of supplements was getting very long. They all now live under the "Rules Supplements" heading.</li>
+    <li>You now get a validation error if no weapons are equipped on the Special tab.</li>
+    <li>Your Unarmed Strike is always the same size as you.</li>
+    <li>The default weapon size is now Large for Large characters.</li>
+    <li>Feats that modify powers (e.g. Catspaw Style, Arena Specialization) now change the power text for the powers they modify.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v1p5"
+    order="996"
+    topic="What changed in version 1.5?"><![CDATA[
+    <ul>
+    <li>Special release for Free RPG Day.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v1p4"
+    order="997"
+    topic="What changed in version 1.4?"><![CDATA[
+    <ul>
+    <li>The human bonus at-will power can only be selected from among the powers you do not have.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v1p3"
+    order="998"
+    topic="What changed in version 1.3?"><![CDATA[
+    <ul>
+    <li>Corrected initiative calculation in the Tactical Console.</li>
+    <li>Power Damage on power cards in output will no longer run off the side of the card.</li>
+    <li>On the normal character sheet, the damage and attack bonuses for each weapon used with the power are now shown in the Attacks table.</li>
+    <li>Fixed some oddness that occurred when you downloaded data without a username and password.</li>
+    <li>Updated the downloader to work properly with the new D&amp;D Compendium.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v1p2"
+    order="999"
+    topic="What changed in version 1.2?"><![CDATA[
+    <ul>
+    <li>Updated the downloader to work properly with the new D&amp;D Compendium.</li>
+    </ul>
+    ]]></faq>
+
+  <faq
+    id="v1p1"
+    order="1000"
+    topic="What changed in version 1.1?"><![CDATA[
+    <ul>
+    <li>Powers that deal [W] damage now calculate their total damage for each weapon equipped. For example, if you have a Longsword and a Battleaxe equipped, a power will calculate its damage for both instead of just showing "1[W]+3".</li>
+    <li>You now receive a validation error when trying to multiclass into a class you already have.</li>
+    </ul>
+    ]]></faq>
+
+  </document>

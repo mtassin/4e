@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the assortment of attributes possessed by every actor for the
+      game system. The display order of attributes is controlled via the assignment of
+      an "explicit" tag with the relative position of each.
+-->
+
+<document signature="Hero Lab Data">
+
+  <!-- Strength Attribute -->
+  <thing
+    id="attrStr"
+    name="Strength"
+    compset="Attribute"
+    isunique="yes">
+    <tag group="explicit" tag="5"/>
+    <tag group="User" tag="AttrPhys"/>
+    </thing>
+
+  <!-- Constitution Attribute -->
+  <thing
+    id="attrCon"
+    name="Constitution"
+    compset="Attribute"
+    isunique="yes">
+    <tag group="explicit" tag="10"/>
+    <tag group="User" tag="AttrPhys"/>
+    </thing>
+
+  <!-- Dexterity Attribute -->
+  <thing
+    id="attrDex"
+    name="Dexterity"
+    compset="Attribute"
+    isunique="yes">
+    <tag group="explicit" tag="15"/>
+    <tag group="User" tag="AttrPhys"/>
+    </thing>
+
+  <!-- Intelligence Attribute -->
+  <thing
+    id="attrInt"
+    name="Intelligence"
+    compset="Attribute"
+    isunique="yes">
+    <tag group="explicit" tag="20"/>
+    <tag group="User" tag="AttrMental"/>
+    </thing>
+
+  <!-- Wisdom Attribute -->
+  <thing
+    id="attrWis"
+    name="Wisdom"
+    compset="Attribute"
+    isunique="yes">
+    <tag group="explicit" tag="25"/>
+    <tag group="User" tag="AttrMental"/>
+    </thing>
+
+  <!-- Charisma Attribute
+      NOTE: The starting ability set is 10/10/10/10/10/8, so Charisma gets set
+            to 8 by default. -->
+  <thing
+    id="attrCha"
+    name="Charisma"
+    compset="Attribute"
+    isunique="yes">
+    <fieldval field="trtUser" value="8"/>
+    <tag group="explicit" tag="30"/>
+    <tag group="User" tag="AttrMental"/>
+    </thing>
+
+  </document>

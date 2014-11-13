@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document signature="Hero Lab Data">
+
+
+  <!-- Define all facets of the "Feats" tab for the game system. All public
+        visual elements used on the Feats tab start with the prefix 'ft' to
+        associate them with the Feats tab.
+  -->
+
+
+  <!-- ftFeats portal
+        Presents a dynamic table where the user can add feats for the
+        character.
+
+        We use the "SimpleItem" template for both selecting and showing the special
+        abilities, since all we need is basic information.
+
+        We use an "additem" script to highlight whether more abilities need to be
+        selected. This requires that we specify the "addpick" referenced in the
+        script, which is the resource for tracking abilities. We also add some
+        extra vertical spacing above and below the "add" item.
+
+        We use a "candidate" tag expression to limit the choices the user can make.
+        If omitted, all things derived from the "Ability" component will be shown
+        to the user for selection. Using this tagexpr allows us to omit all abilities
+        that have the "Hide.Ability" tag. For example, the Flight ability needs to
+        behave as a normal ability, but we only want it available to characters that
+        select the "Avian" race. By assigning it the "Hide.Ability" tag and using
+        the candidate tagexpr to omit those abilities, Flight cannot be chosen by
+        non-Avian characters but it will also appear in the selected list if the
+        character choosed the Avian race.
+
+        We use a "titlebar" script to replace the default title on the choose form
+        with something more useful. Just like we did on the title portal above, we
+        include the summary information as helpful feedback to the user.
+  -->
+  <portal
+    id="ftFeats"
+    style="tblNormal">
+    <table_dynamic
+      component="Feat"
+      showtemplate="MenuSlPick"
+      choosetemplate="ftThing"
+      showfixedlast="yes"
+      choosesortset="Feats"
+      addpick="resFeats"
+      descwidth="350">
+      <list>!Hide.Ability</list>
+      <titlebar><![CDATA[
+        @text = "Add a Feat - " & hero.child[resFeats].field[resSummary].text
+        ]]></titlebar>
+      <description/>
+      <headertitle><![CDATA[
+        @text = "Feats: " & hero.child[resFeats].field[resSummary].text
+        ]]></headertitle>
+      <additem><![CDATA[
+        ~set the color based on whether the proper number of slots are allocated
+        if (field[resLeft].value = 0) then
+          @text = "{text a0a0a0}"
+        elseif (field[resLeft].value < 0) then
+          @text = "{text ff0000}"
+          endif
+        @text &= "Add New Feat"
+        ]]></additem>
+      </table_dynamic>
+    </portal>
+
+
+  <!-- ftThing template
+        Displays a feat thing. Mostly copied from the "SimpleItem" template in
+        visual.dat.
+  -->
+  <template
+    id="ftThing"
+    name="Feat Thing"
+    compset="Feat"
+    marginhorz="3"
+    marginvert="2">
+
+    <portal
+      id="match"
+      style="imgNormal">
+      <image_literal
+        istransparent="yes"
+        image="match.bmp">
+        </image_literal>
+      </portal>
+
+    <portal
+      id="matchOff"
+      style="imgNormal">
+      <image_literal
+        istransparent="yes"
+        image="match_off.bmp">
+        </image_literal>
+      </portal>
+
+    <portal
+      id="name"
+      style="lblNormal">
+      <label
+        field="name">
+        </label>
+      </portal>
+
+    <position><![CDATA[
+      ~set up our height based on our tallest portal
+      width = 275
+      height = portal[match].height
+
+      ~if this is a "sizing" calculation, we're done
+      doneif (issizing <> 0)
+
+      ~center the portals vertically
+      perform portal[match].centervert
+      perform portal[matchOff].centervert
+      perform portal[name].centervert
+
+      ~if this isn't an "interesting" feat, hide the icon and position the name
+      ~on the left. Otherwise, show the ! icon to the left so that people see
+      ~which feats are optimized for them.
+      if (hero.intersect[Class,ReqClass] + hero.intersect[Race,ReqRace] = 0) then
+        portal[name].left = 0
+        portal[match].visible = 0
+        portal[matchOff].visible = 0
+      else
+        if (prereqok = 0) then
+          portal[match].visible = 0
+        else
+          portal[matchOff].visible = 0
+          endif
+        perform portal[name].alignrel[ltor,match,5]
+        endif
+
+      ~center the name if requested or this is a show-only thing
+      if (tagis[SimpleItem.CenterName] + tagis[thing.showonly] <> 0) then
+        perform portal[name].centerhorz
+        endif
+      ]]></position>
+
+    </template>
+
+
+  <!-- feats layout
+        This layout orchestrates the display of the visual elements that comprise
+        the Feats tab. This amounts to a title at the top and a dynamic table
+        below where the user can add the special abilities he wants.
+
+        The logic for this layout is similar to (albeit much simpler than) the
+        logic for the Basics tab. So please refer to the Basics tab for more details.
+  -->
+  <layout
+    id="feats">
+    <portalref portal="ftFeats" taborder="10"/>
+
+    <!-- This script sizes and positions the layout and its child visual elements. -->
+    <position><![CDATA[
+      ~position and size the table to span the full layout; it will only use the
+      ~vertical space that it actually needs
+      perform portal[ftFeats].autoplace
+      ]]></position>
+
+    </layout>
+
+
+  <!-- feats panel
+        This is the "Feats" panel shown within Hero Lab. This needs to appear
+        after skills, so its order is 200.
+
+        The logic for this panel is similar to the logic for the Basics panel, so
+        please refer to the Basics panel for more details.
+  -->
+  <panel
+    id="feats"
+    name="Feats"
+    marginhorz="5"
+    marginvert="5"
+    order="200">
+    <live>!HideTab.feats</live>
+    <layoutref layout="feats"/>
+    <position><![CDATA[
+      ]]></position>
+    </panel>
+  </document>

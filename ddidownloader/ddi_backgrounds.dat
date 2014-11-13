@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<document signature="Hero Lab Data">
+
+  <thing
+    id="bgAkanul"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000"><![CDATA[
+      var resist as number
+      if (#level[] <= 10) then
+        resist = 2
+      elseif (#level[] <= 20) then
+        resist = 3
+      else
+        resist = 5
+        endif
+
+      ~cold / fire / thunder +2 / +3 / +5
+      #traitmodify[rsCold,rsExtra,resist,""]
+      #traitmodify[rsFire,rsExtra,resist,""]
+      #traitmodify[rsThunder,rsExtra,resist,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="bgBalduShi"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special" name="***DELETE***"/>
+    </thing>
+
+  <thing
+    id="bgCalimsha"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000"><![CDATA[
+      var resist as number
+      if (#level[] <= 10) then
+        resist = 4
+      elseif (#level[] <= 20) then
+        resist = 7
+      else
+        resist = 10
+        endif
+
+      #traitmodify[rsFire,rsTotal,resist,""]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="bgDambrShi"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special" name="***DELETE***"/>
+    </thing>
+
+  <thing
+    id="bgDurpaShi"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special" name="***DELETE***"/>
+    </thing>
+
+  <thing
+    id="bgForkeTon"
+    name=""
+    compset="">
+    <bootstrap thing="lanDwarven" phase="***NOPARTIAL***">
+      <autotag group="User" tag="BackLang"/>
+      </bootstrap>
+    <bootstrap thing="lanGiant" phase="***NOPARTIAL***">
+      <autotag group="User" tag="BackLang"/>
+      </bootstrap>
+    </thing>
+
+  <thing
+    id="bgForkeRui"
+    name=""
+    compset="">
+    <bootstrap thing="lanDwarven" phase="***NOPARTIAL***">
+      <autotag group="User" tag="BackLang"/>
+      </bootstrap>
+    <bootstrap thing="lanGiant" phase="***NOPARTIAL***">
+      <autotag group="User" tag="BackLang"/>
+      </bootstrap>
+    </thing>
+
+  <thing
+    id="bgForkeVil"
+    name=""
+    compset="">
+    <bootstrap thing="lanDwarven" phase="***NOPARTIAL***">
+      <autotag group="User" tag="BackLang"/>
+      </bootstrap>
+    <bootstrap thing="lanGiant" phase="***NOPARTIAL***">
+      <autotag group="User" tag="BackLang"/>
+      </bootstrap>
+    </thing>
+
+  <thing
+    id="bgImpiltur"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Class HP final"/><![CDATA[
+      perform hero.child[trHealth].assign[LinkAttr.attrWis]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="bgLuskaShi"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special" name="***DELETE***"/>
+    </thing>
+
+  <thing
+    id="bgMoonsShi"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special" name="***DELETE***"/>
+    </thing>
+
+  <thing
+    id="bgRasheShi"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special" name="***DELETE***"/>
+    </thing>
+
+  <thing
+    id="bgSarifal"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special" name="***DELETE***"/>
+    </thing>
+
+  <thing
+    id="bgSembiShi"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special" name="***DELETE***"/>
+    </thing>
+
+  <thing
+    id="bgThay"
+    name=""
+    compset="">
+    <eval index="1" phase="Traits" priority="1000">
+      <before name="Class HP final"/><![CDATA[
+      perform hero.child[trHealth].assign[LinkAttr.attrInt]
+      ]]></eval>
+    </thing>
+
+  <thing
+    id="bgGreatShi"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special" name="***DELETE***"/>
+    </thing>
+
+  <thing
+    id="bgUrbanSha"
+    name=""
+    compset="">
+    <tag group="Hide" tag="Special" name="***DELETE***"/>
+    </thing>
+
+  </document>

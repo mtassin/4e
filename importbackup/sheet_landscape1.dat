@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- This file contains the definition of the first page of the landscape character
+      sheet for output.
+
+      The second page of the character sheet will be found in "sheet_landscape2.dat".
+-->
+
+<document signature="Hero Lab Data">
+
+  <!-- oLandCol1 layout
+        This layout is rendered down the left side of the sheet and contains the
+        name and description details for the character, as well as the table of
+        table of attributes, table of health/powers, and table of derived traits.
+  -->
+  <layout
+    id="oLandCol1">
+    <portalref portal="oAttribute"/>
+    <portalref portal="oSkills"/>
+    <portalref portal="oLangs"/>
+    <templateref template="oInit" thing="trInit" ispick="yes"/>
+    <position><![CDATA[
+      ~position the tables and templates starting from the top
+      perform template[oInit].autoplace
+      perform portal[oAttribute].autoplace
+      perform portal[oSkills].autoplace
+      perform portal[oLangs].autoplace
+
+      ~set the height of our attributes table into a global variable - we use
+      ~this to size the defenses table
+      scenevalue[attrheight] = portal[oAttribute].bottom
+      ]]></position>
+    </layout>
+
+
+  <!-- oLandCol2 layout
+        This layout is rendered in the second column of the sheet.
+  -->
+  <layout
+    id="oLandCol2">
+    <portalref portal="oDefenses"/>
+    <portalref portal="oRaceFeats"/>
+    <portalref portal="oThmFeats"/>
+    <portalref portal="oClsFeats"/>
+    <portalref portal="oFeats"/>
+    <portalref portal="oLangs"/>
+    <position><![CDATA[
+      ~position the tables starting from the top
+      perform portal[oDefenses].autoplace
+      perform portal[oRaceFeats].autoplace
+      perform portal[oThmFeats].autoplace
+      perform portal[oClsFeats].autoplace
+      perform portal[oFeats].autoplace
+      perform portal[oLangs].autoplace
+
+      ~our layout height is the extent of the elements within
+      height = autotop
+      ]]></position>
+    </layout>
+
+
+  <!-- oLandCol3 layout
+        This layout is rendered in the third column of the sheet.
+  -->
+  <layout
+    id="oLandCol3">
+    <portalref portal="oSenses"/>
+    <portalref portal="oSenseSpec"/>
+    <portalref portal="oFeats"/>
+    <portalref portal="oAttacks"/>
+    <portalref portal="oWeapon"/>
+    <portalref portal="oArmor"/>
+    <templateref template="oMove" thing="trSpeed" ispick="yes"/>
+    <templateref template="oAction" thing="trkAction" ispick="yes"/>
+    <templateref template="oPowerPts" thing="trkPower" ispick="yes"/>
+    <position><![CDATA[
+      ~position our portals and templates within the layout
+      perform template[oMove].autoplace
+      perform portal[oSenses].autoplace
+      perform portal[oSenseSpec].autoplace[0]
+      perform template[oAction].autoplace
+      if (hero.childfound[trkPower].tagis[Hide.Tracker] = 0) then
+        perform template[oPowerPts].autoplace
+        endif
+      perform portal[oFeats].autoplace
+      perform portal[oAttacks].autoplace
+      perform portal[oWeapon].autoplace
+      perform portal[oArmor].autoplace
+
+      ~our layout height is the extent of the elements within
+      height = autotop
+      ]]></position>
+    </layout>
+
+
+  <!-- oLandCol4 layout
+        This layout is rendered in the fourth column of the sheet.
+  -->
+  <layout
+    id="oLandCol4">
+    <portalref portal="oAttacks"/>
+    <portalref portal="oWeapon"/>
+    <portalref portal="oArmor"/>
+    <templateref template="oHealth" thing="actor" ispick="yes"/>
+    <position><![CDATA[
+      ~position our portals and templates within the layout
+      template[oHealth].width = width
+      template[oHealth].height = height * 13 / 30
+      perform template[oHealth].render
+      autotop = template[oHealth].bottom + autogap
+      perform portal[oAttacks].autoplace
+      perform portal[oWeapon].autoplace
+      perform portal[oArmor].autoplace
+
+      ~our layout height is the extent of the elements within
+      height = autotop
+      ]]></position>
+    </layout>
+
+
+  <!-- standard1 sheet
+        This is the first page of the stanard character sheet, which coordinates the
+        output of a whole bunch of layouts containing different pieces of information
+        for the character. Layouts are estimated to perform whatever calculations are
+        necessary within that layout, such as its overall dimensions. Once estimated,
+        the dimensions of the layout can be used to properly position and size any
+        subsequent layouts that depend on it. So the overall process is to process
+        layouts in an order that progressively fills the sheet with aligned material.
+  -->
+  <sheet
+    id="landscape1"
+    name="Landscape character sheet, page #1"
+    landscape="yes">
+    <layoutref layout="oHeroInfo"/>
+    <layoutref layout="oLogos"/>
+    <layoutref layout="oLandCol1"/>
+    <layoutref layout="oLandCol2"/>
+    <layoutref layout="oLandCol3"/>
+    <layoutref layout="oLandCol4"/>
+    <position><![CDATA[
+      ~set this global variable to 1 if you want the logos to be stacked; a value
+      ~of zero places them side-by-side
+      scenevalue[stacklogos] = 0
+
+      ~setup the gap to be used between the various sections of the character sheet
+      autogap = 30
+      scenevalue[sectiongap] = autogap
+
+      ~initialize another variable so that it doesn't give us errors if we try
+      ~to use it before it's ready
+      scenevalue[defheader] = 0
+
+      ~calculate the width of the two columns of the character sheet, leaving a
+      ~suitable center gap between them
+      var colwidth as number
+      colwidth = (width - 60) / 4
+
+      ~position the logos layout in the upper right corner
+      layout[oLogos].width = colwidth
+      perform layout[oLogos].render
+      layout[oLogos].left = width - colwidth
+
+      ~position the hero info at the top left, spanning two columns - start at
+      ~the height of the logos, it can grow if needed
+      layout[oHeroInfo].width = colwidth * 3 + 30
+      layout[oHeroInfo].height = layout[oLogos].height
+      perform layout[oHeroInfo].render
+
+      ~position the leftside layout in the upper left corner
+      layout[oLandCol1].top = maximum(layout[oHeroInfo].bottom, layout[oLogos].bottom) + autogap
+      layout[oLandCol1].height = height - layout[oLandCol1].top
+      layout[oLandCol1].width = colwidth
+      perform layout[oLandCol1].render
+
+      ~position the second layout
+      layout[oLandCol2].top = layout[oLandCol1].top
+      layout[oLandCol2].height = height - layout[oLandCol2].top
+      layout[oLandCol2].left = colwidth + 15
+      layout[oLandCol2].width = colwidth
+      perform layout[oLandCol2].render
+
+      ~position the rightside layout in the remaining space on the right
+      layout[oLandCol4].width = colwidth
+      layout[oLandCol4].top = layout[oLandCol1].top
+      layout[oLandCol4].left = layout[oLogos].left
+      layout[oLandCol4].height = height - layout[oLandCol4].top
+      perform layout[oLandCol4].render
+
+      ~position the third layout - we do this last so that the fourth column
+      ~layout gets first go at the attack details
+      layout[oLandCol3].width = colwidth
+      layout[oLandCol3].top = layout[oLandCol1].top
+      layout[oLandCol3].left = layout[oLandCol2].left * 2
+      layout[oLandCol3].height = height - layout[oLandCol3].top
+      perform layout[oLandCol3].render
+      ]]></position>
+    </sheet>
+
+
+  </document>

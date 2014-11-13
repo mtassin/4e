@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document signature="Hero Lab Data">
+  <thing id="eqBladeSpi" name="Blade Spider" compset="Mount">
+    <fieldval field="grCost" value="13000"/>
+    <usesource source="AdvenVault"/>
+    </thing>
+  <thing id="eqCamel" name="Camel" compset="Mount">
+    <fieldval field="grCost" value="75"/>
+    <usesource source="AdvenVault"/>
+    </thing>
+  <thing id="eqCarver" name="Carver" description="Giant reptiles roam the Talenta Plains. Long ago, the halflings who live and hunt these lands domesticated these beasts for use as steeds. Of these creatures, carvers and clawfoots are the most common. Both are bipedal drakes equipped with razor-sharp talons and terrible teeth. They are ideal mounts for war and travel. The halflings also make use of a slightly smaller beast known as the fastieth. Bred for speed, it can keep pace with a common riding horse in spite of its slight size.{br}Speed Per Hour - Speed Per Day - Normal Load (lb.) - Heavy Load (lb.) - Push/Drag (lb.){br}4 miles - 40 miles - 250 - 500 - 1250{br}{br}Carver{br}Large natural beast  (mount, reptile){br}Level 6 Brute XP 250  {b}Initiative{/b} +5 {b}Senses{/b} Perception +3{br}{b}HP{/b} 85; {b}Bloodied{/b} 42{br}{b}AC{/b} 18; {b}Fortitude{/b} 20, {b}Reflex{/b} 18, {b}Will{/b} 16{br}{b}Speed{/b} 8 {b}Bite{/b} (standard, at-will) +9 vs AC; 1d8+5 damage, and ongoing 3 damage (save ends).  {b}Talons{/b} (standard, at-will) +9 vs AC; 2d4+7 damage.  {b}Vicious Steed{/b} (while mounted by a friendly rider of 6th level or higher; at-will) * {b}Mount{/b}When a carver&apos;s rider misses with an opportunity attack, the carver makes a talons attack against an enemy within reach as a free action.{b}Alignment{/b} Unaligned{b} Languages{/b} -{br}{b}Str{/b} 20 (+8)  {b}Dex{/b} 15 (+5)  {b}Wis{/b} 10 (+3){br}{b}Con{/b} 15 (+5)  {b}Int{/b} 2 (-1)  {b}Cha{/b} 6 (+1)" compset="Mount">
+    <fieldval field="grCost" value="1800"/>
+    <usesource source="EbCG"/>
+    </thing>
+  <thing id="eqCelesCha" name="Celestial Charger" compset="Mount">
+    <fieldval field="grCost" value="13000"/>
+    <usesource source="AdvenVault"/>
+    </thing>
+  <thing id="eqClawfoot" name="Clawfoot" description="Giant reptiles roam the Talenta Plains. Long ago, the halflings who live and hunt these lands domesticated these beasts for use as steeds. Of these creatures, carvers and clawfoots are the most common. Both are bipedal drakes equipped with razor-sharp talons and terrible teeth. They are ideal mounts for war and travel. The halflings also make use of a slightly smaller beast known as the fastieth. Bred for speed, it can keep pace with a common riding horse in spite of its slight size.{br}Speed Per Hour - Speed Per Day - Normal Load (lb.) - Heavy Load (lb.) - Push/Drag (lb.){br}3 miles - 30 miles - 170 - 340 - 850{br}{br}Clawfoot{br}Medium natural beast  (mount, reptile){br}Level 3 Skirmisher XP 150  {b}Initiative{/b} +6 {b}Senses{/b} Perception +1{br}{b}HP{/b} 46; {b}Bloodied{/b} 23{br}{b}AC{/b} 17; {b}Fortitude{/b} 16, {b}Reflex{/b} 16, {b}Will{/b} 13{br}{b}Speed{/b} 6 {b}Talons{/b} (standard, at-will) +9 vs AC; 1d8+3 damage.  {b}Clawfoot Charge{/b} (while mounted by a friendly rider of 3rd level or higher; at-will) * {b}Mount{/b}When a clawfoot&apos;s rider charges, both the clawfoot and the rider make melee basic attacks. {b}Medium Steed{/b}A Medium creature can ride a clawfoot.{b}Alignment{/b} Unaligned{b} Languages{/b} -{br}{b}Str{/b} 16 (+4)  {b}Dex{/b} 16 (+4)  {b}Wis{/b} 11 (+1){br}{b}Con{/b} 14 (+3)  {b}Int{/b} 2 (-3)  {b}Cha{/b} 6 (-1)" compset="Mount">
+    <fieldval field="grCost" value="680"/>
+    <usesource source="EbCG"/>
+    </thing>
+  <thing id="eqCrodlu" name="Crodlu" description="A crodlu is a large, flightless drake with a beak and weak, clawed forelimbs that can be used to manipulate small objects. It is a tough and aggressive hunter in the wild. When trained, it makes an excellent war mount.{br}Speed per Hour - Speed per Day - Normal Load (lb.) - Heavy Load (lb.) - Push/Drag (lb.){br}4 miles - 40 miles - 190 - 380 - 950{br}{br}Crodlu{br}Large natural beast (reptile){br}Level 3 Brute XP 150{b}HP{/b} 55; {b}Bloodied{/b} 27{b}Initiative{/b} +3{br}{b}AC{/b} 15, {b}Fortitude{/b} 17, {b}Reflex{/b} 15, {b}Will{/b} 13{b}Perception{/b}+1{br}{b}Speed{/b} 8{br}Standard Actions {b}Beak{/b} * {b}At-Will{/b}{i}Attack:{/i} Melee 1 (one creature); +8 vs. AC{i}Hit:{/i} 1d8 + 4 damage. {b}Claws{/b} * {b}At-Will{/b}{i}Attack:{/i} Melee 1 (one creature); +8 vs. AC{i}Hit:{/i} 1d6 + 4 damage. {b}Pounce{/b} * {b}At-Will{/b}{i}Effect:{/i} The crodlu can move its speed. Whether or not the crodlu moves, it can use beak and claws, making each attack against the same target. If both attacks hit, the target also falls prone.{b}Str{/b} 19 (+5)  {b}Dex{/b} 15 (+3)  {b}Wis{/b} 11 (+1){br}{b}Con{/b} 15 (+3)  {b}Int{/b} 3 (-3)  {b}Cha{/b} 8 (0){b}Alignment{/b} Unaligned{b} Languages{/b} -" compset="Mount">
+    <fieldval field="grCost" value="225"/>
+    <usesource source="DarkSun"/>
+    </thing>
+  <thing id="eqDireBoa" name="Dire Boar" compset="Mount">
+    <fieldval field="grCost" value="1800"/>
+    <usesource source="AdvenVault"/>
+    </thing>
+  <thing id="eqDireSha" name="Dire Shark" compset="Mount">
+    <fieldval field="grCost" value="21000"/>
+    <usesource source="AdvenVault"/>
+    </thing>
+  <thing id="eqDireWol" name="Dire Wolf" compset="Mount">
+    <fieldval field="grCost" value="1000"/>
+    <usesource source="AdvenVault"/>
+    </thing>
+  <thing id="eqDragonha" name="Dragonhawk" description="The national symbol of Aundair, dragonhawks are used by the Knights Arcane and other military organizations. Although generally not for sale, they can be found on the black market.{br}Speed Per Hour - Speed Per Day - Normal Load (lb.) - Heavy Load (lb.) - Push/Drag (lb.){br}7.5 miles - 75 miles - 170 - 340 - 850{br}{br}Dragonhawk{br}Large natural beast  (mount){br}Level 8 Brute XP 350  {b}Initiative{/b} +4 {b}Senses{/b} Perception +11; low-light vision{br}{b}HP{/b} 108; {b}Bloodied{/b} 54{br}{b}AC{/b} 20; {b}Fortitude{/b} 22, {b}Reflex{/b} 19, {b}Will{/b} 20{br}{b}Speed{/b} 3, fly 12, overland flight 15 {b}Claws{/b} (standard, at-will) +11 vs AC; 2d8+6 damage, and the dragonhawk slides the target 1 square.  {b}Uncanny Instincts{/b} (while mounted by a friendly rider of 8th level or higher; at-will) * {b}Mount{/b}A dragonhawk&apos;s rider rolls initiative twice and uses the higher result. In addition, the rider gains a +2 bonus to Perception checks.{b}Alignment{/b} Unaligned{b} Languages{/b} -{br}{b}Str{/b} 23 (+10)  {b}Dex{/b} 11 (+4)  {b}Wis{/b} 14 (+6){br}{b}Con{/b} 18 (+8)  {b}Int{/b} 2 (0)  {b}Cha{/b} 6 (+2)" compset="Mount">
+    <fieldval field="grCost" value="3400"/>
+    <usesource source="EbCG"/>
+    </thing>
+  <thing id="eqElephant" name="Elephant" compset="Mount">
+    <fieldval field="grCost" value="3400"/>
+    <usesource source="AdvenVault"/>
+    </thing>
+  <thing id="eqErdlu" name="Erdlu" description="The erdlu is a smaller version of the crodlu. Its body is covered in tough scales, and its folded forelimbs sprout useless wings. Hardy and fast, this drakelike creature is a fine riding beast for a Small rider. It is too skittish to be trained for war, however.{br}Speed per Hour - Speed per Day - Normal Load (lb.) - Heavy Load (lb.) - Push/Drag (lb.){br}4 miles - 40 miles - 160 - 320 - 800{br}{br}Erdlu{br}Medium natural beast (mount, reptile){br}Level 1 Skirmisher XP 100{b}HP{/b} 28; {b}Bloodied{/b} 14{b}Initiative{/b} +5{br}{b}AC{/b} 15, {b}Fortitude{/b} 14, {b}Reflex{/b} 14, {b}Will{/b} 12{b}Perception{/b}+1{br}{b}Speed{/b} 8{br}Traits {b}Medium Steed{/b} {b}{/b}A Small character can use an erdlu as a mount. {b}Escape Sprint{/b} {b}{/b}When an erdlu runs, it gains +4 to speed, instead of +2. The erdlu and its rider don&apos;t grant combat advantage when running.Standard Actions {b}Beak{/b} * {b}At-Will{/b}{i}Attack:{/i} Melee 1 (one creature); +6 vs. AC{i}Hit:{/i} 1d6 + 3 damage.{b}Str{/b} 16 (+3)  {b}Dex{/b} 16 (+3)  {b}Wis{/b} 13 (+1){br}{b}Con{/b} 12 (+1)  {b}Int{/b} 2 (-4)  {b}Cha{/b} 8 (-1){b}Alignment{/b} Unaligned{b} Languages{/b} -" compset="Mount">
+    <fieldval field="grCost" value="75"/>
+    <usesource source="DarkSun"/>
+    </thing>
+  <thing id="eqFastieth" name="Fastieth" description="Giant reptiles roam the Talenta Plains. Long ago, the halflings who live and hunt these lands domesticated these beasts for use as steeds. Of these creatures, carvers and clawfoots are the most common. Both are bipedal drakes equipped with razor-sharp talons and terrible teeth. They are ideal mounts for war and travel. The halflings also make use of a slightly smaller beast known as the fastieth. Bred for speed, it can keep pace with a common riding horse in spite of its slight size.{br}Speed Per Hour - Speed Per Day - Normal Load (lb.) - Heavy Load (lb.) - Push/Drag (lb.){br}5 miles - 50 miles - 160 - 320 - 800{br}{br}Fastieth{br}Medium natural beast  (mount, reptile){br}Level 2 Skirmisher XP 125  {b}Initiative{/b} +5 {b}Senses{/b} Perception +1{br}{b}HP{/b} 36; {b}Bloodied{/b} 18{br}{b}AC{/b} 16; {b}Fortitude{/b} 15, {b}Reflex{/b} 14, {b}Will{/b} 12{br}{b}Speed{/b} 10 {b}Bite{/b} (standard, at-will) +8 vs AC; 1d8+3 damage.  {b}Fastieth Burst{/b} (move; while mounted by a friendly rider of 2nd level or higher; encounter) * {b}Mount{/b}The fastieth shifts 4 squares. {b}Medium Steed{/b}A Medium creature can ride a fastieth.{b}Alignment{/b} Unaligned{b} Languages{/b} -{br}{b}Str{/b} 16 (+4)  {b}Dex{/b} 14 (+3)  {b}Wis{/b} 11 (+1){br}{b}Con{/b} 12 (+2)  {b}Int{/b} 2 (-3)  {b}Cha{/b} 6 (-1)" compset="Mount">
+    <fieldval field="grCost" value="520"/>
+    <usesource source="EbCG"/>
+    </thing>
+  <thing id="eqGiantAnt" name="Giant Ant" compset="Mount">
+    <fieldval field="grCost" value="1800"/>
+    <usesource source="AdvenVault"/>
+    </thing>
+  <thing id="eqGiantLiz" name="Giant Lizard (Draft)" compset="Mount">
+    <fieldval field="grCost" value="200"/>
+    <usesource source="AdvenVault"/>
+    </thing>
+  <thing id="eqGiantRid" name="Giant Lizard (Riding)" compset="Mount">
+    <fieldval field="grCost" value="1800"/>
+    <usesource source="AdvenVault"/>
+    </thing>
+  <thing id="eqGlidewin" name="Glidewing" description="Native to the Talenta Plains, the glidewing is a flying reptile with a thin head crest and tufts of brightly colored feathers. Halflings use glidewings for scouting and for monitoring the migratory patterns of animal herds throughout the region.{br}Speed Per Hour - Speed Per Day - Normal Load (lb.) - Heavy Load (lb.) - Push/Drag (lb.){br}7.5 miles - 75 miles - 170 - 340 - 850{br}{br}Glidewing{br}Large natural beast  (mount, reptile){br}Level 7 Skirmisher XP 300  {b}Initiative{/b} +9 {b}Senses{/b} Perception +9{br}{b}HP{/b} 77; {b}Bloodied{/b} 38{br}{b}AC{/b} 22; {b}Fortitude{/b} 19, {b}Reflex{/b} 20, {b}Will{/b} 17{br}{b}Speed{/b} 5, fly 10, overland flight 15 {b}Bite{/b} (standard, at-will) +12 vs AC; 2d6+4 damage.  {b}Diving Smash{/b} (standard; usable only while flying, at-will) The glidewing charges and gains a +2 bonus to its attack roll instead of the normal +1 bonus. It shifts 2 squares after the charge {b}Aerial Agility{/b} (while mounted by a friendly rider of 7th level or higher) * {b}Mount{/b}While flying, a glidewing grants its rider a +1 bonus to all defenses. {b}Catch the Wind{/b} (free; encounter) The glidewing gains hover until the end of its next turn.{b}Alignment{/b} Unaligned{b} Languages{/b} -{br}{b}Str{/b} 17 (+6)  {b}Dex{/b} 19 (+7)  {b}Wis{/b} 12 (+4){br}{b}Con{/b} 13 (+4)  {b}Int{/b} 2 (-1)  {b}Cha{/b} 6 (+1)" compset="Mount">
+    <fieldval field="grCost" value="2600"/>
+    <usesource source="EbCG"/>
+    </thing>
+  <thing id="eqGriffon" name="Griffon" compset="Mount">
+    <fieldval field="grCost" value="9000"/>
+    <usesource source="AdvenVault"/>
+    </thing>
+  <thing id="eqHippogri" name="Hippogriff" compset="Mount">
+    <fieldval field="grCost" value="4200"/>
+    <usesource source="AdvenVault"/>
+    </thing>
+  <thing id="eqHippoDre" name="Hippogriff Dreadmount" compset="Mount">
+    <fieldval field="grCost" value="4200"/>
+    <usesource source="AdvenVault"/>
+    </thing>
+  <thing id="eqInix" name="Inix" description="An inix, also called a dune behemoth, is a long, lowslung reptile with bony plates on its back. It is strong and spirited. An inix rarely eats anything as large as a humanoid, but it does not shy away from a fight.{br}Speed per Hour - Speed per Day - Normal Load (lb.) - Heavy Load (lb.) - Push/Drag (lb.){br}3 miles - 30 miles - 220 - 440 - 1100{br}{br}Inix Adult{br}Large natural beast (mount, reptile){br}Level 9 Brute XP 400{b}HP{/b} 120; {b}Bloodied{/b} 60{b}Initiative{/b} +5{br}{b}AC{/b} 21, {b}Fortitude{/b} 23, {b}Reflex{/b} 19, {b}Will{/b} 21{b}Perception{/b}+7{br}{b}Speed{/b} 6{br}Standard Actions {b}Bite{/b} * {b}At-Will{/b}{i}Attack:{/i} Melee 1 (one creature); +14 vs. ACWhile the inix has a creature grabbed, it can use bite against the grabbed creature only.{i}Hit:{/i} 3d8 + 6 damage. If the target is prone, it takes 1d8 extra damage, is grabbed, and cannot stand up until the grab ends. {b}Tail Slap{/b} * Recharge    {i}Attack:{/i} Close blast 2 (enemies in the blast); +12 vs. Fortitude{i}Hit:{/i} 3d6 + 6 damage, and the inix pushes the target 2 squares and knocks it prone.Triggered Actions {b}Warding Tail{/b} (mount) * {b}At-Will{/b}{i}Trigger:{/i} The inix has a friendly rider of 9th level or higher mounted on it, and the rider is hit by an opportunity attack provoked by a ranged or an area attack.{i}Effect (Free Action):{/i} The inix uses tail slap in an area that includes the creature that made the triggering attack.{b}Str{/b} 22 (+10)  {b}Dex{/b} 13 (+5)  {b}Wis{/b} 17 (+7){br}{b}Con{/b} 20 (+9)  {b}Int{/b} 2 (0)  {b}Cha{/b} 6 (+2){b}Alignment{/b} Unaligned{b} Languages{/b} -" compset="Mount">
+    <fieldval field="grCost" value="2000"/>
+    <usesource source="DarkSun"/>
+    </thing>
+  <thing id="eqKank" name="Kank" description="Kanks are docile insects that form hives. Each member of the group has a role: food producer, soldier, or the brood queen. The kank soldier can be trained for riding and battle.{br}Speed per Hour - Speed per Day - Normal Load (lb.) - Heavy Load (lb.) - Push/Drag (lb.){br}4 miles - 40 miles - 180 - 360 - 900{br}{br}Kank Soldier{br}Large natural beast (mount){br}Level 4 Soldier XP 175{b}HP{/b} 54; {b}Bloodied{/b} 27{b}Initiative{/b} +7{br}{b}AC{/b} 20, {b}Fortitude{/b} 17, {b}Reflex{/b} 16, {b}Will{/b} 14{b}Perception{/b}+8{br}{b}Speed{/b} 8{br}{b}Resist{/b} 5 acid, 5 poison{br}Traits {b}Grabbed Advantage{/b} (mount) {b}{/b}A friendly rider of 4th level or higher mounted on the soldier has combat advantage against any creature grabbed by the soldier.Standard Actions {b}Bite{/b} * {b}At-Will{/b}{i}Attack:{/i} Melee 1 (one creature); +9 vs. AC, or +11 against creatures grabbed by the soldier. While the soldier has a creature grabbed, it can use bite against the grabbed creature only.{i}Hit:{/i} 2d4 damage, or 2d4 + 10 against creatures grabbed by the soldier. In addition, the soldier grabs the target. {b}Kank Venom{/b} (poison) * Recharge  {i}Attack:{/i} Melee 1 (one creature grabbed by the soldier); +9 vs. Fortitude{i}Hit:{/i} The target is slowed and takes ongoing 10 poison damage (save ends both).{i}First Failed Saving Throw:{/i} The target is immobilized (save ends).{b}Str{/b} 18 (+6)  {b}Dex{/b} 16 (+5)  {b}Wis{/b} 12 (+3){br}{b}Con{/b} 14 (+4)  {b}Int{/b} 2 (-2)  {b}Cha{/b} 6 (0){b}Alignment{/b} Unaligned{b} Languages{/b} -" compset="Mount">
+    <fieldval field="grCost" value="840"/>
+    <usesource source="DarkSun"/>
+    </thing>
+  <thing id="eqMagebdes" name="Magebred destrier" description="House Vadalis magically enhances natural creatures to breed superior versions. A magebred destrier is a superior steed valued for its endurance, intelligence, and speed.{br}Speed Per Hour - Speed Per Day - Normal Load (lb.) - Heavy Load (lb.) - Push/Drag (lb.){br}5 miles - 50 miles - 275 - 550 - 1375{br}{br}Magebred Destrier{br}Large natural magical beast  (mount){br}Level 5 Brute XP 200  {b}Initiative{/b} +4 {b}Senses{/b} Perception +3; low-light vision{br}{b}HP{/b} 76; {b}Bloodied{/b} 38{br}{b}AC{/b} 17; {b}Fortitude{/b} 19, {b}Reflex{/b} 16, {b}Will{/b} 15{br}{b}Speed{/b} 8 {b}Kick{/b} (standard, at-will) +8 vs AC; 1d8+9 damage.  {b}Trample{/b} (standard, at-will) The magebred destrier can move up to its speed and enter enemies&apos; spaces. This movement provokes opportunity attacks, and the destrier must end its move in an unoccupied space. When it enters an enemy&apos;s space, the destrier makes a trample attack; +6 vs Any; 1d8+6 damage, and the target is knocked prone.  {b}Charger{/b} (while mounted by a friendly rider of 5th level or higher) * {b}Mount{/b}When a destrier&apos;s rider charges, the rider gains a +6 bonus to damage rolls. {b}Bonded Mount{/b} ( when a friendly rider of 5th level or higher spends a healing surge; encounter) * {b}Mount{/b}The magebred destrier gains temporary hit points equal to the rider&apos;s healing surge value.{b}Alignment{/b} Unaligned{b} Languages{/b} -{br}{b}Skills{/b} Endurance +10{br}{b}Str{/b} 22 (+8)  {b}Dex{/b} 14 (+4)  {b}Wis{/b} 12 (+3){br}{b}Con{/b} 16 (+5)  {b}Int{/b} 3 (-2)  {b}Cha{/b} 10 (+2)" compset="Mount">
+    <fieldval field="grCost" value="1000"/>
+    <usesource source="EbCG"/>
+    </thing>
+  <thing id="eqManticor" name="Manticore" compset="Mount">
+    <fieldval field="grCost" value="45000"/>
+    <usesource source="AdvenVault"/>
+    </thing>
+  <thing id="eqMekillot" name="Mekillot" description="These massive creatures serve as draft animals given their tremendous pulling strength. They are aggressive, however, and have been known to turn on handlers.{br}Speed per Hour - Speed per Day - Normal Load (lb.) - Heavy Load (lb.) - Push/Drag (lb.){br}3&#194;&#189; miles - 35 miles - 260 - 500 - 1300{br}{br}Mekillot{br}Huge natural beast (mount, reptile){br}Level 10 Soldier XP 500{b}HP{/b} 108; {b}Bloodied{/b} 54{b}Initiative{/b} +8{br}{b}AC{/b} 26, {b}Fortitude{/b} 25, {b}Reflex{/b} 19, {b}Will{/b} 23{b}Perception{/b}+9{br}{b}Speed{/b} 7{br}Standard Actions {b}Bite{/b} * {b}At-Will{/b}{i}Attack:{/i} Melee 1 (one creature); +15 vs. AC{i}Hit:{/i} 2d10 + 6 damage, or 2d10 + 10 against a target grabbed by the mekillot. {b}Tongue Lash{/b} * {b}At-Will{/b}{i}Attack:{/i} Melee 3 (one creature); +13 vs. Fortitude. While the mekillot has a creature grabbed, it can attack only with bite, which it must use against the grabbed creature.{i}Hit:{/i} 4d6 + 5 damage, and the mekillot pulls the target 2 squares to a square adjacent to it. The mekillot then grabs the target. The mekillot can grab only one creature at a time. {b}Checking Charge{/b} (mount) * {b}Encounter{/b}{i}Requirement:{/i} The mekillot must be mounted by a friendly rider of 10th level or higher.{i}Effect:{/i} The mekillot charges, and each time it moves through an enemy&apos;s space for the first time during the charge, it pushes that enemy 1 square and knocks it prone. At the end of the charge, the mekillot&apos;s rider can make a melee basic attack as a free action.{b}Str{/b} 26 (+13)  {b}Dex{/b} 12 (+6)  {b}Wis{/b} 18 (+9){br}{b}Con{/b} 20 (+10)  {b}Int{/b} 2 (+1)  {b}Cha{/b} 4 (+2){b}Alignment{/b} Unaligned{b} Languages{/b} -" compset="Mount">
+    <fieldval field="grCost" value="4000"/>
+    <usesource source="DarkSun"/>
+    </thing>
+  <thing id="eqNightmar" name="Nightmare" compset="Mount">
+    <fieldval field="grCost" value="25000"/>
+    <usesource source="AdvenVault"/>
+    </thing>
+  <thing id="eqRageDra" name="Rage Drake" compset="Mount">
+    <fieldval field="grCost" value="2600"/>
+    <usesource source="AdvenVault"/>
+    </thing>
+  <thing id="eqRhinocer" name="Rhinoceros" compset="Mount">
+    <fieldval field="grCost" value="2600"/>
+    <usesource source="AdvenVault"/>
+    </thing>
+  <thing id="eqRidinHor" name="Riding Horse" description="Normal Load - Heavy Load - Max.Drag{br}237 lb. - 475 lb. - 1,187 lb.{br}{br}Riding Horse{br}Large natural beast  (mount){br}Level 1 Brute XP 100  {b}Initiative{/b} +1 {b}Senses{/b} Perception +5; low-light vision{br}{b}HP{/b} 36; {b}Bloodied{/b} 18{br}{b}AC{/b} 14; {b}Fortitude{/b} 15, {b}Reflex{/b} 13, {b}Will{/b} 10{br}{b}Speed{/b} 10 {b}Kick{/b} (standard, at-will) +4 vs AC; 1d6+4 damage. {b}Alignment{/b} Unaligned{b} Languages{/b} -{br}{b}Str{/b} 19 (+4)  {b}Dex{/b} 13 (+1)  {b}Wis{/b} 11 (0){br}{b}Con{/b} 16 (+3)  {b}Int{/b} 2 (-4)  {b}Cha{/b} 9 (-1)" compset="Mount">
+    <fieldval field="grCost" value="75"/>
+    </thing>
+  <thing id="eqRidinSha" name="Riding Shark" compset="Mount">
+    <fieldval field="grCost" value="3400"/>
+    <usesource source="AdvenVault"/>
+    </thing>
+  <thing id="eqRimefGri" name="Rimefire Griffon" compset="Mount">
+    <fieldval field="grCost" value="525000"/>
+    <usesource source="AdvenVault"/>
+    </thing>
+  <thing id="eqHorseSea" name="Sea Horse" compset="Mount">
+    <fieldval field="grCost" value="1800"/>
+    <usesource source="AdvenVault"/>
+    </thing>
+  <thing id="eqHorseSke" name="Skeletal Horse" compset="Mount">
+    <fieldval field="grCost" value="17000"/>
+    <usesource source="AdvenVault"/>
+    </thing>
+  <thing id="eqTrihoBeh" name="Trihorn Behemoth" compset="Mount">
+    <fieldval field="grCost" value="21000"/>
+    <usesource source="AdvenVault"/>
+    </thing>
+  <thing id="eqValenrid" name="Valenar riding horse" description="Famed as the fastest horses in all of Khorvaire, these animals are bred by the elves of Valenar to carry warriors across the battle field. A mounted Valenar elf is able to speed into the thick of combat, strike, and dart away.{br}Speed Per Hour - Speed Per Day - Normal Load (lb.) - Heavy Load (lb.) - Push/Drag (lb.){br}6 miles - 60 miles - 175 - 350 - 875{br}{br}Valenar Riding Horse{br}Large fey beast  (mount){br}Level 2 Skirmisher XP 125  {b}Initiative{/b} +7 {b}Senses{/b} Perception +3; low-light vision{br}{b}HP{/b} 37; {b}Bloodied{/b} 18{br}{b}AC{/b} 18; {b}Fortitude{/b} 14, {b}Reflex{/b} 16, {b}Will{/b} 14{br}{b}Speed{/b} 10 {b}Kick{/b} (standard, at-will) +7 vs AC; 1d6+6 damage.  {b}Nimble Beast{/b} (move; encounter) The Valenar riding horse shifts 2 squares. {b}Swift Steed{/b} (minor; while mounted by a friendly rider of 2nd level or higher; encounter) * {b}Mount{/b}The Valenar riding horse gains a +4 bonus to speed until the end of its next turn.{b}Alignment{/b} Unaligned{b} Languages{/b} -{br}{b}Skills{/b} Endurance +7{br}{b}Str{/b} 14 (+3)  {b}Dex{/b} 18 (+5)  {b}Wis{/b} 14 (+3){br}{b}Con{/b} 13 (+2)  {b}Int{/b} 2 (-3)  {b}Cha{/b} 9 (0)" compset="Mount">
+    <fieldval field="grCost" value="360"/>
+    <usesource source="EbCG"/>
+    </thing>
+  <thing id="eqWarcro" name="War crodlu" description="A crodlu is a large, flightless drake with a beak and weak, clawed forelimbs that can be used to manipulate small objects. It is a tough and aggressive hunter in the wild. When trained, it makes an excellent war mount.{br}Speed per Hour - Speed per Day - Normal Load (lb.) - Heavy Load (lb.) - Push/Drag (lb.){br}4 miles - 40 miles - 200 - 400 - 1000{br}{br}War Crodlu{br}Large natural beast (mount, reptile){br}Level 5 Brute XP 200{b}HP{/b} 76; {b}Bloodied{/b} 38{b}Initiative{/b} +5{br}{b}AC{/b} 17, {b}Fortitude{/b} 19, {b}Reflex{/b} 17, {b}Will{/b} 15{b}Perception{/b}+3{br}{b}Speed{/b} 8{br}Standard Actions {b}Beak{/b} * {b}At-Will{/b}{i}Attack:{/i} Melee 1 (one creature); +10 vs. AC{i}Hit:{/i} 2d6 + 3 damage. {b}Claws{/b} * {b}At-Will{/b}{i}Attack:{/i} Melee 1 (one creature); +10 vs. AC{i}Hit:{/i} 1d8 + 4 damage. {b}Pounce{/b} * {b}At-Will{/b}{i}Effect:{/i} The crodlu can move its speed. Whether or not it moves, it can use beak and claws, making each attack against the same target. If both attacks hit, the target also falls prone.Triggered Actions {b}Pouncing Mount{/b} (mount) * {b}Encounter{/b}{i}Trigger:{/i} The crodlu charges an enemy while mounted by a friendly rider of 5th level or higher.{i}Effect (No Action):{/i} The crodlu&apos;s rider can make a melee basic attack as a free action against the target of the crodlu&apos;s charge.{b}Str{/b} 20 (+7)  {b}Dex{/b} 16 (+5)  {b}Wis{/b} 13 (+3){br}{b}Con{/b} 16 (+5)  {b}Int{/b} 3 (-2)  {b}Cha{/b} 8 (+1){b}Alignment{/b} Unaligned{b} Languages{/b} -" compset="Mount">
+    <fieldval field="grCost" value="1000"/>
+    <usesource source="DarkSun"/>
+    </thing>
+  <thing id="eqHorseWar" name="Warhorse" description="Normal Load - Heavy Load - Max.Drag{br}262 lb. - 525 lb. - 1,312 lb.{br}{br}Warhorse{br}Large natural beast  (mount){br}Level 3 Brute XP 150  {b}Initiative{/b} +3 {b}Senses{/b} Perception +8; low-light vision{br}{b}HP{/b} 58; {b}Bloodied{/b} 29{br}{b}AC{/b} 17; {b}Fortitude{/b} 16, {b}Reflex{/b} 14, {b}Will{/b} 14{br}{b}Speed{/b} 8 {b}Kick{/b} (standard, at-will) +6 vs AC; 1d6+5 damage.  {b}Trample{/b} (standard, at-will) The warhorse can move up to its speed and enter enemies&apos; spaces. This movement provokes opportunity attacks, and the warhorse must end its move in an unoccupied space. When it enters an enemy&apos;s space, the warhorse makes a trample attack; +4 vs Reflex; 1d6+6 damage, and the target is knocked prone.  {b}Charger{/b} (while mounted by a friendly rider of 3rd level or higher with the mounted combat feat; at-will) * {b}Mount{/b}The warhorse grants its rider a +5 bonus to damage rolls on charge attacks.{b}Alignment{/b} Unaligned{b} Languages{/b} -{br}{b}Str{/b} 21 (+6)  {b}Dex{/b} 14 (+3)  {b}Wis{/b} 14 (+3){br}{b}Con{/b} 18 (+5)  {b}Int{/b} 2 (-3)  {b}Cha{/b} 10 (+1)" compset="Mount">
+    <fieldval field="grCost" value="680"/>
+    <usesource source="AdvenVault"/>
+    </thing>
+  <thing id="eqWyvern" name="Wyvern" compset="Mount">
+    <fieldval field="grCost" value="21000"/>
+    <usesource source="AdvenVault"/>
+    </thing>
+  </document>
