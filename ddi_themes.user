@@ -669,7 +669,8 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fCalDrg5" name="Callidyrr Dragoon Level 5 Feature (5th level)" description="You gain a +2 power bonus to Diplomacy checks and Intimidate checks." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="1000"><![CDATA[    #traitmodify[skDiplomac,trtPower,2,""]
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skDiplomac,trtPower,2,""]
     #traitmodify[skIntimida,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fCalDrg10" name="Callidyrr Dragoon Level 10 Feature (10th level)" description="You can use the Diplomacy skill as if it were the Heal skill to grant either a saving throw or a use of second wind. The subject of your check can be up to 5 squares away from you." compset="ThemeFeat">
@@ -741,7 +742,8 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fChaosMd5" name="Chaosmade Level 5 Feature" description="You gain a +2 power bonus to Arcana checks and Endurance checks." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="1000"><![CDATA[    #traitmodify[skArcana,trtPower,2,""]
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skArcana,trtPower,2,""]
     #traitmodify[skEnduranc,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fChaosMd10" name="Chaosmade Level 10 Feature" description=" You can use seed of chaos one additional time per encounter.\n    In addition, you gain fluency in Primordial if you do not already have it." compset="ThemeFeat">
@@ -798,7 +800,8 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fChevalr5" name="Chevalier Level 5 Feature" description="You gain a +2 power bonus to Diplomacy checks and Intimidate checks." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="1000"><![CDATA[    #traitmodify[skDiplomac,trtPower,2,""]
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skDiplomac,trtPower,2,""]
     #traitmodify[skIntimida,trtPower,2,""]]]>
       <before name="Calc resLeft"/>
       </eval>
@@ -901,11 +904,13 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fCipher1" name="Cipher Starting Feature" description=" You gain a +2 power bonus to initiative. In addition, when you roll initiative and do not have the highest result, you can use a free action to move up to your speed before anyone else&#146;s turn in the encounter." compset="ThemeFeat">
     <tag group="ReqLevel" tag="1"/>
-    <eval phase="Traits" priority="1000"><![CDATA[#traitmodify[trInit,trtPower,2,""]]]></eval>
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+#traitmodify[trInit,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fCipher5" name="Cipher Level 5 Feature" description="You gain a +2 power bonus to Acrobatics checks and Athletics checks." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="1000"><![CDATA[    #traitmodify[skAcrobati,trtPower,2,""]
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skAcrobati,trtPower,2,""]
     #traitmodify[skAthletic,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fCipher10" name="Cipher Level 10 Feature" description="Once per day, you can use a second action point during an encounter." compset="ThemeFeat">
@@ -939,7 +944,8 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fCrmBMg5" name="Cormyrian Battle Mage Level 5 Feature" description="You gain a +2 power bonus to History checks and Religion checks." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="1000"><![CDATA[    #traitmodify[skHistory,trtPower,2,""]
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skHistory,trtPower,2,""]
     #traitmodify[skReligion,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fCrmBMg10" name="Cormyrian Battle Mage Level 10 Feature" description="You cannot be surprised." compset="ThemeFeat">
@@ -1008,7 +1014,8 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fCultist10" name="Cultist Level 10 Feature" description="You gain a +2 power bonus to Intimidate checks.\n    In addition, during the first round of each encounter, enemies take a -2 penalty to attack rolls against you." compset="ThemeFeat">
     <tag group="ReqLevel" tag="10"/>
-    <eval phase="Traits" priority="1000"><![CDATA[   #traitmodify[skIntimida,trtPower,2,""]]]></eval>
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+   #traitmodify[skIntimida,trtPower,2,""]]]></eval>
     </thing>
   <thing id="pwCultist2" name="Mad Confidence" description="{b}Effect:{/b} You enter the mad confidence stance. Until the stance ends, you grant combat advantage and gain a +4 power bonus to damage rolls." compset="Power">
     <fieldval field="pwFlavor" value="Your master is with you. You cannot fail."/>
@@ -2207,7 +2214,8 @@ perform assignstr["Attack." & attidstr]]]>
     <tag group="PowerSrc" tag="Psionic"/>
     </thing>
   <thing id="fNblAdpPP" name="Noble Adept Poiwer Point" description="You gain 1 power point" compset="ThemeFeat">
-    <eval phase="Traits" priority="1000">#trkmax[trkPower] += 1</eval>
+    <eval phase="Traits" priority="1000">doneif ( activated = 0 )
+#trkmax[trkPower] += 1</eval>
     </thing>
   <thing id="thPrimGrd" name="Primal Guardian" description="{i}&quot;The world has suffered more than any slave, yet life still flowers in a few places. I have vowed to protect these places of pristine nature, and it&#146;s a promise I intend to keep.&quot;{/i}\nMuch of Athas is desolate and defiled, but the life of a world is difficult to quench altogether. In spite of the supernatural ruin visited over so much of the planet thousands of years ago, the vital force of Athas still flourishes in a few places&#151;the rain-misted jungles of the Forest Ridge, the green palm groves of hidden oases in the Tablelands, the majestic stands of giant cactus that dot the stony barrens in the wilds south of Tyr, creek-fed mountain vales, the dazzling blue waters of the Dragon&#146;s Bowl, and a thousand more secret refuges and lost springs.\n    Across the Tyr Region, sentinels stand watch over these surviving treasures, protecting them from pillaging or defiling at the hands of people too careless, desperate, or wicked to care whether their actions might murder one more piece of a gravely wounded world. These watchers and sentinels are the world&#146;s primal guardians, chosen by the spirits or selfappointed to defend the life of Athas.\n    Many primal guardians are hermits who live in or near the lands they guard. Legendary druids such as Enola, the mul guardian of the Dragon&#146;s Bowl, and Mearedes, the protector of the island of Shault, are excellent examples. Some of these individuals choose their tasks for themselves, freely taking up the mantle of guardianship over some rare and precious verdant patch hidden in the desert. Others are possessed by the primal spirits, haunted or maddened by visions and bound to the place of the land&#146;s need. Still other primal guardians belong to circles or brotherhoods collectively sworn to defend a wide area. Several such circles, consisting mostly of halfling druids and wardens, are scattered throughout the Forest Ridge. Another band known as the Crescent Circle works to defend the Crescent Forest between Gulg and Nibenay. Finally, a few circles are free-roaming orders or societies that keep watch over the whole of the Tyr Region, passing messages to each other and gathering to oppose great dangers when they arise.\n    Even if a primal guardian chooses a single locale to protect, he or she is free to wander the rest of the world. In fact, many guardians begin their careers with an extended time of wandering, learning the secrets of nature&#146;s balance throughout Athas and searching for the place of their calling. But even after this time comes to an end, the needs of all of Athas often draw a primal guardian into long journeys away from the place he or she wards.\n    Even more so than elemental priests, primal guardians are people of the deep desert and the remote wilderness. Where the elemental priests seek to instill reverence for the primal elements in the peoples of Athas, primal guardians seek to keep verdant lands hidden and unspoiled. Some conceal trails or wield magic to obscure their warded places, some lure dangerous beasts to lair in the right spot, some spread rumors of death and desolation, and a few kill anyone who comes across the place they are sworn to protect. A few lives are nothing when weighed against the life of the world, after all." compset="Theme" uniqueness="unique">
     <usesource source="DarkSun"/>
@@ -3514,7 +3522,8 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fDRDsrt5" name="Dead Rat Deserter Level 5 Feature" description="You gain a +2 power bonus to Bluff checks and Stealth checks." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="1000"><![CDATA[    #traitmodify[skBluff,trtPower,2,""]
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skBluff,trtPower,2,""]
     #traitmodify[skStealth,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fDRDsrt10" name="Dead Rat Deserter Level 10 Feature" description=" You gain the hybrid bite power." compset="ThemeFeat">
@@ -3551,7 +3560,8 @@ perform assignstr["Attack." & attidstr]]]>
   <thing id="fDpDlvr1" name="Deep Delver Starting Feature" description=" You gain a +2 power bonus to Dungeoneering checks.\n    You also gain the subterranean survival power." compset="ThemeFeat">
     <tag group="ReqLevel" tag="1"/>
     <bootstrap thing="pwDpDlvr1"></bootstrap>
-    <eval phase="Traits" priority="1000"><![CDATA[   #traitmodify[skDungeone,trtPower,2,""]]]></eval>
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+   #traitmodify[skDungeone,trtPower,2,""]]]></eval>
     </thing>
   <thing id="pwDpDlvr1" name="Subterranean Survival" description="{b}Trigger:{/b} You make a Dungeoneering check and dislike the result.\n{b}Effect:{/b} You reroll the Dungeoneering check." compset="Power">
     <fieldval field="pwFlavor" value="You thrive in the unforgiving caverns of the Underdark."/>
@@ -3567,7 +3577,8 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fDpDlvr5" name="Deep Delver Level 5 Feature" description="Your power bonus to Dungeoneering checks increases to +4.\n    Also, when you squeeze, your speed is not halved, and you take a -2 penalty to attack rolls instead of the normal -5." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="1000"><![CDATA[   #traitmodify[skDungeone,trtPower,4,""]]]></eval>
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+   #traitmodify[skDungeone,trtPower,4,""]]]></eval>
     </thing>
   <thing id="fDpDlvr10" name="Deep Delver Level 10 Feature" description="You gain blindsight with a radius of 2 squares" compset="ThemeFeat">
     <tag group="ReqLevel" tag="10"/>
@@ -3631,7 +3642,8 @@ perform assignstr["Attack." & attidstr]]]>
   <thing id="fDmnSpn5" name="Demon Spawn Level 5 Feature" description=" You gain a +2 power bonus to Intimidate checks. In addition, you add Abyssal to the languages you can read, write, and speak." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
     <bootstrap thing="lanAbyssal"></bootstrap>
-    <eval phase="Traits" priority="1000"><![CDATA[   #traitmodify[skIntimida,trtPower,2,""]]]></eval>
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+   #traitmodify[skIntimida,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fDmnSpn10" name="Demon Spawn Level 10 Feature" description=" The first time you are bloodied in each encounter, choose acid, cold, fire, lightning, or thunder. You gain resist 5 to that damage type until the end of the encounter. At 11th level, this resistance increases to 10, and at 21st level, this resistance increases to 15.\n    Also, until the end of your next turn, your allies provoke opportunity attacks from you. You must make every opportunity attack you can." compset="ThemeFeat">
     <tag group="ReqLevel" tag="10"/>
@@ -3746,7 +3758,8 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fDvlPwn10" name="Devil&apos;s Pawn Level 10 Feature" description="You gain resist 10 fire. If you already have fire resistance as a racial trait, it increases by 5." compset="ThemeFeat">
     <tag group="ReqLevel" tag="10"/>
-    <eval phase="Traits" priority="1000"><![CDATA[#traitmodify[rsFire,rsTotal,10,""]]]></eval>
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+#traitmodify[rsFire,rsTotal,10,""]]]></eval>
     </thing>
   <thing id="thDsgNbl" name="Disgraced Noble" description="{i}&quot;Don&#146;t let my reputation color your impression, my darling. The rumors are all lies, spurious tales told by enemies who resent my good fortune.&quot;{/i}\nSong and story profess that nobility carries a higher morality, that the aristocracy upholds honor, justice, truth, and valor. The hard truth is that this celebrated virtue is a myth&#151;what distinguishes nobles from everyone else are the circumstances of their birth. Money, land, privilege: none of these things ensure good character and high ideals. In fact, such boons often create the worst villains.\n    If the masses pierce the veil of pomp and circumstance and see the noble for who he or she truly is, that vaunted individual is bound to tumble from great heights to wallow in the filth of the fallen. As a result, the aristocracy works hard to preserve the illusion, to maintain at least the veneer of respectability. Waging war against scandal and rumor, nobles fight to preserve their lifestyles, their fortune, and their lives.\n    No matter how cunning, some nobles succumb to temptation and forget their fragile position. Perhaps it was a careless moment, maybe it was a full assault on his or her character&#151;no matter, the damage is done. A reputation, no matter how carefully nurtured, can be torn down in an instant. The fate of those nobles who topple, whose carefully constructed masks shatter, is one of disgrace and shame.\n\n{b}Disgraced Noble Starting Feature (1st level):{/b} You gain the dirty deed power.\n{b}Disgraced Noble Level 5 Feature (5th level):{/b} You gain a +2 power bonus to Bluff checks and Streetwise checks.\n{b}Disgraced Noble Level 10 Feature (10th level):{/b} The power bonus to your Bluff checks and Streetwise checks increases to +4.\n    In addition, while you are not bloodied, allies within 2 squares of you who can see or hear you gain a +1 power bonus to saving throws." compset="Theme">
     <usesource source="BookVileDa"/>
@@ -3817,12 +3830,14 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fDsgNbl5" name="Disgraced Noble Level 5 Feature" description="You gain a +2 power bonus to Bluff checks and Streetwise checks." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="1000"><![CDATA[   #traitmodify[skBluff,trtPower,2,""]
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+   #traitmodify[skBluff,trtPower,2,""]
    #traitmodify[skStreetwi,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fDsgNbl10" name="Disgraced Noble Level 10 Feature" description="The power bonus to your Bluff checks and Streetwise checks increases to +4.\n    In addition, while you are not bloodied, allies within 2 squares of you who can see or hear you gain a +1 power bonus to saving throws." compset="ThemeFeat">
     <tag group="ReqLevel" tag="10"/>
-    <eval phase="Traits" priority="1000"><![CDATA[   #traitmodify[skBluff,trtPower,4,""]
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+   #traitmodify[skBluff,trtPower,4,""]
    #traitmodify[skStreetwi,trtPower,4,""]]]></eval>
     </thing>
   <thing id="thEarthFgr" name="Earthforger" description="{i}&quot;Elemental earth resonates in my soul.&quot;{/i}\nStrong, durable, and implacable, earthforgers embody elemental earth. They can manifest its power in defense or as a weapon, drawing energy from the stones or releasing it outward to hold enemies back. Earthforgers wield great power, but such ability comes at an even greater price. When they grasp this elemental magic and take it in, earthforgers are reborn as elemental creatures.\n    Dwarves pioneered the techniques of earthforging long ago; many sages believe that the race&#146;s first steps toward mastering elemental power occurred when the dwarves were enslaved by the giants, and those efforts led to the birth of the galeb duhr race. While extracting precious metals and gemstones from deep under the mountains, dwarf miners in that long-ago time came across primordial shards, crystallized magic left from creation. Using these shards, the dwarves found they could shape stone more easily, while also being able to endure even greater punishment. An unknown number of dwarves succumbed to elemental power&#146;s temptations, losing themselves to its magic, but enough resisted and proved mighty allies in the uprising that led to the dwarves&#146; exodus from cruel enslavement.\n    Other races have stumbled across earthforging under similar circumstances. Goliaths learned to use elemental earth from the stone spirits who watch over their mountain camps. Svirfneblin, gnomes who have long dwelt in the Underdark, use earthforging to evade drow slavers and destroy other hostile humanoids. Travelers report encounters with strange hermits, formerly mortal creatures that have been transformed into beings of living stone. Such individuals are rare, yet anyone who explores the wild places, those untamed lands where the primordials&#146; fingerprints can still be seen, might very well come across an earthforger.\n\n{b}Earthforger Starting Feature (1st level):{/b} Your origin becomes elemental. For the purpose of effects that relate to creature origin, you are considered to be an elemental. In addition, you add Primordial to the languages you can read, write, and speak. Whenever you use your second wind, you gain a +1 power bonus to all defenses until the start of your next turn.\n    You also gain the stone panoply power.\n{b}Earthforged Level 5 Feature (5th level):{/b} You gain a +2 power bonus to Endurance checks. Further, whenever you use stone panoply, the burst creates a zone that lasts until the end of the encounter. The ground in the zone is difficult terrain for enemies that lack earth walk.\n{b}Earthforged Level 10 Feature (10th level):{/b} Whenever an effect would pull, push, or slide you while you are on the ground, you can reduce the distance of that forced movement by 1 square." compset="Theme"></thing>
@@ -3910,7 +3925,8 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fErthFg5" name="Earthforged Level 5 Feature" description=" You gain a +2 power bonus to Endurance checks. Further, whenever you use stone panoply, the burst creates a zone that lasts until the end of the encounter. The ground in the zone is difficult terrain for enemies that lack earth walk." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="1000"><![CDATA[   #traitmodify[skEnduranc,trtPower,2,""]]]></eval>
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+   #traitmodify[skEnduranc,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fErthFg10" name="Earthforged Level 10 Feature" description=" Whenever an effect would pull, push, or slide you while you are on the ground, you can reduce the distance of that forced movement by 1 square." compset="ThemeFeat">
     <tag group="ReqLevel" tag="10"/>
@@ -3979,7 +3995,7 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fEldrBoy5" name="Elderboy Level 5 Feature" description="You gain a +2 power bonus to saving throws against ongoing poison damage, and you gain poison resistance equal to 5 + one-half your level." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="1000"><![CDATA[
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
       ~resist Necrotic / Radiant 5 + half level
       var bonus as number
       bonus = 5 + round(hero.tagvalue[Level.?] / 2, 0, -1)
@@ -3987,7 +4003,8 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fEldrBoy10" name="Elderboy Level 10 Feature" description="You gain a +1 power bonus to initiative checks and a +2 power bonus to all defenses against allies&#146; attacks." compset="ThemeFeat">
     <tag group="ReqLevel" tag="10"/>
-    <eval phase="Traits" priority="1000"><![CDATA[      #traitmodify[trInit,trtPower,2,""]]]></eval>
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+      #traitmodify[trInit,trtPower,2,""]]]></eval>
     </thing>
   <thing id="thEleInit" name="Elemental Initiate" description="{i}&quot;Inner harmony is a balancing of elements.&quot;{/i}\nElemental initiates follow a philosophy grounded in the understanding of the four elements and their influence over mortal bodies, hearts, and minds. One who would become an initiate withdraws from ordinary life to seek wisdom in a setting free of distractions, such as a monastery, a remote temple, or the dojo of a famous teacher. In some societies, the philosophy of the elements is widely known and respected as a path all should seek to progress along during the course of their lives. Among other cultures, these teachings are regarded as exotic or are unheard of. No matter the viewpoint of others, the path of the initiate is one of truth seeking and selfknowledge above all, a lifelong search for meaning and understanding.\n    Before heading into the world, most elemental initiates lead ascetic lives. They own little more than the robes on their backs, and they eschew luxuries and intemperate behavior as distractions from the path to which they devote themselves. An initiate strives to curb passions rather than allowing those passions to rule. An elemental initiate might be a student who preserves ancient tomes, a martial arts disciple who studies the four elements, or an anchorite absorbed in the exploration of the mind in the wild and lonely places of the world. Philosophically minded initiates devote hours each day to study, discourse, and observation of the world around them, while others dedicate their time to meditation and exercise. In and around the daily discipline of the monastery or temple, common chores and tasks are shared among all members of the order.\n    Typical elemental initiates are content to remain in their hidden temples and remote monasteries all their lives, devoting themselves to the study of their philosophy. However, some believe that they must travel widely, to pass on their learning and to absorb new lessons from the world outside the monastery walls. Other initiates take up a life of humble service, using their unusual training and abilities to help others. Adventuring elemental initiates come from the latter two camps.\n\n{b}Elemental Initiate Starting Feature (1st level):{/b} You gain a +2 proficiency bonus with unarmed attacks, and your unarmed attack can deal 1d6 damage instead of 1d4. You also gain proficiency with ki focuses.\n    You also gain the disciplined counter power.\n{b}Elemental Initiate Level 5 Feature (5th level):{/b} You gain training in one skill from among Arcana, History, Nature, and Religion.\n{b}Elemental Initiate Level 10 Feature (10th level):{/b} You gain a +1 power bonus to Will." compset="Theme">
     <bootstrap thing="fElemInt1"></bootstrap>
@@ -4059,7 +4076,8 @@ perform assignstr["Attack." & attidstr]]]>
   <thing id="fElemInt1" name="Elemental Initiate Starting Feature" description="You gain a +2 proficiency bonus with unarmed attacks, and your unarmed attack can deal 1d6 damage instead of 1d4. You also gain proficiency with ki focuses.\n    You also gain the disciplined counter power." compset="ThemeFeat">
     <tag group="ReqLevel" tag="1"/>
     <bootstrap thing="pwEleInt1"></bootstrap>
-    <eval phase="Setup" priority="1000">perform hero.child[wpUnarmed].setfocus
+    <eval phase="Setup" priority="1000">doneif ( activated = 0 )
+perform hero.child[wpUnarmed].setfocus
       perform focus.delete[WepDamage.?]
       perform focus.assign[WepDamage.1d6]
       focus.field[wpProf].value += 2
@@ -4068,10 +4086,12 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fElemInt5" name="Elemental Initiate Level 5 Feature" description="You gain training in one skill from among Arcana, History, Nature, and Religion" compset="ThemeFeat">
     <fieldval field="usrCandid1" value="skArcana OR skHistory OR skNature OR skReligion"/>
-    <eval phase="Traits" priority="1000">perform field[usrChosen1].chosen.assign[Helper.TrainedAut]</eval>
+    <eval phase="Traits" priority="1000">doneif ( activated = 0 )
+perform field[usrChosen1].chosen.assign[Helper.TrainedAut]</eval>
     </thing>
   <thing id="fElemInt10" name="Elemental Initiate Level 10 Feature" description="You gain a +1 power bonus to Will." compset="ThemeFeat">
-    <eval phase="Traits" priority="1000"><![CDATA[      #traitmodify[defWill,trtPower,1,""]]]></eval>
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+      #traitmodify[defWill,trtPower,1,""]]]></eval>
     </thing>
   <thing id="thEscSlave" name="Escaped Slave" description="{i}&quot;No one is my master&#151;not anymore. You think you&#146;re free? At least I had bonds to break. You can&#146;t even see the prison that surrounds you.&quot;{/i}\nThe cities of the sorcerer-kings crouch upon the backs of slaves. Slave bones litter their alleys. Slave blood makes mud in the dust of their streets. Almost everywhere you go in the city-states you see someone with a yoke around the neck and eyes cast toward the ground. Tyr presents the only exception, but Tyr has depended upon the labor of slaves just as much as any other city. Even it sells criminals into slavery beyond its walls. How long can such &#147;freedom&#148; last?\n    Slaves have always been a part of Athasian society. A harsh world calls for harsh justice. Those who cannot obey the laws that protect all or who are not smart enough to bow before those stronger than themselves do not deserve the water it takes to keep them alive. People become slaves by angering or offending those more powerful than themselves. A slave might have owed a debt, stolen a crust of bread, or not bowed low or fast enough when a person of importance passed. Citizens are declared slaves for owning items desired by nobles, for being captured instead of killed during war, and for knowing information above their station. Those born to slaves are slaves owned by the mother&#146;s master. After all, the master lost work from the mother during pregnancy and must pay for the child&#146;s care. Such a child owes the master labor equal to the period of time until it can do the work of a full adult, and by then it has no doubt done something to warrant its continued slavery. Even the kindest master realizes that a child raised in slavery is ill equipped for freedom and would likely die shortly after release. Though a slave lives a harsh life with no security, a master must provide for a slave&#146;s needs or accept the loss of that investment.\n    Once declared a slave, a person becomes property. Slaves change hands like money. They are won and lost in bets, sold at auction, and brought to market. Slave owners with slaves that have specialized skills or unusual attributes seek out buyers with particular needs. A slave owner can do what he or she likes with a slave, and it&#146;s no concern of anyone else. Masters expect slaves to work incredibly hard to earn their keep or face death in the arena, a quick execution, or whatever other cruelty the master dreams up.\n    Few slaves even dream of escape. The declaration of slavery is like a death sentence in its finality. Even if the leather and bone manacles are broken, even if the guards are evaded or killed, the rest of the world hates and fears an escaped slave. Those who aid an escaped slave&#151;even unwittingly&#151;can expect to become slaves themselves. Those who turn them in often receive a reward worth as much as half the slave&#146;s value. Only Tyr offers a slim hope of sanctuary, and if a slave has angered the master enough, many ways exist to take someone from that city.\n    An escaped slave&#146;s only hope is to see freedom as a rebirth. Old haunts, one-time friends, even family&#151;all need to be avoided for fear of being recognized and turned in. Hide the brand, disguise the tattoo, cover up the scars, explain the calluses away&#151;successful escaped slaves do all this and more. Escaped slaves must take up a new name, a new history, and if one can manage it, a new appearance. Some escaped slaves do all this, but the strong will and sharp mind such a life requires often drives successful escaped slaves back toward their former owners, exchanging one master for another: revenge." compset="Theme">
     <bootstrap thing="pwEscSlv1"></bootstrap>
@@ -4284,11 +4304,13 @@ perform assignstr["Attack." & attidstr]]]>
   <thing id="fEscThrll5" name="Escaped Thrall Level 5 Feature" description="Add Deep Speech to the languages you can speak, read, and write. You also gain a +2 power bonus to Dungeoneering checks." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
     <bootstrap thing="lanDeepSpe"></bootstrap>
-    <eval phase="Traits" priority="1000"><![CDATA[    #traitmodify[skDungeone,trtPower,2,""]]]></eval>
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skDungeone,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fEscThrl10" name="Escaped Thrall Level 10 Feature" description="You gain a +1 power bonus to Will." compset="ThemeFeat">
     <tag group="ReqLevel" tag="10"/>
-    <eval phase="Traits" priority="1000"><![CDATA[      #traitmodify[defWill,trtPower,1,""]]]></eval>
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+      #traitmodify[defWill,trtPower,1,""]]]></eval>
     </thing>
   <thing id="thExplr" name="Explorer" description="Seekers of new lands and lost places, explorers are masters of the trackless wilderness. Formal exploration is not very common in the world; a few wealthy kingdoms and mercantile cities charter expeditions to distant lands or reward travelers who return home with descriptions of far-off places. Most explorers, however, are individuals whose interests or duties lead them to venture into places where other people rarely go. They can be hunters, scouts, pathfinders, merchants, or emissaries to distant realms. Pursuing their private interests or carrying out important missions entrusted to them leads these travelers into the wild places of the world.\n    Many explorers begin their adventures as professional treasure-seekers. Searching out legends about lost hoards, hidden artifacts, or unplundered tombs, they put their talents to use in locating the rich score that no one else has found. Other explorers are engaged in searches, quests, or missions that lead them to places no one has visited before. For example, an order of knights or wizards might charge its members with traveling the world to battle a specific threat. A few explorers are true wanderers&#151;travelers who feel compelled to see for themselves what lies beyond the next ridge or to seek out legendary challenges. Fortune or fame is of little concern to these wanderers; they live to satisfy their personal curiosity or to measure themselves against the dangers they overcome.\n    Regardless of individual motivation, explorers must master a daunting set of skills if they hope to be successful. They must be tough and enduring, capable of traveling great distances over difficult terrain, and must have the ability to survive the worst extremes of weather. They must be expert beast hunters and foragers with a talent for living off the land no matter where they are, since they&#146;re not likely to find friendly inns or trading posts once they leave civilization behind. A knack for direction is indispensable; roads are nonexistent in the wilds, and missing an important landmark or choosing the wrong turn off a poorly marked trail might be a fatal mistake. Finally, explorers had better be ready to defend themselves from the attacks of vicious raiders and hungry monsters.\n\n{b}Explorer Starting Feature (1st level):{/b} You can tell which way is north, and you gain a +5 bonus to any skill check to avoid becoming lost, find your way to a specific location, or spot a distant landmark.\n    In addition, you gain the surefooted stride power.\n{b}Explorer Level 5 Feature (5th level):{/b} You gain a +2 power bonus to Endurance checks. In addition, for the purpose of determining how far you and up to ten companions can travel in an hour or a day, treat the group&apos;s speed as the slowest member&apos;s speed + 1. While the group travels with you, its members also gain a +2 power bonus to Endurance checks.\n{b}Explorer Level 10 Feature (10th level):{/b} You gain a +1 power bonus to Fortitude and a +2 bonus to saving throws against ongoing poison damage." compset="Theme">
     <bootstrap thing="fExplr1"></bootstrap>
@@ -4349,11 +4371,13 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fExplr5" name="Explorer Level 5 Feature" description="You gain a +2 power bonus to Endurance checks. In addition, for the purpose of determining how far you and up to ten companions can travel in an hour or a day, treat the group&apos;s speed as the slowest member&apos;s speed + 1. While the group travels with you, its members also gain a +2 power bonus to Endurance checks." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="1000"><![CDATA[    #traitmodify[skEnduranc,trtPower,2,""]]]></eval>
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skEnduranc,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fExplr10" name="Explorer Level 10 Feature" description="You gain a +1 power bonus to Fortitude and a +2 bonus to saving throws against ongoing poison damage." compset="ThemeFeat">
     <tag group="ReqLevel" tag="10"/>
-    <eval phase="Traits" priority="1000"><![CDATA[      #traitmodify[defFort,trtPower,1,""]]]></eval>
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+      #traitmodify[defFort,trtPower,1,""]]]></eval>
     </thing>
   <thing id="ftFateDnc1" name="Fatedancer Level 1 Feature" description="You can have up to two Fortune Cards in your hand. You can still play only one in a round, but you can draw a card at the start of your turn if you have fewer than two cards in your hand." compset="ThemeFeat">
     <tag group="ReqLevel" tag="1"/>
@@ -4490,7 +4514,8 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fFrCrftr5" name="Firecrafter Level 5 Feature" description="You gain a +2 power bonus to Acrobatics checks. Whenever you use your second wind, you gain a +1 power bonus to attack rolls with fire attacks until the end of your next turn." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="1000"><![CDATA[    #traitmodify[skAcrobati,trtPower,2,""]]]></eval>
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skAcrobati,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fFrCrftr10" name="Firecrafter Level 10 Feature" description="Whenever you use blazing corona, you can also shift up to 3 squares as a free action." compset="ThemeFeat">
     <tag group="ReqLevel" tag="10"/>
@@ -4855,7 +4880,8 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fGlmWEm5" name="Gloomwrought Emissary Level 5 Feature" description="You gain a +2 power bonus to Diplomacy checks and Streetwise checks." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="1000"><![CDATA[    #traitmodify[skDiplomac,trtPower,2,""]
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skDiplomac,trtPower,2,""]
     #traitmodify[skStreetwi,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fGlmWEm10" name="Gloomwrought Emissary Level 10 Feature" description=" Once per day, you can reroll a Bluff check, a Diplomacy check, or an Intimidate check. You must use the second result." compset="ThemeFeat">
@@ -4924,7 +4950,8 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fGuardian5" name="Guardian Level 5 Feature" description="You gain a +2 power bonus to Insight checks and Perception checks." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="1000"><![CDATA[    #traitmodify[skInsight,trtPower,2,""]
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skInsight,trtPower,2,""]
     #traitmodify[skPercepti,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fGuardian0" name="Guardian Level 10 Feature" description="Choose one creature to be your bonded charge. You can sense when your bonded charge is in danger, as long as he or she is within one mile. You can sense the general direction and distance to your bonded charge if you don&#146;t know where he or she is. If an enemy attacks your bonded charge, you gain a +1 bonus to attack rolls against that enemy until the start of that enemy&#146;s next turn.\n    You can have only one bonded charge at a time. Your bonded charge must be someone your guardian order is sworn to protect. Generally speaking, you can&#146;t designate someone as a bonded charge whose melee combat skills equal or exceed your own; you&#146;re supposed to protect people who don&#146;t fight as well as you do." compset="ThemeFeat">
@@ -5048,7 +5075,8 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fGtrSnp10" name="Guttersnipe Level 10 Feature" description="You gain a +5 power bonus to Streetwise checks. You can make a Streetwise check once per day as a free action as long as you are in a town or a city." compset="ThemeFeat">
     <tag group="ReqLevel" tag="10"/>
-    <eval phase="Traits" priority="1000"><![CDATA[#traitmodify[skStreetwi,trtPower,2,""]]]></eval>
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+#traitmodify[skStreetwi,trtPower,2,""]]]></eval>
     </thing>
   <thing id="thHalStrC" name="Halaster&apos;s Clone" description="For over a thousand years, the Mad Mage Halaster Blackcloak ruled Undermountain, the labyrinthine dungeon beneath Waterdeep. During that time, he created untold numbers of clones to house his identity in case his body met with disaster. The clones were kept in stasis and hidden in safe places throughout Undermountain and the lower reaches of Waterdeep. Though Halaster expected death at every turn, not even he foresaw his destruction at his own hands. His essence was cast across the planes when he lost control of a powerful ritual, and before he could find his way back to one of his clones, the Spellplague struck. Only Halaster knows for certain what happened next.     \n    You were supposed to be one of Halaster&#146;s clones&#151;of that much you&#146;re certain. The safe house in which you awoke was filled with the Mad Mage&#146;s writings, which were meant to help him reorient himself upon assuming a new body. But something went horribly wrong.\n    You are not Halaster. Your body is far different from what is shown in the paintings and illustrations of the master of Undermountain. Your personality and skills seem drawn from another source. Yet Halaster is there too, his maniacal laughter bubbling up from the recesses of your mind.\n    It has now been more than a hundred years since Halaster&#146;s death and the onset of the Spellplague, and you have nothing but questions. Undaunted, you set out from Undermountain to create a life and a history for yourself; you hope to find the strength to keep your internal madness at bay. Halaster&#146;s power grows with every passing day, and this body isn&#146;t big enough for both of you.\n\n{b}Halaster&#146;s Clone Starting Feature (1st level):{/b} You do not age. In addition, you gain immunity to diseases of your level or lower.\n{b}Halaster&#146;s Clone Level 5 Feature (5th level):{/b} You gain the alter time power.\n{b}Halaster&#146;s Clone Level 10 Feature (10th level):{/b} You gain a +4 power bonus to initiative." compset="Theme">
     <bootstrap thing="fHlstCln10"></bootstrap>
@@ -5111,7 +5139,8 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fHlstCln10" name="Halaster&#146;s Clone Level 10 Feature" description="You gain a +4 power bonus to initiative." compset="ThemeFeat">
     <tag group="ReqLevel" tag="10"/>
-    <eval phase="Traits" priority="1000"><![CDATA[#traitmodify[trInit,trtPower,4,""]]]></eval>
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+#traitmodify[trInit,trtPower,4,""]]]></eval>
     </thing>
   <thing id="thHarpeAge" name="Harper Agent" description="{i}You fight for your freedom? Well, I fight for the freedom of all.{/i}\nBards who chronicle the past age sing of the Harpers, a secret society dedicated to advancing the cause of good across Faer&#251;n. In the group&#146;s glory days, its members included figures of legend such as Storm Silverhand, whose beautiful voice matched her ferocity in battle, and Arilyn Moonblade, a half-elf wielder of powerful and ancient elven magic. The Harpers passed from existence in the wake of the Spellplague, but the organization was reborn sixty years ago and is now based out of the city of Everlund, several hundred miles northeast of Neverwinter. Its stated purpose is to stop the encroachment of the expanding empire of Netheril.\n    You grew up hearing tales of the Harpers&#146; exploits and have long sought to do your part to stem the tide of darkness. You&#146;ve always had a facility for deception and intrigue, coupled with a strong sense of right and wrong. As you grew older, you searched for the best way to put those skills to good use. You journeyed to Everlund to enlist in the group, whereupon you were given a task to complete in order to earn your Harper pin.\n    You were dispatched to Neverwinter, there to contact a local Harper agent named Cymril and lend your services to the Sons of Alagondar. Cymril, in addition to being one of the few Harpers in the city, is the leader of the Sons of Alagondar. This underground resistance movement opposes the imperialistic aims of Dagult Neverember, the Open Lord of Waterdeep, who has established himself as the &#147;Protector&#148; of Neverwinter during its reconstruction. The Harpers believe that Neverember&#146;s intentions are less than noble, and that he seeks to expand his mercantile empire for his own gain at the expense of the people. They are sure that, with his ruthless methods and suspect alliances, Neverember plans to usurp the throne of Neverwinter and build a cutthroat empire on the Sword Coast.\n    On your arrival, you learned the hard way that Neverember&#146;s treachery runs deeper than even the Harpers know. You were included among a band of rebels on a nighttime reconnaissance mission led by Cymril. All of a sudden, your world turned inside out when a squad of Neverember&#146;s mercenaries ambushed your group. You avoided the initial assault by ducking into an alcove&#151;where you watched as Cymril began cutting down your comrades! Clearly, she was working in league with the soldiers. One of Cymril&#146;s lieutenants turned on her and wounded her fatally just before he himself was cut down by the mercenaries.\n    When the mercenaries moved on, they left the bodies of their victims (including Cymril) in the street as a warning to other dissidents. Before you left the area, you had the foresight to pluck Cymril&#146;s Harper pin from her vest, lest it fall into the wrong hands.\n    Was Cymril truly a traitor to Neverwinter&#146;s cause, or was she working as a double agent? You can&#146;t be sure. What you do know is that when both the Sons of Alagondar and the Harpers got wind of what had happened, they immediately suspected that someone in the ambushed group was working for the other side.\n    As the newcomer, you bear the brunt of the suspicion of both groups. The city&#146;s rebel forces have fractured since Cymril&#146;s death into disorganized and ineffective war bands. Discovering which of the few Harper associates in Neverwinter you can trust is important to you. However, if you have to work alone to get the job done, that&#146;s what you&#146;ll do. Your main goal is to ascertain the truth about Cymril, and in the process of doing that, you seek any means you can to thwart Neverember&#146;s true plans for the city.\n    As a rogue agent, you work without official Harper support, and are free to use your own methods and make your own decisions regarding whom to trust. Each new day is an exciting and dangerous game of masks&#151;guessing who speaks the truth, who offers you lies in the hope of securing an advantage, and who is the true enemy in any given situation. You follow a morality of your own&#151;one that seeks the good in any situation, without compromise and without being afraid to take the fight to those who oppose you.\n\n    {b}Harper Agent Starting Feature (1st level):{/b} You gain a Harper pin." compset="Theme" uniqueness="unique">
     <usesource source="NeverCamp" parent="Supplement" name="Neverwinter Campaign Setting"/>
@@ -5323,7 +5352,7 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fHrDlzn1" name="Heir of Delzoun Starting Feature" compset="ThemeFeat">
     <tag group="ReqLevel" tag="1"/>
-    <eval phase="Traits" priority="5000"><![CDATA[
+    <eval phase="Traits" priority="5000"><![CDATA[doneif ( activated = 0 )
       ~resist Poison 5 + half level
       var bonus as number
       bonus = 5 + round(hero.tagvalue[Level.?] / 2, 0, -1)
@@ -5331,7 +5360,8 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fHrDlzn5" name="Heir of Delzoun Level 5 Feature" description=" You gain a healing surge." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="5000"><![CDATA[ #traitmodify[trSurges,trtBonus,1,""]]]></eval>
+    <eval phase="Traits" priority="5000"><![CDATA[doneif ( activated = 0 )
+ #traitmodify[trSurges,trtBonus,1,""]]]></eval>
     </thing>
   <thing id="fHrDlzn10" name="Heir of Delzoun Level 10 Feature" description=" You gain a +4 bonus to Bluff, Diplomacy, and Intimidate checks made to interact with dwarves." compset="ThemeFeat">
     <tag group="ReqLevel" tag="10"/>
@@ -5380,11 +5410,13 @@ perform assignstr["Attack." & attidstr]]]>
   <thing id="fHrdLNmd1" name="Hordelands Nomad Starting Feature" description="You gain proficiency with the shortbow. You also gain the Mounted Combat feat." compset="ThemeFeat">
     <tag group="ReqLevel" tag="1"/>
     <bootstrap thing="ftMountCom"></bootstrap>
-    <eval phase="Traits" priority="5000">perform hero.assign[WeaponProf.wpShortbow]</eval>
+    <eval phase="Traits" priority="5000">doneif ( activated = 0 )
+perform hero.assign[WeaponProf.wpShortbow]</eval>
     </thing>
   <thing id="fHrdLNmd5" name="Hordelands Nomad Level 5 Feature" description=" You gain a +2 power bonus to Nature checks. In addition, you can use the Nature skill as if it were Arcana to sense the presence of magic, and to make monster knowledge checks about creatures that have the elemental, fey, or shadow origin." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="5000"><![CDATA[#traitmodify[skNature,trtPower,2,""]]]></eval>
+    <eval phase="Traits" priority="5000"><![CDATA[doneif ( activated = 0 )
+#traitmodify[skNature,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fHrdLNmd10" name="Hordelands Nomad Level 10 Feature" description=" You gain a +1 power bonus to saving throws. If you are attempting to avoid being knocked prone while mounted, your bonus is +5 instead." compset="ThemeFeat">
     <tag group="ReqLevel" tag="10"/>
@@ -5535,7 +5567,8 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fHsPsts5" name="House Priestess Level 5 Feature" description="You gain a +2 power bonus to Diplomacy checks and Intimidate checks." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="5000"><![CDATA[    #traitmodify[skDiplomac,trtPower,2,""]
+    <eval phase="Traits" priority="5000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skDiplomac,trtPower,2,""]
     #traitmodify[skIntimida,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fHsPsts10" name="House Priestess Level 10 Feature" description="While you are not bloodied, minions and bloodied enemies take a -2 penalty to attack rolls against you. This is a fear effect." compset="ThemeFeat">
@@ -5552,7 +5585,8 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fLlyGrd5" name="Iliyanbruen Guardian Level 5 Feature" description=" You gain a +2 power bonus to History checks and Nature checks." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5" name="5" abbrev="5"/>
-    <eval phase="Traits" priority="1000"><![CDATA[    #traitmodify[skHistory,trtPower,2,""]
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skHistory,trtPower,2,""]
     #traitmodify[skNature,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fLlyGrd10" name="Iliyanbruen Guardian Level 10 Feature" description="You can use fey step as a minor action." compset="ThemeFeat">
@@ -6356,7 +6390,8 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fMrnr5" name="Mariner Level 5 Feature" description="You gain a +2 power bonus to initiative checks." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="5000"><![CDATA[#traitmodify[trInit,trtPower,4,""]]]></eval>
+    <eval phase="Traits" priority="5000"><![CDATA[doneif ( activated = 0 )
+#traitmodify[trInit,trtPower,4,""]]]></eval>
     </thing>
   <thing id="fMrnr10" name="Mariner Level 10 Feature" description="You ignore difficult terrain when you shift. While you are aboard a ship, you can use a minor action once per round to shift 1 square." compset="ThemeFeat">
     <tag group="ReqLevel" tag="10"/>
@@ -6659,7 +6694,8 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fMsshpn5" name="Misshapen Level 5 Feature" description="You gain a +2 power bonus to Athletics checks and Acrobatics checks." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="5000"><![CDATA[   #traitmodify[skAcrobati,trtPower,2,""]
+    <eval phase="Traits" priority="5000"><![CDATA[doneif ( activated = 0 )
+   #traitmodify[skAcrobati,trtPower,2,""]
    #traitmodify[skAthletic,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fMsshpn10" name="Misshapen Level 10 Feature" description="When you push, pull, or slide an enemy with a melee attack, you can increase the distance of the forced movement by 1." compset="ThemeFeat">
@@ -6724,7 +6760,8 @@ perform assignstr["Attack." & attidstr]]]>
     <tag group="ReqLevel" tag="1"/>
     <bootstrap thing="pwMtbrn1"></bootstrap>
     <bootstrap thing="lanPrimord"></bootstrap>
-    <eval phase="Traits" priority="5000"><![CDATA[    #traitmodify[skArcana,trtPower,2,""]]]></eval>
+    <eval phase="Traits" priority="5000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skArcana,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fMtbrn5" name="Moteborn Level 5 Feature" description="You gain a +5 power bonus to checks to locate, activate, and control magical or elemental portals, gates, and similar objects. If a portal is trapped or dangerous, or leads to a hazardous destination, you can sense this danger with a successful Arcana check (moderate DC of your level)." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
@@ -6897,7 +6934,8 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fOccult5" name="Occultist Level 5 Feature" description="{b}Occultist Level 5 Feature (5th level):{/b} You gain a +2 power bonus to Arcana checks and Religion checks." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="1000"><![CDATA[    #traitmodify[skArcana,trtPower,2,""]
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skArcana,trtPower,2,""]
     #traitmodify[skReligion,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fOccult10" name="Occultist Level 10 Feature" description="{b}Occultist Level 10 Feature (10th level):{/b} When interacting with creatures that have an origin other than natural, you can use Arcana or Religion in place of Diplomacy and Intimidate. Once per day, you can ignore the component cost of a binding ritual of your level or lower that you have mastered." compset="ThemeFeat">
@@ -7136,7 +7174,8 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fOozMst10" name="Ooze Master Level 10 Feature" description=" You gain acid resistance equal to 5 + one-half your level. In addition, when you hit a creature with an acid attack, it grants combat advantage until the end of your next turn." compset="ThemeFeat">
     <tag group="ReqLevel" tag="10"/>
-    <eval phase="Traits" priority="5000"><![CDATA[      ~resist Necrotic / Radiant 5 + half level
+    <eval phase="Traits" priority="5000"><![CDATA[doneif ( activated = 0 )
+      ~resist Necrotic / Radiant 5 + half level
       var bonus as number
       bonus = 5 + round(hero.tagvalue[Level.?] / 2, 0, -1)
       #traitmodify[rsAcid,rsTotal,bonus,""]]]></eval>
@@ -7205,9 +7244,10 @@ perform assignstr["Attack." & attidstr]]]>
     <tag group="ReqLevel" tag="1"/>
     <bootstrap thing="pwOrclEye1"></bootstrap>
     </thing>
-  <thing id="fOrclEye5" name="Oracle of the Evil Eye Level 5 Feature" compset="ThemeFeat">
+  <thing id="fOrclEye5" name="Oracle of the Evil Eye Level 5 Feature" description="You gain a +2 bonus to bluff and initimate checks" compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="5000"><![CDATA[    #traitmodify[skBluff,trtPower,2,""]
+    <eval phase="Traits" priority="5000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skBluff,trtPower,2,""]
     #traitmodify[skIntimida,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fOrclEye10" name="Oracle of the Evil Eye Level 10 Feature" description="You gain low-light vision, or you gain darkvision if you already had low-light vision." compset="ThemeFeat">
@@ -7360,7 +7400,8 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fOrdPrst5" name="Ordained Priest Level 5 Feature" description="You gain a +2 power bonus to Religion checks and Insight checks." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="5000"><![CDATA[    #traitmodify[skReligion,trtPower,2,""]
+    <eval phase="Traits" priority="5000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skReligion,trtPower,2,""]
     #traitmodify[skInsight,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fOrdPrst10" name="Ordained Priest Level 10 Feature" description="While adjacent to you, your allies gain a +1 power bonus to saving throws." compset="ThemeFeat">
@@ -7452,13 +7493,15 @@ perform assignstr["Attack." & attidstr]]]>
   <thing id="fOAdept5" name="Order Adept Level 5 Feature" description="You gain a +2 power bonus to Arcana checks. If you have a spellbook, add one 2nd-level wizard utility power to it. If you don&#146;t have a spellbook, 2nd-level wizard utility powers can be selected when you gain or retrain utility powers." compset="ThemeFeat">
     <comment>No clue how to allow somebody the ability to select a level 2 wizard utility power only or to add an additional one to a spellbook if somebody has a spellbook.</comment>
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="1000"><![CDATA[   #traitmodify[skArcana,trtPower,2,""]]]>
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+   #traitmodify[skArcana,trtPower,2,""]]]>
       <before name="Calc resLeft"/>
       </eval>
     </thing>
   <thing id="fOAdept10" name="Order Adept Level 10 Feature" description="You gain a +2 power bonus to Will. Your power bonus to Arcana checks from this theme increases to +4." compset="ThemeFeat">
     <tag group="ReqLevel" tag="10"/>
-    <eval phase="Traits" priority="1000"><![CDATA[#traitmodify[skArcana,trtPower,4,""]
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+#traitmodify[skArcana,trtPower,4,""]
 #traitmodify[defWill,trtPower,2,""]]]>
       <before name="Calc resLeft"/>
       </eval>
@@ -7529,7 +7572,8 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fOutlaw10" name="Outlaw Level 10 Feature" description="You gain a +2 power bonus to Intimidate checks and Streetwise checks." compset="ThemeFeat">
     <tag group="ReqLevel" tag="10"/>
-    <eval phase="Traits" priority="5000"><![CDATA[   #traitmodify[skIntimida,trtPower,2,""]
+    <eval phase="Traits" priority="5000"><![CDATA[doneif ( activated = 0 )
+   #traitmodify[skIntimida,trtPower,2,""]
    #traitmodify[skStreetwi,trtPower,2,""]]]></eval>
     </thing>
   <thing id="pwBotWCust" name="Body of the Wolf" description="{b}Effect:{/b} You change from your humanoid form to the form of a wolf, or vice versa. When you change from wolf form to humanoid form, you can shift 1 square.\n    While in wolf form, you retain your normal game statistics and size, but gain a +1 bonus to speed. Your equipment becomes part of your wolf form. You continue to gain the benefits of the equipment you wear, except shields and item powers. While equipment is part of your wolf form, it cannot be removed, and anything in a container that is part of your wolf form is inaccessible.\n    You gain proficiency with your bite while in wolf form. Treat your bite as a melee weapon with a +3 proficiency bonus, a 1d8 damage die, and the enhancement bonus of your primary weapon." compset="Power">
@@ -7784,7 +7828,8 @@ perform assignstr["Attack." & attidstr]]]>
   <thing id="fPrAdept1" name="Primordial Adept Starting Feature" description="You have proficiency with rods. Add Primordial to the languages you can read, write, and speak. In addition, you gain either the Solkara&#146;s wave or the Vezzuvu&#146;s eruption power." compset="ThemeFeat">
     <tag group="ReqLevel" tag="1"/>
     <bootstrap thing="lanPrimord"></bootstrap>
-    <eval phase="Traits" priority="1000">perform hero.assign[ImplemType.itRod]</eval>
+    <eval phase="Traits" priority="1000">doneif ( activated = 0 )
+perform hero.assign[ImplemType.itRod]</eval>
     </thing>
   <thing id="fPrAdept5" name=" Primordial Adept Level 5 Feature" description=" You gain a +2 bonus to Bluff, Diplomacy, Insight, and Intimidate checks against creatures that have the elemental origin." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
@@ -8053,7 +8098,8 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fRRWiz8" name="Renegade Red Wizard Level 8 Feature" description="{b} Renegade Red Wizard Level 8 Feature (8th level):{/b} You do not gain the Expert Mage feature normally gained by a mage at 8th level. Instead, you gain a +2 bonus to Bluff checks and Intimidate checks." compset="ThemeFeat">
     <tag group="ReqLevel" tag="8"/>
-    <eval phase="Traits" priority="1000"><![CDATA[    #traitmodify[skBluff,trtPower,2,""]
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skBluff,trtPower,2,""]
     #traitmodify[skIntimida,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fRRWiz5" name="Renegade Red Wizard Level 5 Feature" description="{b}Renegade Red Wizard Level 5 Feature (5th level):{/b} Once per day at the end of a short rest, you can exchange one prepared power for another from your spellbook. The new power you prepare must be from the school you chose for your Apprentice Mage feature at 1st level." compset="ThemeFeat">
@@ -8085,7 +8131,8 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fSam5" name="Samurai Level 5 Feature" description="You gain a +2 power bonus to Diplomacy checks and Intimidate checks." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="1000"><![CDATA[    #traitmodify[skDiplomac,trtPower,2,""]
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skDiplomac,trtPower,2,""]
     #traitmodify[skIntimida,trtPower,2,""]]]>
       <before name="Calc resLeft"/>
       </eval>
@@ -8197,11 +8244,13 @@ perform assignstr["Attack." & attidstr]]]>
   <thing id="fSrfFwdn5" name="Sarifal Feywarden Level 5 Feature" description="You gain a +2 power bonus to Nature checks. In addition, you have mastered the Spirit Fetch ritual. Once per day, you can use the ritual without expending components." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
     <bootstrap thing="rtSpiriFet"></bootstrap>
-    <eval phase="Traits" priority="5000"><![CDATA[    #traitmodify[skNature,trtPower,2,""]]]></eval>
+    <eval phase="Traits" priority="5000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skNature,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fSrfFwdn10" name="Sarifal Feywarden Level 10 Feature" description="You gain a +1 power bonus to Fortitude." compset="ThemeFeat">
     <tag group="ReqLevel" tag="10"/>
-    <eval phase="Traits" priority="5000"><![CDATA[#traitmodify[defFort,trtPower,1,""]]]></eval>
+    <eval phase="Traits" priority="5000"><![CDATA[doneif ( activated = 0 )
+#traitmodify[defFort,trtPower,1,""]]]></eval>
     </thing>
   <thing id="thSchlr" name="Scholar" description="For some, the past is dead and buried, but any adventurer who has ever set foot in a trap-filled, ancient tomb or battled a terrible demon freed from some centuries-old binding knows that what happened long ago might be of crucial importance to those living in the present day. Scholars study the lore of ancient times, collecting old texts and ferreting out forgotten secrets. They seek to preserve the memories of bygone days and pass along to future generations the important lessons the past offers. As with any dungeon-delving adventurers, they are keenly interested in dormant perils and lost treasures, but scholars are just as interested in the most ordinary details of ancient realms and events. To scholars, knowledge is its own reward.\n    Not all cultures or societies value the musty old tales of ancient days. For many people, the study of history&#151;or simple literacy&#151;is an extravagance. Scholars are highly specialized professionals, and their services are not in great demand. The typical frontier town or farming village has no library or formal schooling. As a result, scholars are found only in places where books and records are collected. Large cities sometimes feature vaults or libraries dedicated to scholarship, and they might have colleges or guilds of scholars who study in them. However, large collections of books are more typically the prized possessions of temples dedicated to deities of knowledge and civilization (such as Ioun or Erathis), or of powerful noble families. Most scholars are therefore sponsored or supported by a temple or patron, and they seek to repay their benefactors by adding to their collections throughout their careers.\n\n{b}Scholar Starting Feature (1st level):{/b} You know one additional language chosen from Draconic, Dwarven, and Elven. In addition, you gain the use vulnerability power.\n{b}Scholar Level 5 Feature (5th level):{/b} Choose training in one new skill and one new language. The skill you choose must be Arcana, Dungeoneering, History, Nature, or Religion; if you already have training in all of these skills, you instead gain a +2 bonus to skill checks with one of those skills. The language you choose must be Draconic, Dwarven, or Elven; if you already know all three, choose one language from those listed in the Rules Compendium (page 69) or Player&apos;s Handbook (page 25).\n{b}Scholar Level 10 Feature (10th level):{/b} You know all the languages listed in the Rules Compendium (page 69) and Player&apos;s Handbook (page 25). (At the Dungeon Master&#146;s discretion, other languages can be added to the languages you know with this feature.) You can also attempt an Arcana check (hard DC of your level) to decipher a message written in code or protected by a magical disguise." compset="Theme">
     <bootstrap thing="lanDwarven">
@@ -8359,7 +8408,8 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fScnShdw10" name="Scion of Shadow Level 10 Feature" description="You gain a +2 power bonus to Bluff checks and Stealth checks." compset="ThemeFeat">
     <tag group="ReqLevel" tag="10"/>
-    <eval phase="Traits" priority="5000"><![CDATA[#traitmodify[skBluff,trtPower,2,""]    
+    <eval phase="Traits" priority="5000"><![CDATA[doneif ( activated = 0 )
+#traitmodify[skBluff,trtPower,2,""]    
 #traitmodify[skStealth,trtPower,2,""]]]></eval>
     </thing>
   <thing id="thSctApst" name="Secret Apostate" description="{b}Prerequisite:{/b} Drow. All secret apostates are drow who have turned against Lolth.\n\nSome Menzoberranzan drow yearn for a life free from the tyranny of the Spider Queen. These apostate drow have renounced the teachings of Lolth and embraced a philosophy based on individuality and free will. Existence for these secret apostates is dangerous, because they live in constant fear of discovery by Lolth&#146;s many spies. If their true nature is discovered, they face certain torture and death.\n    A secret apostate values freedom and choice, and each pursues personal goals independent of those dictated by other members of drow society or its dark mistress. By no stretch of the imagination does this imply most secret apostates are noble or good; they remain just as selfish and avaricious as other drow. They believe that their aspirations and desires trump those of an overbearing and controlling theocracy.\n    After renouncing Lolth, a secret apostate usually travels one of two paths. Some develop such a strong hatred for their own society that they actively work to undermine and destroy it. Specializing in elaborate schemes and intrigues, such an apostate might foment a slave rebellion or create conflict between two houses by assassinating a high-ranking official of one house and framing the other for the deed.\n    Other secret apostates become loners, seeking to avoid others of their kind and to forge their own destinies. One might travel to the surface world, only to wander through foreign lands inhabited by those who distrust or wish to destroy the drow.\n    Regardless of the path taken, a secret apostate loathes other drow as much as any surface-dweller and does not hesitate to kill members of his or her race if the occasion demands it.\n    For those who follow the arduous and lonely road of the secret apostate, it is better to risk torture and death as a free drow than to endure an existence of servitude. Let the weak-willed sheep bind themselves to the Spider Queen. A secret apostate lives a life unfettered, or dies trying.\n\n{b}Secret Apostate Starting Feature (1st level):{/b} You gain the apostate&#146;s freedom power.\n{b}Secret Apostate Level 5 Feature (5th level):{/b} You gain a +2 power bonus to Bluff checks and Stealth checks.\n{b}Secret Apostate Level 10 Feature (10th level):{/b} When a creature makes a charm attack against you, it must roll twice and use the lower result. If that creature is a drow, you also gain a +2 power bonus to the defense targeted by the attack." compset="Theme">
@@ -8446,7 +8496,8 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fSctApst5" name="Secret Apostate Level 5 Feature" description="You gain a +2 power bonus to Bluff checks and Stealth checks." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="5000"><![CDATA[    #traitmodify[skBluff,trtPower,2,""]
+    <eval phase="Traits" priority="5000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skBluff,trtPower,2,""]
     #traitmodify[skStealth,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fSctApst10" name="Secret Apostate Level 10 Feature" description="When a creature makes a charm attack against you, it must roll twice and use the lower result. If that creature is a drow, you also gain a +2 power bonus to the defense targeted by the attack." compset="ThemeFeat">
@@ -8506,7 +8557,8 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fSkrIll5" name="Seeker of Illefarn Level 5 Feature" description="You gain a +2 power bonus to Perception checks." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="5000"><![CDATA[    #traitmodify[skPercepti,trtPower,2,""]]]></eval>
+    <eval phase="Traits" priority="5000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skPercepti,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fSkrIll10" name="Seeker of Illefarn Level 10 Feature" description="While you are conscious, you cannot be surprised. You also gain a +2 power bonus to all defenses during the first round of each combat encounter." compset="ThemeFeat">
     <tag group="ReqLevel" tag="10"/>
@@ -8571,7 +8623,8 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fSeer5" name="Seer Level 5 Feature" description="You gain a +2 power bonus to Bluff checks and Insight checks." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="5000"><![CDATA[    #traitmodify[skBluff,trtPower,2,""]
+    <eval phase="Traits" priority="5000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skBluff,trtPower,2,""]
     #traitmodify[skInsight,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fSeer10" name="Seer Level 10 Feature" description="Whenever you make a Perception check, you can roll twice and use either result." compset="ThemeFeat">
@@ -8626,7 +8679,8 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fSensate5" name="Sensate Level 5 Feature" description="You gain a +2 power bonus to Endurance checks and Perception checks." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="5000"><![CDATA[    #traitmodify[skEnduranc,trtPower,2,""]
+    <eval phase="Traits" priority="5000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skEnduranc,trtPower,2,""]
     #traitmodify[skPercepti,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fSensate10" name="Sensate Level 10 Feature" description="While you have temporary hit points, you gain a +3 power bonus to all skill checks." compset="ThemeFeat">
@@ -8696,7 +8750,8 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fSnMshl5" name="Sentinel Marshal Level 5 Feature" description="You gain a +2 power bonus to Insight checks and Perception checks." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="5000"><![CDATA[    #traitmodify[skInsight,trtPower,2,""]
+    <eval phase="Traits" priority="5000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skInsight,trtPower,2,""]
     #traitmodify[skPercepti,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fSnMshl10" name="Sentinel Marshal Level 10 Feature" description="You gain a +2 bonus to saving throws against effects your marshal&#146;s quarry imposes on you." compset="ThemeFeat">
@@ -8857,7 +8912,8 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fSklVrn5" name="Skulker of Vhaeraun Level 5 Feature" description="You gain a +2 power bonus to Acrobatics checks and Stealth checks." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="5000"><![CDATA[    #traitmodify[skAcrobati,trtPower,2,""]
+    <eval phase="Traits" priority="5000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skAcrobati,trtPower,2,""]
     #traitmodify[skStealth,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fSklVrn10" name="Skulker of Vhaeraun Level 10 Feature" description="When you deal poison damage to a creature, it takes a -2 penalty to the next attack roll it makes before the end of its next turn. This is a poison effect" compset="ThemeFeat">
@@ -9123,7 +9179,8 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fSnAlgdr5" name="Son of Alagondar Level 5 Feature" description="You gain a +2 power bonus to Stealth checks and Thievery checks." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="5000"><![CDATA[    #traitmodify[skStealth,trtPower,2,""]
+    <eval phase="Traits" priority="5000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skStealth,trtPower,2,""]
     #traitmodify[skThievery,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fSnAlgdr10" name="Son of Alagondar Level 10 Feature" description="The first time you are bloodied during an encounter, you gain temporary hit points equal to 2 + one-half your level." compset="ThemeFeat">
@@ -9362,7 +9419,8 @@ perform assignstr["Attack." & attidstr3]]]>
     </thing>
   <thing id="fSpy5" name="Spy Level 5 Feature" description="{b}Spy Level 5 Feature (5th level):{/b} You gain a +2 power bonus to Bluff checks and Perception checks." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="1000"><![CDATA[    #traitmodify[skBluff,trtPower,2,""]
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skBluff,trtPower,2,""]
     #traitmodify[skPercepti,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fSpy10" name="Spy Level 10 Feature" description="{b}Spy Level 10 Feature (10th level):{/b} Whenever you would make a knowledge check while interacting with someone or a Diplomacy check, you can make a Bluff check instead." compset="ThemeFeat">
@@ -9463,7 +9521,7 @@ perform assignstr["Attack." & attidstr3]]]>
     </thing>
   <thing id="fStrmrdr5" name="Stormraider Level 5 Feature" description="You gain a +2 power bonus to initiative checks. If your initiative is higher than any enemy&#146;s initiative, during your first turn of the encounter you can reroll any melee attack damage dice that come up as 1." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="5000"><![CDATA[
+    <eval phase="Traits" priority="5000"><![CDATA[doneif ( activated = 0 )
       #traitmodify[trInit,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fStrmrdr10" name="Stormraider Level 10 Feature" description=" If you and one or more allies are adjacent to an enemy, you and those allies are considered to be flanking that enemy." compset="ThemeFeat">
@@ -9607,7 +9665,8 @@ perform assignstr["Attack." & attidstr3]]]>
     </thing>
   <thing id="fTrpsmt5" name="Trapsmith Level 5 Feature" description=" You gain a +2 power bonus to Perception checks and Thievery checks." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="1000"><![CDATA[    #traitmodify[skPercepti,trtPower,2,""]
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skPercepti,trtPower,2,""]
     #traitmodify[skThievery,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fTrpsmt10" name="Trapsmith Level 10 Feature" description="You can forgo dice of damage from your trip the trap power for one of the following effects. You choose to forgo the dice after you know you hit, but before you make the damage roll.\n    If you forgo one die of damage, the target falls prone.\n    If you forgo two dice of damage, the target is dazed until the end of your next turn." compset="ThemeFeat">
@@ -9853,13 +9912,15 @@ perform assignstr["Attack." & attidstr3]]]>
     </thing>
   <thing id="fUndknv5" name="Underdark Envoy Level 5 Feature" description="You gain a +2 power bonus to Bluff checks and Diplomacy checks." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="1000"><![CDATA[    #traitmodify[skDiplomac,trtPower,2,""]
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skDiplomac,trtPower,2,""]
     #traitmodify[skBluff,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fUndknv10" name="Underdark Envoy Level 10 Feature" description="Add Deep Speech to the languages you can speak, read, and write. You also gain a +2 power bonus to Streetwise checks." compset="ThemeFeat">
     <tag group="ReqLevel" tag="10"/>
     <bootstrap thing="lanDeepSpe"></bootstrap>
-    <eval phase="Traits" priority="1000"><![CDATA[    #traitmodify[skStreetwi,trtPower,2,""]]]></eval>
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skStreetwi,trtPower,2,""]]]></eval>
     </thing>
   <thing id="thUnOCst" name="Underdark Outcast" description="{i}&quot;I have nothing left to rely on but myself.&quot;{/i}\nA lone figure, haggard and lean, scrambles through the tunnel as he peers fearfully over his shoulder. He bears marks of shame&#151;scars from lashes and manacles, bruises, brands. Behind lies his home, from which he has been exiled forever. A pained look crosses his face before it is replaced by a determined grimace. The Underdark is not kind to the weak.\n    Underdark outcasts did not start out as subterranean vagabonds. Some were proud members of their underground society, exemplars of their race&#146;s customs or beliefs. They might have been dwarf artisans in the service of a king, or tribal warriors amid chanting goblin hordes. Something happened to disrupt their existence and drive them from their communities. Perhaps they committed a crime or dishonored the family name, or became disgusted by their people&#146;s ways. Whatever the reason, they have been cast into the depths to live or die as fate wills.\n    Underdark outcasts wander far from the place of their disgrace in search of a new life. Usually hated by members of their own society, they must rely on their own wits or the kindness of strangers to survive. Most remain underground out of habit, it being their birthplace, but others deliberately venture to surface realms&#151;though they rarely find refuge there.\n\n{b}Underdark Outcast Starting Feature (1st level):{/b} You gain the alone and unafraid power.\n{b}Underdark Outcast Level 5 Feature (5th level):{/b} You gain a +2 power bonus to Dungeoneering checks and Endurance checks.\n{b}Underdark Outcast Level 10 Feature (10th level):{/b} Whenever you spend a healing surge to regain hit points, you gain temporary hit points equal to 2 + your Constitution modifier (5 + your Constitution modifier at 21st level)." compset="Theme">
     <bootstrap thing="fUnOCst1"></bootstrap>
@@ -9920,7 +9981,8 @@ perform assignstr["Attack." & attidstr3]]]>
     </thing>
   <thing id="fUnOCst5" name="Underdark Outcast Level 5 Feature" description="You gain a +2 power bonus to Dungeoneering checks and Endurance checks." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="1000"><![CDATA[    #traitmodify[skDungeone,trtPower,2,""]
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skDungeone,trtPower,2,""]
     #traitmodify[skEnduranc,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fUnOCst10" name="Underdark Outcast Level 10 Feature" description=" Whenever you spend a healing surge to regain hit points, you gain temporary hit points equal to 2 + your Constitution modifier (5 + your Constitution modifier at 21st level)." compset="ThemeFeat">
@@ -10076,7 +10138,8 @@ perform assignstr["Attack." & attidstr3]]]>
     </thing>
   <thing id="fUthBrb10" name="Uthgardt Barbarian Level 10 Feature" description=" You gain a +3 power bonus to Intimidate checks." compset="ThemeFeat">
     <tag group="ReqLevel" tag="10"/>
-    <eval phase="Traits" priority="1000"><![CDATA[    #traitmodify[skIntimida,trtPower,2,""]]]></eval>
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skIntimida,trtPower,2,""]]]></eval>
     </thing>
   <thing id="thViglnt" name="Vigilante" description="In even the noblest kingdoms, justice can fall by the wayside, and in corrupt or evil ones, villains can often escape fair judgment. Most people stand by and let this pass, but some have a passion for justice that won&#146;t submit to impotent laws. These few take personal charge of seeking out evil and punishing it as they see fit. These people are vigilantes.\n    Vigilantes operate outside the law and therefore must be careful about how they enforce their justice.\nMany hide their true identities behind simple black masks or more elaborate disguises. They must work at night, out of sight of the city watch and their criminal enemies. They are often forced to travel in unorthodox ways, sprinting over city rooftops or skulking through dark alleys and sewers.\n    A vigilante&#146;s impact goes beyond his or her direct work. Vigilantes know that fear of their vengeance can deter would-be evildoers. So, they use dramatic and flamboyant fighting styles to draw their enemies&#146; attention. Further, they often leave a distinctive token with those they bring to justice, ranging from the symbolic, such as a dead rose, to the gruesome, such as carving their symbol into an enemy&#146;s flesh.\n    The common folk develop strong opinions about vigilantes, sometimes labeling them heroes while fearing them as dangerous criminals at other times. It is up to each vigilante to establish a legacy that is most true to his or her brand of justice.\n    {b}Vigilante Level 5 Feature (1st level):{/b} You gain a +5 power bonus to Intimidate checks against those who recognize you as a vigilante.\n    {b}Vigilante Starting Feature (5th level):{/b} You gain the mark of the vigilante power.\n    {b}Vigilante Level 10 Feature (10th level):{/b} You gain a +1 power bonus to your Will defense." compset="Theme">
     <bootstrap thing="fViglnt1"></bootstrap>
@@ -10092,7 +10155,8 @@ perform assignstr["Attack." & attidstr3]]]>
     </thing>
   <thing id="fViglnt10" name="Vigilante Level 10 Feature" description="{b}Vigilante Level 10 Feature (10th level):{/b} You gain a +1 power bonus to your Will defense." compset="ThemeFeat">
     <tag group="ReqLevel" tag="10"/>
-    <eval phase="Traits" priority="1000"><![CDATA[#traitmodify[defWill,trtPower,1,""]]]></eval>
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+#traitmodify[defWill,trtPower,1,""]]]></eval>
     </thing>
   <thing id="pwviglnt1" name="Mark of the Vigilante" description="{b}Effect:{/b} You assume a stance, the mark of the vigilante. Until the stance ends, you gain the following benefits.\n         Whenever you hit an enemy with a melee or ranged attack, you can mark the enemy until the end of your next turn.\n         You gain a +2 power bonus to all defenses against opportunity attacks that you provoke by moving." compset="Power">
     <fieldval field="pwFlavor" value="Your signature fighting style unnerves your foes."/>
@@ -10306,7 +10370,8 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fWtrshpr5" name="Watershaper Level 5 Feature" description="You gain a +2 power bonus to Insight checks and Heal checks. In addition, whenever you use your second wind, one ally within 5 squares of you gains temporary hit points equal to your highest ability modifier." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="1000"><![CDATA[    #traitmodify[skInsight,trtPower,2,""]
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skInsight,trtPower,2,""]
     #traitmodify[skHeal,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fWtrshpr10" name="Watershaper Level 10 Feature" description="Whenever you use buffeting wave, the blast creates a zone that is difficult terrain for enemies until the end of your next turn." compset="ThemeFeat">
@@ -10515,7 +10580,8 @@ perform assignstr["Attack." & attidstr]]]>
     <tag group="ReqLevel" tag="1"/>
     <bootstrap thing="fRHeShapec"></bootstrap>
     <bootstrap thing="pwWrRat1a"></bootstrap>
-    <eval phase="Traits" priority="5000"><![CDATA[    #traitmodify[skStealth,trtPower,2,""]]]></eval>
+    <eval phase="Traits" priority="5000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skStealth,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fWrRat5" name="Wererat Level 5 Feature" description="When interacting with rats or similar creatures, you gain a +2 bonus to Bluff, Diplomacy, or Intimidate checks.\n    In addition, while dire rat shape is active, you gain a +2 power bonus to Reflex." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
@@ -10621,7 +10687,8 @@ perform assignstr["Attack." & attidstr]]]>
     <tag group="ReqLevel" tag="1"/>
     <bootstrap thing="fRHeShapec"></bootstrap>
     <bootstrap thing="pwWrWolf1a"></bootstrap>
-    <eval phase="Traits" priority="5000"><![CDATA[    #traitmodify[skIntimida,trtPower,2,""]]]></eval>
+    <eval phase="Traits" priority="5000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skIntimida,trtPower,2,""]]]></eval>
     </thing>
   <thing id="fWrWolf5" name="Werewolf Level 5 Feature" description="When interacting with wolves and similar creatures, you gain a +2 bonus to Bluff, Diplomacy, or Intimidate checks.\n    In addition, while wolf shape is active, you gain a +2 power bonus to speed." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
@@ -10640,7 +10707,7 @@ perform assignstr["Attack." & attidstr]]]>
     </thing>
   <thing id="fWdATin5" name="Widow of Arach-Tinilith Level 5 Feature" description="You gain resistance to poison equal to 5 + one-half your level. In addition, you gain a +1 bonus to all defenses while you are within 10 squares of a spider ally, or while your spiderling familiar is in its active mode." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="1000"><![CDATA[
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
       ~resist Necrotic / Radiant 5 + half level
       var bonus as number
       bonus = 5 + round(hero.tagvalue[Level.?] / 2, 0, -1)
@@ -10790,14 +10857,16 @@ perform assignstr["Attack." & attidstr]]]>
     <tag group="ReqLevel" tag="1"/>
     <bootstrap thing="lanPrimord"></bootstrap>
     <bootstrap thing="pwWlFury"></bootstrap>
-    <eval phase="Traits" priority="1000"><![CDATA[    #traitmodify[skAthletic,trtPower,2,""]
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skAthletic,trtPower,2,""]
     #traitmodify[skPercepti,trtPower,2,""]]]>
       <before name="Calc resLeft"/>
       </eval>
     </thing>
   <thing id="fWindlor5" name="Windlord Level 5 Feature" description="Whenever an effect enables you to fly, you can fly 1 additional square. Further, whenever you use your second wind, you can push each creature adjacent to you 1 square." compset="ThemeFeat">
     <tag group="ReqLevel" tag="5"/>
-    <eval phase="Traits" priority="1000"><![CDATA[    #traitmodify[skDiplomac,trtPower,2,""]
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skDiplomac,trtPower,2,""]
     #traitmodify[skIntimida,trtPower,2,""]]]>
       <before name="Calc resLeft"/>
       </eval>
@@ -11012,13 +11081,15 @@ perform assignstr["Attack." & attidstr]]]>
     <bootstrap thing="pwEleInt1"></bootstrap>
     </thing>
   <thing id="fXaos5" name="Xaositect Level 5 Feature" description="You gain a +2 power bonus to Arcana checks and Bluff checks." compset="ThemeFeat">
-    <eval phase="Traits" priority="1000"><![CDATA[    #traitmodify[skArcana,trtPower,2,""]
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skArcana,trtPower,2,""]
     #traitmodify[skBluff,trtPower,2,""]]]>
       <before name="Calc resLeft"/>
       </eval>
     </thing>
   <thing id="fXaos10" name="Xaositect Level 10 Feature" description="You gain a +2 power bonus to all defenses against opportunity attacks. Additionally, you cannot be surprised while you are conscious." compset="ThemeFeat">
-    <eval phase="Traits" priority="1000"><![CDATA[      #traitmodify[defWill,trtPower,1,""]]]></eval>
+    <eval phase="Traits" priority="1000"><![CDATA[doneif ( activated = 0 )
+      #traitmodify[defWill,trtPower,1,""]]]></eval>
     </thing>
   <thing id="thYakuza" name="Yakuza" description="Outcasts, renegades, folk heroes, and criminals&#151;the yakuza are many things to different people, but without exception they are the rejects of a society that values conformity. There is a saying in Kozakura: &#147;The nail that sticks up must be hammered down.&#148; The yakuza proudly view themselves as these nails, but refuse to be treated as such.\n    Although the true nature of the yakuza is hard to identify, most will agree that collectively they are scoundrels who live by their own rules and code of honor. Banding together in clannish groups, yakuza gain security and power by exploiting society through robbery or extortion. Most are viewed as criminals, but not necessarily with distaste; the unusual behavior of the yakuza makes them both loved and despised in the cities in which they operate.\n    Yakuza often work as street peddlers, smugglers, thugs, gamblers, or racketeers. They associate with each other through bonds of loyalty to their clan, which might include hundreds of members. Yakuza clans are highly organized using a hierarchical structure with the boss taking on the role of father and his subordinates the obedient children. Loyalty and honor are paramount to yakuza, though they eschew the ethics of bushido in favor of more pragmatic concerns.\n    In the view of most merchants and the officials of cities, yakuza are law-breaking thugs and criminals. The yakuza cultivate their image as iconoclasts, and purposefully commit robberies and vandalism to ruffle the feathers of authority. A yakuza clan often becomes the recognized face of crime within a city, wallowing in a self-made underworld; however, yakuza also realize that their livelihood depends on existing in the shadows of civilization, and they are not unnecessarily destructive of people or property in their criminal enterprises.\n    Some yakuza go so far as to actively attend to the needs of their communities, using resources to help those that the ruling classes have ignored. Many peasants view the yakuza as heroes standing up for the underdog against a society that treads on them. A yakuza clan might defend peasants from bandits or the brutality of an arrogant samurai. Some clans donate wealth to improving the infrastructure of their city. Yakuza have even acted as spies or assassins during times of war to protect their cities from the ravages of loot-hungry attackers. In some cases, these actions are viewed with a standoffish respect by authorities, who allow the yakuza to operate with impunity as long as their criminal activities don&#146;t get out of hand.\n\n{b}Yakuza Starting Feature (1st level):{/b} You gain the ruthless demonstration power.\n{b}Yakuza Level 5 Feature (5th level):{/b} When you hit an enemy granting combat advantage to you, your opportunity attacks gain a bonus to attack rolls and damage rolls against that enemy until the start of your next turn. The bonus equals your Charisma modifier.\n{b}Yakuza Level 10 Feature (10th level):{/b} You gain a +2 power bonus to Bluff checks or Intimidate checks (choose the skill when you gain this feature). Also, you gain a +2 power bonus to Streetwise checks." compset="Theme">
     <bootstrap thing="fYakuza1"></bootstrap>
@@ -11089,6 +11160,7 @@ perform assignstr["Attack." & attidstr]]]>
     <arrayval field="usrArray" index="0" value="Bluff"/>
     <arrayval field="usrArray" index="1" value="Intimidate"/>
     <tag group="ReqLevel" tag="10"/>
-    <eval phase="Traits" priority="5000"><![CDATA[    #traitmodify[skStreetwi,trtPower,2,""]]]></eval>
+    <eval phase="Traits" priority="5000"><![CDATA[doneif ( activated = 0 )
+    #traitmodify[skStreetwi,trtPower,2,""]]]></eval>
     </thing>
   </document>

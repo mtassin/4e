@@ -10,8 +10,8 @@
   <name name="Accrue Weight" full="Component Gear: Accrue Weight"/>
   <name name="Alignment tag final" full="Component Alignment: Alignment tag final"/>
   <name name="Arena Training #1" full="Thing fFtrAreTra: Arena Training #1"/>
-  <name name="Arena Training #1" full="Thing fSenDruSum: Arena Training #1"/>
   <name name="Arena Training #1" full="Thing fSenDruSpr: Arena Training #1"/>
+  <name name="Arena Training #1" full="Thing fSenDruSum: Arena Training #1"/>
   <name name="Arena Training #2" full="Thing fFtrAreTr2: Arena Training #2"/>
   <name name="Armor effects final" full="Component ArmorBase: Armor effects final"/>
   <name name="Armor proficiencies final" full="Component ArmorBase: Armor proficiencies final"/>
@@ -21,15 +21,15 @@
   <name name="Bound trtUser" full="Field trtUser: Bound trtUser"/>
   <name name="Build option activated" full="Thing ftSeconImp: Build option activated"/>
   <name name="Build option activated" full="Thing ftScionOna: Build option activated"/>
-  <name name="Build option activated" full="Thing ftRuthlEff: Build option activated"/>
+  <name name="Build option activated" full="Thing ftAwakeGod: Build option activated"/>
   <name name="Build option activated" full="Thing ftBerseFur: Build option activated"/>
   <name name="Build option activated" full="Thing ftBecomer: Build option activated"/>
-  <name name="Build option activated" full="Thing fParDuaMan: Build option activated"/>
+  <name name="Build option activated" full="Thing ftRuthlEff: Build option activated"/>
   <name name="Build option activated" full="Thing fParDevTra: Build option activated"/>
-  <name name="Build option activated" full="Thing ftAwakeGod: Build option activated"/>
-  <name name="Build option activated" full="Component ThemeFeat: Build option activated"/>
-  <name name="Build option activated" full="Component ClassFeat: Build option activated"/>
+  <name name="Build option activated" full="Thing fParDuaMan: Build option activated"/>
   <name name="Build option activated" full="Component RaceFeat: Build option activated"/>
+  <name name="Build option activated" full="Component ClassFeat: Build option activated"/>
+  <name name="Build option activated" full="Component ThemeFeat: Build option activated"/>
   <name name="Build option final" full="Component BuildOpt: Build option final"/>
   <name name="Calc acHPBlood" full="Field acHPBlood: Calc acHPBlood"/>
   <name name="Calc acHPMax" full="Field acHPMax: Calc acHPMax"/>
@@ -46,13 +46,13 @@
   <name name="Calc wpNetAtk" full="Component WeaponBase: Calc wpNetAtk"/>
   <name name="Calc wpSizeDiff" full="Field wpSizeDiff: Calc wpSizeDiff"/>
   <name name="Class HP added" full="Component Class: Class HP added"/>
-  <name name="Class HP final" full="Thing trHealth: Class HP final"/>
   <name name="Class HP final" full="Thing trSurges: Class HP final"/>
+  <name name="Class HP final" full="Thing trHealth: Class HP final"/>
   <name name="Class skills final" full="Component Class: Class skills final"/>
   <name name="Class tag final" full="Component Class: Class tag final"/>
   <name name="Custom set livename" full="Component Custom: Custom set livename"/>
-  <name name="Daily powers multiplied" full="Thing clsMage: Daily powers multiplied"/>
   <name name="Daily powers multiplied" full="Thing clsMage2: Daily powers multiplied"/>
+  <name name="Daily powers multiplied" full="Thing clsMage: Daily powers multiplied"/>
   <name name="Daily powers multiplied" full="Component Class: Daily powers multiplied"/>
   <name name="Derived trtFinal" full="Component Derived: Derived trtFinal"/>
   <name name="Dilettante power chosen" full="Thing fRHaDilett: Dilettante power chosen"/>
@@ -69,8 +69,8 @@
   <name name="Level final" full="Component Actor: Level final"/>
   <name name="Magic Weapon Copy" full="Component WeaponBase: Magic Weapon Copy"/>
   <name name="Mastered tag final" full="Component Ritual: Mastered tag final"/>
-  <name name="Monk Unarmed Strike Upgrade" full="Thing tMnkHUnCom: Monk Unarmed Strike Upgrade"/>
   <name name="Monk Unarmed Strike Upgrade" full="Thing fMnkUnaCom: Monk Unarmed Strike Upgrade"/>
+  <name name="Monk Unarmed Strike Upgrade" full="Thing tMnkHUnCom: Monk Unarmed Strike Upgrade"/>
   <name name="Multiclass tag final" full="Component Feat: Multiclass tag final"/>
   <name name="Power attack final" full="Component Power: Power attack final"/>
   <name name="PowerUse tag added" full="Component Power: PowerUse tag added"/>
@@ -212,21 +212,21 @@
     <before name="Field sklTrained: Calc sklTrained" phase="Traits" priority="20000"/>
     </depends>
   <depends name="Thing fParPapSec: Eval Script #1" phase="Setup" priority="2">
-    <before name="Thing clsMage: Daily powers multiplied" phase="Setup" priority="5"/>
+    <before name="Thing clsMage2: Daily powers multiplied" phase="Setup" priority="5"/>
     </depends>
   <depends name="Thing ftAerenArc: Eval Script #1" phase="Setup" priority="2">
-    <before name="Thing clsMage: Daily powers multiplied" phase="Setup" priority="5"/>
+    <before name="Thing clsMage2: Daily powers multiplied" phase="Setup" priority="5"/>
     </depends>
   <depends name="Thing ftExpanSpe: Eval Script #1" phase="Setup" priority="2">
-    <before name="Thing clsMage: Daily powers multiplied" phase="Setup" priority="5"/>
+    <before name="Thing clsMage2: Daily powers multiplied" phase="Setup" priority="5"/>
     </depends>
   <depends name="Thing ftRememWiz: Eval Script #1" phase="Setup" priority="2">
-    <before name="Thing clsMage: Daily powers multiplied" phase="Setup" priority="5"/>
+    <before name="Thing clsMage2: Daily powers multiplied" phase="Setup" priority="5"/>
     </depends>
   <depends name="Thing ftStudeSMg: Eval Script #1" phase="Setup" priority="2">
-    <before name="Thing clsMage: Daily powers multiplied" phase="Setup" priority="5"/>
+    <before name="Thing clsMage2: Daily powers multiplied" phase="Setup" priority="5"/>
     </depends>
-  <depends name="Thing clsMage: Daily powers multiplied" phase="Setup" priority="5">
+  <depends name="Thing clsMage2: Daily powers multiplied" phase="Setup" priority="5">
     <before name="Component Actor: Level final" phase="Setup" priority="10"/>
     </depends>
   <depends name="Thing clsDruid: Eval Script #1" phase="Setup" priority="5">
@@ -1455,7 +1455,7 @@
   <depends name="Component Class: Eval Script #7" phase="Setup" priority="1000">
     <after name="Component Actor: Level final" phase="Setup" priority="10"/>
     </depends>
-  <depends name="Thing tMnkHUnCom: Monk Unarmed Strike Upgrade" phase="Setup" priority="1000">
+  <depends name="Thing fMnkUnaCom: Monk Unarmed Strike Upgrade" phase="Setup" priority="1000">
     <after name="Component ClassFeat: Disable class feature" phase="Setup" priority="99"/>
     </depends>
   <depends name="Thing clsWizard: Eval Script #1" phase="Setup" priority="1000">
@@ -1538,7 +1538,7 @@
     <after name="Thing ftSeconImp: Build option activated" phase="Setup" priority="100"/>
     </depends>
   <depends name="Thing ftImproMon: Eval Script #1" phase="Setup" priority="1001">
-    <after name="Thing tMnkHUnCom: Monk Unarmed Strike Upgrade" phase="Setup" priority="1000"/>
+    <after name="Thing fMnkUnaCom: Monk Unarmed Strike Upgrade" phase="Setup" priority="1000"/>
     </depends>
   <depends name="Thing fFtrAreTr2: Arena Training #2" phase="Setup" priority="2000">
     <after name="Component ClassFeat: Disable class feature" phase="Setup" priority="99"/>
@@ -1773,7 +1773,7 @@
     <before name="Component Derived: Derived trtFinal" phase="Traits" priority="25000"/>
     </depends>
   <depends name="Thing bgAuspiBir: Eval Script #1" phase="Traits" priority="1000">
-    <before name="Thing trHealth: Class HP final" phase="Traits" priority="5000"/>
+    <before name="Thing trSurges: Class HP final" phase="Traits" priority="5000"/>
     </depends>
   <depends name="Thing bgBalduGat: Eval Script #1" phase="Traits" priority="1000">
     <before name="Component Derived: Derived trtFinal" phase="Traits" priority="25000"/>
@@ -1782,7 +1782,7 @@
     <before name="Component Derived: Derived trtFinal" phase="Traits" priority="25000"/>
     </depends>
   <depends name="Thing bgBornUnd: Eval Script #1" phase="Traits" priority="1000">
-    <before name="Thing trHealth: Class HP final" phase="Traits" priority="5000"/>
+    <before name="Thing trSurges: Class HP final" phase="Traits" priority="5000"/>
     </depends>
   <depends name="Thing bgBrothin: Eval Script #1" phase="Traits" priority="1000">
     <before name="Component Derived: Derived trtFinal" phase="Traits" priority="25000"/>
@@ -1842,7 +1842,7 @@
     <before name="Component Derived: Derived trtFinal" phase="Traits" priority="25000"/>
     </depends>
   <depends name="Thing bgImpiltur: Eval Script #1" phase="Traits" priority="1000">
-    <before name="Thing trHealth: Class HP final" phase="Traits" priority="5000"/>
+    <before name="Thing trSurges: Class HP final" phase="Traits" priority="5000"/>
     </depends>
   <depends name="Thing bgLastBre: Eval Script #1" phase="Traits" priority="1000">
     <before name="Component Derived: Derived trtFinal" phase="Traits" priority="25000"/>
@@ -1914,7 +1914,7 @@
     <before name="Component Derived: Derived trtFinal" phase="Traits" priority="25000"/>
     </depends>
   <depends name="Thing bgThay: Eval Script #1" phase="Traits" priority="1000">
-    <before name="Thing trHealth: Class HP final" phase="Traits" priority="5000"/>
+    <before name="Thing trSurges: Class HP final" phase="Traits" priority="5000"/>
     </depends>
   <depends name="Thing bgTraveMis: Eval Script #1" phase="Traits" priority="1000">
     <before name="Component Derived: Derived trtFinal" phase="Traits" priority="25000"/>
@@ -6201,7 +6201,7 @@
   <depends name="Field wpSizeDiff: Calc wpSizeDiff" phase="Traits" priority="5000">
     <after name="Thing trSize: Size final" phase="Traits" priority="4000"/>
     </depends>
-  <depends name="Thing trHealth: Class HP final" phase="Traits" priority="5000">
+  <depends name="Thing trSurges: Class HP final" phase="Traits" priority="5000">
     <before name="Thing trSurges: trSurges final" phase="Final" priority="250"/>
     <after name="Field attrBonus: Calc attrBonus" phase="Traits" priority="4000"/>
     </depends>
@@ -7241,7 +7241,7 @@
         </task>
       </priority>
     <priority priority="5">
-      <task name="Thing clsMage: Daily powers multiplied">
+      <task name="Thing clsMage2: Daily powers multiplied">
         </task>
       <task name="Thing clsDruid: Eval Script #1">
         </task>
@@ -8097,7 +8097,7 @@
         </task>
       <task name="Component UserSelect: Eval Script #1">
         </task>
-      <task name="Thing tMnkHUnCom: Monk Unarmed Strike Upgrade">
+      <task name="Thing fMnkUnaCom: Monk Unarmed Strike Upgrade">
         </task>
       <task name="Thing AttrIncSel: ContainerReq (Attribute Increase Selection)">
         </task>
@@ -11999,7 +11999,7 @@
         </task>
       <task name="Field wpSizeDiff: Calc wpSizeDiff">
         </task>
-      <task name="Thing trHealth: Class HP final">
+      <task name="Thing trSurges: Class HP final">
         </task>
       <task name="Component Attribute: Eval Script #2">
         </task>
