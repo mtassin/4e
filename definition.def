@@ -40,9 +40,9 @@
 
   <release
     major="14"
-    minor="091"
+    minor="111"
     required="5.3"
-    summary="Herolab 4e Ruleset September 2014 release, including other option on gender support.">{b}{text ffff80}Herolab 4e Ruleset September 2014 release, including other option on gender support.{text 010101}{/b}
+    summary="Herolab 4e Ruleset November 2014 release, including bugfixes for level based theme modifications.">{b}{text ffff80}Herolab 4e Ruleset November 2014 release, including bugfixes for level based theme effects.{text 010101}{/b}
 
 Changes this version:
 
